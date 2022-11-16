@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.23)
-project(kepler)
+project(Kepler)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
-add_executable(kepler src/main.cpp)
+file(GLOB Kepler_SRC CONFIGURE_DEPENDS
+        "src/main.cpp"
+        "src/core/*.h"
+        "src/core/*.cpp"
+)
+
+add_executable(Kepler ${Kepler_SRC})
