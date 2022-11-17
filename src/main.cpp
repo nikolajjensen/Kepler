@@ -1,29 +1,45 @@
 #include <iostream>
+/*
 #include <uni_algo/case.h>
 #include "uni_algo/conv.h"
 #include "core/Lexer.h"
 #include "core/CharacterSet.h"
 #include <regex>
+*/
+#include "core/Lexer.h"
+#include "core/CharacterSet.h"
 
 int main() {
     CharList test1 = U"ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
     CharList test2 = U"+\\-⌿'()'∘.='plus(square(a),plus(square(b),times(2,plus(a,b)))'";
     CharList test3 = U"Mean←{+/⍵÷⍴⍵}  ⍝ Mean program";
+    CharList test4 = U"1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
 
 
 
-    Lexer lexer(test3, false);
+    Lexer lexer(test1, false);
 
+    auto start = std::chrono::high_resolution_clock::now();
     std::vector<Token> result = lexer.run();
+    auto stop = std::chrono::high_resolution_clock::now();
 
     std::cout << "Result of running Lexer:" << std::endl;
     for(auto& r : result) {
         std::cout << r << std::endl;
     }
     std::cout << "Result contains " << result.size() << " tokens." << std::endl;
+    auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+    std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
     return 0;
-}
 
+/*
+    Character c1({U"⌽", U"2"});
+    Character c2({U"⌽"});
+
+    std::cout << c1 << std::endl;
+    std::cout << c2 << std::endl;
+    */
+}
 
 /*
 unsigned int t1() {

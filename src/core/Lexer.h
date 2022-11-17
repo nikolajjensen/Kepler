@@ -33,6 +33,19 @@ private:
     CharList content;
     std::vector<Token> tokens;
 
+    unsigned int statement_separator();
+    unsigned int letter();
+    unsigned int digit();
+    unsigned int ideogram();
+
+    typedef unsigned int (Lexer::*func)();
+
+    unsigned int one(func);
+    unsigned int many(func);
+    unsigned int any(std::initializer_list<func> && funcs);
+    unsigned int all(std::initializer_list<func> && funcs);
+
+
     unsigned int thread_line();
     unsigned int thread_identifier();
     unsigned int thread_simple_identifier();

@@ -23,6 +23,7 @@
 #include <uni_algo/conv.h>
 #include <iostream>
 #include <utility>
+#include "Thread.h"
 
 Lexer::Lexer(CharList _input, bool _debugOn) : input(std::move(_input)), debugOn(_debugOn), it(input.begin()), tokens() {}
 
@@ -132,6 +133,7 @@ unsigned int Lexer::thread_distinguished_identifier() {
             threaded++;
         }
     } else {
+        unthread(threaded);
         return 0;
     }
 
@@ -260,26 +262,6 @@ unsigned int Lexer::thread_character_literal() {
     return 0;
 }
 
-unsigned int Lexer::repeatedly(unsigned int (Lexer::*f)()) {
-    unsigned int count = 0;
-    unsigned int last = 0;
-    do {
-        last = (this->*f)();
-        count += last;
-    } while(last != 0);
-    return count;
-}
-
-unsigned int Lexer::repeatedly(unsigned int (Lexer::*f)(Char), Char c) {
-    unsigned int count = 0;
-    unsigned int last = 0;
-    do {
-        last = (this->*f)(c);
-        count += last;
-    } while(last != 0);
-    return count;
-}
-
 unsigned int Lexer::thread_comment() {
     log_thread_attempt("comment");
 
@@ -301,7 +283,8 @@ unsigned int Lexer::thread_any() {
 unsigned int Lexer::thread_primitive() {
     log_thread_attempt("primitive");
 
-    if(thread_ideogram()) {
+    unsigned int i = 0;
+    if(i += thread_ideogram()) {
         tokenize(TokenType::Primitive);
         log_thread_success("primitive");
         return 1;
@@ -332,7 +315,7 @@ unsigned int Lexer::thread_nonquote() {
 }
 
 unsigned int Lexer::thread_statement_separator() {
-    log_thread_attempt("diamond");
+    log_thread_attempt("statement-separator");
 
     return thread_marker(Character::diamond);
 }
@@ -449,4 +432,71 @@ void Lexer::tokenize(TokenType type) {
 void Lexer::unthread(unsigned int n) {
     content.erase(content.end() - n);
     it -= n;
+}
+
+unsigned int Lexer::repeatedly(unsigned int (Lexer::*f)()) {
+    unsigned int count = 0;
+    unsigned int last = 0;
+    do {
+        last = (this->*f)();
+        count += last;
+    } while(last != 0);
+    return count;
+}
+
+unsigned int Lexer::repeatedly(unsigned int (Lexer::*f)(Char), Char c) {
+    unsigned int count = 0;
+    unsigned int last = 0;
+    do {
+        last = (this->*f)(c);
+        count += last;
+    } while(last != 0);
+    return count;
+}
+
+unsigned int Lexer::one(Lexer::func f) {
+    return (this->*f)();
+}
+
+unsigned int Lexer::many(Lexer::func f) {
+    unsigned int count = 0;
+    unsigned int last;
+    do {
+        last = (this->*f)();
+        count += last;
+    } while(last != 0);
+    return count;
+}
+
+unsigned int Lexer::any(std::initializer_list<func> && funcs) {
+    unsigned int count = 0;
+    auto func_it = funcs.begin();
+    while(count == 0 && func_it != funcs.end()) {
+        count += (this->*(*func_it))();
+        func_it++;
+    }
+    return count;
+}
+
+unsigned int Lexer::all(std::initializer_list<func> && funcs) {
+    unsigned int count = 0;
+    bool failed = false;
+    auto func_it = funcs.begin();
+    while(!failed &&func_it != funcs.end()) {
+        unsigned int result = (this->*(*func_it))();
+
+        if(result == 0) {
+            failed = true;
+        } else {
+            count += result;
+            func_it++;
+        }
+    }
+
+    if(!failed) {
+        return count;
+    } else {
+        unthread(count);
+        return 0;
+    }
 }
