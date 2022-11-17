@@ -20,4 +20,5 @@
 #pragma once
 #include <string>
 
-typedef char16_t Char;
+typedef char32_t Char;
+typedef std::u32string CharList;

@@ -21,7 +21,7 @@
 #include <vector>
 #include "Types.h"
 
-namespace CharacterSet {
+namespace Character {
     // Lower English alphabet characters.
     const Char lowerA = u'a';
     const Char lowerB = u'b';

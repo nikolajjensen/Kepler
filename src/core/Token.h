@@ -19,17 +19,15 @@
 
 #pragma once
 
-#include <string>
-#include <ostream>
 #include "TokenType.h"
 #include "Types.h"
 
 class Token {
 public:
     TokenType type;
-    std::string content;
+    CharList content;
 
-    Token(TokenType, std::string);
+    Token(TokenType, CharList);
     Token(TokenType, Char);
 
     friend std::ostream& operator<<(std::ostream &, const Token &);

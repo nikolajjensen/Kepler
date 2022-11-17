@@ -18,12 +18,14 @@
 //
 
 #include "Token.h"
+#include <utility>
+#include <uni_algo/conv.h>
 
-Token::Token(TokenType _type, std::string _content) : type(_type), content(_content) {}
+Token::Token(TokenType _type, CharList _content) : type(_type), content(std::move(_content)) {}
 
-Token::Token(TokenType _type, Char _char) : type(_type), content(std::string(1, _char)) {}
+Token::Token(TokenType _type, Char _char) : type(_type), content(CharList(1, _char)) {}
 
 std::ostream& operator<<(std::ostream &os, const Token &t) {
-    os << "Token(" << t.type << ", '" << t.content << "')";
+    os << "Token(" << t.type << ", '" << uni::utf32to8(t.content) << "')";
     return os;
 }

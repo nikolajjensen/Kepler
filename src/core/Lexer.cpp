@@ -20,749 +20,433 @@
 #include "Lexer.h"
 #include "TokenType.h"
 #include "CharacterSet.h"
-#include "Utility.h"
+#include <uni_algo/conv.h>
 #include <iostream>
+#include <utility>
 
-Lexer::Lexer(std::string _input, bool _debugOn) : input(_input), debugOn(_debugOn), pos(0) {}
+Lexer::Lexer(CharList _input, bool _debugOn) : input(std::move(_input)), debugOn(_debugOn), it(input.begin()), tokens() {}
+
+void Lexer::log_thread_attempt(std::string &&type) {
+    if (debugOn) {
+        std::cout << "Threading " << type << " using substring: " << uni::utf32to8(CharList(it, input.end())) << std::endl;
+    }
+}
+
+void Lexer::log_thread_success(std::string &&type) {
+    if (debugOn) {
+        std::cout << "Threading " << type << " successful with token: '" << tokens.back() << "'" << std::endl;
+    }
+}
 
 std::vector<Token> Lexer::run() {
-    tokens = {};
-    pos = 0;
+    tokens.clear();
+    it = input.begin();
     thread_line();
     // Should throw syntax-error if 'pos' is not at end of 'input'.
     return tokens;
 }
 
-bool Lexer::thread_line() {
-    if (debugOn) {
-        std::cout << "Threading line: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_line() {
+    log_thread_attempt("line");
 
     thread_identifier() || thread_numeric_literal();
 
-    while(thread_primitive()/* || thread_character_literal() || thread_space() || thread_statement_separator()*/) {
+    while(thread_primitive() || thread_character_literal() || thread_space() || thread_statement_separator()) {
         thread_identifier();
         thread_numeric_literal();
     }
 
     thread_comment();
 
-    if (debugOn) {
-        std::cout << "Threading line worked" << std::endl;
-    }
     return true;
 }
 
-bool Lexer::thread_identifier() {
-    if (debugOn) {
-        auto d = input.substr(pos);
-        std::cout << d << std::endl;
-        std::cout << "Threading identifier: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_identifier() {
+    log_thread_attempt("identifier");
 
-    if (thread_simple_identifier() || thread_distinguished_identifier()) {
-        if (debugOn) {
-            std::cout << "Threading identifier worked" << std::endl;
-        }
+    unsigned int threaded = thread_simple_identifier();
 
-        return true;
+    if (threaded) {
+        return threaded;
     } else {
-        if (debugOn) {
-            std::cout << "Threading identifier failed" << std::endl;
-        }
-        return false;
+        threaded = thread_distinguished_identifier();
     }
+
+    return threaded;
 }
 
-bool Lexer::thread_simple_identifier() {
-    if (debugOn) {
-        std::cout << "Threading simple-identifier: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_simple_identifier() {
+    log_thread_attempt("simple-identifier");
 
-    if (thread_literal_identifier() || thread_direct_identifier()) {
-        if (debugOn) {
-            std::cout << "Threading simple-identifier worked" << std::endl;
-        }
+    unsigned int threaded = thread_literal_identifier();
 
-        return true;
+    if (threaded) {
+        return threaded;
     } else {
-        if (debugOn) {
-            std::cout << "Threading simple-identifier failed" << std::endl;
-        }
-        return false;
+        threaded = thread_direct_identifier();
     }
+
+    return threaded;
 }
 
-bool Lexer::thread_literal_identifier() {
-    if (debugOn) {
-        std::cout << "Threading literal-identifier: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_literal_identifier() {
+    log_thread_attempt("literal-identifier");
+
+    unsigned int threaded = 0;
 
     if(thread_letter()) {
-        while(thread_letter() || thread_digit() || thread_underbar() || thread_overbar()) {}
-
-        tokens.emplace_back(TokenType::SimpleIdentifier, content);
-        content.clear();
-
-        if (debugOn) {
-            std::cout << "Threading literal-identifier worked: '" << tokens.back() << "'" << std::endl;
+        threaded++;
+        while(thread_letter() || thread_digit() || thread_marker(Character::underbar) || thread_marker(Character::overbar)) {
+            threaded++;
         }
-        return true;
+        tokenize(TokenType::SimpleIdentifier);
+        log_thread_success("literal-identifier");
+        return threaded;
     }
 
-    if (debugOn) {
-        std::cout << "Threading simple-identifier failed" << std::endl;
-    }
-
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_direct_identifier() {
-    if (debugOn) {
-        std::cout << "Threading direct-identifier: '" << input.substr(pos) << "'" << std::endl;
+unsigned int Lexer::thread_direct_identifier() {
+    log_thread_attempt("direct-identifier");
+
+    if (*it == Character::alpha || *it == Character::omega) {
+        it++;
+        return 1;
     }
 
-    Char c = input[pos];
-    if (c == CharacterSet::alpha || c == CharacterSet::omega) {
-        pos++;
-        //content.push_back(c);
-        if (debugOn) {
-            std::cout << "Threading direct-identifier worked" << std::endl;
-        }
-        return true;
-    }
-
-    if (debugOn) {
-        std::cout << "Threading simple-identifier failed" << std::endl;
-    }
-
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_distinguished_identifier() {
-    if (debugOn) {
-        std::cout << "Threading distinguished-identifier: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_distinguished_identifier() {
+    log_thread_attempt("distinguished-identifier");
 
-    if(thread_quote_quad()) {}
-    else if (thread_quad()) {
-        while(thread_letter() || thread_digit()) {}
+    unsigned int threaded = 0;
+
+    if(thread_marker(Character::quoteQuad)) {
+        threaded++;
+    }
+    else if (thread_marker(Character::quad)) {
+        threaded++;
+        while(thread_letter() || thread_digit()) {
+            threaded++;
+        }
     } else {
-        if (debugOn) {
-            std::cout << "Threading distinguished-identifier failed" << std::endl;
-        }
-        return false;
+        return 0;
     }
 
-    tokens.emplace_back(TokenType::DistinguishedIdentifier, content);
-    content.clear();
+    tokenize(TokenType::DistinguishedIdentifier);
 
-    if (debugOn) {
-        std::cout << "Threading distinguished-identifier worked: '" << tokens.back() << "'" << std::endl;
-    }
-    return true;
+    log_thread_success("distinguished-identifier");
+    return threaded;
 }
 
-// 1. Thread at least one numeric-scalar-literal.
-// while(thread_space())
-//      while(thread_space()) {}
-//      thread_numeric_scalar_literal()
-bool Lexer::thread_numeric_literal() {
-    if (debugOn) {
-        std::cout << "Threading numeric-literal: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_numeric_literal() {
+    log_thread_attempt("numeric-literal");
 
-    if(thread_numeric_scalar_literal()) {
-        if(thread_blank()) {
-            if(thread_numeric_scalar_literal()) {
-                // '1 1' here.
-            } else {
-                // '1 ' here.
-                std::cout << "'" << content << "'" << std::endl;
-                content.pop_back();
-                pos--;
+    unsigned int threaded = thread_numeric_scalar_literal();
+
+    if(threaded) {
+        if(thread_marker(Character::blank)) {
+            threaded++;
+            threaded += repeatedly(&Lexer::thread_marker, Character::blank);
+
+            if(!thread_numeric_scalar_literal()) {
+                // Note '!'; cannot thread-numeric-scalar, so un-thread.
+                unthread(threaded);
+                return 0;
             }
         }
 
+        tokenize(TokenType::NumericLiteral);
 
-        tokens.emplace_back(TokenType::NumericLiteral, content);
-        content.clear();
-
-        if (debugOn) {
-            std::cout << "Threading numeric-literal worked: '" << tokens.back() << "'" << std::endl;
-        }
-        return true;
+        log_thread_success("numeric-literal");
+        return threaded;
     }
 
-    if (debugOn) {
-        std::cout << "Threading numeric-literal failed" << std::endl;
-    }
-    return false;
+    return threaded;
 }
 
-bool Lexer::thread_real_scalar_literal() {
-    if (debugOn) {
-        std::cout << "Threading real-scalar-literal: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_real_scalar_literal() {
+    log_thread_attempt("real-scalar-literal");
 
-    thread_overbar();
+    unsigned int threaded = thread_marker(Character::overbar);
 
     if(thread_digit()) {
-        while(thread_digit()) {}
+        threaded++;
+        threaded += repeatedly(&Lexer::thread_digit);
 
-        if (thread_dot()) {
-            if (thread_digit()) {
-                while(thread_digit()) {}
-            }
+        if (thread_marker(Character::dot)) {
+            threaded++;
+            threaded += repeatedly(&Lexer::thread_digit);
         }
-    } else if (thread_dot() && thread_digit()) {
-        while(thread_digit()) {}
+    } else if (thread_marker(Character::dot)) {
+        threaded++;
+        threaded += thread_digit();
     } else {
-
-        if (debugOn) {
-            std::cout << "Threading real-scalar-literal failed" << std::endl;
-        }
-        return false;
+        unthread(threaded);
+        return 0;
     }
 
-    thread_exponent();
-
-    if (debugOn) {
-        std::cout << "Threading real-scalar-literal worked" << std::endl;
-    }
-    return true;
+    threaded += thread_exponent();
+    return threaded;
 }
 
-bool Lexer::thread_exponent() {
-    if (debugOn) {
-        std::cout << "Threading exponent: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_exponent() {
+    log_thread_attempt("exponent");
 
-    if(thread_exponent_marker()) {
-        thread_overbar();
+    unsigned int threaded_sign = thread_marker(Character::upperE);
+    if(threaded_sign) {
+        unsigned int threaded_overbar = thread_marker(Character::overbar);
+        unsigned int threaded_digits = repeatedly(&Lexer::thread_digit);
 
-        if(thread_digit()) {
-            while(thread_digit()) {}
-
-            if (debugOn) {
-                std::cout << "Threading exponent worked" << std::endl;
-            }
-            return true;
+        if(threaded_digits >= 1) {
+            return threaded_sign + threaded_overbar + threaded_digits;
         } else {
-            if (debugOn) {
-                std::cout << "Threading exponent failed" << std::endl;
-            }
-            return false;
+            unthread(threaded_sign + threaded_overbar);
+            return 0;
         }
     }
 
-    if (debugOn) {
-        std::cout << "Threading exponent failed" << std::endl;
-    }
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_numeric_scalar_literal() {
-    if (debugOn) {
-        std::cout << "Threading numeric-scalar-literal: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_numeric_scalar_literal() {
+    log_thread_attempt("numeric-scalar-literal");
 
     if(thread_real_scalar_literal()) {
-        thread_imaginary_part();
-
-        return true;
+        return 1 + thread_imaginary_part();
     }
 
-    if (debugOn) {
-        std::cout << "Threading numeric-scalar-literal failed" << std::endl;
-    }
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_imaginary_part() {
-    if (debugOn) {
-        std::cout << "Threading imaginary-part: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_imaginary_part() {
+    log_thread_attempt("imaginary-part");
 
-    if (thread_complex_marker() && thread_real_scalar_literal()) {
-        if (debugOn) {
-            std::cout << "Threading imaginary-part worked" << std::endl;
-        }
-        return true;
-    } else {
-        if (debugOn) {
-            std::cout << "Threading imaginary-part failed" << std::endl;
-        }
-        return false;
-    }
-}
-
-bool Lexer::thread_character_literal() {
-    if (debugOn) {
-        std::cout << "Threading character-literal: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    if(thread_quote()) {
-        while(thread_nonquote()) {}
-        if(thread_quote()) {
-            tokens.emplace_back(TokenType::CharacterLiteral, content);
-            content.clear();
-
-            if (debugOn) {
-                std::cout << "Threading character-literal worked: '" << tokens.back() << "'" << std::endl;
-            }
-
-            return true;
+    // Dangerous, as we may not have real-scalar-literal, but still eat in thread_marker.
+    unsigned int threaded_sign = thread_marker(Character::upperJ);
+    if(threaded_sign) {
+        unsigned int threaded_real_scalar = thread_real_scalar_literal();
+        if(threaded_real_scalar) {
+            return threaded_sign + threaded_real_scalar;
         } else {
-            if (debugOn) {
-                std::cout << "Threading character-literal failed" << std::endl;
-            }
-
-            return false;
+            unthread(threaded_sign);
+            return 0;
         }
     }
 
-    if (debugOn) {
-        std::cout << "Threading character-literal failed" << std::endl;
-    }
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_comment() {
-    if (debugOn) {
-        std::cout << "Threading comment: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_character_literal() {
+    log_thread_attempt("character-literal");
 
-    if(thread_lamp()) {
-        while(thread_any()) {}
-        content.clear();
-        return true;
-    }
+    unsigned int threaded_start_quote = thread_marker(Character::quote);
+    if(threaded_start_quote) {
+        unsigned int threaded_nonquotes = repeatedly(&Lexer::thread_nonquote);
+        unsigned int threaded_end_quote = thread_marker(Character::quote);
 
-    if (debugOn) {
-        std::cout << "Threading comment failed" << std::endl;
-    }
-    return false;
-}
-
-bool Lexer::thread_any() {
-    if (debugOn) {
-        std::cout << "Threading any: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    if (thread_quote() || thread_nonquote()) {
-        if (debugOn) {
-            std::cout << "Threading any worked" << std::endl;
+        if(threaded_end_quote) {
+            tokenize(TokenType::CharacterLiteral);
+            log_thread_success("character-literal");
+            return threaded_start_quote + threaded_nonquotes + threaded_end_quote;
+        } else {
+            unthread(threaded_start_quote + threaded_nonquotes);
+            return 0;
         }
-        return true;
-    } else {
-        if (debugOn) {
-            std::cout << "Threading any failed" << std::endl;
-        }
-        return false;
     }
+
+    return 0;
 }
 
-bool Lexer::thread_primitive() {
-    if (debugOn) {
-        std::cout << "Threading primitive: '" << input.substr(pos) << "'" << std::endl;
+unsigned int Lexer::repeatedly(unsigned int (Lexer::*f)()) {
+    unsigned int count = 0;
+    unsigned int last = 0;
+    do {
+        last = (this->*f)();
+        count += last;
+    } while(last != 0);
+    return count;
+}
+
+unsigned int Lexer::repeatedly(unsigned int (Lexer::*f)(Char), Char c) {
+    unsigned int count = 0;
+    unsigned int last = 0;
+    do {
+        last = (this->*f)(c);
+        count += last;
+    } while(last != 0);
+    return count;
+}
+
+unsigned int Lexer::thread_comment() {
+    log_thread_attempt("comment");
+
+    if(thread_marker(Character::upShoeJot)) {
+        unsigned int threaded = repeatedly(&Lexer::thread_any);
+        clear_content();
+        return 1 + threaded;
     }
+
+    return 0;
+}
+
+unsigned int Lexer::thread_any() {
+    log_thread_attempt("any");
+
+    return thread_marker(Character::quote) || thread_nonquote();
+}
+
+unsigned int Lexer::thread_primitive() {
+    log_thread_attempt("primitive");
 
     if(thread_ideogram()) {
-        tokens.emplace_back(TokenType::Primitive, content);
-        content.clear();
-
-        if (debugOn) {
-            std::cout << "Threading primitive worked: '" << tokens.back() << "'" << std::endl;
-        }
-
-        return true;
+        tokenize(TokenType::Primitive);
+        log_thread_success("primitive");
+        return 1;
     }
 
-    if (debugOn) {
-        std::cout << "Threading primitive failed" << std::endl;
-    }
-
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_space() {
-    if (debugOn) {
-        std::cout << "Threading space: '" << input.substr(pos) << "'" << std::endl;
+unsigned int Lexer::thread_space() {
+    log_thread_attempt("space");
+
+    if(thread_marker(Character::blank)) {
+        clear_content();
+        return 1;
     }
 
-    if(thread_blank()) {
-        content.clear();
-        if (debugOn) {
-            std::cout << "Threading space worked" << std::endl;
-        }
-        return true;
-    }
-
-    if (debugOn) {
-        std::cout << "Threading space failed" << std::endl;
-    }
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_nonquote() {
-    if (debugOn) {
-        std::cout << "Threading nonquote: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_nonquote() {
+    log_thread_attempt("nonquote");
 
-    if (thread_ideogram() || thread_digit() || thread_blank() ||
-        thread_letter() || thread_lamp() || thread_del() ||
-        thread_del_tilde() || thread_quad() || thread_quote_quad() || thread_diamond()) {
-        if (debugOn) {
-            std::cout << "Threading nonquote worked" << std::endl;
-        }
-        return true;
-    } else {
-        if (debugOn) {
-            std::cout << "Threading nonquote failed" << std::endl;
-        }
-        return false;
-    }
+    return (thread_ideogram() || thread_digit()
+            || thread_marker(Character::blank) || thread_letter()
+            || thread_marker(Character::upShoeJot) || thread_marker(Character::del)
+            || thread_marker(Character::delTilde) || thread_marker(Character::quad)
+            || thread_marker(Character::quoteQuad) || thread_marker(Character::diamond));
 }
 
-bool Lexer::thread_statement_separator() {
-    if (debugOn) {
-        std::cout << "Threading statement-separator: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_statement_separator() {
+    log_thread_attempt("diamond");
 
-    if(thread_diamond()) {
-        if (debugOn) {
-            std::cout << "Threading diamond worked" << std::endl;
-        }
-        return false;
-    } else {
-        if (debugOn) {
-            std::cout << "Threading diamond failed" << std::endl;
-        }
-        return true;
-    }
+    return thread_marker(Character::diamond);
 }
 
-bool Lexer::thread_letter() {
-    if (debugOn) {
-        std::cout << "Threading letter: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_letter() {
+    log_thread_attempt("letter");
 
-    Char c = input[pos];
+    switch (*it) {
+        case Character::lowerA: case Character::lowerB: case Character::lowerC:
+        case Character::lowerD: case Character::lowerE: case Character::lowerF:
+        case Character::lowerG: case Character::lowerH: case Character::lowerI:
+        case Character::lowerJ: case Character::lowerK: case Character::lowerL:
+        case Character::lowerM: case Character::lowerN: case Character::lowerO:
+        case Character::lowerP: case Character::lowerQ: case Character::lowerR:
+        case Character::lowerS: case Character::lowerT: case Character::lowerU:
+        case Character::lowerV: case Character::lowerW: case Character::lowerX:
+        case Character::lowerY: case Character::lowerZ:
 
-    switch (c) {
-        case CharacterSet::lowerA: case CharacterSet::lowerB: case CharacterSet::lowerC:
-        case CharacterSet::lowerD: case CharacterSet::lowerE: case CharacterSet::lowerF:
-        case CharacterSet::lowerG: case CharacterSet::lowerH: case CharacterSet::lowerI:
-        case CharacterSet::lowerJ: case CharacterSet::lowerK: case CharacterSet::lowerL:
-        case CharacterSet::lowerM: case CharacterSet::lowerN: case CharacterSet::lowerO:
-        case CharacterSet::lowerP: case CharacterSet::lowerQ: case CharacterSet::lowerR:
-        case CharacterSet::lowerS: case CharacterSet::lowerT: case CharacterSet::lowerU:
-        case CharacterSet::lowerV: case CharacterSet::lowerW: case CharacterSet::lowerX:
-        case CharacterSet::lowerY: case CharacterSet::lowerZ:
+        case Character::upperA: case Character::upperB: case Character::upperC:
+        case Character::upperD: case Character::upperE: case Character::upperF:
+        case Character::upperG: case Character::upperH: case Character::upperI:
+        case Character::upperJ: case Character::upperK: case Character::upperL:
+        case Character::upperM: case Character::upperN: case Character::upperO:
+        case Character::upperP: case Character::upperQ: case Character::upperR:
+        case Character::upperS: case Character::upperT: case Character::upperU:
+        case Character::upperV: case Character::upperW: case Character::upperX:
+        case Character::upperY: case Character::upperZ:
 
-        case CharacterSet::upperA: case CharacterSet::upperB: case CharacterSet::upperC:
-        case CharacterSet::upperD: case CharacterSet::upperE: case CharacterSet::upperF:
-        case CharacterSet::upperG: case CharacterSet::upperH: case CharacterSet::upperI:
-        case CharacterSet::upperJ: case CharacterSet::upperK: case CharacterSet::upperL:
-        case CharacterSet::upperM: case CharacterSet::upperN: case CharacterSet::upperO:
-        case CharacterSet::upperP: case CharacterSet::upperQ: case CharacterSet::upperR:
-        case CharacterSet::upperS: case CharacterSet::upperT: case CharacterSet::upperU:
-        case CharacterSet::upperV: case CharacterSet::upperW: case CharacterSet::upperX:
-        case CharacterSet::upperY: case CharacterSet::upperZ:
-
-        case CharacterSet::delta:
-        case CharacterSet::deltaUnderbar:
-            pos++;
-            content.push_back(c);
-            if (debugOn) {
-                std::cout << "Threading letter worked" << std::endl;
-            }
-            return true;
+        case Character::delta:
+        case Character::deltaUnderbar:
+            append_to_content(*it);
+            it++;
+            return 1;
         default:
-            if (debugOn) {
-                std::cout << "Threading letter failed" << std::endl;
-            }
-            return false;
+            return 0;
     }
 }
 
-bool Lexer::thread_digit() {
-    if (debugOn) {
-        std::cout << "Threading digit: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_digit() {
+    log_thread_attempt("digit");
 
-    Char c = input[pos];
-
-    switch (c) {
-        case CharacterSet::zero: case CharacterSet::one: case CharacterSet::two:
-        case CharacterSet::three: case CharacterSet::four: case CharacterSet::five:
-        case CharacterSet::six: case CharacterSet::seven: case CharacterSet::eight:
-        case CharacterSet::nine:
-            pos++;
-            content.push_back(c);
-            if (debugOn) {
-                std::cout << "Threading digit worked" << std::endl;
-            }
-            return true;
+    switch (*it) {
+        case Character::zero: case Character::one: case Character::two:
+        case Character::three: case Character::four: case Character::five:
+        case Character::six: case Character::seven: case Character::eight:
+        case Character::nine:
+            append_to_content(*it);
+            it++;
+            return 1;
         default:
-            if (debugOn) {
-                std::cout << "Threading digit failed" << std::endl;
-            }
-            return false;
+            return 0;
     }
 }
 
-bool Lexer::thread_ideogram() {
-    if (debugOn) {
-        std::cout << "Threading ideogram: '" << input.substr(pos) << "'" << std::endl;
-    }
+unsigned int Lexer::thread_ideogram() {
+    log_thread_attempt("ideogram");
 
-    Char c = input[pos];
-    Char l = CharacterSet::leftArrow;
-
-    std::cout << typeid(c).name() << std::endl;
-    std::cout << typeid(CharacterSet::leftArrow).name() << std::endl;
-
-    if(c == CharacterSet::leftArrow) {
-        std::cout << "GOT THE ARROW!" << std::endl;
-    }
-
-    switch (c) {
-        case CharacterSet::diaeresis: case CharacterSet::overbar: case CharacterSet::leftCaret:
-        case CharacterSet::lessThanOrEqual: case CharacterSet::equal: case CharacterSet::greaterThanOrEqual:
-        case CharacterSet::rightCaret: case CharacterSet::notEqual: case CharacterSet::downCaret:
-        case CharacterSet::upCaret: case CharacterSet::bar: case CharacterSet::divide:
-        case CharacterSet::plus: case CharacterSet::multiply: case CharacterSet::query:
-        case CharacterSet::omega: case CharacterSet::epsilon: case CharacterSet::rho:
-        case CharacterSet::tilde: case CharacterSet::upArrow: case CharacterSet::downArrow:
-        case CharacterSet::iota: case CharacterSet::circle: case CharacterSet::star:
-        case CharacterSet::rightArrow: case CharacterSet::leftArrow: case CharacterSet::alpha:
-        case CharacterSet::upStile: case CharacterSet::downStile: case CharacterSet::underbar:
-        case CharacterSet::jot: case CharacterSet::leftParenthesis: case CharacterSet::rightParenthesis:
-        case CharacterSet::leftBracket: case CharacterSet::rightBracket: case CharacterSet::leftShoe:
-        case CharacterSet::rightShoe: case CharacterSet::upShoe: case CharacterSet::downShoe:
-        case CharacterSet::upTack: case CharacterSet::downTack: case CharacterSet::stile:
-        case CharacterSet::semicolon: case CharacterSet::colon: case CharacterSet::backSlash:
-        case CharacterSet::comma: case CharacterSet::dot: case CharacterSet::slash:
-        case CharacterSet::delStile: case CharacterSet::deltaStile: case CharacterSet::circleStile:
-        case CharacterSet::circleBackslash: case CharacterSet::circleBar: case CharacterSet::circleStar:
-        case CharacterSet::downCaretTilde: case CharacterSet::upCaretTilde: case CharacterSet::quoteDot:
-        case CharacterSet::quadDivide: case CharacterSet::upTackJot: case CharacterSet::downTackJot:
-        case CharacterSet::backSlashBar: case CharacterSet::slashBar: case CharacterSet::diaeresisJot:
-        case CharacterSet::commaBar: case CharacterSet::diaeresisTilde: case CharacterSet::leftBrace:
-        case CharacterSet::rightBrace: case CharacterSet::rightTack: case CharacterSet::leftTack:
-        case CharacterSet::dollarSign:
-            pos++;
-            content.push_back(c);
-
-            if(c == CharacterSet::leftArrow) {
-                std::cout << "GOT THE ARROW!" << std::endl;
-            }
-
-            if (debugOn) {
-                std::cout << "Threading ideogram worked" << std::endl;
-            }
-            return true;
+    switch (*it) {
+        case Character::diaeresis: case Character::overbar: case Character::leftCaret:
+        case Character::lessThanOrEqual: case Character::equal: case Character::greaterThanOrEqual:
+        case Character::rightCaret: case Character::notEqual: case Character::downCaret:
+        case Character::upCaret: case Character::bar: case Character::divide:
+        case Character::plus: case Character::multiply: case Character::query:
+        case Character::omega: case Character::epsilon: case Character::rho:
+        case Character::tilde: case Character::upArrow: case Character::downArrow:
+        case Character::iota: case Character::circle: case Character::star:
+        case Character::rightArrow: case Character::leftArrow: case Character::alpha:
+        case Character::upStile: case Character::downStile: case Character::underbar:
+        case Character::jot: case Character::leftParenthesis: case Character::rightParenthesis:
+        case Character::leftBracket: case Character::rightBracket: case Character::leftShoe:
+        case Character::rightShoe: case Character::upShoe: case Character::downShoe:
+        case Character::upTack: case Character::downTack: case Character::stile:
+        case Character::semicolon: case Character::colon: case Character::backSlash:
+        case Character::comma: case Character::dot: case Character::slash:
+        case Character::delStile: case Character::deltaStile: case Character::circleStile:
+        case Character::circleBackslash: case Character::circleBar: case Character::circleStar:
+        case Character::downCaretTilde: case Character::upCaretTilde: case Character::quoteDot:
+        case Character::quadDivide: case Character::upTackJot: case Character::downTackJot:
+        case Character::backSlashBar: case Character::slashBar: case Character::diaeresisJot:
+        case Character::commaBar: case Character::diaeresisTilde: case Character::leftBrace:
+        case Character::rightBrace: case Character::rightTack: case Character::leftTack:
+        case Character::dollarSign:
+            append_to_content(*it);
+            it++;
+            return 1;
         default:
-            if (debugOn) {
-                std::cout << "Threading ideogram failed" << std::endl;
-            }
-            return false;
+            return 0;
     }
 }
 
-bool Lexer::thread_quote() {
-    if (debugOn) {
-        std::cout << "Threading quote: '" << input.substr(pos) << "'" << std::endl;
+unsigned int Lexer::thread_marker(Char marker) {
+    log_thread_attempt("marker");
+    if (*it == marker) {
+        append_to_content(marker);
+        it++;
+        return 1;
     }
-
-    Char c = input[pos];
-    if (c == CharacterSet::quote) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
+    return 0;
 }
 
-bool Lexer::thread_exponent_marker() {
-    if (debugOn) {
-        std::cout << "Threading exponent-marker: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::upperE) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
+void Lexer::clear_content() {
+    content.clear();
 }
 
-bool Lexer::thread_complex_marker() {
-    if (debugOn) {
-        std::cout << "Threading complex-marker: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::upperJ) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
+void Lexer::append_to_content(Char c) {
+    content.push_back(c);
 }
 
-bool Lexer::thread_dot() {
-    if (debugOn) {
-        std::cout << "Threading dot: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::dot) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
+void Lexer::tokenize(TokenType type) {
+    tokens.emplace_back(type, content);
+    content.clear();
 }
 
-bool Lexer::thread_underbar() {
-    if (debugOn) {
-        std::cout << "Threading underbar: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::underbar) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_overbar() {
-    if (debugOn) {
-        std::cout << "Threading overbar: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::overbar) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_blank() {
-    if (debugOn) {
-        std::cout << "Threading blank: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::blank) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_del() {
-    if (debugOn) {
-        std::cout << "Threading del: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::del) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_del_tilde() {
-    if (debugOn) {
-        std::cout << "Threading del-tilde: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::delTilde) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_lamp() {
-    if (debugOn) {
-        std::cout << "Threading lamp: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::upShoeJot) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_quad() {
-    if (debugOn) {
-        std::cout << "Threading quad: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::quad) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_quote_quad() {
-    if (debugOn) {
-        std::cout << "Threading quote-quad: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::quoteQuad) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
-}
-
-bool Lexer::thread_diamond() {
-    if (debugOn) {
-        std::cout << "Threading diamond: '" << input.substr(pos) << "'" << std::endl;
-    }
-
-    Char c = input[pos];
-    if (c == CharacterSet::diamond) {
-        pos++;
-        content.push_back(c);
-        return true;
-    }
-
-    return false;
+void Lexer::unthread(unsigned int n) {
+    content.erase(content.end() - n);
+    it -= n;
 }
