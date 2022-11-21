@@ -13,11 +13,11 @@ int main() {
     CharList test1 = U"ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
     CharList test2 = U"+\\-⌿'()'∘.='plus(square(a),plus(square(b),times(2,plus(a,b)))'";
     CharList test3 = U"Mean←{+/⍵÷⍴⍵}  ⍝ Mean program";
-    CharList test4 = U"1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
+    CharList test4 = U" ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
 
 
 
-    Lexer lexer(test1, false);
+    Lexer lexer(test4, true);
 
     auto start = std::chrono::high_resolution_clock::now();
     std::vector<Token> result = lexer.run();

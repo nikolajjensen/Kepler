@@ -19,42 +19,125 @@
 
 #include "Thread.h"
 
-Thread::Thread(Lexer *_lexer, CharList::iterator &_it, CharList &_content) : success(true), threaded(0), it(_it), content(_content), lexer(_lexer) {}
+Lexer::Thread::Thread(Lexer *_lexer, bool _append) : should_continue(true), failed(false), threaded(0), lexer(_lexer), append(_append) {}
 
-Thread* Thread::one(Thread::func f) {
-    if(success) {
-        unsigned int result = (lexer->*f)();
-        threaded+= result;
-        success = result != 0;
+bool Lexer::Thread::match(std::vector<Char> &chars) {
+    //log_thread_attempt("marker");
+    bool matched = false;
+    size_t index = 0;
+    while(!matched && index < chars.size()) {
+        if(*(lexer->it) == chars[index]) {
+            if(append) {lexer->append_to_content(chars[index]);}
+            matched = true;
+            lexer->it++;
+        }
+        index++;
     }
 
-    return this;
+    return matched;
 }
 
-Thread* Thread::many(Thread::func f) {
-    if(success) {
+bool Lexer::Thread::match(Char c) {
+    //log_thread_attempt("marker");
+    if(*(lexer->it) == c) {
+        if(append) {lexer->append_to_content(c);}
+        lexer->it++;
+        return true;
+    }
+    return false;
+}
+
+Lexer::Thread& Lexer::Thread::one(Char c, bool optional) {
+    if(should_continue && !failed) {
+        unsigned int result = match(c);
+        threaded+= result;
+        failed = result == 0 && !optional;
+    }
+
+    return *this;
+}
+
+Lexer::Thread& Lexer::Thread::one(Lexer::func func, bool optional) {
+    if(should_continue && !failed) {
+        unsigned int result = (lexer->*func)();
+        threaded+= result;
+        failed = result == 0 && !optional;
+    }
+
+    return *this;
+}
+
+Lexer::Thread& Lexer::Thread::many(Char c, unsigned int at_least) {
+    if(should_continue && !failed) {
+        unsigned count = 0;
         unsigned int last;
         do {
-            last = (lexer->*f)();
-            threaded += last;
+            last = match(c);
+            count += last;
         } while(last != 0);
+        threaded += count;
+
+        if(count < at_least) { failed = true; }
     }
 
-    // Not changing success, as this semantically we could run f no times. '' is a valid character-literal, for example.
-    return this;
+    return *this;
 }
 
-unsigned int Thread::thread() {
-    if(success) {
-        return threaded;
-    } else {
+Lexer::Thread& Lexer::Thread::many(std::vector<Char> chars, unsigned int at_least) {
+    if(should_continue && !failed) {
+        unsigned count = 0;
+        unsigned int last;
+        do {
+            last = match(chars);
+            count += last;
+        } while(last != 0);
+        threaded += count;
+
+        if(count < at_least) { failed = true; }
+    }
+
+    return *this;
+}
+
+Lexer::Thread& Lexer::Thread::any(std::vector<Char> chars) {
+    if(should_continue && !failed) {
+        unsigned int result = match(chars);
+        threaded+= result;
+        failed = result == 0;
+    }
+
+    return *this;
+}
+
+Lexer::Thread& Lexer::Thread::any(std::vector<func> funcs) {
+    if(should_continue && !failed) {
+        unsigned int result = 0;
+        size_t index = 0;
+        while(result == 0 && index < funcs.size()) {
+            result = (lexer->*(funcs[index]))();
+            index++;
+        }
+        threaded+= result;
+        failed = result == 0;
+    }
+
+    return *this;
+}
+
+Lexer::Thread& Lexer::Thread::one(Lexer::Thread &, bool optional) {
+
+}
+
+unsigned int Lexer::Thread::thread() {
+    if(failed) {
         unthread();
         return 0;
     }
+
+    return threaded;
 }
 
-void Thread::unthread() {
-    content.erase(content.end() - threaded);
-    it -= threaded;
+void Lexer::Thread::unthread() {
+    lexer->unthread(threaded);
     threaded = 0;
 }

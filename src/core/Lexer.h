@@ -25,26 +25,70 @@
 #include "CharacterSet.h"
 
 class Lexer {
-private:
+public:
+    typedef unsigned int (Lexer::*func)();
+
+    class Thread {
+    private:
+        bool match(std::vector<Char> &);
+        bool match(Char);
+
+    public:
+
+        bool failed;
+        bool should_continue;
+        bool append;
+        unsigned int threaded;
+        Lexer *lexer;
+
+        Thread(Lexer *, bool append = true);
+
+        Thread& one(Char, bool optional = false);
+        Thread& one(func, bool optional = false);
+        Thread& many(Char, unsigned int at_least = 0);
+        Thread& many(std::vector<Char>, unsigned int at_least = 0);
+        Thread& many(std::vector<func>, unsigned int at_least = 0);
+        Thread& any(std::vector<Char>);
+        Thread& any(std::vector<func>);
+
+        Thread& one(Thread &, bool optional = false);
+        Thread& many(Thread &, bool optional = false);
+        Thread& many(std::vector<Thread &>, bool at_least = 0);
+        Thread& any(std::vector<Thread &>, bool at_least = 0);
+
+
+        unsigned int thread();
+
+        void unthread();
+    };
+
+    explicit Lexer(CharList input, bool debugOn = false);
+
+
+    std::vector<Token> run();
+
+protected:
     bool debugOn;
 
     CharList input;
     CharList::iterator it;
     CharList content;
     std::vector<Token> tokens;
+    Thread thread;
 
-    unsigned int statement_separator();
-    unsigned int letter();
-    unsigned int digit();
-    unsigned int ideogram();
+    //unsigned int statement_separator();
+    //unsigned int letter();
+    //unsigned int digit();
+    //unsigned int ideogram();
 
-    typedef unsigned int (Lexer::*func)();
+    //typedef unsigned int (Lexer::*func)();
 
-    unsigned int one(func);
-    unsigned int many(func);
-    unsigned int any(std::initializer_list<func> && funcs);
-    unsigned int all(std::initializer_list<func> && funcs);
-
+    //unsigned int one(func);
+    //unsigned int many(func);
+    //unsigned int any(std::initializer_list<func> && funcs);
+    //unsigned int all(std::initializer_list<func> && funcs);
+    //unsigned int repeatedly(unsigned int (Lexer::*f)());
+    //unsigned int repeatedly(unsigned int (Lexer::*f)(Char), Char);
 
     unsigned int thread_line();
     unsigned int thread_identifier();
@@ -62,16 +106,14 @@ private:
     unsigned int thread_any();
     unsigned int thread_primitive();
     unsigned int thread_space();
-    unsigned int thread_nonquote();
+    unsigned int nonquote();
 
-    unsigned int thread_statement_separator();
-    unsigned int thread_letter();
-    unsigned int thread_digit();
-    unsigned int thread_ideogram();
+    unsigned int statement_separator();
+    //unsigned int letter();
+    //unsigned int digit();
+    //unsigned int ideogram();
 
-    unsigned int thread_marker(Char marker);
-    unsigned int repeatedly(unsigned int (Lexer::*f)());
-    unsigned int repeatedly(unsigned int (Lexer::*f)(Char), Char);
+    //unsigned int marker(Char marker);
 
     void log_thread_attempt(std::string &&type);
     void log_thread_success(std::string &&type);
@@ -79,12 +121,5 @@ private:
     void clear_content();
     void append_to_content(Char c);
     void tokenize(TokenType type);
-
     void unthread(unsigned int);
-
-public:
-    explicit Lexer(CharList input, bool debugOn = false);
-
-
-    std::vector<Token> run();
 };

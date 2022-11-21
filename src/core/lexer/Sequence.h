@@ -18,6 +18,19 @@
 //
 
 #pragma once
-#include "Types.h"
-#include "TokenType.h"
-#include "Lexer.h"
+#include <vector>
+#include <string>
+
+#include "Step.h"
+
+class Sequence {
+private:
+    std::vector<Step *> steps;
+
+public:
+    explicit Sequence(std::vector<Step *> & _steps);
+    ~Sequence();
+
+    unsigned int match(std::vector<char>::iterator& input_cursor, std::vector<char>::iterator& input_end);
+    bool match(std::string &input);
+};
