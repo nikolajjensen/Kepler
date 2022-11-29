@@ -35,6 +35,9 @@ namespace kepler {
                         case models::TokenType::DirectIdentifier:
                             std::cout << "DirectIdentifier";
                             break;
+                        case models::TokenType::StatementSeparator:
+                            std::cout << "StatementSeparator";
+                            break;
                         case models::TokenType::SimpleIdentifier:
                             std::cout << "SimpleIdentifier";
                             break;
