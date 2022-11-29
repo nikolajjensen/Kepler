@@ -17,41 +17,31 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "Lex.h"
-#include <re2/re2.h>
-
-#include <utility>
+#include "Lexer.h"
+#include "TokenType.h"
+#include "CharacterSet.h"
+#include "UnicodeString.h"
 #include "uni_algo/conv.h"
-#include "CharacterSetNew.h"
+#include <iostream>
+#include <utility>
+#include <algorithm>
 
-/*
-Lex::Lex(std::string _input, bool _debugOn) : input(std::move(_input)), cursor(input.begin()), debugOn(_debugOn) {}
+Lexer::Lexer(CharList _input, bool _debugOn) : input(std::move(_input)), debugOn(_debugOn), tokens(), content() {}
 
-bool Lex::match_line() {
+std::vector<Token> Lexer::run() {
+    tokens.clear();
+    // Do some magic lexing here! thread_line();
 
+    //UnicodeString something(U"ABC←FN");
+    auto begin = input.begin();
+    auto end = input.end();
+
+    primitive.match(begin, end);
+
+    //bool success = test3.match(begin, end) && begin == end;
+
+    //std::cout << "Works? " << success << "\n";
+
+    //std::cout << "Full input lexed? " << (it == input.end() ? "Yes" : "No") << "\n";
+    return tokens;
 }
-
-bool Lex::match_literal_identifier() {
-
-    return match(r);
-}
-
-bool Lex::match_direct_identifier() {
-    std::regex r(uni::utf32to8(U"^" + Character::alpha + U"|" + Character::omega));
-    return match(r);
-}
-
-bool Lex::match(const std::string &regex) {
-
-    re2::StringPiece s(input.substr())
-    if(re2::RE2::FullMatch())
-
-    std::smatch match;
-    if(std::regex_search(cursor, input.end(), match, regex)) {
-        //cursor += match.length();
-        return true;
-    }
-
-    return false;
-}
- */

@@ -17,30 +17,20 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include <re2/re2.h>
-#include <uni_algo/conv.h>
-#include "RegexBuilder.h"
-#include "Character.h"
-/*
-RegexBuilder::RegexBuilder() : content() {}
+#pragma once
+#include <vector>
+#include "Step.h"
+#include "../UnicodeCharacter.h"
 
-RegexBuilder* RegexBuilder::create() const {
-    return new RegexBuilder();
-}
+template <typename T>
+class AtomicStep : public Step<T> {
+private:
+    std::vector<T> characters;
 
-re2::RE2 RegexBuilder::build() const {
-    return re2::RE2(content);
-}
+public:
+    explicit AtomicStep(std::vector<T> && _characters, bool required = true, bool repeat = false);
+    ~AtomicStep();
 
-RegexBuilder* RegexBuilder::matchAtStart() {
-    this->content.append("^");
-    return this;
-}
-
-RegexBuilder* RegexBuilder::matchOne(Character c) {
-    content += "[";
-    for(auto& rep : c.representations) {
-        content += rep;
-    }
-    content += "]";
-}*/
+    unsigned int match(typename std::vector<T>::iterator& input_cursor, typename std::vector<T>::iterator& input_end, std::function<void(
+            UnicodeCharacter&)> &) override;
+};

@@ -17,23 +17,12 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include <re2/re2.h>
-#include <string>
-#include "Character.h"
+#include "UnicodeString.h"
 
-/*
-class RegexBuilder {
-private:
-    std::string content;
+UnicodeString::UnicodeString(std::vector<UnicodeCharacter> && content_) : content(content_) {}
 
-    RegexBuilder();
-
-public:
-    RegexBuilder* create() const;
-    re2::RE2 build() const;
-
-    RegexBuilder* matchAtStart();
-    RegexBuilder* matchOne(Character);
-};
-*/
+UnicodeString::UnicodeString(std::u32string && input) noexcept : content(input.length(), 0) {
+    for(size_t i = 0; i < input.size(); i++) {
+        content[i] = UnicodeCharacter(input[i]);
+    }
+}

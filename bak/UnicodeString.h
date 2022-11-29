@@ -19,18 +19,39 @@
 
 #pragma once
 #include <vector>
-#include <string>
 
-#include "Step.h"
+#include "UnicodeCharacter.h"
 
-class Sequence {
+class UnicodeString {
 private:
-    std::vector<Step *> steps;
+    std::vector<UnicodeCharacter> content;
 
 public:
-    explicit Sequence(std::vector<Step *> & _steps);
-    ~Sequence();
+    UnicodeString() = default;
+    UnicodeString(std::vector<UnicodeCharacter> &&);
+    UnicodeString(std::u32string &&) noexcept;
 
-    unsigned int match(std::vector<char>::iterator& input_cursor, std::vector<char>::iterator& input_end);
-    bool match(std::string &input);
+    std::vector<UnicodeCharacter>::const_iterator begin() const {
+        return content.begin();
+    }
+
+    std::vector<UnicodeCharacter>::const_iterator end() const {
+        return content.end();
+    }
+
+    std::vector<UnicodeCharacter>::iterator begin() {
+        return content.begin();
+    }
+
+    std::vector<UnicodeCharacter>::iterator end() {
+        return content.end();
+    }
+
+    void clear() {
+        content.clear();
+    }
+
+    void push_back(UnicodeCharacter c) {
+        content.push_back(c);
+    }
 };

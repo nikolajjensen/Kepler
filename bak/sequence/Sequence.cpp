@@ -19,18 +19,23 @@
 
 #include "Sequence.h"
 #include <vector>
+#include <iostream>
 #include "Step.h"
+#include "../UnicodeCharacter.h"
 
-Sequence::Sequence(std::vector<Step *> & _steps) : steps(_steps) {}
+template <typename T>
+Sequence<T>::Sequence(std::vector<Step<T> *> & _steps, std::function<void(UnicodeCharacter&)> on_match_) : steps(_steps), on_match(on_match_) {}
 
-Sequence::~Sequence() {
+template <typename T>
+Sequence<T>::~Sequence() {
     for(auto& step : steps) {
         delete step;
     }
     steps.clear();
 }
 
-unsigned int Sequence::match(std::vector<char>::iterator& input_cursor, std::vector<char>::iterator& input_end) {
+template <typename T>
+unsigned int Sequence<T>::match(typename std::vector<T>::iterator& input_cursor, typename std::vector<T>::iterator& input_end) {
     auto steps_it = steps.begin();
 
     unsigned int counter = 0;
@@ -43,7 +48,7 @@ unsigned int Sequence::match(std::vector<char>::iterator& input_cursor, std::vec
             // Matching should fail if any subsequent step is required.
             failed = (*steps_it)->required;
         } else {
-            tmp_count = (*steps_it)->match(input_cursor, input_end);
+            tmp_count = (*steps_it)->match(input_cursor, input_end, on_match);
             counter += tmp_count;
             if(!tmp_count && (*steps_it)->required) {
                 // If the step was required, and we didn't match it, we fail.
@@ -59,13 +64,19 @@ unsigned int Sequence::match(std::vector<char>::iterator& input_cursor, std::vec
         counter = 0;
     } else {
         //perform_action();
+        //on_match();
     }
 
     return counter;
 }
 
-bool Sequence::match(std::string &input) {
+/*
+template <typename T>
+bool Sequence<T>::match(typename std::vector<T> &input) {
     auto begin = input.begin();
     auto end = input.end();
     return match(begin, end) && begin == end;
 }
+*/
+
+template class Sequence<UnicodeCharacter>;

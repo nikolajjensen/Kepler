@@ -1,27 +1,29 @@
 //
 // Copyright 2022 Nikolaj Banke Jensen.
 //
-// This file is part of Kepler.
+// This file is part of Test.
 // 
-// Kepler is free software: you can redistribute it and/or modify
+// Test is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Kepler is distributed in the hope that it will be useful,
+// Test is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License 
-// along with Kepler. If not, see <https://www.gnu.org/licenses/>.
+// along with Test. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "Utility.h"
-#include "Types.h"
+#include "rules_def.h"
+#include "config.h"
 
-template <typename T>
-bool Utility::contains(const std::vector<T> &v, const T &e) {
-    return std::find(v.begin(), v.end(), e) != v.end();
-}
-template bool Utility::contains<Char>(const std::vector<Char> &, const Char &);
+namespace kepler {
+    namespace lexer {
+        namespace rules {
+            BOOST_SPIRIT_INSTANTIATE(token_list_type, iterator_type, context_type);
+        };
+    };
+};

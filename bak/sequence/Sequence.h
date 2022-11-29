@@ -18,35 +18,22 @@
 //
 
 #pragma once
-#include "Types.h"
-#include "Token.h"
 #include <vector>
-#include <re2/re2.h>
+#include <string>
 
+#include "Step.h"
+#include "../UnicodeCharacter.h"
 
-class Lex {
-    bool debugOn;
-
-    const std::string input;
-    std::string::const_iterator cursor;
-    std::vector<Token> tokens;
-
-    bool match_line();
-
-    bool match_identifier();
-    bool match_simple_identifier();
-    bool match_literal_identifier();
-    bool match_direct_identifier();
-    bool match_distinguished_identifier();
-    bool match_numeric_literal();
-    bool match_character_literal();
-    bool match_comment();
-    bool match_primitive();
-    bool match_space();
-    bool match_statement_separator();
-
-    bool match(const std::string &regex);
+template <typename T>
+class Sequence {
+private:
+    std::vector<Step<T> *> steps;
+    std::function<void(UnicodeCharacter&)> on_match;
 
 public:
-    Lex(std::string, bool debugOn = false);
+    explicit Sequence(std::vector<Step<T> *> & _steps, std::function<void(UnicodeCharacter&)> on_match_);
+    ~Sequence();
+
+    unsigned int match(typename std::vector<T>::iterator& input_cursor, typename std::vector<T>::iterator& input_end);
+    //bool match(typename std::vector<T> &input);
 };

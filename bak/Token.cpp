@@ -17,7 +17,24 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "Types.h"
-#include "TokenType.h"
-#include "Lexer.h"
+#include "Token.h"
+#include <utility>
+#include <string>
+#include "uni_algo/conv.h"
+
+Token::Token(TokenType _type, UnicodeString _content) : type(_type), content(std::move(_content)) {}
+
+Token::Token(TokenType _type, Char _char) : type(_type), content(CharList(1, _char)) {}
+
+std::ostream& operator<<(std::ostream &os, const Token &t) {
+    os << "Token(" << t.type << ", '";
+    auto it = t.content.begin();
+
+    while(it != t.content.end()) {
+        os << uni::utf32to8(std::u32string((*it).representations[0], 1));
+        it++;
+    }
+
+    os << "')";
+    return os;
+}

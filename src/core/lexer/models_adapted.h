@@ -1,34 +1,32 @@
 //
 // Copyright 2022 Nikolaj Banke Jensen.
 //
-// This file is part of Kepler.
+// This file is part of Test.
 // 
-// Kepler is free software: you can redistribute it and/or modify
+// Test is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Kepler is distributed in the hope that it will be useful,
+// Test is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License 
-// along with Kepler. If not, see <https://www.gnu.org/licenses/>.
+// along with Test. If not, see <https://www.gnu.org/licenses/>.
 //
 
 #pragma once
 
-#include "TokenType.h"
-#include "Types.h"
+#include <boost/fusion/include/adapt_struct.hpp>
+#include "models.h"
+/*
+BOOST_FUSION_ADAPT_STRUCT(kepler::lexer::models::TokenList,
+      tokens
+)
+*/
 
-class Token {
-public:
-    TokenType type;
-    CharList content;
-
-    Token(TokenType, CharList);
-    Token(TokenType, Char);
-
-    friend std::ostream& operator<<(std::ostream &, const Token &);
-};
+BOOST_FUSION_ADAPT_STRUCT(kepler::lexer::models::Token,
+                          type, content
+)

@@ -21,30 +21,17 @@
 #include <vector>
 #include "Step.h"
 #include "Sequence.h"
+#include "../UnicodeCharacter.h"
 
-
-class SequenceBuilder {
+template <typename T>
+class SequenceStep : public Step<T> {
 private:
-    std::vector<Step *> steps;
+    std::vector<Sequence<T> *> sequences;
 
 public:
-    SequenceBuilder() = default;
+    explicit SequenceStep(std::vector<Sequence<T> *> && sequences_, bool required = true, bool repeat = false);
+    ~SequenceStep() override;
 
-    SequenceBuilder& one(char c, bool required = true);
-
-    SequenceBuilder& one(Sequence& sequence, bool required = true);
-
-    SequenceBuilder& anyOfEither(std::vector<char> && chars, bool required = true);
-
-    SequenceBuilder& anyOfEither(std::vector<Sequence *> && sequences, bool required = true);
-
-    SequenceBuilder& manyOfEither(std::vector<Sequence *> && sequences, bool required = true);
-
-    SequenceBuilder& manyOfEither(std::vector<char> && chars, bool requires_at_least_one = true);
-
-    SequenceBuilder& many(char c, bool requires_at_least_one = true);
-
-    SequenceBuilder& many(Sequence& sequence, bool requires_at_least_one = true);
-
-    Sequence build();
+    unsigned int match(typename std::vector<T>::iterator& input_cursor, typename std::vector<T>::iterator& input_end, std::function<void(
+            UnicodeCharacter&)> &) override;
 };

@@ -17,48 +17,19 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "Step.h"
+#include "SequenceStep.h"
+#include <iostream>
+#include "../UnicodeCharacter.h"
 
-CharStep::CharStep(std::vector<char> && _characters, bool required, bool repeat) : Step(required, repeat), characters(_characters) {}
+template <typename T>
+SequenceStep<T>::SequenceStep(std::vector<Sequence<T> *> && sequences_, bool required, bool repeat) : Step<T>(required, repeat), sequences(sequences_) {}
 
-unsigned int CharStep::match(std::vector<char>::iterator& input_cursor, std::vector<char>::iterator& input_end) {
-    unsigned int match_counter = 0;
-    bool success;
-    bool round_success;
+template <typename T>
+SequenceStep<T>::~SequenceStep() = default;
 
-    do {
-        char c = *input_cursor;
-        auto char_iterator = characters.begin();
-
-        round_success = false;
-
-        while(!round_success && char_iterator != characters.end()) {
-            if(c == *char_iterator) {
-                match_counter++;
-                round_success = true;
-            } else {
-                char_iterator++;
-            }
-        }
-
-        if(round_success) {
-            input_cursor++;
-        }
-
-        success = success || round_success;
-    } while (repeat && round_success && input_cursor != input_end);
-
-    if(!success) {
-        input_cursor -= match_counter;
-        match_counter = 0;
-    }
-
-    return match_counter;
-}
-
-SequenceStep::SequenceStep(std::vector<Sequence *> && sequences_, bool required, bool repeat) : Step(required, repeat), sequences(sequences_) {}
-
-unsigned int SequenceStep::match(std::vector<char>::iterator& input_cursor, std::vector<char>::iterator& input_end) {
+template <typename T>
+unsigned int SequenceStep<T>::match(typename std::vector<T>::iterator& input_cursor, typename std::vector<T>::iterator& input_end, std::function<void(
+        UnicodeCharacter&)>& on_match) {
     unsigned int match_counter = 0;
     bool success = false;
     bool round_success;
@@ -81,7 +52,7 @@ unsigned int SequenceStep::match(std::vector<char>::iterator& input_cursor, std:
 
         success = success || round_success;
 
-    } while (repeat && round_success && input_cursor != input_end);
+    } while (Step<T>::repeat && round_success && input_cursor != input_end);
 
     if(!success) {
         input_cursor -= match_counter;
@@ -90,3 +61,5 @@ unsigned int SequenceStep::match(std::vector<char>::iterator& input_cursor, std:
 
     return match_counter;
 }
+
+template class SequenceStep<UnicodeCharacter>;

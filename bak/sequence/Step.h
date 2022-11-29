@@ -17,20 +17,20 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "Character.h"
-#include <ostream>
-#include <uni_algo/conv.h>
-/*
-Character::Character(std::vector<std::u32string> && _representations) : representations(_representations) {}
+#pragma once
+#include <vector>
+#include "../UnicodeCharacter.h"
 
-std::ostream& operator<<(std::ostream &os, const Character &c) {
-    os << "Character(";
-    for(size_t i = 0; i < c.representations.size(); ++i) {
-        os << uni::utf32to8(c.representations[i]);
-        if(i < c.representations.size() - 1) {
-            os << ", ";
-        }
-    }
-    os << ")";
-    return os;
-}*/
+template <typename T>
+class Step {
+public:
+    bool required;
+    bool repeat;
+
+public:
+    Step(bool required_, bool repeat_) : required(required_), repeat(repeat_) {}
+    virtual ~Step() = default;
+
+    virtual unsigned int match(typename std::vector<T>::iterator& input_cursor, typename std::vector<T>::iterator& input_end, std::function<void(
+            UnicodeCharacter&)> & on_match) = 0;
+};
