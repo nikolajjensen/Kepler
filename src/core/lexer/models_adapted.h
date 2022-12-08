@@ -21,11 +21,6 @@
 
 #include <boost/fusion/include/adapt_struct.hpp>
 #include "models.h"
-/*
-BOOST_FUSION_ADAPT_STRUCT(kepler::lexer::models::TokenList,
-      tokens
-)
-*/
 
 BOOST_FUSION_ADAPT_STRUCT(kepler::lexer::models::Token,
                           type, content

@@ -28,13 +28,14 @@ namespace kepler {
         //Employee parser declaration
         namespace rules {
             namespace x3 = boost::spirit::x3;
-            using token_list_type = x3::rule<class token_list, models::TokenList>;
-            using skipper_parser = x3::rule< class skipper, x3::unused_type const>;
 
-            BOOST_SPIRIT_DECLARE(skipper_parser, token_list_type)
+            typedef x3::rule<class token_list_class, models::TokenList> token_list_type;
+            typedef x3::rule<class skipper_class, x3::unused_type const> skipper_type;
+
+            BOOST_SPIRIT_DECLARE(skipper_type, token_list_type)
         };
 
-        rules::token_list_type token_list();
-        rules::skipper_parser skipper();
+        rules::token_list_type const& token_list();
+        rules::skipper_type const& skipper();
     };
 };

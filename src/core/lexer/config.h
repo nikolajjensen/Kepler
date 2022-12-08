@@ -19,17 +19,13 @@
 
 #pragma once
 
-#include <boost/spirit/home/x3.hpp>
+#include "error_handler.h"
 
 namespace kepler {
     namespace lexer {
-        namespace rules {
-            namespace x3 = boost::spirit::x3;
-
-            //using skipper_parser = x3::rule< class skipper_class, x3::unused_type const>;
-
-            using iterator_type = std::u32string::const_iterator;
-            using context_type = x3::phrase_parse_context<skipper_parser>::type;
-        };
+        typedef std::u32string::const_iterator iterator_type;
+        typedef x3::phrase_parse_context<rules::skipper_type>::type phrase_context_type;
+        typedef error_handler<iterator_type> error_handler_type;
+        typedef x3::context<error_handler_tag, std::reference_wrapper<error_handler_type>, phrase_context_type> context_type;
     };
 };

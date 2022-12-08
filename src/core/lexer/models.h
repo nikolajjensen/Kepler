@@ -21,6 +21,7 @@
 
 #include <boost/fusion/include/io.hpp>
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
+#include <boost/spirit/home/x3/support/ast/position_tagged.hpp>
 #include <boost/spirit/home/x3.hpp>
 
 #include <iostream>
@@ -45,7 +46,7 @@ namespace kepler {
                 Unrecognized,
             };
 
-            struct Token {
+            struct Token : boost::spirit::x3::position_tagged {
                 TokenType type = TokenType::Unrecognized;
                 boost::variant<char32_t, std::u32string> content = U"0";
             };
