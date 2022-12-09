@@ -19,6 +19,8 @@ file(GLOB Kepler_SRC CONFIGURE_DEPENDS
         "src/core/*.cpp"
         "src/core/lexer/*.h"
         "src/core/lexer/*.cpp"
+        "src/core/env/*.h"
+        "src/core/env/*.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${Kepler_SRC})

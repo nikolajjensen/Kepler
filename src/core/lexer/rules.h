@@ -20,7 +20,8 @@
 #pragma once
 
 #include <boost/spirit/home/x3.hpp>
-#include "models.h"
+#include "../token.h"
+#include "../datatypes.h"
 
 namespace kepler {
     namespace lexer {
@@ -29,7 +30,7 @@ namespace kepler {
         namespace rules {
             namespace x3 = boost::spirit::x3;
 
-            typedef x3::rule<class token_list_class, models::TokenList> token_list_type;
+            typedef x3::rule<class token_list_class, List<Token>> token_list_type;
             typedef x3::rule<class skipper_class, x3::unused_type const> skipper_type;
 
             BOOST_SPIRIT_DECLARE(skipper_type, token_list_type)

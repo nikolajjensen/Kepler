@@ -1,31 +1,29 @@
 
 #define BOOST_SPIRIT_X3_UNICODE
 #include <iostream>
-#include "core/lexer/models.h"
-#include "core/lexer/models_adapted.h"
 #include "core/lexer/rules.h"
 #include "core/lexer/config.h"
-#include "core/lexer/models.h"
-#include "core/lexer/model_processing.h"
 
 #include <boost/spirit/home/x3/support/utility/error_reporting.hpp>
 #include <boost/spirit/home/x3.hpp>
 #include <uni_algo/conv.h>
 
+#include "core/datatypes.h"
+#include "core/env/printers.h"
+
 int main() {
     std::cout << "An APL Lexer written in Spirit X3.\n";
-
     namespace x3 = boost::spirit::x3;
-
     using kepler::lexer::iterator_type;
 
-    std::u32string str32 = U"ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E23,⍴'ABC' ⋄ F←(⍺+⍵) ⍝COMMENT";
+    std::u32string input_str = U"ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
+    kepler::List<kepler::Char> input(input_str.begin(), input_str.end());
 
-    std::cout << "Paring input: '" << uni::utf32to8(str32) << "'" << std::endl;
+    std::cout << "Paring input: '" << uni::utf32to8(input_str) << "'" << std::endl;
 
-    kepler::lexer::models::TokenList tok_list;
-    iterator_type iter = str32.begin();
-    iterator_type const end = str32.end();
+    kepler::List<kepler::Token> tok_list;
+    iterator_type iter = input_str.begin();
+    iterator_type const end = input_str.end();
 
     using x3::with;
     using kepler::lexer::error_handler_type;
@@ -49,7 +47,7 @@ int main() {
         std::cout << "-------------------------\n";
         std::cout << "Lexing succeeded\n";
         std::cout << "-------------------------\n";
-        kepler::lexer::model_processing::TokenListPrinter printer;
+        kepler::printers::TokenListPrinter printer;
         printer(tok_list);
     } else {
         std::cout << "-------------------------\n";
