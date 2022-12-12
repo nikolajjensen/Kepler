@@ -17,24 +17,12 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "context.h"
 
-#include "mode.h"
-#include "../token.h"
-#include "../datatypes.h"
-#include "defined_function.h"
-
-namespace kepler {
-    class Context {
-    public:
-        Mode mode;
-        List<Token> stack;
-        StringUTF8 currentLine;
-        List<Token> currentStatement;
-        Token result;
-        DefinedFunction* currentFunction;
-        UnsignedInteger currentLineNumber;
-
-        Context();
-    };
-};
+kepler::Context::Context()
+        : mode(Mode::ImmediateExecutionMode),
+          stack(),
+          currentLine(),
+          currentStatement(),
+          currentFunction(nullptr),
+          currentLineNumber(0) {}

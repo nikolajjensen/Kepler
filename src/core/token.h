@@ -29,6 +29,26 @@ namespace kepler {
     struct Token : boost::spirit::x3::position_tagged {
         TokenClass tokenClass;
         boost::variant<Char, List<Char>> content;
+
+        bool is_identifier() {
+            return  tokenClass == TokenClass::SimpleIdentifierToken
+                    || tokenClass == TokenClass::DistinguishedIdentifierToken;
+        }
+
+        bool is_literal() {
+            return  tokenClass == TokenClass::CharacterLiteralToken
+                    || tokenClass == TokenClass::NumericLiteralToken;
+        }
+
+        bool is_primitive() {
+            return  tokenClass == TokenClass::PrimitiveToken;
+        }
+
+        TokenClass current_class() {
+
+
+            return tokenClass;
+        }
     };
 };
 

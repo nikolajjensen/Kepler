@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include "token.h"
+
 namespace kepler {
     enum TokenClass {
         AssignmentArrowToken,

@@ -11,49 +11,38 @@
 #include "core/datatypes.h"
 #include "core/env/printers.h"
 
+
+#include "ftxui/component/captured_mouse.hpp"  // for ftxui
+#include "ftxui/component/component.hpp"       // for Input, Renderer, Vertical
+#include "ftxui/component/component_base.hpp"  // for ComponentBase
+#include "ftxui/component/component_options.hpp"  // for InputOption
+#include "ftxui/component/screen_interactive.hpp"  // for Component, ScreenInteractive
+#include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
+#include <vector>
+
+#include "tui/context_line.h"
+#include "tui/repl_container.h"
+#include "core/env/system.h"
+
 int main() {
-    std::cout << "An APL Lexer written in Spirit X3.\n";
-    namespace x3 = boost::spirit::x3;
-    using kepler::lexer::iterator_type;
-
-    std::u32string input_str = U"ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT";
-    kepler::List<kepler::Char> input(input_str.begin(), input_str.end());
-
-    std::cout << "Paring input: '" << uni::utf32to8(input_str) << "'" << std::endl;
-
-    kepler::List<kepler::Token> tok_list;
-    iterator_type iter = input_str.begin();
-    iterator_type const end = input_str.end();
-
-    using x3::with;
-    using kepler::lexer::error_handler_type;
-    using kepler::lexer::error_handler_tag;
-    error_handler_type error_handler(iter, end, std::cerr);
-
-    auto const parser = with<error_handler_tag>(std::ref(error_handler))
-            [
-                    kepler::lexer::token_list()
-            ];
+    kepler::Session session = kepler::System::new_session();
 
 
-    auto start = std::chrono::high_resolution_clock::now();
-    bool r = phrase_parse(iter, end, parser, kepler::lexer::skipper(), tok_list);
-    auto stop = std::chrono::high_resolution_clock::now();
+    using namespace ftxui;
+    auto screen = ScreenInteractive::Fullscreen();
 
-    auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-    std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
+    auto header_headline = Renderer([]{
+        return vbox({
+            //text("Kepler") | bold,
+            text("v1.0"),
+        }) | dim | color(Color::CadetBlue);
+    });
 
-    if(r && iter == end) {
-        std::cout << "-------------------------\n";
-        std::cout << "Lexing succeeded\n";
-        std::cout << "-------------------------\n";
-        kepler::printers::TokenListPrinter printer;
-        printer(tok_list);
-    } else {
-        std::cout << "-------------------------\n";
-        std::cout << "Lexing failed\n";
-        std::cout << "-------------------------\n";
-    }
+    auto repl = kepler::tui::REPLContainer(header_headline, &session);
 
-    return 0;
+    auto content = Renderer(repl, [&]{
+        return repl->Render();
+    });
+
+    screen.Loop(content);
 }

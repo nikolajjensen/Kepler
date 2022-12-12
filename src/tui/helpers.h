@@ -18,23 +18,10 @@
 //
 
 #pragma once
-
-#include "mode.h"
-#include "../token.h"
-#include "../datatypes.h"
-#include "defined_function.h"
+#include "includes.h"
 
 namespace kepler {
-    class Context {
-    public:
-        Mode mode;
-        List<Token> stack;
-        StringUTF8 currentLine;
-        List<Token> currentStatement;
-        Token result;
-        DefinedFunction* currentFunction;
-        UnsignedInteger currentLineNumber;
-
-        Context();
+    namespace tui {
+        bool IsWordCharacter(ftxui::WordBreakProperty property);
     };
 };

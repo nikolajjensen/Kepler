@@ -25,12 +25,13 @@
 
 namespace kepler {
     class Workspace {
-        String owner;
-        String workspaceName;
+    public:
+        StringUTF8 workspaceName;
         List<Symbol> symbolTable;
         List<Context> stateIndicator;
         WorkspacePresence existentialProperty;
 
-        Workspace(String thisOwner, String workspaceName);
+    public:
+        Workspace(StringUTF8 workspaceName);
     };
 };

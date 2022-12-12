@@ -17,24 +17,15 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "system.h"
 
-#include "mode.h"
-#include "../token.h"
-#include "../datatypes.h"
-#include "defined_function.h"
-
-namespace kepler {
-    class Context {
-    public:
-        Mode mode;
-        List<Token> stack;
-        StringUTF8 currentLine;
-        List<Token> currentStatement;
-        Token result;
-        DefinedFunction* currentFunction;
-        UnsignedInteger currentLineNumber;
-
-        Context();
-    };
-};
+kepler::Session kepler::System::new_session() {
+    return Session(
+            Workspace(clearWorkspaceIdentifier),
+            "new_session",
+            initialComparisonTolerance,
+            initialRandomLink,
+            initialPrintPrecision,
+            initialIndexOrigin,
+            initialLatentExpression);
+}

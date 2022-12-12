@@ -19,22 +19,15 @@
 
 #pragma once
 
-#include "mode.h"
-#include "../token.h"
-#include "../datatypes.h"
-#include "defined_function.h"
-
-namespace kepler {
-    class Context {
-    public:
-        Mode mode;
-        List<Token> stack;
-        StringUTF8 currentLine;
-        List<Token> currentStatement;
-        Token result;
-        DefinedFunction* currentFunction;
-        UnsignedInteger currentLineNumber;
-
-        Context();
-    };
-};
+#include "ftxui/component/captured_mouse.hpp"  // for ftxui
+#include "ftxui/component/component.hpp"       // for Input, Renderer, Vertical
+#include "ftxui/component/component_base.hpp"  // for ComponentBase
+#include "ftxui/component/component_options.hpp"  // for InputOption
+#include "ftxui/component/event.hpp"
+#include "ftxui/component/mouse.hpp"
+#include "ftxui/component/screen_interactive.hpp"  // for Component, ScreenInteractive
+#include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
+#include "ftxui/util/ref.hpp"  // for Ref
+#include "ftxui/screen/box.hpp"
+#include "../cmake-build-debug/_deps/ftxui-src/src/ftxui/screen/util.hpp"
+#include "helpers.h"

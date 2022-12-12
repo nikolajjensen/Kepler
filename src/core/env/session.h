@@ -22,23 +22,35 @@
 #include "keyboard_state.h"
 
 namespace kepler {
-    struct Session {
+    class Session {
+    public:
         Workspace activeWorkspace;
-        String sessionName;
-        String ownerName;
-        Boolean attentionFlag;
-        KeyboardState keyboardState;
+        StringUTF8 sessionName;
+        //Boolean attentionFlag;
+        //KeyboardState keyboardState;
         List<Char> currentPrompt;
         List<Char> quoteQuadPrompt;
-        UnsignedInteger eventTime;
+        //UnsignedInteger eventTime;
         // EventMessage
         // EventType
         Context* currentContext;
         List<Token>* currentStack;
+        Token* currentResult;
         Number comparisonTolerance;
         Number randomLink;
         UnsignedInteger printPrecision;
         UnsignedInteger indexOrigin;
         List<Token> latentExpression;
+
+        Session(Workspace activeWorkspace,
+                StringUTF8 sessionName,
+                Number comparisonTolerance,
+                Number randomLink,
+                UnsignedInteger printPrecision,
+                UnsignedInteger indexOrigin,
+                List<Token> latentExpression);
+
+        void evaluate_line();
+        void new_context();
     };
 };

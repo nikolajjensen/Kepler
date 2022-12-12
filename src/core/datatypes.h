@@ -31,6 +31,7 @@ namespace kepler {
     using Integer = int;
     using UnsignedInteger = unsigned int;
 
-    using String = std::string;
+    using StringUTF8 = std::string;
+    using StringUTF32 = std::u32string;
     using Boolean = bool;
 };

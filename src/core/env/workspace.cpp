@@ -19,4 +19,9 @@
 
 #include "workspace.h"
 
-kepler::Workspace::Workspace(String thisOwner, String workspaceName_) : owner(thisOwner), workspaceName(workspaceName_), existentialProperty(WorkspacePresence::AbsentWorkspace) {}
+kepler::Workspace::Workspace(
+        StringUTF8 workspaceName_)
+        : workspaceName(workspaceName_),
+          symbolTable(),
+          stateIndicator(),
+          existentialProperty(WorkspacePresence::AbsentWorkspace) {}
