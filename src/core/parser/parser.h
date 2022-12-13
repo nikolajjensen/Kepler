@@ -17,13 +17,12 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#pragma once
+#include "../datatypes.h"
+#include "../token.h"
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+namespace kepler {
+    namespace parser {
+        bool parse(kepler::List<kepler::Token>& token_list);
+    };
+};

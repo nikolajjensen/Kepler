@@ -19,6 +19,8 @@
 
 #include "session.h"
 #include "../lexer/lexer.h"
+#include "../parser/parser.h"
+#include "../parser/token_converter.h"
 
 
 #include <uni_algo/conv.h>
@@ -48,7 +50,12 @@ void kepler::Session::evaluate_line() {
     // Evaluate current context and do the whole shebang.
     //sleep(1);
     bool lexing_passed = kepler::lexer::lex(uni::utf8to32u(currentContext->currentLine), currentContext->currentStatement);
-    currentResult->content = {lexing_passed ? U'Y' : U'N'};
+    kepler::parser::convert_tokens(currentContext->currentStatement, *this);
+    bool parsing_passed = kepler::parser::parse(currentContext->currentStatement);
+    currentResult->content = Char(parsing_passed ? U'Y' : U'N');
+
+    //currentResult->content = currentContext->currentStatement.front().content.get();
+    //currentResult->tokenClass = currentContext->currentStatement.front().tokenClass;
 }
 
 void kepler::Session::new_context() {
@@ -56,4 +63,15 @@ void kepler::Session::new_context() {
     currentContext = &(activeWorkspace.stateIndicator[activeWorkspace.stateIndicator.size() - 1]);
     currentStack = &currentContext->stack;
     currentResult = &currentContext->result;
+}
+
+kepler::Token& kepler::Session::current_referent(kepler::Token &token) {
+    List<Char>& char_list = boost::get<List<Char>>(*token.content);
+
+    kepler::Symbol& symbol_named_by_token = activeWorkspace.symbolTable.get_by_name(char_list);
+    return symbol_named_by_token.referentList.front();
+}
+
+kepler::TokenClass kepler::Session::current_class(kepler::Token &token) {
+    return current_referent(token).tokenClass;
 }

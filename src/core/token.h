@@ -21,14 +21,29 @@
 
 #include "token_class.h"
 #include "datatypes.h"
+#include "uni_algo/conv.h"
+#include "core/env/array.h"
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/spirit/home/x3/support/ast/position_tagged.hpp>
+#include <boost/optional.hpp>
 
 namespace kepler {
     struct Token : boost::spirit::x3::position_tagged {
+        typedef boost::optional<
+                boost::variant<
+                        Char,
+                        List<Char>,
+                        Array,
+                        List<Number>
+                        >
+                > content_type;
+
         TokenClass tokenClass;
-        boost::variant<Char, List<Char>> content;
+        content_type content;
+
+        Token(TokenClass tokenClass_, content_type content_) : tokenClass(tokenClass_), content(content_) {}
+        Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_) {}
 
         bool is_identifier() {
             return  tokenClass == TokenClass::SimpleIdentifierToken
@@ -42,12 +57,6 @@ namespace kepler {
 
         bool is_primitive() {
             return  tokenClass == TokenClass::PrimitiveToken;
-        }
-
-        TokenClass current_class() {
-
-
-            return tokenClass;
         }
     };
 };

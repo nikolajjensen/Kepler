@@ -17,13 +17,8 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#include "symbol.h"
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+kepler::Symbol::Symbol(List<Char> name_, List<kepler::Token> referentList_) : name(name_), referentList(referentList_) {}
+
+kepler::Symbol::Symbol(List<Char> name_) : name(name_), referentList({Token()}) {}

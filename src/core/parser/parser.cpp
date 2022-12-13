@@ -17,13 +17,23 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#include "parser.h"
+#include "config.h"
+#include "rules.h"
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+#include <boost/spirit/home/x3.hpp>
+
+bool kepler::parser::parse(kepler::List<kepler::Token> &token_list) {
+    namespace x3 = boost::spirit::x3;
+    using kepler::parser::iterator_type;
+
+    iterator_type iter = token_list.begin();
+    iterator_type const end = token_list.end();
+
+    kepler::List<kepler::Token> results;
+    bool success = x3::parse(iter, end, kepler::parser::statement(), results);
+
+    token_list = results;
+
+    return success && iter == end;
+}

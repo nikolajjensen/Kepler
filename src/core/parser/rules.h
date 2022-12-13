@@ -17,13 +17,20 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#pragma once
+#include "../token.h"
+#include <boost/spirit/home/x3.hpp>
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+namespace kepler {
+    namespace parser {
+        namespace rules {
+            namespace x3 = boost::spirit::x3;
+
+            typedef x3::rule<class statement_class, List<Token>> statement_type;
+
+            BOOST_SPIRIT_DECLARE(statement_type)
+        };
+
+        rules::statement_type const& statement();
+    };
+};

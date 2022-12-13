@@ -52,5 +52,8 @@ namespace kepler {
 
         void evaluate_line();
         void new_context();
+
+        Token& current_referent(Token& token);
+        TokenClass current_class(Token& token);
     };
 };

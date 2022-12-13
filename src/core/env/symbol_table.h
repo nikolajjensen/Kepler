@@ -17,13 +17,20 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#pragma once
+#include "symbol.h"
+#include "../datatypes.h"
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+namespace kepler {
+    class SymbolTable {
+    private:
+        List<Symbol> symbol_table;
+
+        bool create_symbol(const List<Char>& name);
+
+    public:
+        SymbolTable();
+
+        Symbol& get_by_name(const List<Char>& name);
+    };
+};

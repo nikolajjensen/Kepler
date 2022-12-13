@@ -23,12 +23,17 @@
 #include "tui/context_line.h"
 #include "tui/repl_container.h"
 #include "core/env/system.h"
+#include "core/datatypes.h"
+#include "core/lexer/lexer.h"
+#include <boost/variant.hpp>
+
+using namespace kepler;
+using namespace ftxui;
 
 int main() {
-    kepler::Session session = kepler::System::new_session();
+    Session session = System::new_session();
 
 
-    using namespace ftxui;
     auto screen = ScreenInteractive::Fullscreen();
 
     auto header_headline = Renderer([]{
@@ -38,7 +43,7 @@ int main() {
         }) | dim | color(Color::CadetBlue);
     });
 
-    auto repl = kepler::tui::REPLContainer(header_headline, &session);
+    auto repl = tui::REPLContainer(header_headline, &session);
 
     auto content = Renderer(repl, [&]{
         return repl->Render();
@@ -46,3 +51,14 @@ int main() {
 
     screen.Loop(content);
 }
+
+/*
+int main() {
+    StringUTF32 test = U"1+2";
+    List<Token> tokens;
+    bool lex_success = lexer::lex(test, tokens);
+
+    printers::TokenListPrinter printer;
+    printer(tokens);
+}
+ */

@@ -25,5 +25,8 @@ namespace kepler {
     struct Symbol {
         List<Char> name;
         List<Token> referentList;
+
+        Symbol(List<Char> name, List<Token> referentList);
+        Symbol(List<Char> name);
     };
 };

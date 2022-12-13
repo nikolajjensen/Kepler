@@ -269,13 +269,86 @@ namespace kepler {
                     }
                 };
 
-                StringUTF8 result_content_() {
-                    auto& r = context_().result.content;
+                struct visitor : public boost::static_visitor<StringUTF8> {
+                    StringUTF8 operator()(Char& c) const {
+                        return uni::utf32to8(StringUTF32(1, c));
+                    }
 
-                    if(Char* ch = boost::get<Char>(&r)) {
-                        return uni::utf32to8(StringUTF32(1, *ch));
-                    } else if(List<Char>* str = boost::get<List<Char>>(&r)) {
-                        return uni::utf32to8(StringUTF32(str->begin(), str->end()));
+                    StringUTF8 operator()(Number& number) const {
+                        return number.to_string();
+                    }
+
+                    StringUTF8 operator()(List<Char>& list) const {
+                        return uni::utf32to8(StringUTF32(list.begin(), list.end()));
+                    }
+
+                    StringUTF8 operator()(List<Number>& list) const {
+                        return uni::utf32to8(U"X");
+                    }
+
+                    StringUTF8 operator()(Array array) const {
+                        std::stringstream ss;
+                        for(auto& list : array.ravelList) {
+                            ss << boost::apply_visitor(visitor(), list);
+                        }
+                        return ss.str();
+                    }
+                };
+
+                StringUTF8 result_content_() {
+                    auto& result = context_().result;
+
+                    if(result.content) {
+
+                        std::stringstream ss;
+
+                        switch (result.tokenClass) {
+                            case TokenClass::AssignmentArrowToken:
+                                ss << "AssignmentArrowToken";
+                                break;
+                            case TokenClass::DirectIdentifierToken:
+                                ss << "DirectIdentifierToken";
+                                break;
+                            case TokenClass::StatementSeparatorToken:
+                                ss << "StatementSeparatorToken";
+                                break;
+                            case TokenClass::SimpleIdentifierToken:
+                                ss << "SimpleIdentifierToken";
+                                break;
+                            case TokenClass::PrimitiveToken:
+                                ss << "PrimitiveToken";
+                                break;
+                            case TokenClass::DistinguishedIdentifierToken:
+                                ss << "DistinguishedIdentifierToken";
+                                break;
+                            case TokenClass::NumericLiteralToken:
+                                ss << "NumericLiteralToken";
+                                break;
+                            case TokenClass::CharacterLiteralToken:
+                                ss << "CharacterLiteralToken";
+                                break;
+                            case TokenClass::VariableNameToken:
+                                ss << "VariableNameToken";
+                                break;
+                            case TokenClass::NilToken:
+                                ss << "NilToken";
+                                break;
+                            case TokenClass::DyadicOperatorToken:
+                                ss << "DyadicOperatorToken";
+                                break;
+                            case ConstantToken:
+                                ss << "ConstantToken";
+                                break;
+                            default:
+                                ss << result.tokenClass;
+                                break;
+                        }
+
+                        ss << " -> ";
+
+                        ss << boost::apply_visitor(visitor(), result.content.get());
+
+                        return ss.str();
                     }
 
                     return "";

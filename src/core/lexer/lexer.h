@@ -22,36 +22,8 @@
 #include "../datatypes.h"
 #include "../token.h"
 
-#include "core/lexer/rules.h"
-#include "core/lexer/config.h"
-
-#include <boost/spirit/home/x3/support/utility/error_reporting.hpp>
-#include <boost/spirit/home/x3.hpp>
-
-#include <iostream>
-
 namespace kepler {
     namespace lexer {
-        bool lex(const StringUTF32& input, kepler::List<kepler::Token>& token_list) {
-            namespace x3 = boost::spirit::x3;
-            using kepler::lexer::iterator_type;
-
-            iterator_type iter = input.begin();
-            iterator_type const end = input.end();
-
-            using x3::with;
-            using kepler::lexer::error_handler_type;
-            using kepler::lexer::error_handler_tag;
-            error_handler_type error_handler(iter, end, std::cerr);
-
-            auto const parser = with<error_handler_tag>(std::ref(error_handler))
-            [
-                    kepler::lexer::token_list()
-            ];
-
-            bool success = phrase_parse(iter, end, parser, kepler::lexer::skipper(), token_list);
-
-            return success && iter == end;
-        }
+        bool lex(const StringUTF32& input, kepler::List<kepler::Token>& token_list);
     };
 };

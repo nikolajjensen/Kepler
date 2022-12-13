@@ -17,13 +17,13 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#include "rules_def.h"
+#include "config.h"
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+namespace kepler {
+    namespace parser {
+        namespace rules {
+            BOOST_SPIRIT_INSTANTIATE(statement_type, iterator_type, context_type);
+        };
+    };
+};

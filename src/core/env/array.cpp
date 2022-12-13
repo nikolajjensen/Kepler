@@ -19,12 +19,12 @@
 
 #include "array.h"
 
-kepler::Array::Array(List<UnsignedInteger> shapeList_, List<boost::variant<Char, Number, Array>> ravelList_) : shapeList(shapeList_), ravelList(ravelList_) {}
+kepler::Array::Array(List<UnsignedInteger> shapeList_, ravel_list_type ravelList_) : shapeList(shapeList_), ravelList(ravelList_) {}
 
 kepler::UnsignedInteger kepler::Array::rank() {
     return shapeList.size();
 }
 
-kepler::Array kepler::Array::vectorOf(List<boost::variant<Char, Number, Array>> ravelList) {
+kepler::Array kepler::Array::vectorOf(ravel_list_type ravelList) {
     return Array({(UnsignedInteger)ravelList.size()}, ravelList);
 }

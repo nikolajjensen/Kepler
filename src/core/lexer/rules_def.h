@@ -101,7 +101,7 @@ namespace kepler {
 
             // Token List parser.
             struct token_list_class;
-            x3::rule<class token_list_class, List<Token>> token_list = "token_list";
+            x3::rule<token_list_class, List<Token>> token_list = "token_list";
             auto const token_list_def = *(identifier_token | numeric_literal_token | primitive_token | character_literal_token);
             struct token_list_class : x3::annotate_on_success, error_handler_base {};
 

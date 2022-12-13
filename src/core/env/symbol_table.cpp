@@ -17,21 +17,32 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "../datatypes.h"
-#include "symbol.h"
-#include "context.h"
-#include "workspace_presence.h"
 #include "symbol_table.h"
 
-namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspaceName;
-        SymbolTable symbolTable;
-        List<Context> stateIndicator;
-        WorkspacePresence existentialProperty;
+kepler::SymbolTable::SymbolTable() : symbol_table() {}
 
-        Workspace(StringUTF8 workspaceName);
-    };
-};
+bool kepler::SymbolTable::create_symbol(const List<Char> &name) {
+    auto it = std::find_if(symbol_table.begin(), symbol_table.end(), [&name](const Symbol& symbol){
+        return symbol.name == name;
+    });
+
+    if(it == symbol_table.end()) {
+        symbol_table.emplace_back(name);
+        return true;
+    }
+
+    return false;
+}
+
+kepler::Symbol& kepler::SymbolTable::get_by_name(const List<Char> &name) {
+    auto it = std::find_if(symbol_table.begin(), symbol_table.end(), [&name](const Symbol& symbol){
+        return symbol.name == name;
+    });
+
+    if(it != symbol_table.end()) {
+        return *it;
+    }
+
+    create_symbol(name);
+    return get_by_name(name);
+}

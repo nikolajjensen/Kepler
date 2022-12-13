@@ -26,15 +26,17 @@
 namespace kepler {
     class Array {
     public:
+        typedef List<boost::variant<Char, Number, boost::recursive_wrapper<Array>>> ravel_list_type;
+
         List<UnsignedInteger> shapeList;
-        List<boost::variant<Char, Number, Array>> ravelList;
+        ravel_list_type ravelList;
         ArrayType type;
 
         Array() = default;
-        Array(List<UnsignedInteger> shapeList, List<boost::variant<Char, Number, Array>> ravelList);
+        Array(List<UnsignedInteger> shapeList, ravel_list_type ravelList);
 
         UnsignedInteger rank();
 
-        static Array vectorOf(List<boost::variant<Char, Number, Array>> ravelList);
+        static Array vectorOf(ravel_list_type ravelList);
     };
 };

@@ -17,13 +17,21 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "context.h"
+#pragma once
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(),
-          currentStatement(),
-          result(),
-          currentFunction(nullptr),
-          currentLineNumber(0) {}
+#include <boost/variant.hpp>
+
+namespace kepler {
+    namespace utils {
+        /*
+        template <typename R, typename A> R convert_variant(A const& arg) {
+            return boost::apply_visitor([](auto const& v) -> R {
+                if constexpr (std::is_convertible_v<decltype(v), R>)
+                    return v;
+                else
+                    throw std::runtime_error("bad conversion");
+            } , arg);
+        }
+         */
+    };
+};

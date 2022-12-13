@@ -34,8 +34,8 @@ namespace kepler {
         const static Number initialRandomLink = 123;
         const static ReductionStyle reductionStyle = ReductionStyle::EncloseReductionStyle;
         const static StringUTF8 clearWorkspaceIdentifier = "unnamed";
-        const static Number positiveNumberLimit = std::numeric_limits<Number>::max();
-        const static Number negativeNumberLimit = std::numeric_limits<Number>::min();
+        const static Number positiveNumberLimit = Number::numeric_limit_max();
+        const static Number negativeNumberLimit = Number::numeric_limit_min();
         const static Integer positiveIntegerLimit = std::numeric_limits<Integer>::max();
         const static Integer negativeIntegerLimit = std::numeric_limits<Integer>::min();
         const static UnsignedInteger indexLimit = positiveIntegerLimit;
@@ -47,7 +47,7 @@ namespace kepler {
         const static Number comparisonToleranceLimit = 1;
         const static Number integerTolerance = 0.001;
         const static Number realTolerance = 0.00001;
-        const static UnsignedInteger fullPrintPrecision = std::to_string(negativeNumberLimit).length();
+        const static UnsignedInteger fullPrintPrecision = 64;
         const static UnsignedInteger printPrecisionLimit = fullPrintPrecision;
         const static UnsignedInteger exponentFieldWidth = 5;
         const static StringUTF8 indentPrompt = ">>>  ";
