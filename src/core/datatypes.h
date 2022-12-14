@@ -42,12 +42,11 @@ namespace kepler {
     using Boolean = bool;
 
     class Number {
-    private:
+    public:
         double realScalar;
         boost::optional<double> exponent;
         boost::optional<double> imaginaryScalar;
 
-    public:
         Number(const List<Char>& list) {
             auto exponent_it = std::find(list.begin(), list.end(), U'E');
             auto complex_it = std::find(list.begin(), list.end(), U'J');
@@ -90,12 +89,12 @@ namespace kepler {
         StringUTF8 to_string() const {
             std::stringstream ss;
 
-            ss << realScalar;
+            ss << std::to_string(realScalar);
 
-            if(exponent.is_initialized()) {
+            if(exponent) {
                 ss << "E" << exponent.get();
             }
-            if(imaginaryScalar.is_initialized()) {
+            if(imaginaryScalar) {
                 ss << "J" << imaginaryScalar.get();
             }
 
@@ -104,6 +103,13 @@ namespace kepler {
 
         friend std::ostream& operator<<(std::ostream& os, const Number& number) {
             return os << number.to_string();
+        }
+
+        friend bool operator==(const Number& lhs, const Number& rhs) {
+            bool exponent_equal = (lhs.exponent && rhs.exponent && lhs.exponent == rhs.exponent) || (!lhs.exponent && !rhs.exponent);
+            bool complex_equal = (lhs.imaginaryScalar && rhs.imaginaryScalar && lhs.imaginaryScalar == rhs.imaginaryScalar) || (!lhs.imaginaryScalar && !rhs.imaginaryScalar);
+
+            return lhs.realScalar == rhs.realScalar && exponent_equal && complex_equal;
         }
     };
 };

@@ -30,19 +30,19 @@
 
 namespace kepler {
     struct Token : boost::spirit::x3::position_tagged {
-        typedef boost::optional<
-                boost::variant<
-                        Char,
-                        List<Char>,
-                        Array,
-                        List<Number>
-                        >
+        typedef boost::variant<
+                    Char,
+                    List<Char>,
+                    Array,
+                    List<Number>
                 > content_type;
 
-        TokenClass tokenClass;
-        content_type content;
+        typedef boost::optional<content_type> optional_content_type;
 
-        Token(TokenClass tokenClass_, content_type content_) : tokenClass(tokenClass_), content(content_) {}
+        TokenClass tokenClass;
+        optional_content_type content;
+
+        Token(TokenClass tokenClass_, optional_content_type content_) : tokenClass(tokenClass_), content(content_) {}
         Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_) {}
 
         bool is_identifier() {

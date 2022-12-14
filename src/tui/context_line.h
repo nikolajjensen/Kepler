@@ -283,7 +283,8 @@ namespace kepler {
                     }
 
                     StringUTF8 operator()(List<Number>& list) const {
-                        return uni::utf32to8(U"X");
+                        visitor v;
+                        return v(list[0]);
                     }
 
                     StringUTF8 operator()(Array array) const {
@@ -296,13 +297,15 @@ namespace kepler {
                 };
 
                 StringUTF8 result_content_() {
-                    auto& result = context_().result;
+                    std::stringstream ss;
+                    if(context_().result.content) {
+                        ss << boost::apply_visitor(visitor(), context_().result.content.get());
+                    }
 
-                    if(result.content) {
+                    return ss.str();
 
-                        std::stringstream ss;
-
-                        switch (result.tokenClass) {
+                    for(auto& token : context_().currentStatement) {
+                        switch (token.tokenClass) {
                             case TokenClass::AssignmentArrowToken:
                                 ss << "AssignmentArrowToken";
                                 break;
@@ -339,19 +342,33 @@ namespace kepler {
                             case ConstantToken:
                                 ss << "ConstantToken";
                                 break;
+                            case TokenClass::RightParenthesisToken:
+                                ss << "RightParenthesisToken";
+                                break;
+                            case IndexSeparatorToken:
+                                ss << "IndexSeparatorToken";
+                                break;
+                            case PrimitiveFunctionToken:
+                                ss << "PrimitiveFunctionToken";
+                                break;
+                            case UnwindToken:
+                                ss << "UnwindToken";
+                                break;
                             default:
-                                ss << result.tokenClass;
+                                ss << token.tokenClass;
                                 break;
                         }
 
                         ss << " -> ";
 
-                        ss << boost::apply_visitor(visitor(), result.content.get());
+                        if(token.content) {
+                            ss << boost::apply_visitor(visitor(), token.content.get());
+                        }
 
-                        return ss.str();
+                        ss << "   \n";
                     }
 
-                    return "";
+                    return ss.str();
                 }
 
                 StringUTF8& offset_content_() {

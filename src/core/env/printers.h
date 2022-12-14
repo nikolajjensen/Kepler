@@ -33,32 +33,224 @@ namespace kepler {
         struct TokenTypePrinter {
             void operator()(TokenClass tokenType) const {
                 switch (tokenType) {
-                    case TokenClass::AssignmentArrowToken:
+                    case AssignmentArrowToken:
                         std::cout << "AssignmentArrowToken";
                         break;
-                    case TokenClass::DirectIdentifierToken:
-                        std::cout << "DirectIdentifierToken";
+                    case AxisErrorToken:
+                        std::cout << "AxisErrorToken";
                         break;
-                    case TokenClass::StatementSeparatorToken:
-                        std::cout << "StatementSeparatorToken";
+                    case BranchToken:
+                        std::cout << "BranchToken";
                         break;
-                    case TokenClass::SimpleIdentifierToken:
-                        std::cout << "SimpleIdentifierToken";
+                    case BranchArrowToken:
+                        std::cout << "BranchArrowToken";
                         break;
-                    case TokenClass::PrimitiveToken:
-                        std::cout << "PrimitiveToken";
-                        break;
-                    case TokenClass::DistinguishedIdentifierToken:
-                        std::cout << "DistinguishedIdentifierToken";
-                        break;
-                    case TokenClass::NumericLiteralToken:
-                        std::cout << "NumericLiteralToken";
-                        break;
-                    case TokenClass::CharacterLiteralToken:
+                    case CharacterLiteralToken:
                         std::cout << "CharacterLiteralToken";
                         break;
+                    case ClearStateIndicatorToken:
+                        std::cout << "ClearStateIndicatorToken";
+                        break;
+                    case ColonToken:
+                        std::cout << "ColonToken";
+                        break;
+                    case CommandCompleteToken:
+                        std::cout << "CommandCompleteToken";
+                        break;
+                    case CommittedValueToken:
+                        std::cout << "CommittedValueToken";
+                        break;
+                    case CompleteIndexListToken:
+                        std::cout << "CompleteIndexListToken";
+                        break;
+                    case ConstantToken:
+                        std::cout << "ConstantToken";
+                        break;
+                    case DefinedFunctionToken:
+                        std::cout << "DefinedFunctionToken";
+                        break;
+                    case DefinedFunctionNameToken:
+                        std::cout << "DefinedFunctionNameToken";
+                        break;
+                    case DefinedDyadicOperatorToken:
+                        std::cout << "DefinedDyadicOperatorToken";
+                        break;
+                    case DefinedDyadicOperatorNameToken:
+                        std::cout << "DefinedDyadicOperatorNameToken";
+                        break;
+                    case DefinedMonadicOperatorToken:
+                        std::cout << "DefinedMonadicOperatorToken";
+                        break;
+                    case DefinedMonadicOperatorNameToken:
+                        std::cout << "DefinedMonadicOperatorNameToken";
+                        break;
+                    case DefinitionErrorToken:
+                        std::cout << "DefinitionErrorToken";
+                        break;
+                    case DistinguishedIdentifierToken:
+                        std::cout << "DistinguishedIdentifierToken";
+                        break;
+                    case DomainErrorToken:
+                        std::cout << "DomainErrorToken";
+                        break;
+                    case DyadicOperatorToken:
+                        std::cout << "DyadicOperatorToken";
+                        break;
+                    case ElidedIndexMarkerToken:
+                        std::cout << "ElidedIndexMarkerToken";
+                        break;
+                    case EscapeToken:
+                        std::cout << "EscapeToken";
+                        break;
+                    case ImplicitErrorToken:
+                        std::cout << "ImplicitErrorToken";
+                        break;
+                    case IncorrectCommandToken:
+                        std::cout << "IncorrectCommandToken";
+                        break;
+                    case IndexErrorToken:
+                        std::cout << "IndexErrorToken";
+                        break;
+                    case IndexSeparatorToken:
+                        std::cout << "IndexSeparatorToken";
+                        break;
+                    case InterruptToken:
+                        std::cout << "InterruptToken";
+                        break;
+                    case LabelToken:
+                        std::cout << "LabelToken";
+                        break;
+                    case LabelNameToken:
+                        std::cout << "LabelNameToken";
+                        break;
+                    case LeftArgumentNameToken:
+                        std::cout << "LeftArgumentNameToken";
+                        break;
+                    case LeftAxisBracketToken:
+                        std::cout << "LeftAxisBracketToken";
+                        break;
+                    case LeftEndOfStatementToken:
+                        std::cout << "LeftEndOfStatementToken";
+                        break;
+                    case LeftIndexBracketToken:
+                        std::cout << "LeftIndexBracketToken";
+                        break;
+                    case LeftOperandNameToken:
+                        std::cout << "LeftOperandNameToken";
+                        break;
+                    case LeftParenthesisToken:
+                        std::cout << "LeftParenthesisToken";
+                        break;
+                    case LengthErrorToken:
+                        std::cout << "LengthErrorToken";
+                        break;
+                    case LimitErrorToken:
+                        std::cout << "LimitErrorToken";
+                        break;
+                    case LocalNameToken:
+                        std::cout << "LocalNameToken";
+                        break;
+                    case MonadicOperatorToken:
+                        std::cout << "MonadicOperatorToken";
+                        break;
+                    case NilToken:
+                        std::cout << "NilToken";
+                        break;
+                    case NiladicDefinedFunctionToken:
+                        std::cout << "NiladicDefinedFunctionToken";
+                        break;
+                    case NiladicDefinedFunctionNameToken:
+                        std::cout << "NiladicDefinedFunctionNameToken";
+                        break;
+                    case NiladicSystemFunctionNameToken:
+                        std::cout << "NiladicSystemFunctionNameToken";
+                        break;
+                    case NotCopiedToken:
+                        std::cout << "NotCopiedToken";
+                        break;
+                    case NotErasedToken:
+                        std::cout << "NotErasedToken";
+                        break;
+                    case NotFoundToken:
+                        std::cout << "NotFoundToken";
+                        break;
+                    case NotSavedToken:
+                        std::cout << "NotSavedToken";
+                        break;
+                    case NumericLiteralToken:
+                        std::cout << "NumericLiteralToken";
+                        break;
+                    case PartialIndexListToken:
+                        std::cout << "PartialIndexListToken";
+                        break;
+                    case PrimitiveToken:
+                        std::cout << "PrimitiveToken";
+                        break;
+                    case PrimitiveFunctionToken:
+                        std::cout << "PrimitiveFunctionToken";
+                        break;
+                    case RankErrorToken:
+                        std::cout << "RankErrorToken";
+                        break;
+                    case ResultNameToken:
+                        std::cout << "ResultNameToken";
+                        break;
+                    case RightArgumentNameToken:
+                        std::cout << "RightArgumentNameToken";
+                        break;
+                    case RightAxisBracketToken:
+                        std::cout << "RightAxisBracketToken";
+                        break;
+                    case RightEndOfStatementToken:
+                        std::cout << "RightEndOfStatementToken";
+                        break;
+                    case RightIndexBracketToken:
+                        std::cout << "RightIndexBracketToken";
+                        break;
+                    case RightOperandNameToken:
+                        std::cout << "RightOperandNameToken";
+                        break;
+                    case RightParenthesisToken:
+                        std::cout << "RightParenthesisToken";
+                        break;
+                    case SemicolonToken:
+                        std::cout << "SemicolonToken";
+                        break;
+                    case SharedVariableToken:
+                        std::cout << "SharedVariableToken";
+                        break;
+                    case SharedVariableNameToken:
+                        std::cout << "SharedVariableNameToken";
+                        break;
+                    case SimpleIdentifierToken:
+                        std::cout << "SimpleIdentifierToken";
+                        break;
+                    case SmallCircleToken:
+                        std::cout << "SmallCircleToken";
+                        break;
+                    case SyntaxErrorToken:
+                        std::cout << "SyntaxErrorToken";
+                        break;
+                    case SystemFunctionNameToken:
+                        std::cout << "SystemFunctionNameToken";
+                        break;
+                    case SystemVariableNameToken:
+                        std::cout << "SystemVariableNameToken";
+                        break;
+                    case UnwindToken:
+                        std::cout << "UnwindToken";
+                        break;
+                    case ValueErrorToken:
+                        std::cout << "ValueErrorToken";
+                        break;
+                    case VariableToken:
+                        std::cout << "VariableToken";
+                        break;
+                    case VariableNameToken:
+                        std::cout << "VariableNameToken";
+                        break;
                     default:
-                        std::cout << "(Unrecognized TokenType)";
+                        std::cout << tokenType;
                         break;
                 }
             }
@@ -87,7 +279,7 @@ namespace kepler {
                 printer(token.tokenClass);
                 std::cout << ", "
                           << "content: '";
-                if(auto content = token.content) {
+                if(token.content) {
                     boost::apply_visitor(TokenPrinter(), *token.content);
                 }
                 std::cout << "'}";

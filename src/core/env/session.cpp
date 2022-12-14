@@ -21,6 +21,7 @@
 #include "../lexer/lexer.h"
 #include "../parser/parser.h"
 #include "../parser/token_converter.h"
+#include "core/interpreter/interpreter.h"
 
 
 #include <uni_algo/conv.h>
@@ -52,10 +53,8 @@ void kepler::Session::evaluate_line() {
     bool lexing_passed = kepler::lexer::lex(uni::utf8to32u(currentContext->currentLine), currentContext->currentStatement);
     kepler::parser::convert_tokens(currentContext->currentStatement, *this);
     bool parsing_passed = kepler::parser::parse(currentContext->currentStatement);
-    currentResult->content = Char(parsing_passed ? U'Y' : U'N');
-
-    //currentResult->content = currentContext->currentStatement.front().content.get();
-    //currentResult->tokenClass = currentContext->currentStatement.front().tokenClass;
+    bool interpret_passed = kepler::interpreter::interpret(currentContext->currentStatement, currentContext->result);
+    //currentResult->content = Char(parsing_passed ? U'Y' : U'N');
 }
 
 void kepler::Session::new_context() {

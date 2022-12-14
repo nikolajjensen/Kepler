@@ -17,17 +17,19 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "interpreter.h"
 
-#include <boost/spirit/home/x3.hpp>
-#include "../datatypes.h"
-#include "../token.h"
+bool kepler::interpreter::interpret(kepler::List<kepler::Token>& tokens, kepler::Token& result) {
+    Array first = boost::get<Array>(tokens.at(0).content.get());
+    Char operation = boost::get<Char>(tokens.at(1).content.get());
+    Array second = boost::get<Array>(tokens.at(2).content.get());
 
-namespace kepler {
-    namespace parser {
-        namespace x3 = boost::spirit::x3;
+    if(operation == U'+') {
+        Number first_num = boost::get<Number>(first.ravelList[0]);
+        Number second_num = boost::get<Number>(second.ravelList[0]);
 
-        typedef List<Token>::const_iterator iterator_type;
-        typedef x3::unused_type context_type;
-    };
-};
+        result.content = List<Number>{Number(first_num.realScalar + second_num.realScalar)};
+    }
+
+    return true;
+}

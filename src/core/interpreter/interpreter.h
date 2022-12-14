@@ -18,16 +18,12 @@
 //
 
 #pragma once
-
-#include <boost/spirit/home/x3.hpp>
 #include "../datatypes.h"
 #include "../token.h"
 
-namespace kepler {
-    namespace parser {
-        namespace x3 = boost::spirit::x3;
 
-        typedef List<Token>::const_iterator iterator_type;
-        typedef x3::unused_type context_type;
-    };
+namespace kepler {
+    namespace interpreter {
+        bool interpret(kepler::List<kepler::Token>& tokens, kepler::Token& result);
+    }
 };

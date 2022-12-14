@@ -25,14 +25,16 @@
 #include "core/env/system.h"
 #include "core/datatypes.h"
 #include "core/lexer/lexer.h"
+#include "core/parser/parser.h"
+#include "core/interpreter/interpreter.h"
+#include "core/parser/token_converter.h"
 #include <boost/variant.hpp>
 
 using namespace kepler;
 using namespace ftxui;
-
+/*
 int main() {
     Session session = System::new_session();
-
 
     auto screen = ScreenInteractive::Fullscreen();
 
@@ -51,14 +53,24 @@ int main() {
 
     screen.Loop(content);
 }
+*/
 
-/*
 int main() {
+    Session session = System::new_session();
+
     StringUTF32 test = U"1+2";
     List<Token> tokens;
+    Token result;
     bool lex_success = lexer::lex(test, tokens);
-
     printers::TokenListPrinter printer;
     printer(tokens);
+    kepler::parser::convert_tokens(tokens, session);
+    printer(tokens);
+    bool parse_success = parser::parse(tokens);
+    printer(tokens);
+    bool interpret_success = interpreter::interpret(tokens, result);
+    printers::TokenPrinter result_printer;
+    result_printer(result);
+
+    std::cout << (parse_success ? "Success" : "Fail") << std::endl;
 }
- */

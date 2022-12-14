@@ -38,5 +38,9 @@ namespace kepler {
         UnsignedInteger rank();
 
         static Array vectorOf(ravel_list_type ravelList);
+
+        friend bool operator==(const Array& lhs, const Array& rhs) {
+            return lhs.shapeList == rhs.shapeList && lhs.ravelList == rhs.ravelList;
+        }
     };
 };
