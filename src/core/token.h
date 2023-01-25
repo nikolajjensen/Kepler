@@ -58,6 +58,10 @@ namespace kepler {
         bool is_primitive() {
             return  tokenClass == TokenClass::PrimitiveToken;
         }
+
+        bool is(TokenClass cl) const {
+            return tokenClass == cl;
+        }
     };
 };
 

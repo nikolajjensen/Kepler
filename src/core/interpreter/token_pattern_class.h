@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,15 +17,23 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "system.h"
+#pragma once
 
-kepler::Session kepler::System::new_session() {
-    return Session(
-            Workspace(clearWorkspaceIdentifier),
-            "new_session",
-            initialComparisonTolerance,
-            initialRandomLink,
-            initialPrintPrecision,
-            initialIndexOrigin,
-            initialLatentExpression);
-}
+namespace kepler {
+    namespace interpreter {
+        enum TokenPatternClass {
+            A, B, Z,
+            D,
+            F, G,
+            I, J,
+            C, K,
+            L,
+            M,
+            N,
+            R,
+            V,
+            X,
+            LP, RP, LB, RB, SC, IS, AA, BA
+        };
+    };
+};

@@ -20,20 +20,53 @@
 #include "parser.h"
 #include "config.h"
 #include "rules.h"
+#include "core/parser/token_converter.h"
+#include "core/env/printers.h"
 
 #include <boost/spirit/home/x3.hpp>
-
-bool kepler::parser::parse(kepler::List<kepler::Token> &token_list) {
+/*
+bool kepler::parser::parse(kepler::List<kepler::Token> &tokens, Session& session) {
     namespace x3 = boost::spirit::x3;
     using kepler::parser::iterator_type;
 
-    iterator_type iter = token_list.begin();
-    iterator_type const end = token_list.end();
+    kepler::parser::convert_tokens(tokens, session);
+
+    iterator_type iter = tokens.begin();
+    iterator_type const end = tokens.end();
 
     kepler::List<kepler::Token> results;
     bool success = x3::parse(iter, end, kepler::parser::statement(), results);
+    success = success && iter == end;
 
-    token_list = results;
+    results.insert(results.begin(), Token(LeftEndOfStatementToken));
+    results.push_back(Token(RightEndOfStatementToken));
 
-    return success && iter == end;
+    tokens = results;
+
+    return success;
+}
+*/
+
+bool kepler::parser::parse(kepler::Context* context, kepler::Session* session) {
+    namespace x3 = boost::spirit::x3;
+    using kepler::parser::iterator_type;
+
+    kepler::parser::convert_tokens(context->currentStatement, *session);
+
+    //kepler::printers::TokenListPrinter printer;
+    //printer(context->currentStatement);
+
+    iterator_type iter = context->currentStatement.begin();
+    iterator_type const end = context->currentStatement.end();
+
+    kepler::List<kepler::Token> results;
+    bool success = x3::parse(iter, end, kepler::parser::statement(), results);
+    success = success && iter == end;
+
+    results.insert(results.begin(), Token(LeftEndOfStatementToken));
+    results.push_back(Token(RightEndOfStatementToken));
+
+    context->currentStatement = results;
+
+    return success;
 }

@@ -23,6 +23,7 @@
 #include <string>
 #include <ostream>
 #include <sstream>
+#include <iostream>
 
 
 #include <uni_algo/conv.h>

@@ -35,7 +35,6 @@ namespace kepler {
         // EventType
         Context* currentContext;
         List<Token>* currentStack;
-        Token* currentResult;
         Number comparisonTolerance;
         Number randomLink;
         UnsignedInteger printPrecision;
@@ -52,6 +51,9 @@ namespace kepler {
 
         void evaluate_line();
         void new_context();
+
+        void update_pointers();
+        void insert_line(StringUTF8 input);
 
         Token& current_referent(Token& token);
         TokenClass current_class(Token& token);

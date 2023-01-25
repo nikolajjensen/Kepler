@@ -29,12 +29,14 @@ namespace kepler {
     public:
         Mode mode;
         List<Token> stack;
-        StringUTF8 currentLine;
+        StringUTF32 currentLine;
         List<Token> currentStatement;
         Token result;
         DefinedFunction* currentFunction;
         UnsignedInteger currentLineNumber;
 
         Context();
+        Context(kepler::StringUTF8 line);
+        Context(kepler::StringUTF32&& line);
     };
 };

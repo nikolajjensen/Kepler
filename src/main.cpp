@@ -20,9 +20,9 @@
 #include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
 #include <vector>
 
-#include "tui/context_line.h"
+#include "tui/context_line_old.h"
 #include "tui/repl_container.h"
-#include "core/env/system.h"
+#include "core/env/environment.h"
 #include "core/datatypes.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
@@ -32,20 +32,22 @@
 
 using namespace kepler;
 using namespace ftxui;
+
 /*
 int main() {
-    Session session = System::new_session();
+    Environment env = Environment();
+    Session* session = env.spawn_session();
 
     auto screen = ScreenInteractive::Fullscreen();
 
     auto header_headline = Renderer([]{
         return vbox({
-            //text("Kepler") | bold,
+            text("Kepler") | bold,
             text("v1.0"),
-        }) | dim | color(Color::CadetBlue);
+        }) | dim | color(Color::Palette16::Cyan);
     });
 
-    auto repl = tui::REPLContainer(header_headline, &session);
+    auto repl = tui::REPLContainer(header_headline, session, &env);
 
     auto content = Renderer(repl, [&]{
         return repl->Render();
@@ -54,23 +56,101 @@ int main() {
     screen.Loop(content);
 }
 */
+/*
+int main() {
+    Environment env = Environment();
+    Session* session = env.spawn_session();
+    session->insert_line("1+2");
+
+    env.evaluate(session);
+
+    std::cout << "\n****  " << (true ? "Success" : "Fail") << "  ****" << std::endl;
+}
+*/
 
 int main() {
-    Session session = System::new_session();
-
-    StringUTF32 test = U"1+2";
-    List<Token> tokens;
-    Token result;
-    bool lex_success = lexer::lex(test, tokens);
+    Environment env = Environment();
+    Session* session = env.spawn_session();
+    session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT");
+    //session->insert_line("1+2");
     printers::TokenListPrinter printer;
-    printer(tokens);
-    kepler::parser::convert_tokens(tokens, session);
-    printer(tokens);
-    bool parse_success = parser::parse(tokens);
-    printer(tokens);
-    bool interpret_success = interpreter::interpret(tokens, result);
-    printers::TokenPrinter result_printer;
-    result_printer(result);
 
-    std::cout << (parse_success ? "Success" : "Fail") << std::endl;
+    kepler::lexer::lex(session->currentContext);
+    printer(session->currentContext->currentStatement);
+    bool success = kepler::parser::parse(session->currentContext, session);
+    printer(session->currentContext->currentStatement);
+    //kepler::interpreter::interpret(session->currentContext, session);
+
+    std::cout << (success ? "SUCCESS" : "FAIL") << std::endl;
 }
+
+/*
+namespace x3 = boost::spirit::x3;
+
+int main() {
+    using x3::char_;
+
+    auto const left_parenthesis = x3::rule<struct left_parenthesis, std::string>{"left_parenthesis"} = char_('(');
+    auto const right_parenthesis = x3::rule<struct right_parenthesis, std::string>{"right_parenthesis"} = char_(')');
+    auto const left_axis_bracket = x3::rule<struct left_axis_bracket, std::string>{"left_axis_bracket"} = char_('[');
+    auto const right_axis_bracket = x3::rule<struct right_axis_bracket, std::string>{"right_axis_bracket"} = char_(']');
+
+    struct index;
+    x3::rule<index, std::string> index = "index";
+    struct expression;
+    x3::rule<expression, std::string> expression = "expression";
+    struct derived_function;
+    x3::rule<derived_function, std::string> derived_function = "derived_function";
+    struct assignment;
+    x3::rule<assignment, std::string> assignment = "assignment";
+    struct function;
+    x3::rule<function, std::string> function = "function";
+    struct axis_specification;
+    x3::rule<axis_specification, std::string> axis_specification = "axis_specification";
+    struct operation;
+    x3::rule<operation, std::string> operation = "operation";
+    struct operand;
+    x3::rule<operand, std::string> operand = "operand";
+    struct statement_class;
+    x3::rule<statement_class, std::string> statement = "statement";
+
+    auto const operation_def = ;
+    auto const operand_def = (left_axis_bracket >> expression >> right_axis_bracket) | ;
+    auto const expression_def = *operation >> operand >> *(+operation >> operand);
+    auto const statement_def = -expression;
+
+    BOOST_SPIRIT_DEFINE(statement, index, assignment, function, axis_specification, operation, operand, expression, derived_function)
+}
+ */
+
+/*
+#include <boost/spirit/home/x3/support/utility/error_reporting.hpp>
+#include <boost/spirit/home/x3.hpp>
+#include <iostream>
+
+namespace x3 = boost::spirit::x3;
+using x3::char_;
+
+struct one_class;
+x3::rule<one_class, std::string> one = "one";
+struct two_class;
+x3::rule<two_class, std::string> two = "two";
+
+auto const one_def = char_('A') >> *two;
+auto const two_def = char_('B') >> *one;
+
+BOOST_SPIRIT_DEFINE(one, two)
+
+int main() {
+    std::string test = "ABC";
+    auto it = test.begin();
+    auto end = test.end();
+
+    std::string result;
+
+    bool success = x3::parse(it, end, one, result);
+    success = success && it == end;
+
+    std::cout << (success ? "Pass" : "Fail") << std::endl;
+}
+*/

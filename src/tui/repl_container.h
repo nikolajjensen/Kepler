@@ -21,7 +21,10 @@
 
 #include "includes.h"
 #include "context_line.h"
+#include "input_line.h"
 #include "core/env/session.h"
+#include "core/env/environment.h"
+
 
 namespace kepler {
     namespace tui {
@@ -30,9 +33,8 @@ namespace kepler {
 
             class REPLContainerBase : public ComponentBase {
             public:
-                REPLContainerBase(Component header, kepler::Session* session) : inputs_(), session_(session) {
-                    Add(std::move(header));
-                    add_line();
+                REPLContainerBase(Component header_, kepler::Session* session_, kepler::Environment* env_) : header(header_), session(session_), env(env_) {
+                    update_children();
                 }
 
                 Component ActiveChild() override {
@@ -40,7 +42,24 @@ namespace kepler {
                         return nullptr;
                     }
 
-                    return children_[children_.size() - 1];
+                    return children_[children_.size() - 1 - selected];
+                }
+
+                void update_children() {
+                    DetachAllChildren();
+
+                    Add(header);
+
+                    /*for(unsigned int i = 0; i < session->activeWorkspace.stateIndicator.size(); ++i) {
+                        Add(ContextLine(&session->activeWorkspace.stateIndicator[i]) | ((selected == i) ? focus : nothing));
+                    }
+                    */
+
+                    for(auto& context : session->activeWorkspace.stateIndicator) {
+                        Add(ContextLine(&context));
+                    }
+
+                    Add(InputLine(session));
                 }
 
                 Element Render() override {
@@ -48,40 +67,79 @@ namespace kepler {
                     for (auto& it : children_) {
                         elements.push_back(it->Render());
                     }
-                    if (elements.empty()) {
-                        return text("Empty REPL...");
+
+                    /*
+                    for(unsigned int i = 0; i < children_.size(); ++i) {
+                        //auto modifier = ((children_.size() - selected - 1) == i) ? (focus | bgcolor(Color::Yellow)) : nothing;
+                        //elements.push_back(Renderer(children_[i], [&]{
+
+                        //}));
+                        //elements.push_back((children_[i] | ((selected == i) ? focus : nothing))->Render());
+
+                        if(selected == i) {
+                            elements.push_back((children_[i] | focus)->Render());
+                        } else {
+                            elements.push_back(children_[i]->Render());
+                        }
                     }
-                    return vbox(elements);
+                     */
+
+                    return vbox(elements) | reflect(box) | yframe;
                 }
 
                 bool OnEvent(Event event) override {
-                    if (ActiveChild() && ActiveChild()->OnEvent(event) && event != Event::Return) {
-                        return true;
+                    if(event.is_mouse()) {
+                        return OnMouseEvent(event);
                     }
 
-                    if(event == Event::Return) {
-                        session_->evaluate_line();
-                        add_line();
+                    if (ActiveChild() && ActiveChild()->OnEvent(event)) {
+                        if(event == Event::Return) {
+                            env->evaluate(session);
+                            update_children();
+                        }
+
                         return true;
                     }
 
                     return false;
                 }
 
-            private:
-                void add_line() {
-                    session_->new_context();
-                    Add(std::move(ContextLine(session_)));
+                bool OnMouseEvent(Event event) {
+                    if (event.mouse().button == Mouse::WheelDown || event.mouse().button == Mouse::WheelUp) {
+                        return OnMouseWheelEvent(event);
+                    }
+
+                    return false;
+                }
+
+                bool OnMouseWheelEvent(Event event) {
+                    if(!box.Contain(event.mouse().x, event.mouse().y)) {
+                        return false;
+                    }
+
+                    if(event.mouse().button == Mouse::WheelUp) {
+                        selected++;
+                    } else if(event.mouse().button == Mouse::WheelDown) {
+                        selected--;
+                    }
+
+                    selected = util::clamp(selected, 0, (int)(children_.size() - 1));
+
+                    return true;
                 }
 
             protected:
-                std::vector<std::string> inputs_;
-                kepler::Session* session_;
+                Component header;
+                kepler::Session* session;
+                kepler::Environment* env;
+                int selected = 0;
+
+                Box box;
             };
         };
 
-        Component REPLContainer(Component header, kepler::Session* session) {
-            return Make<REPLContainerBase>(std::move(header), std::move(session));
+        Component REPLContainer(Component header, kepler::Session* session, kepler::Environment* env) {
+            return Make<REPLContainerBase>(std::move(header), session, env);
         }
     };
 };

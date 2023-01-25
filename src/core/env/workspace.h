@@ -33,5 +33,7 @@ namespace kepler {
         WorkspacePresence existentialProperty;
 
         Workspace(StringUTF8 workspaceName);
+
+        void addContext(kepler::StringUTF8&& line);
     };
 };

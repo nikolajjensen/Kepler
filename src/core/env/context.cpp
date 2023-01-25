@@ -18,12 +18,28 @@
 //
 
 #include "context.h"
+#include "../datatypes.h"
 
 kepler::Context::Context()
         : mode(Mode::ImmediateExecutionMode),
           stack(),
           currentLine(),
           currentStatement(),
-          result(),
+          currentFunction(nullptr),
+          currentLineNumber(0) {}
+
+kepler::Context::Context(kepler::StringUTF8 line)
+        : mode(Mode::ImmediateExecutionMode),
+          stack(),
+          currentLine(uni::utf8to32u(line)),
+          currentStatement(),
+          currentFunction(nullptr),
+          currentLineNumber(0) {}
+
+kepler::Context::Context(kepler::StringUTF32&& line)
+        : mode(Mode::ImmediateExecutionMode),
+          stack(),
+          currentLine(line),
+          currentStatement(),
           currentFunction(nullptr),
           currentLineNumber(0) {}

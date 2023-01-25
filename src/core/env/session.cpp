@@ -38,7 +38,6 @@ kepler::Session::Session(
           sessionName(sessionName_),
           currentContext(nullptr),
           currentStack(nullptr),
-          currentResult(nullptr),
           comparisonTolerance(comparisonTolerance_),
           randomLink(randomLink_),
           printPrecision(printPrecision_),
@@ -46,23 +45,34 @@ kepler::Session::Session(
           latentExpression(latentExpression_) {}
 
 
+void kepler::Session::update_pointers() {
+    currentContext = &(activeWorkspace.stateIndicator[activeWorkspace.stateIndicator.size() - 1]);
+    currentStack = &currentContext->stack;
+}
 
+void kepler::Session::insert_line(StringUTF8 input) {
+    activeWorkspace.addContext(std::move(input));
+    update_pointers();
+}
+
+/*
 void kepler::Session::evaluate_line() {
     // Evaluate current context and do the whole shebang.
     //sleep(1);
     bool lexing_passed = kepler::lexer::lex(uni::utf8to32u(currentContext->currentLine), currentContext->currentStatement);
-    kepler::parser::convert_tokens(currentContext->currentStatement, *this);
-    bool parsing_passed = kepler::parser::parse(currentContext->currentStatement);
+    bool parsing_passed = kepler::parser::parse(currentContext->currentStatement, *this);
     bool interpret_passed = kepler::interpreter::interpret(currentContext->currentStatement, currentContext->result);
     //currentResult->content = Char(parsing_passed ? U'Y' : U'N');
 }
-
+*/
+/*
 void kepler::Session::new_context() {
     activeWorkspace.stateIndicator.emplace_back();
     currentContext = &(activeWorkspace.stateIndicator[activeWorkspace.stateIndicator.size() - 1]);
     currentStack = &currentContext->stack;
     currentResult = &currentContext->result;
 }
+*/
 
 kepler::Token& kepler::Session::current_referent(kepler::Token &token) {
     List<Char>& char_list = boost::get<List<Char>>(*token.content);

@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -19,13 +19,12 @@
 
 #pragma once
 
-#include "../datatypes.h"
-#include "../token.h"
-#include "../env/context.h"
-
 namespace kepler {
-    namespace lexer {
-        //bool lex(const StringUTF32& input, kepler::List<kepler::Token>& token_list);
-        bool lex(kepler::Context* context);
+    namespace interpreter {
+        struct FormTablePatternClass {
+
+        };
+
+        const FormTablePatternClass A, B, C;
     };
 };

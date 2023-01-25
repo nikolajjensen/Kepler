@@ -259,10 +259,18 @@ namespace kepler {
         struct ArrayPrinter {
             void operator()(Array array) const {
                 std::cout << "[";
-                for(auto& element : array.ravelList) {
-                    boost::apply_visitor(ArrayPrinter(), element);
+                for(size_t i = 0; i < array.ravelList.size(); ++i) {
+                    boost::apply_visitor(ArrayPrinter(), array.ravelList[i]);
+
+                    if(i != array.ravelList.size() - 1) {
+                        std::cout << ", ";
+                    }
                 }
                 std::cout << "]";
+            }
+
+            void operator()(Char& c) const {
+                std::cout << uni::utf32to8(StringUTF32(1, c));
             }
 
             template <typename T>
@@ -277,12 +285,15 @@ namespace kepler {
                           << "class: ";
                 TokenTypePrinter printer;
                 printer(token.tokenClass);
-                std::cout << ", "
-                          << "content: '";
+
                 if(token.content) {
+                    std::cout << ", "
+                              << "content: '";
                     boost::apply_visitor(TokenPrinter(), *token.content);
+                    std::cout << "'";
+
                 }
-                std::cout << "'}";
+                std::cout << "}";
             }
 
             void operator()(Char c) const {

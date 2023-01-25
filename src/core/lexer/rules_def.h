@@ -29,6 +29,7 @@
 #include "../datatypes.h"
 #include "../token_class.h"
 #include "../token.h"
+#include "../characters.h"
 
 namespace kepler {
     namespace lexer {
@@ -36,6 +37,7 @@ namespace kepler {
         namespace rules {
             namespace x3 = boost::spirit::x3;
             namespace unicode = boost::spirit::x3::unicode;
+            namespace characters = kepler::characters;
 
             using x3::_attr;
             using x3::attr;
@@ -49,24 +51,24 @@ namespace kepler {
             }
 
             // Basic parsers.
-            auto const alpha = x3::rule<struct alpha, Char>{"alpha"} = char_(U"⍺");
-            auto const omega = x3::rule<struct omega, Char>{"omega"} = char_(U"⍵");
-            auto const diamond = x3::rule<struct diamond, Char>{"diamond"} = char_(U"⋄");
-            auto const quote_quad = x3::rule<struct quote_quad, Char>{"quote quad"} = char_(U"⍞");
-            auto const quad = x3::rule<struct quad, Char>{"quad"} = char_(U"⎕");
-            auto const lamp = x3::rule<struct lamp, Char>{"lamp"} = char_(U"⍝");
-            auto const del_tilde = x3::rule<struct del_tilde, Char>{"del tilde"} = char_(U"⍫");
-            auto const del = x3::rule<struct del, Char>{"del"} = char_(U"∇");
-            auto const blank = x3::rule<struct blank, Char>{"blank"} = char_(U" ");
-            auto const overbar = x3::rule<struct overbar, Char>{"overbar"} = char_(U"‾");
-            auto const underbar = x3::rule<struct underbar, Char>{"underbar"} = char_(U"_");
-            auto const dot = x3::rule<struct dot, Char>{"dot"} = char_(U".");
-            auto const complex_marker = x3::rule<struct complex_marker, Char>{"complex marker"} = char_(U"J");
-            auto const exponent_marker = x3::rule<struct exponent_marker, Char>{"exponent marker"} = char_(U"E");
-            auto const quote = x3::rule<struct quote, Char>{"quote"} = char_(U"'");
-            auto const ideogram = x3::rule<struct ideogram, Char>{"ideogram"} = (char_(U"¨‾<≤=≥>≠∨∧÷+×?⍵∊⍴~↑↓⍳○*→←⍺⌈⌊_∘()[]⊂⊃∩∪⊥⊤|;:\\,./⍒⍋⌽⍉⊖⍟⍱⍲!⌹⍎⍕⍀⌿⍤⍪⍨{}⊢⊣$") | char_(U"-"));
-            auto const digit = x3::rule<struct digit, Char>{"digit"} = char_(U"0-9");
-            auto const letter = x3::rule<struct letter, Char>{"letter"} = char_(U"a-zA-Z") | char_(U"∆⍙");
+            auto const alpha = x3::rule<struct alpha, Char>{"alpha"} = char_(characters::alpha);
+            auto const omega = x3::rule<struct omega, Char>{"omega"} = char_(characters::omega);
+            auto const diamond = x3::rule<struct diamond, Char>{"diamond"} = char_(characters::diamond);
+            auto const quote_quad = x3::rule<struct quote_quad, Char>{"quote quad"} = char_(characters::quote_quad);
+            auto const quad = x3::rule<struct quad, Char>{"quad"} = char_(characters::quad);
+            auto const lamp = x3::rule<struct lamp, Char>{"lamp"} = char_(characters::up_shoe_jot);
+            auto const del_tilde = x3::rule<struct del_tilde, Char>{"del tilde"} = char_(characters::del_tilde);
+            auto const del = x3::rule<struct del, Char>{"del"} = char_(characters::del);
+            auto const blank = x3::rule<struct blank, Char>{"blank"} = char_(characters::blank);
+            auto const overbar = x3::rule<struct overbar, Char>{"overbar"} = char_(characters::overbar);
+            auto const underbar = x3::rule<struct underbar, Char>{"underbar"} = char_(characters::underbar);
+            auto const dot = x3::rule<struct dot, Char>{"dot"} = char_(characters::dot);
+            auto const complex_marker = x3::rule<struct complex_marker, Char>{"complex marker"} = char_(characters::complex_marker);
+            auto const exponent_marker = x3::rule<struct exponent_marker, Char>{"exponent marker"} = char_(characters::exponent_marker);
+            auto const quote = x3::rule<struct quote, Char>{"quote"} = char_(characters::quote);
+            auto const ideogram = x3::rule<struct ideogram, Char>{"ideogram"} = (char_(characters::ideogram_1) | char_(characters::ideogram_2));
+            auto const digit = x3::rule<struct digit, Char>{"digit"} = char_(characters::numbers);
+            auto const letter = x3::rule<struct letter, Char>{"letter"} = char_(characters::letters) | char_(characters::delta) | char_(characters::delta_underbar);
 
             // Complex parsers.
             auto const statement_separator = x3::rule<struct statement_separator, Char>{"statement separator"} = diamond;

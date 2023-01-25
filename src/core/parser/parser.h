@@ -20,9 +20,11 @@
 #pragma once
 #include "../datatypes.h"
 #include "../token.h"
+#include "../env/session.h"
 
 namespace kepler {
     namespace parser {
-        bool parse(kepler::List<kepler::Token>& token_list);
+        //bool parse(kepler::List<kepler::Token> &tokens, Session& session);
+        bool parse(kepler::Context* context, kepler::Session* session);
     };
 };

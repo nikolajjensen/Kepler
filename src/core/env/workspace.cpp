@@ -25,3 +25,7 @@ kepler::Workspace::Workspace(
           symbolTable(),
           stateIndicator(),
           existentialProperty(WorkspacePresence::AbsentWorkspace) {}
+
+void kepler::Workspace::addContext(kepler::StringUTF8 &&line) {
+    stateIndicator.emplace_back(std::move(line));
+}

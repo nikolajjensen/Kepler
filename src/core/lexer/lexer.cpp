@@ -26,7 +26,7 @@
 #include <boost/spirit/home/x3.hpp>
 
 #include <iostream>
-
+/*
 bool kepler::lexer::lex(const kepler::StringUTF32 &input, kepler::List<kepler::Token> &token_list) {
     namespace x3 = boost::spirit::x3;
     using kepler::lexer::iterator_type;
@@ -49,4 +49,29 @@ bool kepler::lexer::lex(const kepler::StringUTF32 &input, kepler::List<kepler::T
     bool success = phrase_parse(iter, end, parser, kepler::lexer::skipper(), token_list);
 
     return success && iter == end;
+}
+*/
+
+bool kepler::lexer::lex(kepler::Context *context) {
+    namespace x3 = boost::spirit::x3;
+    using kepler::lexer::iterator_type;
+
+    iterator_type iter = context->currentLine.begin();
+    iterator_type const end_iter = context->currentLine.end();
+
+    std::stringstream ss;
+
+    using x3::with;
+    using kepler::lexer::error_handler_type;
+    using kepler::lexer::error_handler_tag;
+    error_handler_type error_handler(iter, end_iter, ss);
+
+    auto const parser = with<error_handler_tag>(std::ref(error_handler))
+    [
+            kepler::lexer::token_list()
+    ];
+
+    bool success = phrase_parse(iter, end_iter, parser, kepler::lexer::skipper(), context->currentStatement);
+
+    return success && iter == end_iter;
 }

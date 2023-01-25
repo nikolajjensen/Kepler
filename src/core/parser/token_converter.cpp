@@ -18,6 +18,8 @@
 //
 
 #include "token_converter.h"
+#include "core/env/printers.h"
+#include "core/characters.h"
 
 void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& session) {
     if(token.tokenClass == TokenClass::SimpleIdentifierToken) {
@@ -59,15 +61,17 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
         Array::ravel_list_type numeric_vector;
 
         auto start = content.begin();
-        while(start != content.end()) {
-            auto end = start;
+        auto end = content.end();
 
-            while(end != content.end() && *end != U' ') {
-                ++end;
-            }
+        while(start != end) {
+            auto cursor = start;
 
-            numeric_vector.emplace_back(Number({start, end}));
-            start = end;
+            do {
+                ++cursor;
+            } while(cursor != end && *cursor != kepler::characters::blank);
+
+            numeric_vector.emplace_back(Number({start, cursor}));
+            start = cursor;
         }
 
         vector = Array::vectorOf(numeric_vector);
