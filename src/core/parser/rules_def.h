@@ -96,8 +96,10 @@ namespace kepler {
 
                 template <typename Context>
                 void operator()(Context& context) const {
+                    //std::cout << "Using set_class" << std::endl;
+                    x3::_attr(context).tokenClass = token_class;
                     x3::_val(context) = x3::_attr(context);
-                    x3::_val(context).tokenClass = token_class;
+                    //x3::_val(context).tokenClass = token_class;
                 }
             };
         };
@@ -137,14 +139,14 @@ namespace kepler {
             auto const primitive_dyadic_operator = x3::rule<struct primitive_dyadic_operator, Token, true>{"primitive_dyadic_operator"} = diaeresis_jot;
             auto const axis_monadic_operator = x3::rule<struct axis_monadic_operator, Token, true>{"axis_monadic_operator"} = token(characters::slash) | token(characters::slash_bar) | token(characters::back_slash) | token(characters::back_slash_bar);
             auto const primitive_monadic_operator = x3::rule<struct primitive_monadic_operator, Token, true>{"primitive_monadic_operator"} = axis_monadic_operator | diaeresis_tilde;
-            auto const monadic_operator = x3::rule<struct monadic_operator, Token, true>{"monadic_operator"} = (primitive_monadic_operator | token(DefinedMonadicOperatorNameToken));
-            auto const dyadic_operator = x3::rule<struct dyadic_operator, Token, true>{"dyadic_operator"} = (primitive_dyadic_operator | token(DefinedDyadicOperatorNameToken));
+            auto const monadic_operator = x3::rule<struct monadic_operator, Token, true>{"monadic_operator"} = (primitive_monadic_operator | token(DefinedMonadicOperatorNameToken))[set_class(MonadicOperatorToken)];
+            auto const dyadic_operator = x3::rule<struct dyadic_operator, Token, true>{"dyadic_operator"} = (primitive_dyadic_operator | token(DefinedDyadicOperatorNameToken))[set_class(DyadicOperatorToken)];
 
             auto const primitive_function = x3::rule<struct primitive_function, Token, true>{"primitive_function"}
-                = (token(characters::left_caret) | token(characters::less_than_or_equal) | token(characters::equal) | token(characters::greater_than_or_equal) | token(characters::right_caret) | token(characters::not_equal) | token(characters::down_caret) | token(characters::up_caret) | token(characters::bar) | token(characters::divide) | token(characters::plus)
-                | token(characters::multiply) | token(characters::query) | token(characters::epsilon) | token(characters::rho) | token(characters::tilde) | token(characters::up_arrow) | token(characters::down_arrow) | token(characters::iota) | token(characters::circle) | token(characters::star) | token(characters::up_stile)
+                = (token(characters::left_caret) | token(characters::less_than_or_equal) | token(characters::equal) | token(characters::greater_than_or_equal) | token(characters::right_caret) | token(characters::not_equal) | token(characters::down_caret) | token(characters::up_caret) | token(characters::bar) | token(characters::divide) | token(characters::plus)[set_class(PrimitiveFunctionToken)]
+                /*| token(characters::multiply) | token(characters::query) | token(characters::epsilon) | token(characters::rho) | token(characters::tilde) | token(characters::up_arrow) | token(characters::down_arrow) | token(characters::iota) | token(characters::circle) | token(characters::star) | token(characters::up_stile)
                 | token(characters::down_stile) | token(characters::up_tack) | token(characters::down_tack) | token(characters::stile) | token(characters::back_slash) | token(characters::comma) | token(characters::slash) | token(characters::del_stile) | token(characters::delta_stile) | token(characters::circle_stile) | token(characters::circle_backslash)
-                | token(characters::circle_bar) | token(characters::circle_star) | token(characters::down_caret_tilde) | token(characters::up_caret_tilde) | token(characters::quote_dot) | token(characters::quote_quad) | token(characters::up_tack_jot) | token(characters::down_tack_jot) | token(characters::back_slash_bar) | token(characters::slash_bar) | token(characters::comma_bar));
+                | token(characters::circle_bar) | token(characters::circle_star) | token(characters::down_caret_tilde) | token(characters::up_caret_tilde) | token(characters::quote_dot) | token(characters::quote_quad) | token(characters::up_tack_jot) | token(characters::down_tack_jot) | token(characters::back_slash_bar) | token(characters::slash_bar) | token(characters::comma_bar)*/);
 
             struct statement_class;
             x3::rule<statement_class, List<Token>> statement = "statement";
@@ -170,7 +172,7 @@ namespace kepler {
             // G F 10 => 102+3
 
             auto const statement_def = -branch_arrow >> -expression;
-            auto const expression_def = x3::raw[*operation >> operand >> *(+operation >> operand)];
+            auto const expression_def = *operation >> operand >> *(+operation >> operand);
             auto const assignment_def = x3::raw[token(VariableNameToken) >> -index >> assignment_arrow];
             auto const axis_specification_def = left_axis_bracket >> expression >> right_axis_bracket;
             auto const index_def = left_axis_bracket >> *index_separator >> (expression >> *(index_separator >> expression)) >> *index_separator >> right_axis_bracket;

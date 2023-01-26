@@ -64,7 +64,7 @@ bool kepler::lexer::lex(kepler::Context *context) {
     using x3::with;
     using kepler::lexer::error_handler_type;
     using kepler::lexer::error_handler_tag;
-    error_handler_type error_handler(iter, end_iter, ss);
+    error_handler_type error_handler(iter, end_iter, std::cerr);
 
     auto const parser = with<error_handler_tag>(std::ref(error_handler))
     [

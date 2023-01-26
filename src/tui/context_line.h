@@ -87,8 +87,8 @@ namespace kepler {
                 StringUTF8 get_result_string() {
                     std::stringstream ss;
 
-                    if(!context->stack.empty() && context->stack[0].content) {
-                        ss << boost::apply_visitor(visitor(), context->stack[0].content.get());
+                    if(context->result.content) {
+                        ss << boost::apply_visitor(visitor(), context->result.content.get());
                     }
 
                     return ss.str();

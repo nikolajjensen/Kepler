@@ -42,7 +42,7 @@ namespace kepler {
         TokenClass tokenClass;
         optional_content_type content;
 
-        Token(TokenClass tokenClass_, optional_content_type content_) : tokenClass(tokenClass_), content(content_) {}
+        Token(TokenClass tokenClass_, content_type content_) : tokenClass(tokenClass_), content(content_) {}
         Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_) {}
 
         bool is_identifier() {
@@ -59,8 +59,28 @@ namespace kepler {
             return  tokenClass == TokenClass::PrimitiveToken;
         }
 
+        bool is_value() {
+            return tokenClass == TokenClass::CommittedValueToken || tokenClass == TokenClass::ConstantToken;
+        }
+
+        bool is_scalar() {
+            if(!content) {
+                return false;
+            }
+
+            if(Array* arr = boost::get<Array>(&content.get())) {
+                return arr->rank() == 0;
+            } else {
+                return false;
+            }
+        }
+
         bool is(TokenClass cl) const {
             return tokenClass == cl;
+        }
+
+        friend bool operator==(const Token& lhs, const Token& rhs) {
+            return lhs.tokenClass == rhs.tokenClass && lhs.content == rhs.content;
         }
     };
 };

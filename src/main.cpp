@@ -33,7 +33,6 @@
 using namespace kepler;
 using namespace ftxui;
 
-/*
 int main() {
     Environment env = Environment();
     Session* session = env.spawn_session();
@@ -55,7 +54,7 @@ int main() {
 
     screen.Loop(content);
 }
-*/
+
 /*
 int main() {
     Environment env = Environment();
@@ -67,23 +66,30 @@ int main() {
     std::cout << "\n****  " << (true ? "Success" : "Fail") << "  ****" << std::endl;
 }
 */
-
+/*
 int main() {
     Environment env = Environment();
     Session* session = env.spawn_session();
-    session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E4,⍴'ABC' ⍝COMMENT");
-    //session->insert_line("1+2");
-    printers::TokenListPrinter printer;
+    //session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E,⍴'ABC' ⍝COMMENT");
+    //session->insert_line("+2");
+    //session->insert_line("+2J‾1");
+    session->insert_line("+2J1");
+    //session->insert_line("ABC←FN");
+    printers::TokenListPrinter list_printer;
+    printers::TokenPrinter token_printer;
 
-    kepler::lexer::lex(session->currentContext);
-    printer(session->currentContext->currentStatement);
-    bool success = kepler::parser::parse(session->currentContext, session);
-    printer(session->currentContext->currentStatement);
-    //kepler::interpreter::interpret(session->currentContext, session);
+    bool success = true;
+    success = success && kepler::lexer::lex(session->currentContext);
+    list_printer(session->currentContext->currentStatement);
+    success = success && kepler::parser::parse(session->currentContext, session);
+    list_printer(session->currentContext->currentStatement);
+    kepler::interpreter::interpret(session->currentContext, session);
 
-    std::cout << (success ? "SUCCESS" : "FAIL") << std::endl;
+    token_printer(session->currentContext->result);
+
+    std::cout << "\n****  " << (success ? "Success" : "Fail") << "  ****" << std::endl;
 }
-
+*/
 /*
 namespace x3 = boost::spirit::x3;
 

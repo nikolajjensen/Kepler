@@ -21,10 +21,13 @@
 
 kepler::Array::Array(List<UnsignedInteger> shapeList_, ravel_list_type ravelList_) : shapeList(shapeList_), ravelList(ravelList_) {}
 
-kepler::UnsignedInteger kepler::Array::rank() {
+kepler::Integer kepler::Array::rank() {
     return shapeList.size();
 }
 
 kepler::Array kepler::Array::vectorOf(ravel_list_type ravelList) {
+    if(ravelList.size() == 1) {
+        return Array({}, ravelList);
+    }
     return Array({(UnsignedInteger)ravelList.size()}, ravelList);
 }

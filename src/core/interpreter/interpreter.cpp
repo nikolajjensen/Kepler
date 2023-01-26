@@ -19,78 +19,180 @@
 
 #include "interpreter.h"
 #include "token_pattern_class.h"
+#include "form_table.h"
 
-kepler::interpreter::PhraseEvaluatorResult::PhraseEvaluatorResult(PhraseMatchType type_, Token result_) : type(type_), result(result_) {}
+using namespace kepler::interpreter;
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::remove_parenthesis(kepler::List<kepler::Token>& stack, kepler::Session& session) {
+EvaluationOutcome kepler::interpreter::optionally_replace(List<Token> &stack, int start, int end, boost::optional<Token>& token, Token& result, TokenClass errorClass) {
+    if(start > end) {
+        std::cerr << "INTERNAL ERROR: removing from " << start << " to " << end << " in stack is impossible." << std::endl;
+        return Error;
+    }
+
+    if(!token) {
+        result.tokenClass = errorClass;
+        return Error;
+    }
+
+    auto start_it = stack.begin() + start;
+    auto end_it = stack.begin() + end;
+
+    while(start_it != end_it) {
+        stack.erase(start_it);
+        ++start_it;
+    }
+
+    *(end_it - 1) = *token;
+
+    return Success;
+}
+
+bool kepler::interpreter::token_is_primitive_monadic_scalar_function(const Token &token) {
+    if(token.content && boost::get<Char>(token.content.get())) {
+        const Char& token_content = boost::get<Char>(token.content.get());
+        return token_content == characters::plus
+                || token_content == characters::bar
+                || token_content == characters::multiply
+                || token_content == characters::divide
+                || token_content == characters::tilde
+                || token_content == characters::circle
+                || token_content == characters::star
+                || token_content == characters::up_stile
+                || token_content == characters::down_stile
+                || token_content == characters::stile
+                || token_content == characters::circle_star
+                || token_content == characters::quote_dot;
+    }
+
+    return false;
+}
+
+EvaluationOutcome phrase_evaluators::remove_parenthesis(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session) {
     if(stack[1].is(NilToken) || stack[1].is(BranchToken)) {
         // Signal value-error
-        stack[1].tokenClass = ValueErrorToken;
+        result.tokenClass = ValueErrorToken;
+        return Error;
     }
 
     stack.erase(stack.begin());
     stack.erase(stack.begin() + 2);
 
-    return {Matched, stack[1]};
+    return Success;
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_niladic_function(kepler::List<kepler::Token> &stack, kepler::Session& session) {
-    Token& n = stack[0];
-    if(n.is(NiladicDefinedFunctionNameToken)) {
-        if(session.current_class(n) == NiladicDefinedFunctionToken) {
+EvaluationOutcome phrase_evaluators::evaluate_niladic_function(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session) {
+    Token& N = stack[0];
 
+    if(N.is(NiladicDefinedFunctionNameToken)) {
+        if(session.current_class(N) == NiladicDefinedFunctionToken) {
+            boost::optional<Token> token = form_table::form_table_evaluation({N}, {form_table::PatternClass::DFN});
+            return optionally_replace(stack, 0, 0, token, result, SyntaxErrorToken);
         } else {
-            return {Exception, Token(SyntaxErrorToken)};
+            result.tokenClass = SyntaxErrorToken;
+            return Error;
         }
-    } else if (n.is(NiladicSystemFunctionNameToken)) {
+    } else if (N.is(NiladicSystemFunctionNameToken)) {
+        boost::optional<Token> token = form_table::form_table_evaluation({N}, {form_table::PatternClass::Content});
+        return optionally_replace(stack, 0, 0, token, result, SyntaxErrorToken);
+    }
 
+    return Error;
+}
+
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_monadic_function(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
+                                                                                                         kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
+    bool is_X_F_B_pattern = pattern == phrase_patterns::X_F_B_pattern;
+    Token& B = (is_X_F_B_pattern ? stack[2] : stack[3]);
+    Token& F = stack[1];
+
+    if(!B.is_value()) {
+        result.tokenClass = ValueErrorToken;
+        return Error;
+    }
+
+    if(is_X_F_B_pattern) {
+        // X F B
+
+        if(F.is(DefinedFunctionNameToken)) {
+            if(session.current_class(F) == DefinedFunctionToken) {
+                boost::optional<Token> token = form_table::form_table_evaluation({F, B}, {form_table::PatternClass::DFN, form_table::PatternClass::B});
+                return optionally_replace(stack, 1, 2, token, result, SyntaxErrorToken);
+            } else {
+                result.tokenClass = SyntaxErrorToken;
+                return Error;
+            }
+        } else if (F.is(PrimitiveFunctionToken) || F.is(SystemFunctionNameToken)) {
+            if(token_is_primitive_monadic_scalar_function(F) && !B.is_scalar()) {
+                // Do something to the whole array...
+                auto b = 2;
+            } else {
+                boost::optional<Token> token = form_table::form_table_evaluation({F, B}, {form_table::PatternClass::Content, form_table::PatternClass::B});
+                return optionally_replace(stack, 1, 2, token, result, ValenceErrorToken);
+            }
+        }
+
+    } else {
+        // X F [C] B
     }
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_monadic_function(kepler::List<kepler::Token> &stack,
-                                                                       kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_monadic_operator(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
+                                                                                                         kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_monadic_operator(kepler::List<kepler::Token> &stack,
-                                                                       kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_dyadic_function(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
+                                                                                                        kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_dyadic_function(kepler::List<kepler::Token> &stack,
-                                                                       kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_dyadic_operator(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
+                                                                                                        kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_dyadic_operator(kepler::List<kepler::Token> &stack,
-                                                                       kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_indexed_reference(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_indexed_reference(kepler::List<kepler::Token> &stack, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_indexed_assignment(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_indexed_assignment(kepler::List<kepler::Token> &stack, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_assignment(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_assignment(kepler::List<kepler::Token> &stack, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::evaluate_variable(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::evaluate_variable(kepler::List<kepler::Token> &stack, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::build_index_list(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
+                                                                                                kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
 
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::build_index_list(kepler::List<kepler::Token> &stack,
-                                                                      kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::process_end_of_statement(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
+                                                                                                        kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
+    if(pattern == phrase_patterns::L_R_pattern) {
+        result.tokenClass = NilToken;
+    } else if (pattern == phrase_patterns::L_B_R_pattern) {
+        result = stack[1];
+    } else if (pattern == phrase_patterns::L_AA_R_pattern) {
+        result.tokenClass = EscapeToken;
+    } else if (pattern == phrase_patterns::L_AA_B_R_pattern) {
+        if(Array *arr = boost::get<Array>(&stack[1].content.get())) {
+            if(arr->rank() > 1) {
+                result.tokenClass = RankErrorToken;
+            }
 
-}
+            if(arr->ravelList.empty()) {
+                result.tokenClass = NilToken;
+            }
+        }
+    }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::phrase_evaluators::process_end_of_statement(kepler::List<kepler::Token> &stack,
-                                                              kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session) {
-
+    return Finished;
 }
 
 bool kepler::interpreter::match(const kepler::Token& token, TokenPatternClass patternClass) {
@@ -163,169 +265,78 @@ bool kepler::interpreter::match_prefix(const kepler::List<kepler::Token>& stack,
     return success;
 }
 
-kepler::interpreter::PhraseEvaluatorResult kepler::interpreter::evaluate_stack_prefix(kepler::List<kepler::Token>& stack, kepler::Session& session) {
+kepler::interpreter::EvaluationOutcome kepler::interpreter::evaluate_stack_prefix(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session) {
     size_t stack_size = stack.size();
 
     if(stack_size == 0) {
-        return PhraseEvaluatorResult(Unmatched);
+        return Unmatched;
     }
 
     else if (match_prefix(stack, phrase_patterns::LP_B_RP_pattern)) {
-        return phrase_evaluators::remove_parenthesis(stack, session);
+        return phrase_evaluators::remove_parenthesis(stack, result, session);
     } else if (match_prefix(stack, phrase_patterns::N_pattern)) {
-        return phrase_evaluators::evaluate_niladic_function(stack, session);
+        return phrase_evaluators::evaluate_niladic_function(stack, result, session);
     }
 
     else if (match_prefix(stack, phrase_patterns::X_F_B_pattern)) {
-        return phrase_evaluators::evaluate_monadic_function(stack, phrase_patterns::X_F_B_pattern, session);
+        return phrase_evaluators::evaluate_monadic_function(stack, result, session, phrase_patterns::X_F_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::X_F_LB_C_RB_B_pattern)) {
-        return phrase_evaluators::evaluate_monadic_function(stack, phrase_patterns::X_F_LB_C_RB_B_pattern, session);
+        return phrase_evaluators::evaluate_monadic_function(stack, result, session, phrase_patterns::X_F_LB_C_RB_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::X_F_M_B_pattern)) {
-        return phrase_evaluators::evaluate_monadic_operator(stack, phrase_patterns::X_F_M_B_pattern, session);
+        return phrase_evaluators::evaluate_monadic_operator(stack, result, session, phrase_patterns::X_F_M_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::X_F_M_LB_C_RB_B_pattern)) {
-        return phrase_evaluators::evaluate_monadic_operator(stack, phrase_patterns::X_F_M_LB_C_RB_B_pattern, session);
+        return phrase_evaluators::evaluate_monadic_operator(stack, result, session, phrase_patterns::X_F_M_LB_C_RB_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::A_F_M_B_pattern)) {
-        return phrase_evaluators::evaluate_monadic_operator(stack, phrase_patterns::A_F_M_B_pattern, session);
+        return phrase_evaluators::evaluate_monadic_operator(stack, result, session, phrase_patterns::A_F_M_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::A_F_M_LB_C_RB_B_pattern)) {
-        return phrase_evaluators::evaluate_monadic_operator(stack, phrase_patterns::A_F_M_LB_C_RB_B_pattern, session);
+        return phrase_evaluators::evaluate_monadic_operator(stack, result, session, phrase_patterns::A_F_M_LB_C_RB_B_pattern);
     }
 
     else if (match_prefix(stack, phrase_patterns::A_F_B_pattern)) {
-        return phrase_evaluators::evaluate_dyadic_function(stack, phrase_patterns::A_F_B_pattern, session);
+        return phrase_evaluators::evaluate_dyadic_function(stack, result, session, phrase_patterns::A_F_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::A_F_LB_C_RB_B_pattern)) {
-        return phrase_evaluators::evaluate_dyadic_function(stack, phrase_patterns::A_F_LB_C_RB_B_pattern, session);
+        return phrase_evaluators::evaluate_dyadic_function(stack, result, session, phrase_patterns::A_F_LB_C_RB_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::X_F_D_G_B_pattern)) {
-        return phrase_evaluators::evaluate_dyadic_operator(stack, phrase_patterns::A_F_LB_C_RB_B_pattern, session);
+        return phrase_evaluators::evaluate_dyadic_operator(stack, result, session, phrase_patterns::A_F_LB_C_RB_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::A_F_D_G_B_pattern)) {
-        return phrase_evaluators::evaluate_dyadic_operator(stack, phrase_patterns::A_F_D_G_B_pattern, session);
+        return phrase_evaluators::evaluate_dyadic_operator(stack, result, session, phrase_patterns::A_F_D_G_B_pattern);
     } else if (match_prefix(stack, phrase_patterns::A_SC_D_G_B_pattern)) {
-        return phrase_evaluators::evaluate_dyadic_operator(stack, phrase_patterns::A_SC_D_G_B_pattern, session);
+        return phrase_evaluators::evaluate_dyadic_operator(stack, result, session, phrase_patterns::A_SC_D_G_B_pattern);
     }
 
     else if (match_prefix(stack, phrase_patterns::A_LB_K_RB_pattern)) {
-        return phrase_evaluators::evaluate_indexed_reference(stack, session);
+        return phrase_evaluators::evaluate_indexed_reference(stack, result, session);
     } else if (match_prefix(stack, phrase_patterns::V_LB_K_RB_AA_B_pattern)) {
-        return phrase_evaluators::evaluate_indexed_assignment(stack, session);
+        return phrase_evaluators::evaluate_indexed_assignment(stack, result, session);
     } else if (match_prefix(stack, phrase_patterns::V_AA_B_pattern)) {
-        return phrase_evaluators::evaluate_assignment(stack, session);
+        return phrase_evaluators::evaluate_assignment(stack, result, session);
     } else if (match_prefix(stack, phrase_patterns::V_pattern)) {
-        return phrase_evaluators::evaluate_variable(stack, session);
+        return phrase_evaluators::evaluate_variable(stack, result, session);
     }
 
     else if (match_prefix(stack, phrase_patterns::RB_pattern)) {
-        return phrase_evaluators::build_index_list(stack, phrase_patterns::RB_pattern, session);
+        return phrase_evaluators::build_index_list(stack, result, session, phrase_patterns::RB_pattern);
     } else if (match_prefix(stack, phrase_patterns::IS_I_pattern)) {
-        return phrase_evaluators::build_index_list(stack, phrase_patterns::IS_I_pattern, session);
+        return phrase_evaluators::build_index_list(stack, result, session, phrase_patterns::IS_I_pattern);
     } else if (match_prefix(stack, phrase_patterns::IS_B_I_pattern)) {
-        return phrase_evaluators::build_index_list(stack, phrase_patterns::IS_B_I_pattern, session);
+        return phrase_evaluators::build_index_list(stack, result, session, phrase_patterns::IS_B_I_pattern);
     } else if (match_prefix(stack, phrase_patterns::LB_I_pattern)) {
-        return phrase_evaluators::build_index_list(stack, phrase_patterns::LB_I_pattern, session);
+        return phrase_evaluators::build_index_list(stack, result, session, phrase_patterns::LB_I_pattern);
     } else if (match_prefix(stack, phrase_patterns::LB_B_I_pattern)) {
-        return phrase_evaluators::build_index_list(stack, phrase_patterns::LB_B_I_pattern, session);
+        return phrase_evaluators::build_index_list(stack, result, session, phrase_patterns::LB_B_I_pattern);
     }
 
     else if (match_prefix(stack, phrase_patterns::L_R_pattern)) {
-        return phrase_evaluators::process_end_of_statement(stack, phrase_patterns::L_R_pattern, session);
+        return phrase_evaluators::process_end_of_statement(stack, result, session, phrase_patterns::L_R_pattern);
     } else if (match_prefix(stack, phrase_patterns::L_B_R_pattern)) {
-        return phrase_evaluators::process_end_of_statement(stack, phrase_patterns::L_B_R_pattern, session);
+        return phrase_evaluators::process_end_of_statement(stack, result, session, phrase_patterns::L_B_R_pattern);
     } else if (match_prefix(stack, phrase_patterns::L_AA_B_R_pattern)) {
-        return phrase_evaluators::process_end_of_statement(stack, phrase_patterns::L_AA_B_R_pattern, session);
+        return phrase_evaluators::process_end_of_statement(stack, result, session, phrase_patterns::L_AA_B_R_pattern);
     } else if (match_prefix(stack, phrase_patterns::L_AA_R_pattern)) {
-        return phrase_evaluators::process_end_of_statement(stack, phrase_patterns::L_AA_R_pattern, session);
+        return phrase_evaluators::process_end_of_statement(stack, result, session, phrase_patterns::L_AA_R_pattern);
     }
 
-    return PhraseEvaluatorResult(Unmatched);
-
-/*
-    if (stack_size == 0) {
-        return false;
-    } else if(stack_size >= 3 && match(stack[0], LP) && match(stack[1], B) && match(stack[2], RP)) {
-        // Remove parenthesis.
-    } else if (stack_size >= 1 && match(stack[0], N)) {
-        // Evaluate niladic function
-    }
-
-    else if (stack_size >= 3 && match(stack[0], X) && match(stack[1], F) && match(stack[2], B)) {
-        // Evaluate monadic function
-    } else if (stack_size >= 6
-                && match(stack[0], X) && match(stack[1], F)
-                && match(stack[2], LB) && match(stack[3], C)
-                && match(stack[4], RB) && match(stack[5], B)) {
-        // Evaluate monadic function
-    }
-
-    else if (stack_size >= 4 && match(stack[0], X) && match(stack[1], F) && match(stack[2], M) && match(stack[3], B)) {
-        // Evaluate monadic operator
-    } else if (stack_size >= 7
-               && match(stack[0], X) && match(stack[1], F) && match(stack[2], M)
-               && match(stack[3], LB) && match(stack[4], C)
-               && match(stack[5], RB) && match(stack[6], B)) {
-        // Evaluate monadic operator
-    } else if (stack_size >= 4 && match(stack[0], A) && match(stack[1], F) && match(stack[2], M) && match(stack[3], B)) {
-        // Evaluate monadic operator
-    } else if (stack_size >= 7
-               && match(stack[0], A) && match(stack[1], F) && match(stack[2], M)
-               && match(stack[3], LB) && match(stack[4], C)
-               && match(stack[5], RB) && match(stack[6], B)) {
-        // Evaluate monadic operator
-    }
-
-    else if (stack_size >= 3 && match(stack[0], A) && match(stack[1], F) && match(stack[2], B)) {
-        // Evaluate Dyadic function.
-    } else if (stack_size >= 6
-               && match(stack[0], A) && match(stack[1], F)
-               && match(stack[2], LB) && match(stack[3], C)
-               && match(stack[4], RB) && match(stack[5], B)) {
-        // Evaluate Dyadic function.
-    } else if (stack_size >= 5
-               && match(stack[0], X) && match(stack[1], F)
-               && match(stack[2], D) && match(stack[3], G)
-               && match(stack[4], B)) {
-        // Evaluate Dyadic operator.
-    } else if (stack_size >= 5
-               && match(stack[0], A) && match(stack[1], F)
-               && match(stack[2], D) && match(stack[3], G)
-               && match(stack[4], B)) {
-        // Evaluate Dyadic operator.
-    } else if (stack_size >= 5
-               && match(stack[0], A) && match(stack[1], SC)
-               && match(stack[2], D) && match(stack[3], G)
-               && match(stack[4], B)) {
-        // Evaluate Dyadic operator.
-    }
-
-    else if (stack_size >= 4 && match(stack[0], A) && match(stack[1], LB) && match(stack[2], K) && match(stack[3], RB)) {
-        // Evaluate Indexed Reference.
-    } else if (stack_size >= 6 && match(stack[0], V) && match(stack[1], LB) && match(stack[2], K) && match(stack[3], RB) &&
-            match(stack[4], AA) && match(stack[5], B)) {
-        // Evaluate Indexed Assignment.
-    } else if (stack_size >= 3 && match(stack[0], V) && match(stack[1], AA) && match(stack[2], B)) {
-        // Evaluate Assignment.
-    } else if (stack_size >= 1 && match(stack[0], V)) {
-        // Evaluate Variable.
-    } else if (stack_size >= 1 && match(stack[0], RB)) {
-        // Build Index List.
-    } else if (stack_size >= 2 && match(stack[0], IS) && match(stack[1], I)) {
-        // Build Index List.
-    } else if (stack_size >= 3 && match(stack[0], IS) && match(stack[1], B) && match(stack[2], I)) {
-        // Build Index List.
-    } else if (stack_size >= 2 && match(stack[0], LB) && match(stack[1], I)) {
-        // Build Index List.
-    } else if (stack_size >= 3 && match(stack[0], LB) && match(stack[1], B) && match(stack[2], I)) {
-        // Build Index List.
-    }
-
-    else if (stack_size >= 2 && match(stack[0], L) && match(stack[1], R)) {
-        // Process End of statement.
-    } else if (stack_size >= 3 && match(stack[0], L) && match(stack[1], B) && match(stack[2], R)) {
-        // Process End of statement.
-    } else if (stack_size >= 4 && match(stack[0], L) && match(stack[1], BA) && match(stack[2], B) && match(stack[3], R)) {
-        // Process End of statement.
-    } else if (stack_size >= 3 && match(stack[0], L) && match(stack[1], BA) && match(stack[2], R)) {
-        // Process End of statement.
-    }
-
-*/
+    return Unmatched;
 }
 
 bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *session) {
@@ -335,24 +346,23 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
     auto end_it = context->currentStatement.rend();
     bool done = false;
 
-    PhraseEvaluatorResult evaluatorResult;
+    EvaluationOutcome evaluationOutcome;
 
     while(!done) {
-        evaluatorResult = evaluate_stack_prefix(context->stack, *session);
+        evaluationOutcome = evaluate_stack_prefix(context->stack, context->result, *session);
 
-        if(evaluatorResult.type == Unmatched) {
+        if(evaluationOutcome == Unmatched) {
             if(context->currentStatement.empty()) {
                 // Signal syntax-error.
                 context->result = Token(SyntaxErrorToken);
                 done = true;
             } else {
-                context->stack.insert(context->stack.end(),
+                context->stack.insert(context->stack.begin(),
                                       std::make_move_iterator(context->currentStatement.end() - 1),
                                       std::make_move_iterator(context->currentStatement.end()));
                 context->currentStatement.erase(context->currentStatement.end() - 1);
             }
-        } else if (evaluatorResult.type == Success || evaluatorResult.type == Exception) {
-            context->result = evaluatorResult.result;
+        } else if (evaluationOutcome == Finished || evaluationOutcome == Error) {
             done = true;
         }
     }

@@ -105,6 +105,7 @@ namespace kepler {
         SystemFunctionNameToken,
         SystemVariableNameToken,
         UnwindToken,
+        ValenceErrorToken,
         ValueErrorToken,
         VariableToken,
         VariableNameToken,

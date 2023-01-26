@@ -23,21 +23,11 @@
 #include "../env/context.h"
 #include "../env/session.h"
 #include "token_pattern_class.h"
+#include "evaluation_outcome.h"
 
 
 namespace kepler {
     namespace interpreter {
-        enum PhraseMatchType {
-            Matched, Unmatched, Exception, Success
-        };
-
-        struct PhraseEvaluatorResult {
-            PhraseMatchType type;
-            Token result;
-
-            PhraseEvaluatorResult(PhraseMatchType type = Unmatched, Token result = Token(NilToken));
-        };
-
         namespace phrase_patterns {
             const kepler::List<TokenPatternClass> LP_B_RP_pattern = {LP, B, RP};
             const kepler::List<TokenPatternClass> N_pattern = {N};
@@ -73,26 +63,29 @@ namespace kepler {
         }
 
         namespace phrase_evaluators {
-            PhraseEvaluatorResult remove_parenthesis(kepler::List<kepler::Token>& stack, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_niladic_function(kepler::List<kepler::Token>& stack, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_monadic_function(kepler::List<kepler::Token>& stack, kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_monadic_operator(kepler::List<kepler::Token>& stack, kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_dyadic_function(kepler::List<kepler::Token>& stack, kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_dyadic_operator(kepler::List<kepler::Token>& stack, kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_indexed_reference(kepler::List<kepler::Token>& stack, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_indexed_assignment(kepler::List<kepler::Token>& stack, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_assignment(kepler::List<kepler::Token>& stack, kepler::Session& session);
-            PhraseEvaluatorResult evaluate_variable(kepler::List<kepler::Token>& stack, kepler::Session& session);
-            PhraseEvaluatorResult build_index_list(kepler::List<kepler::Token>& stack, kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session);
-            PhraseEvaluatorResult process_end_of_statement(kepler::List<kepler::Token>& stack, kepler::List<kepler::interpreter::TokenPatternClass> pattern, kepler::Session& session);
+            EvaluationOutcome remove_parenthesis(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+            EvaluationOutcome evaluate_niladic_function(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+            EvaluationOutcome evaluate_monadic_function(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session, kepler::List<kepler::interpreter::TokenPatternClass> pattern);
+            EvaluationOutcome evaluate_monadic_operator(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session, kepler::List<kepler::interpreter::TokenPatternClass> pattern);
+            EvaluationOutcome evaluate_dyadic_function(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session, kepler::List<kepler::interpreter::TokenPatternClass> pattern);
+            EvaluationOutcome evaluate_dyadic_operator(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session, kepler::List<kepler::interpreter::TokenPatternClass> pattern);
+            EvaluationOutcome evaluate_indexed_reference(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+            EvaluationOutcome evaluate_indexed_assignment(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+            EvaluationOutcome evaluate_assignment(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+            EvaluationOutcome evaluate_variable(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+            EvaluationOutcome build_index_list(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session, kepler::List<kepler::interpreter::TokenPatternClass> pattern);
+            EvaluationOutcome process_end_of_statement(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session, kepler::List<kepler::interpreter::TokenPatternClass> pattern);
         };
+
+        bool token_is_primitive_monadic_scalar_function(const Token& token);
+
+        EvaluationOutcome optionally_replace(List<Token>& stack, int start, int end, boost::optional<Token>& token, Token& result, TokenClass errorClass);
 
         bool match(const kepler::Token& token, TokenPatternClass patternClass);
         bool match_prefix(const kepler::List<kepler::Token>& stack, const kepler::List<TokenPatternClass>& pattern);
 
-        PhraseEvaluatorResult evaluate_stack_prefix(kepler::List<kepler::Token>& stack, kepler::Session& session);
+        EvaluationOutcome evaluate_stack_prefix(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
 
-        //bool interpret(kepler::List<kepler::Token>& tokens, kepler::Token& result);
         bool interpret(kepler::Context* context, kepler::Session* session);
     }
 };

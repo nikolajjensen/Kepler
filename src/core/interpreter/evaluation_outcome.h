@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,29 +18,11 @@
 //
 
 #pragma once
-#include "array_type.h"
-#include "../datatypes.h"
-
-#include <boost/variant.hpp>
 
 namespace kepler {
-    class Array {
-    public:
-        typedef List<boost::variant<Char, Number, boost::recursive_wrapper<Array>>> ravel_list_type;
-
-        List<UnsignedInteger> shapeList;
-        ravel_list_type ravelList;
-        ArrayType type;
-
-        Array() = default;
-        Array(List<UnsignedInteger> shapeList, ravel_list_type ravelList);
-
-        Integer rank();
-
-        static Array vectorOf(ravel_list_type ravelList);
-
-        friend bool operator==(const Array& lhs, const Array& rhs) {
-            return lhs.shapeList == rhs.shapeList && lhs.ravelList == rhs.ravelList;
-        }
+    namespace interpreter {
+        enum EvaluationOutcome {
+            Success, Unmatched, Error, Finished
+        };
     };
 };

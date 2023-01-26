@@ -53,9 +53,6 @@ bool kepler::parser::parse(kepler::Context* context, kepler::Session* session) {
 
     kepler::parser::convert_tokens(context->currentStatement, *session);
 
-    //kepler::printers::TokenListPrinter printer;
-    //printer(context->currentStatement);
-
     iterator_type iter = context->currentStatement.begin();
     iterator_type const end = context->currentStatement.end();
 
