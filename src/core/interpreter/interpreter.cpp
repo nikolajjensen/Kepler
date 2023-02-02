@@ -20,6 +20,7 @@
 #include "interpreter.h"
 #include "token_pattern_class.h"
 #include "form_table.h"
+#include "../classifiers.h"
 
 using namespace kepler::interpreter;
 
@@ -30,7 +31,7 @@ EvaluationOutcome kepler::interpreter::optionally_replace(List<Token> &stack, in
     }
 
     if(!token) {
-        result.tokenClass = errorClass;
+        result.set(errorClass, boost::none);
         return Error;
     }
 
@@ -48,29 +49,29 @@ EvaluationOutcome kepler::interpreter::optionally_replace(List<Token> &stack, in
 }
 
 bool kepler::interpreter::token_is_primitive_monadic_scalar_function(const Token &token) {
-    if(token.content && boost::get<Char>(token.content.get())) {
-        const Char& token_content = boost::get<Char>(token.content.get());
-        return token_content == characters::plus
-                || token_content == characters::bar
-                || token_content == characters::multiply
-                || token_content == characters::divide
-                || token_content == characters::tilde
-                || token_content == characters::circle
-                || token_content == characters::star
-                || token_content == characters::up_stile
-                || token_content == characters::down_stile
-                || token_content == characters::stile
-                || token_content == characters::circle_star
-                || token_content == characters::quote_dot;
+    if(token.contains<Char>()) {
+        const Char& character = token.get_content<Char>();
+        return character == characters::plus
+               || character == characters::bar
+               || character == characters::multiply
+               || character == characters::divide
+               || character == characters::tilde
+               || character == characters::circle
+               || character == characters::star
+               || character == characters::up_stile
+               || character == characters::down_stile
+               || character == characters::stile
+               || character == characters::circle_star
+               || character == characters::quote_dot;
     }
 
     return false;
 }
 
 EvaluationOutcome phrase_evaluators::remove_parenthesis(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session) {
-    if(stack[1].is(NilToken) || stack[1].is(BranchToken)) {
+    if(classifiers::is(stack[1], NilToken) || classifiers::is(stack[1], BranchToken)) {
         // Signal value-error
-        result.tokenClass = ValueErrorToken;
+        result.set(ValueErrorToken, boost::none);
         return Error;
     }
 
@@ -83,15 +84,15 @@ EvaluationOutcome phrase_evaluators::remove_parenthesis(kepler::List<kepler::Tok
 EvaluationOutcome phrase_evaluators::evaluate_niladic_function(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session) {
     Token& N = stack[0];
 
-    if(N.is(NiladicDefinedFunctionNameToken)) {
+    if(classifiers::is(N, NiladicDefinedFunctionNameToken)) {
         if(session.current_class(N) == NiladicDefinedFunctionToken) {
             boost::optional<Token> token = form_table::form_table_evaluation({N}, {form_table::PatternClass::DFN});
             return optionally_replace(stack, 0, 0, token, result, SyntaxErrorToken);
         } else {
-            result.tokenClass = SyntaxErrorToken;
+            result.set(SyntaxErrorToken, boost::none);
             return Error;
         }
-    } else if (N.is(NiladicSystemFunctionNameToken)) {
+    } else if (classifiers::is(N, NiladicSystemFunctionNameToken)) {
         boost::optional<Token> token = form_table::form_table_evaluation({N}, {form_table::PatternClass::Content});
         return optionally_replace(stack, 0, 0, token, result, SyntaxErrorToken);
     }
@@ -105,26 +106,26 @@ kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::e
     Token& B = (is_X_F_B_pattern ? stack[2] : stack[3]);
     Token& F = stack[1];
 
-    if(!B.is_value()) {
-        result.tokenClass = ValueErrorToken;
+    if(!classifiers::is_value(B)) {
+        result.set(ValueErrorToken, boost::none);
         return Error;
     }
 
     if(is_X_F_B_pattern) {
         // X F B
 
-        if(F.is(DefinedFunctionNameToken)) {
+        if(classifiers::is(F, DefinedFunctionNameToken)) {
             if(session.current_class(F) == DefinedFunctionToken) {
                 boost::optional<Token> token = form_table::form_table_evaluation({F, B}, {form_table::PatternClass::DFN, form_table::PatternClass::B});
                 return optionally_replace(stack, 1, 2, token, result, SyntaxErrorToken);
             } else {
-                result.tokenClass = SyntaxErrorToken;
+                result.set(SyntaxErrorToken, boost::none);
                 return Error;
             }
-        } else if (F.is(PrimitiveFunctionToken) || F.is(SystemFunctionNameToken)) {
-            if(token_is_primitive_monadic_scalar_function(F) && !B.is_scalar()) {
+        } else if (classifiers::is(F, PrimitiveFunctionToken) || classifiers::is(F, SystemFunctionNameToken)) {
+            if(token_is_primitive_monadic_scalar_function(F) && !classifiers::is_scalar(B)) {
                 // Do something to the whole array...
-                auto b = 2;
+                //auto b = 2;
             } else {
                 boost::optional<Token> token = form_table::form_table_evaluation({F, B}, {form_table::PatternClass::Content, form_table::PatternClass::B});
                 return optionally_replace(stack, 1, 2, token, result, ValenceErrorToken);
@@ -175,19 +176,30 @@ kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::b
 kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::process_end_of_statement(kepler::List<kepler::Token> &stack, kepler::Token& result, kepler::Session& session,
                                                                                                         kepler::List<kepler::interpreter::TokenPatternClass> pattern) {
     if(pattern == phrase_patterns::L_R_pattern) {
-        result.tokenClass = NilToken;
+        result.set(NilToken);
     } else if (pattern == phrase_patterns::L_B_R_pattern) {
         result = stack[1];
     } else if (pattern == phrase_patterns::L_AA_R_pattern) {
-        result.tokenClass = EscapeToken;
+        result.set(EscapeToken);
     } else if (pattern == phrase_patterns::L_AA_B_R_pattern) {
+        Token& A = stack[1];
+        if(A.contains<Array>()) {
+            Array& array = A.get_content<Array>();
+
+            if(array.rank() > 1) {
+                result.set(RankErrorToken);
+            } else if (array.empty()) {
+                result.set(NilToken);
+            }
+        }
+
         if(Array *arr = boost::get<Array>(&stack[1].content.get())) {
             if(arr->rank() > 1) {
-                result.tokenClass = RankErrorToken;
+                result.set(RankErrorToken);
             }
 
             if(arr->ravelList.empty()) {
-                result.tokenClass = NilToken;
+                result.set(NilToken);
             }
         }
     }
@@ -197,54 +209,53 @@ kepler::interpreter::EvaluationOutcome kepler::interpreter::phrase_evaluators::p
 
 bool kepler::interpreter::match(const kepler::Token& token, TokenPatternClass patternClass) {
     if(patternClass == A || patternClass == B || patternClass == Z) {
-        // Anything matches these.
-        return true;
+        return classifiers::is_result(token);
     } else if (patternClass == D) {
-        return token.is(DyadicOperatorToken);
+        return classifiers::is(token, DyadicOperatorToken);
     } else if (patternClass == F || patternClass == G) {
-        return token.is(DefinedFunctionNameToken) || token.is(PrimitiveFunctionToken) || token.is(SystemFunctionNameToken);
+        return classifiers::is(token, DefinedFunctionNameToken) || classifiers::is(token, PrimitiveFunctionToken) || classifiers::is(token, SystemFunctionNameToken);
     } else if (patternClass == I || patternClass == J) {
-        return token.is(PartialIndexListToken);
+        return classifiers::is(token, PartialIndexListToken);
     } else if (patternClass == C || patternClass == K) {
-        return token.is(CompleteIndexListToken);
+        return classifiers::is(token, CompleteIndexListToken);
     } else if (patternClass == L) {
-        return token.is(LeftEndOfStatementToken);
+        return classifiers::is(token, LeftEndOfStatementToken);
     } else if (patternClass == M) {
-        return token.is(MonadicOperatorToken);
+        return classifiers::is(token, MonadicOperatorToken);
     } else if (patternClass == N) {
-        return token.is(NiladicDefinedFunctionNameToken) || token.is(NiladicSystemFunctionNameToken);
+        return classifiers::is(token, NiladicDefinedFunctionNameToken) || classifiers::is(token, NiladicSystemFunctionNameToken);
     } else if (patternClass == R) {
-        return token.is(RightEndOfStatementToken);
+        return classifiers::is(token, RightEndOfStatementToken);
     } else if (patternClass == V) {
-        return token.is(VariableNameToken) || token.is(SystemVariableNameToken) || token.is(SharedVariableNameToken);
+        return classifiers::is(token, VariableNameToken) || classifiers::is(token, SystemVariableNameToken) || classifiers::is(token, SharedVariableNameToken);
     } else if (patternClass == X) {
-        return token.is(AssignmentArrowToken)
-                || token.is(BranchArrowToken)
-                || token.is(DefinedFunctionNameToken)
-                || token.is(IndexSeparatorToken)
-                || token.is(LeftAxisBracketToken)
-                || token.is(LeftEndOfStatementToken)
-                || token.is(LeftIndexBracketToken)
-                || token.is(LeftParenthesisToken)
-                || token.is(PrimitiveFunctionToken)
-                || token.is(SystemFunctionNameToken)
-                || token.is(RightAxisBracketToken);
+        return classifiers::is(token, AssignmentArrowToken)
+                || classifiers::is(token, BranchArrowToken)
+                || classifiers::is(token, DefinedFunctionNameToken)
+                || classifiers::is(token, IndexSeparatorToken)
+                || classifiers::is(token, LeftAxisBracketToken)
+                || classifiers::is(token, LeftEndOfStatementToken)
+                || classifiers::is(token, LeftIndexBracketToken)
+                || classifiers::is(token, LeftParenthesisToken)
+                || classifiers::is(token, PrimitiveFunctionToken)
+                || classifiers::is(token, SystemFunctionNameToken)
+                || classifiers::is(token, RightAxisBracketToken);
     } else if (patternClass == LP) {
-        return token.is(LeftParenthesisToken);
+        return classifiers::is(token, LeftParenthesisToken);
     } else if (patternClass == RP) {
-        return token.is(RightParenthesisToken);
+        return classifiers::is(token, RightParenthesisToken);
     } else if (patternClass == LB) {
-        return token.is(LeftAxisBracketToken) || token.is(LeftIndexBracketToken);
+        return classifiers::is(token, LeftAxisBracketToken) || classifiers::is(token, LeftIndexBracketToken);
     } else if (patternClass == RB) {
-        return token.is(RightAxisBracketToken) || token.is(RightIndexBracketToken);
+        return classifiers::is(token, RightAxisBracketToken) || classifiers::is(token, RightIndexBracketToken);
     } else if (patternClass == SC) {
-        return token.is(SmallCircleToken);
+        return classifiers::is(token, SmallCircleToken);
     } else if (patternClass == IS) {
-        return token.is(IndexSeparatorToken);
+        return classifiers::is(token, IndexSeparatorToken);
     } else if (patternClass == AA) {
-        return token.is(AssignmentArrowToken);
+        return classifiers::is(token, AssignmentArrowToken);
     } else if (patternClass == BA) {
-        return token.is(BranchArrowToken);
+        return classifiers::is(token, BranchArrowToken);
     } else {
         return false;
     }
@@ -366,33 +377,6 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
             done = true;
         }
     }
+
+    return evaluationOutcome != Error;
 }
-
-/*
-bool kepler::interpreter::interpret(kepler::List<kepler::Token>& tokens, kepler::Token& result) {
-    --
-    Array first = boost::get<Array>(tokens.at(0).content.get());
-    Char operation = boost::get<Char>(tokens.at(1).content.get());
-    Array second = boost::get<Array>(tokens.at(2).content.get());
-
-    if(operation == U'+') {
-        Number first_num = boost::get<Number>(first.ravelList[0]);
-        Number second_num = boost::get<Number>(second.ravelList[0]);
-
-        result.content = List<Number>{Number(first_num.realScalar + second_num.realScalar)};
-    }
---
-
-    kepler::List<kepler::Token> stack;
-
-    while(true) {
-        kepler::interpreter::phrase_table_lookup(stack);
-    }
-
-
-
-
-
-    return true;
-}
-*/

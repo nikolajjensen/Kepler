@@ -18,9 +18,9 @@
 //
 
 #include "session.h"
-#include "../lexer/lexer.h"
-#include "../parser/parser.h"
-#include "../parser/token_converter.h"
+#include "core/lexer/lexer.h"
+#include "core/parser/parser.h"
+#include "core/parser/token_converter.h"
 #include "core/interpreter/interpreter.h"
 
 

@@ -17,30 +17,19 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "array_type.h"
-#include "../datatypes.h"
+#include "array.h"
 
-#include <boost/variant.hpp>
+#include <utility>
 
-namespace kepler {
-    class Array {
-    public:
-        typedef List<boost::variant<Char, Number, boost::recursive_wrapper<Array>>> ravel_list_type;
+kepler::Array::Array(List<UnsignedInteger> shapeList_, ravel_list_type ravelList_) : shapeList(std::move(shapeList_)), ravelList(std::move(ravelList_)), type() {}
 
-        List<UnsignedInteger> shapeList;
-        ravel_list_type ravelList;
-        ArrayType type;
+kepler::Integer kepler::Array::rank() const {
+    return (Integer)shapeList.size();
+}
 
-        Array() = default;
-        Array(List<UnsignedInteger> shapeList, ravel_list_type ravelList);
-
-        Integer rank();
-
-        static Array vectorOf(ravel_list_type ravelList);
-
-        friend bool operator==(const Array& lhs, const Array& rhs) {
-            return lhs.shapeList == rhs.shapeList && lhs.ravelList == rhs.ravelList;
-        }
-    };
-};
+kepler::Array kepler::Array::vectorOf(ravel_list_type&& ravel) {
+    if(ravel.size() == 1) {
+        return {{}, ravel};
+    }
+    return Array({(UnsignedInteger)ravel.size()}, ravel);
+}

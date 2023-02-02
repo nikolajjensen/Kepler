@@ -22,6 +22,8 @@
 
 namespace kepler {
     namespace characters {
+        using namespace kepler;
+
         const Char alpha = U'⍺';
         const Char down_arrow = U'↓';
         const Char left_arrow = U'←';
@@ -40,7 +42,7 @@ namespace kepler {
         const Char up_caret = U'∧';
         const Char up_caret_tilde = U'⍱';
         const Char circle = U'○';
-        const Char circle_backslash = U'⍉';
+        const Char circle_back_slash = U'⍉';
         const Char circle_bar = U'⊖';
         const Char circle_star = U'⍟';
         const Char circle_stile = U'⌽';
@@ -66,7 +68,7 @@ namespace kepler {
         const Char less_than_or_equal = U'≤';
         const Char multiply = U'×';
         const Char not_equal = U'≠';
-        const Char overbar = U'‾';
+        const Char overbar = U'¯';
         const Char left_parenthesis = U'(';
         const Char right_parenthesis = U')';
         const Char plus = U'+';
@@ -106,10 +108,42 @@ namespace kepler {
         const Char complex_marker = U'J';
         const Char exponent_marker = U'E';
 
-        const StringUTF32 ideogram_1 = U"¨‾<≤=≥>≠∨∧÷+×?⍵∊⍴~↑↓⍳○*→←⍺⌈⌊_∘()[]⊂⊃∩∪⊥⊤|;:\\,./⍒⍋⌽⍉⊖⍟⍱⍲!⌹⍎⍕⍀⌿⍤⍪⍨{}⊢⊣$";
-        const StringUTF32 ideogram_2 = U"-";
+        const Char one = U'1';
+        const Char two = U'2';
+        const Char three = U'3';
+        const Char four = U'4';
+        const Char five = U'5';
+        const Char six = U'6';
+        const Char seven = U'7';
+        const Char eight = U'8';
+        const Char nine = U'9';
+        const Char zero = U'0';
 
-        const StringUTF32 numbers = U"0123456789";
-        const StringUTF32 letters = U"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const Char A = U'A';
+        const Char B = U'B';
+        const Char C = U'C';
+        const Char D = U'D';
+        const Char E = U'E';
+        const Char F = U'F';
+        const Char G = U'G';
+        const Char H = U'H';
+        const Char I = U'I';
+        const Char J = U'J';
+        const Char K = U'K';
+        const Char L = U'L';
+        const Char M = U'M';
+        const Char N = U'N';
+        const Char O = U'O';
+        const Char P = U'P';
+        const Char Q = U'Q';
+        const Char R = U'R';
+        const Char S = U'S';
+        const Char T = U'T';
+        const Char U = U'U';
+        const Char V = U'V';
+        const Char W = U'W';
+        const Char X = U'X';
+        const Char Y = U'Y';
+        const Char Z = U'Z';
     };
 };

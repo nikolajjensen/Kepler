@@ -18,8 +18,8 @@
 //
 
 #include "environment.h"
-#include "../lexer/lexer.h"
-#include "../parser/parser.h"
+#include "core/lexer/lexer.h"
+#include "core/parser/parser.h"
 #include "../interpreter/interpreter.h"
 
 kepler::Environment::Environment() {
@@ -39,7 +39,7 @@ kepler::Session* kepler::Environment::spawn_session() {
 }
 
 void kepler::Environment::evaluate(kepler::Session *session) {
-    kepler::lexer::lex(session->currentContext);
-    kepler::parser::parse(session->currentContext, session);
+    kepler::lexer::Lexer::lex(session->currentContext);
+    kepler::parser::Parser::parse(session->currentContext, session);
     kepler::interpreter::interpret(session->currentContext, session);
 }

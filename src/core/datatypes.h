@@ -25,7 +25,6 @@
 #include <sstream>
 #include <iostream>
 
-
 #include <uni_algo/conv.h>
 #include <boost/optional.hpp>
 
@@ -64,10 +63,22 @@ namespace kepler {
             return std::numeric_limits<double>::min();
         }
 
+        void conjugate() {
+            if(imaginaryScalar) {
+                imaginaryScalar.get() *= -1;
+            }
+        }
+
         StringUTF8 to_string() const;
 
         friend std::ostream& operator<<(std::ostream& os, const Number& number) {
             return os << number.to_string();
+        }
+
+        friend Number operator-(int lhs, const Number& rhs) {
+            Number result = rhs;
+            result.realScalar *= -1;
+            return result;
         }
 
         friend bool operator==(const Number& lhs, const Number& rhs) {

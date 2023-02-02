@@ -14,8 +14,6 @@ FetchContent_Declare(uni-algo
         URL https://github.com/uni-algo/uni-algo/archive/refs/tags/v0.6.0.tar.gz)
 
 # --- Fetch FTXUI --------------------------------------------------------------
-include(FetchContent)
-
 set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
 FetchContent_Declare(ftxui
         GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui

@@ -19,24 +19,40 @@
 
 #include "form_table.h"
 #include "../token.h"
+#include "../classifiers.h"
 #include <boost/optional.hpp>
 
 using namespace kepler;
 using namespace kepler::interpreter;
 
 Token form_table::evaluators::conjugate(List<Token> &operands) {
-    Token num = operands[1];
-    if(Array* arr = boost::get<Array>(&(num.content).get())) {
-        if(Number* n = boost::get<Number>(&(arr->ravelList.front()))) {
-            if(n->imaginaryScalar) {
-                n->imaginaryScalar.get() *= -1;
-            }
+    Token token = operands[1];
+    if(classifiers::is_scalar(token)) {
+        auto& arr = token.get_content<Array>();
+        if(arr.contains_at<Number>(0)) {
+            auto& num = arr.get_content<Number>(0);
+            num.conjugate();
         }
     } else {
-        num.tokenClass = DomainErrorToken;
-        num.content = boost::none;
+        token.set(DomainErrorToken, boost::none);
     }
-    return num;
+
+    return token;
+}
+
+Token form_table::evaluators::negative(List<Token> &operands) {
+    Token token = operands[1];
+    if(classifiers::is_scalar(token)) {
+        auto& arr = token.get_content<Array>();
+        if(arr.contains_at<Number>(0)) {
+            auto& num = arr.get_content<Number>(0);
+            num = 0 - num;
+        }
+    } else {
+        token.set(DomainErrorToken, boost::none);
+    }
+
+    return token;
 }
 
 bool form_table::match_form(const List<Token> &tokens, const List<PatternClass>& form, const List<Token>& pattern) {
@@ -54,13 +70,13 @@ bool form_table::match_form(const List<Token> &tokens, const List<PatternClass>&
 
         switch (formClass) {
             case Content:
-                success = pattern_token.content == pattern_token.content;
+                success = pattern_token.content == token.content;
                 break;
             case DFN:
-                success = pattern_token.tokenClass == NiladicDefinedFunctionToken || pattern_token.tokenClass == DefinedFunctionToken;
+                success = classifiers::is(pattern_token, NiladicDefinedFunctionToken) || classifiers::is(pattern_token, DefinedFunctionToken);
                 break;
             case B:
-                success = pattern_token.is(ConstantToken);
+                success = classifiers::is(pattern_token, ConstantToken);
                 break;
             default:
                 success = false;
@@ -80,28 +96,9 @@ boost::optional<Token> form_table::form_table_evaluation(List<Token> &&tokens, L
 
     if(match_form(tokens, form, patterns::conjugate)) {
         return evaluators::conjugate(tokens);
-    } /*else if(match_form(tokens, form, patterns::negative)) {
+    } else if(match_form(tokens, form, patterns::negative)) {
         return evaluators::negative(tokens);
-    }*/
+    }
 
     return boost::none;
 }
-
-/*
-boost::optional<Token> form_table::form_table_evaluation(List<Token>&& tokens, const List<Token> &pattern) {
-    if(!match_pattern(tokens, pattern)) {
-        return boost::none;
-    }
-
-    // Pattern must match, so find the right evaluator, and call it.
-    size_t pattern_length = pattern.size();
-
-    if(pattern_length == 2) {
-        if(pattern == patterns::conjugate) {
-            return kepler::interpreter::form_table::evaluators::conjugate(tokens);
-        }
-    } else if (pattern_length == 3) {
-
-    }
-}
-*/

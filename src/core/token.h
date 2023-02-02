@@ -22,7 +22,7 @@
 #include "token_class.h"
 #include "datatypes.h"
 #include "uni_algo/conv.h"
-#include "core/env/array.h"
+#include "array.h"
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/spirit/home/x3/support/ast/position_tagged.hpp>
@@ -45,38 +45,32 @@ namespace kepler {
         Token(TokenClass tokenClass_, content_type content_) : tokenClass(tokenClass_), content(content_) {}
         Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_) {}
 
-        bool is_identifier() {
-            return  tokenClass == TokenClass::SimpleIdentifierToken
-                    || tokenClass == TokenClass::DistinguishedIdentifierToken;
+        void set(TokenClass new_class) {
+            tokenClass = new_class;
         }
 
-        bool is_literal() {
-            return  tokenClass == TokenClass::CharacterLiteralToken
-                    || tokenClass == TokenClass::NumericLiteralToken;
+        void set(optional_content_type new_content) {
+            content = new_content;
         }
 
-        bool is_primitive() {
-            return  tokenClass == TokenClass::PrimitiveToken;
+        void set(TokenClass new_class, optional_content_type new_content) {
+            set(new_class);
+            set(new_content);
         }
 
-        bool is_value() {
-            return tokenClass == TokenClass::CommittedValueToken || tokenClass == TokenClass::ConstantToken;
+        template <typename Variant>
+        bool contains() const {
+            return content && content->type() == typeid(Variant);
         }
 
-        bool is_scalar() {
-            if(!content) {
-                return false;
-            }
-
-            if(Array* arr = boost::get<Array>(&content.get())) {
-                return arr->rank() == 0;
-            } else {
-                return false;
-            }
+        template <typename Variant>
+        Variant& get_content() {
+            return boost::get<Variant>(content.get());
         }
 
-        bool is(TokenClass cl) const {
-            return tokenClass == cl;
+        template <typename Variant>
+        const Variant& get_content() const {
+            return boost::get<const Variant>(content.get());
         }
 
         friend bool operator==(const Token& lhs, const Token& rhs) {

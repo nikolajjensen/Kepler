@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include "../datatypes.h"
-#include "../token.h"
+#include "core/datatypes.h"
+#include "core/token.h"
 #include "core/env/symbol_table.h"
 #include "core/env/session.h"
 #include "core/utils.h"
@@ -29,6 +29,7 @@ namespace kepler {
     namespace parser {
         void bind_token_class(kepler::Token& token, kepler::Session& session);
         void literal_conversion(kepler::Token& token, kepler::Session& session);
+        void scalar_conversion(kepler::Token& token);
         void convert_tokens(kepler::List<kepler::Token>& tokens, kepler::Session& session);
     };
 };

@@ -19,8 +19,6 @@
 
 #pragma once
 
-#include "token.h"
-
 #include <iostream>
 #include <boost/preprocessor.hpp>
 

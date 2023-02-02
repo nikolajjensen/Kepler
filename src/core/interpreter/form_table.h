@@ -77,7 +77,7 @@ namespace kepler {
 
             namespace evaluators {
                 Token conjugate(List<Token>& operands);
-                //Token negative(List<Token>& operands);
+                Token negative(List<Token>& operands);
             };
 
             bool match_form(const List<Token>& tokens, const List<PatternClass>& form, const List<Token>& pattern);

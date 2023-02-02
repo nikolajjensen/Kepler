@@ -37,7 +37,7 @@ kepler::Number::Number(const List<Char>& list) {
         if (str.front() == characters::overbar) {
             str.front() = U'-';
         }
-        exponent = std::stod(uni::utf32to8(StringUTF32(exponent_it + 1, exponent_end_it)));
+        exponent = std::stod(uni::utf32to8(StringUTF32(str)));
     }
 
     if(complex_it != list.end()) {

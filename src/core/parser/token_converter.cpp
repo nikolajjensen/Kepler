@@ -20,6 +20,7 @@
 #include "token_converter.h"
 #include "core/env/printers.h"
 #include "core/characters.h"
+#include "core/classifiers.h"
 
 void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& session) {
     if(token.tokenClass == TokenClass::SimpleIdentifierToken) {
@@ -56,7 +57,7 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
         Array::ravel_list_type char_vector(content.begin(), content.end());
         char_vector.erase(char_vector.begin());
         char_vector.pop_back();
-        vector = Array::vectorOf(char_vector);
+        vector = Array::vectorOf(std::move(char_vector));
     } else if(token.tokenClass == TokenClass::NumericLiteralToken) {
         Array::ravel_list_type numeric_vector;
 
@@ -74,19 +75,28 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
             start = cursor;
         }
 
-        vector = Array::vectorOf(numeric_vector);
+        vector = Array::vectorOf(std::move(numeric_vector));
     }
 
     token.tokenClass = ConstantToken;
     token.content = vector;
 }
 
+void kepler::parser::scalar_conversion(kepler::Token &token) {
+    if(token.contains<List<Char>>()) {
+        auto& list = token.get_content<List<Char>>();
+        token.content = list[0];
+    }
+}
+
 void kepler::parser::convert_tokens(kepler::List<kepler::Token>& tokens, kepler::Session& session) {
     for(auto& token : tokens) {
-        if(token.is_identifier()) {
+        if(classifiers::is_identifier(token)) {
             bind_token_class(token, session);
-        } else if (token.is_literal()) {
+        } else if (classifiers::is_literal(token)) {
             literal_conversion(token, session);
+        } else if (classifiers::is(token, kepler::PrimitiveToken)) {
+            scalar_conversion(token);
         }
         // Don't do anything if token is primitive.
         // Potential error handling here (If the above if-statement returns an exception)...
