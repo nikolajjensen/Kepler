@@ -102,3 +102,20 @@ boost::optional<Token> form_table::form_table_evaluation(List<Token> &&tokens, L
 
     return boost::none;
 }
+
+bool form_table::lookup(List<Token> &&tokens, List<PatternClass>&& form) {
+    if(tokens.size() != form.size()) {
+        std::cerr << "Form table error: Token list is not same length as form." << std::endl;
+        return false;
+    }
+
+    if(match_form(tokens, form, patterns::conjugate)) {
+        return true;
+    } else if(match_form(tokens, form, patterns::negative)) {
+        return true;
+    } else if(match_form(tokens, form, patterns::quad_input)) {
+        return true;
+    }
+
+    return false;
+}

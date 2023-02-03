@@ -22,6 +22,7 @@
 #include "core/parser/parser.h"
 #include "core/parser/token_converter.h"
 #include "core/interpreter/interpreter.h"
+#include "core/exceptions/error.h"
 
 
 #include <uni_algo/conv.h>
@@ -53,6 +54,16 @@ void kepler::Session::update_pointers() {
 void kepler::Session::insert_line(StringUTF8 input) {
     activeWorkspace.addContext(std::move(input));
     update_pointers();
+}
+
+void kepler::Session::evaluate() {
+    try {
+        kepler::lexer::Lexer::lex(currentContext);
+        kepler::parser::Parser::parse(currentContext, this);
+        kepler::interpreter::interpret(currentContext, this);
+    } catch (kepler::error& err) {
+        currentContext->setError(err);
+    }
 }
 
 /*

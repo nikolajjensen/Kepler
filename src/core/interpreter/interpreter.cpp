@@ -21,9 +21,11 @@
 #include "token_pattern_class.h"
 #include "form_table.h"
 #include "../classifiers.h"
+#include "phrase_table.h"
 
 using namespace kepler::interpreter;
 
+/*
 EvaluationOutcome kepler::interpreter::optionally_replace(List<Token> &stack, int start, int end, boost::optional<Token>& token, Token& result, TokenClass errorClass) {
     if(start > end) {
         std::cerr << "INTERNAL ERROR: removing from " << start << " to " << end << " in stack is impossible." << std::endl;
@@ -350,6 +352,7 @@ kepler::interpreter::EvaluationOutcome kepler::interpreter::evaluate_stack_prefi
     return Unmatched;
 }
 
+
 bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *session) {
     context->stack = {};
 
@@ -379,4 +382,45 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
     }
 
     return evaluationOutcome != Error;
+}
+*/
+
+using namespace kepler::phrase_table;
+
+bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *session) {
+    context->stack = {};
+
+    auto it = context->currentStatement.rbegin();
+    auto end_it = context->currentStatement.rend();
+    bool done = false;
+
+    while(!done) {
+        auto evaluator = kepler::phrase_table::lookup(context->stack, context->result, *session);
+
+        if(evaluator == nullptr) {
+            // No evaluator was found with lookup, so we push to stack.
+            if(context->currentStatement.empty()) {
+                context->result = Token(SyntaxErrorToken);
+                done = true;
+            } else {
+                context->stack.insert(context->stack.begin(),
+                                      std::make_move_iterator(context->currentStatement.end() - 1),
+                                      std::make_move_iterator(context->currentStatement.end()));
+                context->currentStatement.erase(context->currentStatement.end() - 1);
+            }
+        } else {
+            evaluator(context->stack, context->result, *session);
+
+            /*
+            if(evaluator == evaluators::process_end_of_statement<Pattern::L_R>
+                || evaluator == evaluators::process_end_of_statement<Pattern::L_B_R>
+                || evaluator == evaluators::process_end_of_statement<Pattern::L_BA_B_R>
+                || evaluator == evaluators::process_end_of_statement<Pattern::L_BA_R>) {
+                done = true;
+            }
+             */
+        }
+    }
+
+    return true;
 }

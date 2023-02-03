@@ -115,7 +115,6 @@ int Parser::derived_function() {
         return counter;
     } else {
         backtrack(counter);
-        counter = 0;
     }
 
     if(match(&Parser::primitive_function, &counter)) {
@@ -327,7 +326,12 @@ int Parser::branch_arrow() {
 }
 
 int Parser::assignment_arrow() {
-    return match(characters::left_arrow);
+    if(match(characters::left_arrow)) {
+        set_class(AssignmentArrowToken);
+        return true;
+    }
+
+    return false;
 }
 
 int Parser::left_index_bracket() {

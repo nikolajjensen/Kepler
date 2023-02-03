@@ -20,6 +20,7 @@
 #include "lexer.h"
 #include "../characters.h"
 #include "../token.h"
+#include "../exceptions/error.h"
 
 #include <utility>
 
@@ -27,9 +28,11 @@ using namespace kepler::lexer;
 
 Lexer::Lexer(kepler::StringUTF32 input_, kepler::List<kepler::Token>* output_) : input(std::move(input_)), content(), output(output_) {}
 
-bool Lexer::lex(kepler::Context *context) {
+void Lexer::lex(kepler::Context *context) {
     Lexer l(context->currentLine, &context->currentStatement);
-    return l.lex();
+    if(!l.lex()) {
+        throw kepler::error(SyntaxError, "Could not tokenize input.");
+    }
 }
 
 bool Lexer::lex() {
@@ -164,6 +167,7 @@ int Lexer::exponent() {
     match(&Lexer::overbar, &counter);
 
     if(!match(&Lexer::digit, &counter)) {
+        throw kepler::error(SyntaxError, "Expected at least one digit here.", current);
         backtrack(counter);
         return counter;
     }

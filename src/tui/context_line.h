@@ -35,23 +35,31 @@ namespace kepler {
 
                 Element Render() override {
                     auto main_decorator = flex | ftxui::size(HEIGHT, EQUAL, 1);
-                    StringUTF8 result_string = get_result_string();
                     auto focus_decorator = (Focused()) ? bold : dim;
 
-
-                    auto input_line = hbox({
+                    auto output = hbox({
                         text(">>>  "),
                         text(get_input_string())
                     }) | main_decorator | reflect(box);
 
-                    if(result_string.empty()) {
-                        return input_line | focus_decorator;
+                    auto error_element = get_error_element();
+                    auto result_string = get_result_string();
+
+                    if(error_element) {
+                        output = vbox({
+                            output,
+                            error_element.get()
+                        });
                     }
 
-                    return vbox({
-                        input_line,
-                        text(result_string) | focus_decorator,
-                    });
+                    if(!result_string.empty()) {
+                        output = vbox({
+                            output,
+                            text(result_string)
+                        });
+                    }
+
+                    return output | focus_decorator;
                 }
 
             private:
@@ -92,6 +100,25 @@ namespace kepler {
                     }
 
                     return ss.str();
+                }
+
+                boost::optional<Element> get_error_element() {
+                    if(!context->error) {
+                        return boost::none;
+                    }
+                    std::string padding = "    ";
+
+                    auto outcome = text(context->error->type() + ": " + context->error->why());
+
+                    if(context->error->where() != -1) {
+                        outcome = vbox({
+                            outcome,
+                            text(padding + get_input_string()),
+                            text(padding + std::string(context->error->where(), '~') + '^')
+                        });
+                    }
+
+                    return outcome;
                 }
 
                 StringUTF8 get_input_string() {

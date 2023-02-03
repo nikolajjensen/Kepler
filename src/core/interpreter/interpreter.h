@@ -28,6 +28,7 @@
 
 namespace kepler {
     namespace interpreter {
+        /*
         namespace phrase_patterns {
             const kepler::List<TokenPatternClass> LP_B_RP_pattern = {LP, B, RP};
             const kepler::List<TokenPatternClass> N_pattern = {N};
@@ -85,6 +86,7 @@ namespace kepler {
         bool match_prefix(const kepler::List<kepler::Token>& stack, const kepler::List<TokenPatternClass>& pattern);
 
         EvaluationOutcome evaluate_stack_prefix(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
+        */
 
         bool interpret(kepler::Context* context, kepler::Session* session);
     }

@@ -63,8 +63,6 @@ namespace kepler {
 
     public:
         kepler::Session* spawn_session();
-        void evaluate(kepler::Session*);
-
         Environment();
     };
 };

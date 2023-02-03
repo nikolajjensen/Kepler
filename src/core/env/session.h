@@ -49,8 +49,7 @@ namespace kepler {
                 UnsignedInteger indexOrigin,
                 List<Token> latentExpression);
 
-        void evaluate_line();
-        void new_context();
+        void evaluate();
 
         void update_pointers();
         void insert_line(StringUTF8 input);

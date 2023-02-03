@@ -24,11 +24,12 @@
 #include "core/interpreter/interpreter.h"
 #include "core/parser/token_converter.h"
 #include <boost/variant.hpp>
+#include "core/exceptions/error.h"
 
 
 using namespace kepler;
 using namespace ftxui;
-/*
+
 int main() {
     Environment env = Environment();
     Session* session = env.spawn_session();
@@ -50,27 +51,39 @@ int main() {
 
     screen.Loop(content);
 }
-*/
+
+/*
 int main() {
     Environment env = Environment();
-    Session* session = env.spawn_session();
-    //session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E,⍴'ABC' ⍝COMMENT");
+    Session *session = env.spawn_session();
+    session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E,⍴'ABC' ⍝COMMENT");
     //session->insert_line("+2");
-    session->insert_line("-1.22E¯1");
+    //session->insert_line("-1.22E¯1");
     //session->insert_line("+2J1");
     //session->insert_line("-2");
     //session->insert_line("-1.2");
-    printers::TokenListPrinter list_printer;
-    printers::TokenPrinter token_printer;
 
-    bool success = true;
-    success = success && kepler::lexer::Lexer::lex(session->currentContext);
-    list_printer(session->currentContext->currentStatement);
-    success = success && kepler::parser::Parser::parse(session->currentContext, session);
-    list_printer(session->currentContext->currentStatement);
-    kepler::interpreter::interpret(session->currentContext, session);
+    session->evaluate();
+    if(session->currentContext->error) {
+        std::cout << session->currentContext->error->type() << ": " << session->currentContext->error->why() << "\n";
+        std::cout << "    " << uni::utf32to8(session->currentContext->currentLine) << "\n";
+        std::cout << "    ";
+        for (int i = 0; i < session->currentContext->error->where(); ++i) {
+            std::cout << " ";
+        }
+        std::cout << "^" << "\n";
+    }
 
-    token_printer(session->currentContext->result);
-
-    std::cout << "\n****  " << (success ? "Success" : "Fail") << "  ****" << std::endl;
+    try {
+    } catch (kepler::error &err) {
+        std::cout << err.type() << ": " << err.why() << "\n";
+        std::cout << "    " << uni::utf32to8(session->currentContext->currentLine) << "\n";
+        std::cout << "    ";
+        for (int i = 0; i < err.where(); ++i) {
+            std::cout << " ";
+        }
+        std::cout << "^" << "\n";
+    }
+    std::cout << "\n****  DONE  ****" << std::endl;
 }
+     */

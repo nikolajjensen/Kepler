@@ -17,13 +17,15 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include <exception>
 #include "token_converter.h"
 #include "core/env/printers.h"
 #include "core/characters.h"
 #include "core/classifiers.h"
+#include "../interpreter/form_table.h"
 
 void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& session) {
-    if(token.tokenClass == TokenClass::SimpleIdentifierToken) {
+    if(kepler::classifiers::is(token, SimpleIdentifierToken)){
         TokenClass current_class = session.current_class(token);
         if(current_class == TokenClass::DefinedMonadicOperatorToken) {
             token.tokenClass = TokenClass::DefinedMonadicOperatorNameToken;
@@ -46,6 +48,21 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
         }
     } else if (token.tokenClass == TokenClass::DistinguishedIdentifierToken) {
         // Deal with this...
+
+        throw kepler::error(InternalError, "Unimplemented feature: Looking up a distinguished identifier.");
+
+        bool form_one = kepler::interpreter::form_table::lookup({token}, {kepler::interpreter::form_table::PatternClass::Content});
+        bool form_two = kepler::interpreter::form_table::lookup({token, kepler::interpreter::form_table::tokens::B}, {kepler::interpreter::form_table::PatternClass::Content, kepler::interpreter::form_table::PatternClass::B});
+
+        if(form_one && form_two) {
+            token.tokenClass = SystemVariableNameToken;
+        } else if (form_one && !form_two) {
+            token.tokenClass = NiladicSystemFunctionNameToken;
+        } else if (form_one || form_two) {
+            token.tokenClass = SystemFunctionNameToken;
+        } else {
+            throw std::invalid_argument("Form table error");
+        }
     }
 }
 
@@ -98,7 +115,6 @@ void kepler::parser::convert_tokens(kepler::List<kepler::Token>& tokens, kepler:
         } else if (classifiers::is(token, kepler::PrimitiveToken)) {
             scalar_conversion(token);
         }
-        // Don't do anything if token is primitive.
         // Potential error handling here (If the above if-statement returns an exception)...
     }
 }

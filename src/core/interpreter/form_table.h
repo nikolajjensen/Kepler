@@ -26,11 +26,6 @@
 namespace kepler {
     namespace interpreter {
         namespace form_table {
-            /*enum MatchType {
-                Type, Content
-            };
-            */
-
             enum PatternClass {
                 DFN, B, Content
             };
@@ -45,34 +40,38 @@ namespace kepler {
                 const Token G(DefinedFunctionToken);
                 const Token DFN(DefinedFunctionToken);
 
-                const Token P_plus(PrimitiveFunctionToken, characters::plus);
-                const Token P_bar(PrimitiveFunctionToken, characters::bar);
-                const Token P_multiply(PrimitiveFunctionToken, characters::multiply);
-                const Token P_divide(PrimitiveFunctionToken, characters::divide);
-                const Token P_down_stile(PrimitiveFunctionToken, characters::down_stile);
-                const Token P_up_stile(PrimitiveFunctionToken, characters::up_stile);
-                const Token P_star(PrimitiveFunctionToken, characters::star);
-                const Token P_circle_star(PrimitiveFunctionToken, characters::circle_star);
-                const Token P_stile(PrimitiveFunctionToken, characters::stile);
-                const Token P_quote_dot(PrimitiveFunctionToken, characters::quote_dot);
-                const Token P_circle(PrimitiveFunctionToken, characters::circle);
-                const Token P_tilde(PrimitiveFunctionToken, characters::tilde);
+                const Token plus(PrimitiveFunctionToken, characters::plus);
+                const Token bar(PrimitiveFunctionToken, characters::bar);
+                const Token multiply(PrimitiveFunctionToken, characters::multiply);
+                const Token divide(PrimitiveFunctionToken, characters::divide);
+                const Token down_stile(PrimitiveFunctionToken, characters::down_stile);
+                const Token up_stile(PrimitiveFunctionToken, characters::up_stile);
+                const Token star(PrimitiveFunctionToken, characters::star);
+                const Token circle_star(PrimitiveFunctionToken, characters::circle_star);
+                const Token stile(PrimitiveFunctionToken, characters::stile);
+                const Token quote_dot(PrimitiveFunctionToken, characters::quote_dot);
+                const Token circle(PrimitiveFunctionToken, characters::circle);
+                const Token tilde(PrimitiveFunctionToken, characters::tilde);
+
+                const Token quad(NilToken, characters::quad);
             };
 
             namespace patterns {
-                const List<Token> conjugate = {tokens::P_plus, tokens::B};
-                const List<Token> negative = {tokens::P_bar, tokens::B};
-                const List<Token> direction = {tokens::P_multiply, tokens::B};
-                const List<Token> reciprocal = {tokens::P_divide, tokens::B};
-                const List<Token> floor = {tokens::P_down_stile, tokens::B};
-                const List<Token> ceiling = {tokens::P_up_stile, tokens::B};
-                const List<Token> exponential = {tokens::P_star, tokens::B};
-                const List<Token> natural_logarithm = {tokens::P_circle_star, tokens::B};
-                const List<Token> magnitude = {tokens::P_stile, tokens::B};
-                const List<Token> factorial = {tokens::P_quote_dot, tokens::B};
-                const List<Token> pi_times = {tokens::P_circle, tokens::B};
+                const List<Token> conjugate = {tokens::plus, tokens::B};
+                const List<Token> negative = {tokens::bar, tokens::B};
+                const List<Token> direction = {tokens::multiply, tokens::B};
+                const List<Token> reciprocal = {tokens::divide, tokens::B};
+                const List<Token> floor = {tokens::down_stile, tokens::B};
+                const List<Token> ceiling = {tokens::up_stile, tokens::B};
+                const List<Token> exponential = {tokens::star, tokens::B};
+                const List<Token> natural_logarithm = {tokens::circle_star, tokens::B};
+                const List<Token> magnitude = {tokens::stile, tokens::B};
+                const List<Token> factorial = {tokens::quote_dot, tokens::B};
+                const List<Token> pi_times = {tokens::circle, tokens::B};
                 // NB: Was not called "negation" but "not" in ISO.
-                const List<Token> negation = {tokens::P_tilde, tokens::B};
+                const List<Token> negation = {tokens::tilde, tokens::B};
+
+                const List<Token> quad_input = {tokens::quad};
             };
 
             namespace evaluators {
@@ -84,6 +83,7 @@ namespace kepler {
 
             //boost::optional<Token> form_table_evaluation(List<Token>&& tokens, const List<Token>& pattern);
             boost::optional<Token> form_table_evaluation(List<Token>&& tokens, List<PatternClass> form);
+            bool lookup(List<Token>&& tokens, List<PatternClass>&& form);
         };
 
     };

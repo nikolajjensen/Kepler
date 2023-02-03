@@ -23,6 +23,7 @@
 #include "../token.h"
 #include "../datatypes.h"
 #include "defined_function.h"
+#include "../exceptions/error.h"
 
 namespace kepler {
     class Context {
@@ -32,11 +33,14 @@ namespace kepler {
         StringUTF32 currentLine;
         List<Token> currentStatement;
         Token result;
+        boost::optional<kepler::error> error;
         DefinedFunction* currentFunction;
         UnsignedInteger currentLineNumber;
 
         Context();
         Context(kepler::StringUTF8 line);
         Context(kepler::StringUTF32&& line);
+
+        void setError(kepler::error error);
     };
 };

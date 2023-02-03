@@ -24,6 +24,7 @@
 #include "input_line.h"
 #include "core/env/session.h"
 #include "core/env/environment.h"
+#include "core/exceptions/error.h"
 
 
 namespace kepler {
@@ -49,11 +50,6 @@ namespace kepler {
                     DetachAllChildren();
 
                     Add(header);
-
-                    /*for(unsigned int i = 0; i < session->activeWorkspace.stateIndicator.size(); ++i) {
-                        Add(ContextLine(&session->activeWorkspace.stateIndicator[i]) | ((selected == i) ? focus : nothing));
-                    }
-                    */
 
                     for(auto& context : session->activeWorkspace.stateIndicator) {
                         Add(ContextLine(&context));
@@ -94,7 +90,7 @@ namespace kepler {
 
                     if (ActiveChild() && ActiveChild()->OnEvent(event)) {
                         if(event == Event::Return) {
-                            env->evaluate(session);
+                            session->evaluate();
                             update_children();
                         }
 

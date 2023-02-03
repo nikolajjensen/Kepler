@@ -18,6 +18,7 @@
 //
 
 #include "environment.h"
+#include "core/exceptions/error.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
 #include "../interpreter/interpreter.h"
@@ -36,10 +37,4 @@ kepler::Session* kepler::Environment::spawn_session() {
                           initialLatentExpression);
 
     return &sessions[0];
-}
-
-void kepler::Environment::evaluate(kepler::Session *session) {
-    kepler::lexer::Lexer::lex(session->currentContext);
-    kepler::parser::Parser::parse(session->currentContext, session);
-    kepler::interpreter::interpret(session->currentContext, session);
 }

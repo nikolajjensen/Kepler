@@ -26,6 +26,7 @@ kepler::Context::Context()
           currentLine(),
           currentStatement(),
           currentFunction(nullptr),
+          error(boost::none),
           currentLineNumber(0) {}
 
 kepler::Context::Context(kepler::StringUTF8 line)
@@ -34,6 +35,7 @@ kepler::Context::Context(kepler::StringUTF8 line)
           currentLine(uni::utf8to32u(line)),
           currentStatement(),
           currentFunction(nullptr),
+          error(boost::none),
           currentLineNumber(0) {}
 
 kepler::Context::Context(kepler::StringUTF32&& line)
@@ -42,4 +44,9 @@ kepler::Context::Context(kepler::StringUTF32&& line)
           currentLine(line),
           currentStatement(),
           currentFunction(nullptr),
+          error(boost::none),
           currentLineNumber(0) {}
+
+void kepler::Context::setError(kepler::error err) {
+    error = err;
+}

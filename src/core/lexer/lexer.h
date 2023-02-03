@@ -31,7 +31,8 @@ namespace kepler {
 
             bool lex();
 
-            static bool lex(kepler::Context *context);
+            // May throw.
+            static void lex(kepler::Context *context);
 
         private:
             using rule = int (Lexer::*)();
