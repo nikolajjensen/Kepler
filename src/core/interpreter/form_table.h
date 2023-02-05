@@ -22,8 +22,113 @@
 #include "../token_class.h"
 #include "../characters.h"
 #include "evaluation_outcome.h"
+#include "../classifiers.h"
 
 namespace kepler {
+    namespace form_table {
+        enum TokenType {
+            Constant,
+            CompleteList,
+            Func,
+            DFN
+        };
+
+        enum Selection {
+            Content,
+            Type
+        };
+
+        using pattern_atomic = boost::variant<kepler::Token::content_type, TokenType>;
+        template <std::size_t Size>
+        using pattern = std::array<pattern_atomic, Size>;
+        using selector = kepler::List<Selection>;
+        using token_input = kepler::List<kepler::Token*>;
+
+        constexpr std::size_t conjugate_size = 2;
+        const pattern<conjugate_size> conjugate = {characters::plus, Constant};
+
+        constexpr std::size_t niladic_cdf_size = 1;
+        const pattern<niladic_cdf_size> niladic_cdf = {DFN};
+
+        using phrase_evaluator = kepler::Token (*)(token_input&& input);
+
+        namespace evaluators {
+            template <std::size_t S, const pattern<S>& Pattern>
+            kepler::Token conjugate(token_input&& input);
+
+            template <std::size_t S, const pattern<S>& Pattern>
+            kepler::Token call_defined_function(token_input&& input);
+        };
+
+        bool match(kepler::Token* token, Selection& selection, const pattern_atomic& target);
+
+        template <std::size_t S, const pattern<S>& Pattern>
+        bool match_pattern(token_input& input, selector& selector);
+
+        phrase_evaluator lookup(token_input&& input, selector&& selector);
+        phrase_evaluator lookup(token_input& input, selector&& selector);
+        kepler::Token evaluate(token_input&& input, selector&& selector);
+
+
+        /*
+
+        template <typename... Args>
+        using phrase_evaluator = kepler::Token (*)(Args&... args);
+
+        namespace evaluators {
+            template <typename... Args>
+            kepler::Token conjugate(Args&... args) {
+                auto tokens = std::make_tuple(args...);
+                kepler::Token& first = std::get<0>(tokens);
+                return first;
+            }
+
+            template <std::size_t S, const pattern<S>& Pattern, typename... Args>
+            kepler::Token call_defined_function(Args&... args) {
+                if(Pattern == niladic_cdf) {
+
+                }
+
+                return kepler::Token();
+            }
+        };
+
+        bool match_type(const kepler::Token& token, TokenType type);
+
+        template <std::size_t S, const pattern<S>& Pattern, typename... Args>
+        bool match(Args&... args) {
+            auto tokens = std::make_tuple(args...);
+            if(std::tuple_size<decltype(tokens)>::value > S) {
+                return false;
+            }
+
+            int i = 0;
+            for(const kepler::Token& token : {args...}) {
+                if(const TokenType* cl = boost::get<TokenType>(&Pattern[i])) {
+                    if(!match_type(token, *cl)) { return false; }
+                } else if(const Token::content_type* content = boost::get<Token::content_type>(&Pattern[i])) {
+                    if(token.content.get() != *content) { return false; }
+                }
+                ++i;
+            }
+
+            return true;
+        }
+
+        template <std::size_t S, const pattern<S>& Pattern, typename... Args>
+        phrase_evaluator<Args&...> lookup(Args&... args) {
+            static_assert(std::conjunction_v<std::is_same<Args, kepler::Token>...>, "All arguments must be of type 'Token'.");
+
+            if(match<S, Pattern>(std::forward<Args&>(args)...)) {
+                return evaluators::conjugate;
+            }
+
+            return nullptr;
+        }
+        */
+    };
+
+    /*
     namespace interpreter {
         namespace form_table {
             enum PatternClass {
@@ -87,4 +192,5 @@ namespace kepler {
         };
 
     };
+     */
 };

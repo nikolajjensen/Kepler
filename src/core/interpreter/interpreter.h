@@ -87,7 +87,6 @@ namespace kepler {
 
         EvaluationOutcome evaluate_stack_prefix(kepler::List<kepler::Token>& stack, kepler::Token& result, kepler::Session& session);
         */
-
         bool interpret(kepler::Context* context, kepler::Session* session);
     }
 };

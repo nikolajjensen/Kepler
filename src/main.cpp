@@ -30,7 +30,7 @@
 using namespace kepler;
 using namespace ftxui;
 
-int main() {
+void repl() {
     Environment env = Environment();
     Session* session = env.spawn_session();
 
@@ -38,9 +38,9 @@ int main() {
 
     auto header_headline = Renderer([]{
         return vbox({
-            text("Kepler") | bold,
-            text("v1.0"),
-        }) | dim | color(Color::Palette16::Cyan);
+                            text("Kepler") | bold,
+                            text("v1.0"),
+                    }) | dim | color(Color::Palette16::Cyan);
     });
 
     auto repl = tui::REPLContainer(header_headline, session, &env);
@@ -52,12 +52,11 @@ int main() {
     screen.Loop(content);
 }
 
-/*
-int main() {
+void test() {
     Environment env = Environment();
     Session *session = env.spawn_session();
-    session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E,⍴'ABC' ⍝COMMENT");
-    //session->insert_line("+2");
+    //session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E2,⍴'ABC' ⍝COMMENT");
+    session->insert_line("+2");
     //session->insert_line("-1.22E¯1");
     //session->insert_line("+2J1");
     //session->insert_line("-2");
@@ -66,24 +65,19 @@ int main() {
     session->evaluate();
     if(session->currentContext->error) {
         std::cout << session->currentContext->error->type() << ": " << session->currentContext->error->why() << "\n";
-        std::cout << "    " << uni::utf32to8(session->currentContext->currentLine) << "\n";
-        std::cout << "    ";
-        for (int i = 0; i < session->currentContext->error->where(); ++i) {
-            std::cout << " ";
-        }
-        std::cout << "^" << "\n";
-    }
 
-    try {
-    } catch (kepler::error &err) {
-        std::cout << err.type() << ": " << err.why() << "\n";
-        std::cout << "    " << uni::utf32to8(session->currentContext->currentLine) << "\n";
-        std::cout << "    ";
-        for (int i = 0; i < err.where(); ++i) {
-            std::cout << " ";
+        if(session->currentContext->error->where() != -1) {
+            std::cout << "    " << uni::utf32to8(session->currentContext->currentLine) << "\n";
+            std::cout << "    ";
+            for (int i = 0; i < session->currentContext->error->where(); ++i) {
+                std::cout << " ";
+            }
+            std::cout << "^" << "\n";
         }
-        std::cout << "^" << "\n";
     }
-    std::cout << "\n****  DONE  ****" << std::endl;
 }
-     */
+
+int main() {
+    //test();
+    repl();
+}

@@ -25,6 +25,7 @@ namespace kepler {
     enum ErrorType {
         SyntaxError,
         ValueError,
+        DomainError,
         InternalError
     };
 
@@ -43,6 +44,8 @@ namespace kepler {
                     return "SYNTAX ERROR";
                 case ValueError:
                     return "VALUE ERROR";
+                case DomainError:
+                    return "DOMAIN ERROR";
                 case InternalError:
                     return "INTERNAL ERROR";
             }

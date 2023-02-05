@@ -395,12 +395,12 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
     bool done = false;
 
     while(!done) {
-        auto evaluator = kepler::phrase_table::lookup(context->stack, context->result, *session);
+        lookup_result result = kepler::phrase_table::lookup(context->stack);
 
-        if(evaluator == nullptr) {
+        if(result.evaluator == nullptr) {
             // No evaluator was found with lookup, so we push to stack.
             if(context->currentStatement.empty()) {
-                context->result = Token(SyntaxErrorToken);
+                throw kepler::error(SyntaxError, "Ran out of tokens to evaluate, but is still not done...");
                 done = true;
             } else {
                 context->stack.insert(context->stack.begin(),
@@ -409,16 +409,12 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
                 context->currentStatement.erase(context->currentStatement.end() - 1);
             }
         } else {
-            evaluator(context->stack, context->result, *session);
+            result.evaluator(context->stack, *session);
 
-            /*
-            if(evaluator == evaluators::process_end_of_statement<Pattern::L_R>
-                || evaluator == evaluators::process_end_of_statement<Pattern::L_B_R>
-                || evaluator == evaluators::process_end_of_statement<Pattern::L_BA_B_R>
-                || evaluator == evaluators::process_end_of_statement<Pattern::L_BA_R>) {
+            if(result.end_of_statement) {
+                context->result = context->stack[0];
                 done = true;
             }
-             */
         }
     }
 

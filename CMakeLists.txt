@@ -40,6 +40,7 @@ file(GLOB Kepler_SRC CONFIGURE_DEPENDS
         "src/core/parser/*.cpp"
         "src/core/interpreter/*.h"
         "src/core/interpreter/*.cpp"
+        "src/core/interpreter/*.tpp"
         "src/core/env/*.h"
         "src/core/env/*.cpp"
         "src/tui/*.h"

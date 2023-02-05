@@ -21,6 +21,8 @@
 #include "../characters.h"
 #include "token_converter.h"
 #include "../env/printers.h"
+#include "../interpreter/form_table.h"
+#include "../interpreter/form_table_evaluators.tpp"
 
 using namespace kepler::parser;
 
@@ -28,6 +30,8 @@ bool Parser::parse(kepler::Context* context, kepler::Session* session) {
     kepler::parser::convert_tokens(context->currentStatement, *session);
     Parser p(&context->currentStatement);
     bool success = p.parse();
+
+    auto n = kepler::form_table::evaluators::call_defined_function<form_table::niladic_cdf_size, form_table::niladic_cdf>({&context->currentStatement[0]});
 
     if(success) {
         context->currentStatement.insert(context->currentStatement.begin(), Token(LeftEndOfStatementToken));

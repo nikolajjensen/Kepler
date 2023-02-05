@@ -21,10 +21,93 @@
 #include "../token.h"
 #include "../classifiers.h"
 #include <boost/optional.hpp>
+#include "form_table_evaluators.tpp"
 
 using namespace kepler;
-using namespace kepler::interpreter;
+using namespace kepler::form_table;
 
+bool kepler::form_table::match(kepler::Token *token, Selection &selection, const pattern_atomic &target) {
+    if(selection == Content && token->content) {
+        if(const kepler::Token::content_type* content = boost::get<kepler::Token::content_type>(&target)) {
+            return *content == token->content.get();
+        }
+    } else if (selection == Type) {
+        if(const TokenType* type = boost::get<TokenType>(&target)) {
+            switch (*type) {
+                case Constant:
+                    return classifiers::is(*token, ConstantToken);
+                case CompleteList:
+                    return classifiers::is(*token, CompleteIndexListToken);
+                case Func:
+                    return classifiers::is(*token, PrimitiveFunctionToken)
+                           || classifiers::is(*token, DefinedFunctionToken);
+                case DFN:
+                    return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+template<std::size_t S, const pattern<S> &Pattern>
+bool kepler::form_table::match_pattern(token_input &input, selector &selector) {
+    if(input.size() < S) {
+        return false;
+    }
+
+    for(int i = 0; i < S; ++i) {
+        if(!match(input[i], selector[i], Pattern[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+phrase_evaluator kepler::form_table::lookup(token_input&& input, selector&& selector) {
+    // Big if statement where we compare the input to any of the patterns (in .h file)
+    if(match_pattern<conjugate_size, conjugate>(input, selector)) {
+        return evaluators::conjugate<conjugate_size, conjugate>;
+    }
+
+    return nullptr;
+}
+
+phrase_evaluator kepler::form_table::lookup(token_input& input, selector&& selector) {
+    return lookup(std::move(input), std::move(selector));
+}
+
+
+kepler::Token kepler::form_table::evaluate(token_input&& input, selector&& selector) {
+    return lookup(input, std::move(selector))(std::move(input));
+}
+
+
+/*
+bool kepler::form_table::match_type(const kepler::Token& token, TokenType type) {
+    switch (type) {
+        case Constant:
+            return classifiers::is(token, ConstantToken);
+        case CompleteList:
+            return classifiers::is(token, CompleteIndexListToken);
+        case Func:
+            return classifiers::is(token, PrimitiveFunctionToken)
+                   || classifiers::is(token, DefinedFunctionToken);
+        case DFN:
+            return true;
+    }
+}
+*/
+
+/*
+template <typename... Args>
+phrase_evaluator<> kepler::form_table::lookup(kepler::Token &t, Args &...args) {
+
+}
+*/
+
+/*
 Token form_table::evaluators::conjugate(List<Token> &operands) {
     Token token = operands[1];
     if(classifiers::is_scalar(token)) {
@@ -119,3 +202,4 @@ bool form_table::lookup(List<Token> &&tokens, List<PatternClass>&& form) {
 
     return false;
 }
+ */

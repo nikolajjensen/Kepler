@@ -44,13 +44,19 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
             token.content = session.current_referent(token).content;
         } else {
             // Should throw something here, this should never be reached.
-            throw "";
+            throw kepler::error(InternalError, "bind_token_class error: Unexpected case reached.");
         }
     } else if (token.tokenClass == TokenClass::DistinguishedIdentifierToken) {
         // Deal with this...
 
-        throw kepler::error(InternalError, "Unimplemented feature: Looking up a distinguished identifier.");
+        int i = 0;
+        double d = 2.2;
 
+        //test(token, token);
+
+        //throw kepler::error(InternalError, "Unimplemented feature: Looking up a distinguished identifier.");
+
+        /*
         bool form_one = kepler::interpreter::form_table::lookup({token}, {kepler::interpreter::form_table::PatternClass::Content});
         bool form_two = kepler::interpreter::form_table::lookup({token, kepler::interpreter::form_table::tokens::B}, {kepler::interpreter::form_table::PatternClass::Content, kepler::interpreter::form_table::PatternClass::B});
 
@@ -63,6 +69,7 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
         } else {
             throw std::invalid_argument("Form table error");
         }
+         */
     }
 }
 
