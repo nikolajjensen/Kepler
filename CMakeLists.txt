@@ -28,6 +28,19 @@ endif()
 
 # ------------------------------------------------------------------------------
 
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.0.1 # or a later release
+)
+
+FetchContent_Declare(
+        Lyra
+        GIT_REPOSITORY https://github.com/bfgroup/Lyra.git
+        GIT_TAG        1.6.1 # or a later release
+)
+
+
 file(GLOB Kepler_SRC CONFIGURE_DEPENDS
         "src/main.cpp"
         "src/core/*.h"
@@ -45,12 +58,16 @@ file(GLOB Kepler_SRC CONFIGURE_DEPENDS
         "src/core/env/*.cpp"
         "src/tui/*.h"
         "src/tui/*.cpp"
+        "src/testing/*.h"
+        "src/testing/*.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${Kepler_SRC})
 
 FetchContent_MakeAvailable(uni-algo)
-target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Boost::boost)
+FetchContent_MakeAvailable(Catch2)
+FetchContent_MakeAvailable(Lyra)
+target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Boost::boost Catch2::Catch2 lyra)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
 target_link_libraries(${PROJECT_NAME}

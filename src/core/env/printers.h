@@ -31,313 +31,385 @@ namespace kepler {
         int const TABSIZE = 4;
 
         struct TokenTypePrinter {
+            std::ostream& stream;
+
+            explicit TokenTypePrinter(std::ostream& stream_) : stream(stream_) {}
+
             void operator()(TokenClass tokenType) const {
                 switch (tokenType) {
                     case AssignmentArrowToken:
-                        std::cout << "AssignmentArrowToken";
+                        stream << "AssignmentArrowToken";
                         break;
                     case AxisErrorToken:
-                        std::cout << "AxisErrorToken";
+                        stream << "AxisErrorToken";
                         break;
                     case BranchToken:
-                        std::cout << "BranchToken";
+                        stream << "BranchToken";
                         break;
                     case BranchArrowToken:
-                        std::cout << "BranchArrowToken";
+                        stream << "BranchArrowToken";
                         break;
                     case CharacterLiteralToken:
-                        std::cout << "CharacterLiteralToken";
+                        stream << "CharacterLiteralToken";
                         break;
                     case ClearStateIndicatorToken:
-                        std::cout << "ClearStateIndicatorToken";
+                        stream << "ClearStateIndicatorToken";
                         break;
                     case ColonToken:
-                        std::cout << "ColonToken";
+                        stream << "ColonToken";
                         break;
                     case CommandCompleteToken:
-                        std::cout << "CommandCompleteToken";
+                        stream << "CommandCompleteToken";
                         break;
                     case CommittedValueToken:
-                        std::cout << "CommittedValueToken";
+                        stream << "CommittedValueToken";
                         break;
                     case CompleteIndexListToken:
-                        std::cout << "CompleteIndexListToken";
+                        stream << "CompleteIndexListToken";
                         break;
                     case ConstantToken:
-                        std::cout << "ConstantToken";
+                        stream << "ConstantToken";
                         break;
                     case DefinedFunctionToken:
-                        std::cout << "DefinedFunctionToken";
+                        stream << "DefinedFunctionToken";
                         break;
                     case DefinedFunctionNameToken:
-                        std::cout << "DefinedFunctionNameToken";
+                        stream << "DefinedFunctionNameToken";
                         break;
                     case DefinedDyadicOperatorToken:
-                        std::cout << "DefinedDyadicOperatorToken";
+                        stream << "DefinedDyadicOperatorToken";
                         break;
                     case DefinedDyadicOperatorNameToken:
-                        std::cout << "DefinedDyadicOperatorNameToken";
+                        stream << "DefinedDyadicOperatorNameToken";
                         break;
                     case DefinedMonadicOperatorToken:
-                        std::cout << "DefinedMonadicOperatorToken";
+                        stream << "DefinedMonadicOperatorToken";
                         break;
                     case DefinedMonadicOperatorNameToken:
-                        std::cout << "DefinedMonadicOperatorNameToken";
+                        stream << "DefinedMonadicOperatorNameToken";
                         break;
                     case DefinitionErrorToken:
-                        std::cout << "DefinitionErrorToken";
+                        stream << "DefinitionErrorToken";
                         break;
                     case DistinguishedIdentifierToken:
-                        std::cout << "DistinguishedIdentifierToken";
+                        stream << "DistinguishedIdentifierToken";
                         break;
                     case DomainErrorToken:
-                        std::cout << "DomainErrorToken";
+                        stream << "DomainErrorToken";
                         break;
                     case DyadicOperatorToken:
-                        std::cout << "DyadicOperatorToken";
+                        stream << "DyadicOperatorToken";
                         break;
                     case ElidedIndexMarkerToken:
-                        std::cout << "ElidedIndexMarkerToken";
+                        stream << "ElidedIndexMarkerToken";
                         break;
                     case EscapeToken:
-                        std::cout << "EscapeToken";
+                        stream << "EscapeToken";
                         break;
                     case ImplicitErrorToken:
-                        std::cout << "ImplicitErrorToken";
+                        stream << "ImplicitErrorToken";
                         break;
                     case IncorrectCommandToken:
-                        std::cout << "IncorrectCommandToken";
+                        stream << "IncorrectCommandToken";
                         break;
                     case IndexErrorToken:
-                        std::cout << "IndexErrorToken";
+                        stream << "IndexErrorToken";
                         break;
                     case IndexSeparatorToken:
-                        std::cout << "IndexSeparatorToken";
+                        stream << "IndexSeparatorToken";
                         break;
                     case InterruptToken:
-                        std::cout << "InterruptToken";
+                        stream << "InterruptToken";
                         break;
                     case LabelToken:
-                        std::cout << "LabelToken";
+                        stream << "LabelToken";
                         break;
                     case LabelNameToken:
-                        std::cout << "LabelNameToken";
+                        stream << "LabelNameToken";
                         break;
                     case LeftArgumentNameToken:
-                        std::cout << "LeftArgumentNameToken";
+                        stream << "LeftArgumentNameToken";
                         break;
                     case LeftAxisBracketToken:
-                        std::cout << "LeftAxisBracketToken";
+                        stream << "LeftAxisBracketToken";
                         break;
                     case LeftEndOfStatementToken:
-                        std::cout << "LeftEndOfStatementToken";
+                        stream << "LeftEndOfStatementToken";
                         break;
                     case LeftIndexBracketToken:
-                        std::cout << "LeftIndexBracketToken";
+                        stream << "LeftIndexBracketToken";
                         break;
                     case LeftOperandNameToken:
-                        std::cout << "LeftOperandNameToken";
+                        stream << "LeftOperandNameToken";
                         break;
                     case LeftParenthesisToken:
-                        std::cout << "LeftParenthesisToken";
+                        stream << "LeftParenthesisToken";
                         break;
                     case LengthErrorToken:
-                        std::cout << "LengthErrorToken";
+                        stream << "LengthErrorToken";
                         break;
                     case LimitErrorToken:
-                        std::cout << "LimitErrorToken";
+                        stream << "LimitErrorToken";
                         break;
                     case LocalNameToken:
-                        std::cout << "LocalNameToken";
+                        stream << "LocalNameToken";
                         break;
                     case MonadicOperatorToken:
-                        std::cout << "MonadicOperatorToken";
+                        stream << "MonadicOperatorToken";
                         break;
                     case NilToken:
-                        std::cout << "NilToken";
+                        stream << "NilToken";
                         break;
                     case NiladicDefinedFunctionToken:
-                        std::cout << "NiladicDefinedFunctionToken";
+                        stream << "NiladicDefinedFunctionToken";
                         break;
                     case NiladicDefinedFunctionNameToken:
-                        std::cout << "NiladicDefinedFunctionNameToken";
+                        stream << "NiladicDefinedFunctionNameToken";
                         break;
                     case NiladicSystemFunctionNameToken:
-                        std::cout << "NiladicSystemFunctionNameToken";
+                        stream << "NiladicSystemFunctionNameToken";
                         break;
                     case NotCopiedToken:
-                        std::cout << "NotCopiedToken";
+                        stream << "NotCopiedToken";
                         break;
                     case NotErasedToken:
-                        std::cout << "NotErasedToken";
+                        stream << "NotErasedToken";
                         break;
                     case NotFoundToken:
-                        std::cout << "NotFoundToken";
+                        stream << "NotFoundToken";
                         break;
                     case NotSavedToken:
-                        std::cout << "NotSavedToken";
+                        stream << "NotSavedToken";
                         break;
                     case NumericLiteralToken:
-                        std::cout << "NumericLiteralToken";
+                        stream << "NumericLiteralToken";
                         break;
                     case PartialIndexListToken:
-                        std::cout << "PartialIndexListToken";
+                        stream << "PartialIndexListToken";
                         break;
                     case PrimitiveToken:
-                        std::cout << "PrimitiveToken";
+                        stream << "PrimitiveToken";
                         break;
                     case PrimitiveFunctionToken:
-                        std::cout << "PrimitiveFunctionToken";
+                        stream << "PrimitiveFunctionToken";
                         break;
                     case RankErrorToken:
-                        std::cout << "RankErrorToken";
+                        stream << "RankErrorToken";
                         break;
                     case ResultNameToken:
-                        std::cout << "ResultNameToken";
+                        stream << "ResultNameToken";
                         break;
                     case RightArgumentNameToken:
-                        std::cout << "RightArgumentNameToken";
+                        stream << "RightArgumentNameToken";
                         break;
                     case RightAxisBracketToken:
-                        std::cout << "RightAxisBracketToken";
+                        stream << "RightAxisBracketToken";
                         break;
                     case RightEndOfStatementToken:
-                        std::cout << "RightEndOfStatementToken";
+                        stream << "RightEndOfStatementToken";
                         break;
                     case RightIndexBracketToken:
-                        std::cout << "RightIndexBracketToken";
+                        stream << "RightIndexBracketToken";
                         break;
                     case RightOperandNameToken:
-                        std::cout << "RightOperandNameToken";
+                        stream << "RightOperandNameToken";
                         break;
                     case RightParenthesisToken:
-                        std::cout << "RightParenthesisToken";
+                        stream << "RightParenthesisToken";
                         break;
                     case SemicolonToken:
-                        std::cout << "SemicolonToken";
+                        stream << "SemicolonToken";
                         break;
                     case SharedVariableToken:
-                        std::cout << "SharedVariableToken";
+                        stream << "SharedVariableToken";
                         break;
                     case SharedVariableNameToken:
-                        std::cout << "SharedVariableNameToken";
+                        stream << "SharedVariableNameToken";
                         break;
                     case SimpleIdentifierToken:
-                        std::cout << "SimpleIdentifierToken";
+                        stream << "SimpleIdentifierToken";
                         break;
                     case SmallCircleToken:
-                        std::cout << "SmallCircleToken";
+                        stream << "SmallCircleToken";
                         break;
                     case SyntaxErrorToken:
-                        std::cout << "SyntaxErrorToken";
+                        stream << "SyntaxErrorToken";
                         break;
                     case SystemFunctionNameToken:
-                        std::cout << "SystemFunctionNameToken";
+                        stream << "SystemFunctionNameToken";
                         break;
                     case SystemVariableNameToken:
-                        std::cout << "SystemVariableNameToken";
+                        stream << "SystemVariableNameToken";
                         break;
                     case UnwindToken:
-                        std::cout << "UnwindToken";
+                        stream << "UnwindToken";
                         break;
                     case ValueErrorToken:
-                        std::cout << "ValueErrorToken";
+                        stream << "ValueErrorToken";
                         break;
                     case VariableToken:
-                        std::cout << "VariableToken";
+                        stream << "VariableToken";
                         break;
                     case VariableNameToken:
-                        std::cout << "VariableNameToken";
+                        stream << "VariableNameToken";
                         break;
                     default:
-                        std::cout << tokenType;
+                        stream << tokenType;
                         break;
                 }
+            }
+        };
+
+        struct ArrayDebugPrinter {
+            std::ostream& stream;
+
+            explicit ArrayDebugPrinter(std::ostream& stream_) : stream(stream_) {}
+
+            void operator()(const Array& array) const {
+                stream << "<Array>[";
+                if(array.shapeList.size() == 0) {
+                    boost::apply_visitor(*this, array.ravelList[0]);
+                } if(array.shapeList.size() == 1) {
+                    for(int e = 0; e < array.shapeList[0]; ++e) {
+                        boost::apply_visitor(*this, array.ravelList[e]);
+                        if(e < array.shapeList[0] - 1) {
+                            stream << " ";
+                        }
+                    }
+                } else if(array.shapeList.size() == 2) {
+                    for(int row = 0; row < array.shapeList[0]; ++row) {
+                        for(int col = 0; col < array.shapeList[1]; ++col) {
+                            boost::apply_visitor(*this, array.ravelList[row * array.shapeList[0] + col]);
+                            if(col < array.shapeList[1] - 1) {
+                                stream << " ";
+                            }
+                        }
+                    }
+                }
+                stream << "]";
+            }
+
+            void operator()(const Char& c) const {
+                stream << uni::utf32to8(StringUTF32(1, c));
+            }
+
+            template <typename T>
+            void operator()(const T& element) const {
+                stream << element;
             }
         };
 
         struct ArrayPrinter {
-            void operator()(Array array) const {
-                std::cout << "[";
-                for(size_t i = 0; i < array.ravelList.size(); ++i) {
-                    boost::apply_visitor(ArrayPrinter(), array.ravelList[i]);
+            std::ostream& stream;
 
-                    if(i != array.ravelList.size() - 1) {
-                        std::cout << ", ";
+            explicit ArrayPrinter(std::ostream& stream_) : stream(stream_) {}
+
+            void operator()(const Array& array) const {
+                if(array.shapeList.size() == 0) {
+                    boost::apply_visitor(*this, array.ravelList[0]);
+                } if(array.shapeList.size() == 1) {
+                    for(int e = 0; e < array.shapeList[0]; ++e) {
+                        boost::apply_visitor(*this, array.ravelList[e]);
+                        if(e < array.shapeList[0] - 1) {
+                            stream << " ";
+                        }
+                    }
+                } else if(array.shapeList.size() == 2) {
+                    for(int row = 0; row < array.shapeList[0]; ++row) {
+                        for(int col = 0; col < array.shapeList[1]; ++col) {
+                            boost::apply_visitor(*this, array.ravelList[row * array.shapeList[0] + col]);
+                            if(col < array.shapeList[1] - 1) {
+                                stream << " ";
+                            }
+                        }
                     }
                 }
-                std::cout << "]";
             }
 
-            void operator()(Char& c) const {
-                std::cout << uni::utf32to8(StringUTF32(1, c));
+            void operator()(const Char& c) const {
+                stream << uni::utf32to8(StringUTF32(1, c));
             }
 
             template <typename T>
-            void operator()(T& element) const {
-                std::cout << element;
+            void operator()(const T& element) const {
+                stream << element;
             }
         };
 
         struct TokenPrinter {
-            void operator()(Token token) const {
-                std::cout << "Token{"
-                          << "class: ";
-                TokenTypePrinter printer;
-                printer(token.tokenClass);
+            std::ostream& stream;
 
+            explicit TokenPrinter(std::ostream& stream_) : stream(stream_) {}
+
+            void operator()(const Token& token) const {
                 if(token.content) {
-                    std::cout << ", "
-                              << "content: '";
-                    boost::apply_visitor(TokenPrinter(), *token.content);
-                    std::cout << "'";
-
+                    boost::apply_visitor(*this, token.content.get());
                 }
-                std::cout << "}";
             }
 
-            void operator()(Char c) const {
-                std::cout << uni::utf32to8(std::u32string(1, c));
+            void operator()(const Char& c) const {
+                stream << uni::utf32to8(std::u32string(1, c));
             }
 
-            void operator()(List<Char> chars) const {
-                std::cout << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
+            void operator()(const List<Char>& chars) const {
+                stream << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
             }
 
-            void operator()(Array array) const {
-                ArrayPrinter printer;
+            void operator()(const Array& array) const {
+                ArrayPrinter printer(stream);
                 printer(array);
             }
 
-            void operator()(List<Number> numbers) const {
-                std::cout << "[";
-                for(auto& number : numbers) {
-                    std::cout << number << " ";
+            void operator()(const List<Number>& numbers) const {
+                for(int i = 0; i < numbers.size(); ++i) {
+                    stream << numbers[i];
+                    if(i < numbers.size() - 1) {
+                        stream << " ";
+                    }
                 }
-                std::cout << "]";
             }
         };
 
-        struct TokenListPrinter {
-            int indent;
+        struct TokenDebugPrinter {
+            std::ostream& stream;
 
-            TokenListPrinter(int indent = 0) : indent(indent) {}
+            explicit TokenDebugPrinter(std::ostream& stream_) : stream(stream_) {}
 
-            void operator()(List<Token> const& tokenList) const {
-                std::cout << "{" << std::endl;
-                for(size_t i = 0; i < tokenList.size(); ++i) {
-                    tab(TABSIZE);
-                    std::cout << i << ":\t\t";
-                    TokenPrinter printer;
-                    printer(tokenList[i]);
-                    std::cout << "\n";
+            void operator()(const Token& token) const {
+                stream << "Token{";
+                TokenTypePrinter printer(stream);
+                printer(token.tokenClass);
+
+                if(token.content) {
+                    stream << ", ";
+                    boost::apply_visitor(*this, token.content.get());
+
                 }
-                std::cout << "}" << std::endl;
+                stream << "}";
             }
 
-            void tab(int spaces) const {
-                for (int i = 0; i < spaces; ++i)
-                    std::cout << ' ';
+            void operator()(const Char& c) const {
+                stream << "<char>" << uni::utf32to8(std::u32string(1, c));
+            }
+
+            void operator()(const List<Char>& chars) const {
+                stream << "<List<char>>" << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
+            }
+
+            void operator()(const Array& array) const {
+                ArrayDebugPrinter printer(stream);
+                printer(array);
+            }
+
+            void operator()(const List<Number>& numbers) const {
+                stream << "<List<Number>>[";
+                for(int i = 0; i < numbers.size(); ++i) {
+                    stream << numbers[i];
+                    if(i < numbers.size() - 1) {
+                        stream << " ";
+                    }
+                }
+                stream << "]";
             }
         };
     };

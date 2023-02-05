@@ -42,3 +42,19 @@ kepler::Token kepler::form_table::evaluators::conjugate<kepler::form_table::conj
 
     return operand;
 }
+
+template <>
+kepler::Token kepler::form_table::evaluators::negation<kepler::form_table::negation_size, kepler::form_table::negation>(token_input &&input) {
+    kepler::Token& operand = *input[1];
+    if(classifiers::is_scalar(operand)) {
+        auto& arr = operand.get_content<Array>();
+        if(arr.contains_at<Number>(0)) {
+            auto& num = arr.get_content<Number>(0);
+            num = 0 - num;
+        }
+    } else {
+        throw kepler::error(DomainError, "Expected a scalar.");
+    }
+
+    return operand;
+}

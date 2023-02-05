@@ -71,6 +71,8 @@ namespace kepler {
 
         StringUTF8 to_string() const;
 
+        static StringUTF8 double_to_string(const double& num) ;
+
         friend std::ostream& operator<<(std::ostream& os, const Number& number) {
             return os << number.to_string();
         }

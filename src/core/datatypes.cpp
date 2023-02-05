@@ -61,25 +61,32 @@ kepler::Number& kepler::Number::operator=(const double& num) {
     return *this;
 }
 
-kepler::StringUTF8 kepler::Number::to_string() const {
-    std::stringstream ss;
+kepler::StringUTF8 kepler::Number::double_to_string(const double& num) {
+    std::string raw = std::to_string(num);
+    raw = raw.erase(std::min(raw.find_last_not_of('0'), raw.size() - 1), raw.size() - 1);
+    return raw;
+}
 
-    ss << std::to_string(realScalar);
+kepler::StringUTF8 kepler::Number::to_string() const {
+    StringUTF32 result = uni::utf8to32u(double_to_string(realScalar));
+    if(result.front() == U'-') {
+        result.front() = characters::overbar;
+    }
 
     if(exponent) {
-        StringUTF32 str = uni::utf8to32u(std::to_string(exponent.get()));
+        StringUTF32 str = uni::utf8to32u(double_to_string(exponent.get()));
         if(str.front() == U'-') {
             str.front() = characters::overbar;
         }
-        ss << uni::utf32to8(StringUTF32(1, characters::exponent_marker)) << uni::utf32to8(str);
+        result = result + StringUTF32(1, characters::exponent_marker) + str;
     }
     if(imaginaryScalar) {
-        StringUTF32 str = uni::utf8to32u(std::to_string(imaginaryScalar.get()));
+        StringUTF32 str = uni::utf8to32u(double_to_string(imaginaryScalar.get()));
         if(str.front() == U'-') {
             str.front() = characters::overbar;
         }
-        ss << uni::utf32to8(StringUTF32(1, characters::complex_marker)) << uni::utf32to8(str);
+        result = result + StringUTF32(1, characters::complex_marker) + str;
     }
 
-    return ss.str();
+    return uni::utf32to8(result);
 }
