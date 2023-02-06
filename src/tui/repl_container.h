@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include "includes.h"
 #include "context_line.h"
 #include "input_line.h"
@@ -119,7 +120,7 @@ namespace kepler {
                         selected--;
                     }
 
-                    selected = util::clamp(selected, 0, (int)(children_.size() - 1));
+                    selected = std::clamp(selected, 0, (int)(children_.size() - 1));
 
                     return true;
                 }

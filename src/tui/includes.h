@@ -29,5 +29,4 @@
 #include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
 #include "ftxui/util/ref.hpp"  // for Ref
 #include "ftxui/screen/box.hpp"
-#include "../cmake-build-debug/_deps/ftxui-src/src/ftxui/screen/util.hpp"
 #include "helpers.h"
