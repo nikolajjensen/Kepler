@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <string>
+#include <limits>
 #include <ostream>
 #include <sstream>
 #include <iostream>

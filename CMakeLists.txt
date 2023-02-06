@@ -10,8 +10,10 @@ find_package(Boost 1.78.0 REQUIRED COMPONENTS)
 
 include(FetchContent)
 
-FetchContent_Declare(uni-algo
-        URL https://github.com/uni-algo/uni-algo/archive/refs/tags/v0.6.0.tar.gz)
+ FetchContent_Declare(uni-algo
+   GIT_REPOSITORY https://github.com/uni-algo/uni-algo.git
+   GIT_SHALLOW ON  # Download the branch without its history
+   GIT_TAG v0.6.0) # The version you want to download
 
 # --- Fetch FTXUI --------------------------------------------------------------
 set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
