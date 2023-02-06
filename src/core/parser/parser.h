@@ -19,6 +19,7 @@
 
 #pragma once
 #include <utility>
+#include <map>
 
 #include "../datatypes.h"
 #include "../token.h"
