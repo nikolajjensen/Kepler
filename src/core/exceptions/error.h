@@ -48,6 +48,8 @@ namespace kepler {
                     return "DOMAIN ERROR";
                 case InternalError:
                     return "INTERNAL ERROR";
+                default:
+                    return "UNDEFINED ERROR";
             }
         }
 

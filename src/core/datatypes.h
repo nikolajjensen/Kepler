@@ -80,7 +80,10 @@ namespace kepler {
 
         friend Number operator-(int lhs, const Number& rhs) {
             Number result = rhs;
-            result.realScalar *= -1;
+            result.realScalar = lhs - result.realScalar;
+            if(rhs.imaginaryScalar) {
+                result.imaginaryScalar = lhs - result.imaginaryScalar.get();
+            }
             return result;
         }
 
