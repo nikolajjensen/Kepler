@@ -71,6 +71,10 @@ phrase_evaluator kepler::form_table::lookup(token_input&& input, selector&& sele
         return evaluators::conjugate<conjugate_size, conjugate>;
     } else if(match_pattern<negation_size, negation>(input, selector)) {
         return evaluators::negation<negation_size, negation>;
+    } else if(match_pattern<direction_size, direction>(input, selector)) {
+        return evaluators::direction<direction_size, direction>;
+    } else if(match_pattern<plus_size, plus>(input, selector)) {
+        return evaluators::plus<plus_size, plus>;
     }
 
     return nullptr;

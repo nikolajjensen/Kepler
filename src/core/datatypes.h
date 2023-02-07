@@ -28,6 +28,7 @@
 
 #include <uni_algo/conv.h>
 #include <boost/optional.hpp>
+#include <cmath>
 
 namespace kepler {
     template<typename T>
@@ -44,15 +45,15 @@ namespace kepler {
 
     class Number {
     public:
-        double realScalar;
-        boost::optional<double> exponent;
-        boost::optional<double> imaginaryScalar;
+        double real_scalar;
+        boost::optional<double> imaginary_scalar;
 
         Number(const List<Char>& list);
 
-        Number(const double realScalar_,
-               const boost::optional<double> exponent_ = boost::none,
-               const boost::optional<double> imaginaryScalar_ = boost::none);
+        Number(double real_scalar_,
+               boost::optional<double> real_exponent_ = boost::none,
+               boost::optional<double> imaginary_scalar_ = boost::none,
+               boost::optional<double> imaginary_exponent_ = boost::none);
 
         Number& operator=(const double& num);
 
@@ -64,10 +65,18 @@ namespace kepler {
             return std::numeric_limits<double>::min();
         }
 
+        static double& apply_scientific_notation(double& input, double& exponent) {
+            return input *= pow(10.0, exponent);
+        }
+
         void conjugate() {
-            if(imaginaryScalar) {
-                imaginaryScalar.get() *= -1;
+            if(imaginary_scalar) {
+                imaginary_scalar.get() *= -1;
             }
+        }
+
+        double magnitude() {
+            return 0;
         }
 
         StringUTF8 to_string() const;
@@ -80,18 +89,21 @@ namespace kepler {
 
         friend Number operator-(int lhs, const Number& rhs) {
             Number result = rhs;
-            result.realScalar = lhs - result.realScalar;
-            if(rhs.imaginaryScalar) {
-                result.imaginaryScalar = lhs - result.imaginaryScalar.get();
+            result.real_scalar = lhs - result.real_scalar;
+            if(rhs.imaginary_scalar) {
+                result.imaginary_scalar = lhs - result.imaginary_scalar.get();
             }
             return result;
         }
 
-        friend bool operator==(const Number& lhs, const Number& rhs) {
-            bool exponent_equal = (lhs.exponent && rhs.exponent && lhs.exponent == rhs.exponent) || (!lhs.exponent && !rhs.exponent);
-            bool complex_equal = (lhs.imaginaryScalar && rhs.imaginaryScalar && lhs.imaginaryScalar == rhs.imaginaryScalar) || (!lhs.imaginaryScalar && !rhs.imaginaryScalar);
+        friend bool operator==(double lhs, const Number& rhs) {
+            return lhs == rhs.real_scalar;
+        }
 
-            return lhs.realScalar == rhs.realScalar && exponent_equal && complex_equal;
+        friend bool operator==(const Number& lhs, const Number& rhs) {
+            bool complex_equal = (lhs.imaginary_scalar && rhs.imaginary_scalar && lhs.imaginary_scalar == rhs.imaginary_scalar) || (!lhs.imaginary_scalar && !rhs.imaginary_scalar);
+
+            return lhs.real_scalar == rhs.real_scalar && complex_equal;
         }
     };
 };

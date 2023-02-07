@@ -21,67 +21,83 @@
 #include "characters.h"
 
 #include <format>
+#include <cmath>
 
 kepler::Number::Number(const List<Char>& list) {
-    auto exponent_it = std::find(list.begin(), list.end(), characters::exponent_marker);
-    auto complex_it = std::find(list.begin(), list.end(), characters::complex_marker);
+    // std::find returns the first instance.
+    auto real_exponent_begin_it = std::find(list.begin(), list.end(), characters::exponent_marker);
+    auto imaginary_scalar_begin_it = std::find(list.begin(), list.end(), characters::complex_marker);
+    auto imaginary_exponent_begin_it = std::find(imaginary_scalar_begin_it, list.end(), characters::exponent_marker);
 
-    auto real_scalar_end_it = (exponent_it != list.end()) ? exponent_it : (complex_it != list.end()) ? complex_it : list.end();
-    auto exponent_end_it = (complex_it != list.end()) ? complex_it : list.end();
-    auto complex_end_it = list.end();
+    real_scalar = std::stod(uni::utf32to8(StringUTF32(list.begin(), real_exponent_begin_it)));
 
-    realScalar = std::stod(uni::utf32to8(StringUTF32(list.begin(), real_scalar_end_it)));
-
-    if(exponent_it != list.end()) {
-        auto str = StringUTF32(exponent_it + 1, exponent_end_it);
+    if(real_exponent_begin_it != list.end()) {
+        auto str = StringUTF32(real_exponent_begin_it + 1, imaginary_scalar_begin_it);
         if (str.front() == characters::overbar) {
             str.front() = U'-';
         }
-        exponent = std::stod(uni::utf32to8(StringUTF32(str)));
+        double exponent = std::stod(uni::utf32to8(StringUTF32(str)));
+        apply_scientific_notation(real_scalar, exponent);
     }
 
-    if(complex_it != list.end()) {
-        auto str = StringUTF32(complex_it + 1, complex_end_it);
+    if(imaginary_scalar_begin_it != list.end()) {
+        auto str = StringUTF32(imaginary_scalar_begin_it + 1, imaginary_exponent_begin_it);
         if (str.front() == characters::overbar) {
             str.front() = U'-';
         }
-        imaginaryScalar = std::stod(uni::utf32to8(str));
+        imaginary_scalar = std::stod(uni::utf32to8(str));
+
+        if(imaginary_exponent_begin_it != list.end()) {
+            auto str = StringUTF32(imaginary_exponent_begin_it + 1, list.end());
+            if (str.front() == characters::overbar) {
+                str.front() = U'-';
+            }
+            double exponent = std::stod(uni::utf32to8(StringUTF32(str)));
+            apply_scientific_notation((*imaginary_scalar), exponent);
+        }
     }
 }
 
-kepler::Number::Number(const double realScalar_,
-                       const boost::optional<double> exponent_,
-                       const boost::optional<double> imaginaryScalar_)
-        : realScalar(realScalar_),
-          exponent(exponent_),
-          imaginaryScalar(imaginaryScalar_) {}
+kepler::Number::Number(double real_scalar_,
+                       boost::optional<double> real_exponent_,
+                       boost::optional<double> imaginary_scalar_,
+                       boost::optional<double> imaginary_exponent_)
+        : real_scalar(real_scalar_),
+          imaginary_scalar(imaginary_scalar_) {
+
+    if(real_exponent_) {
+        apply_scientific_notation(real_scalar, real_exponent_.get());
+    }
+
+    if(imaginary_exponent_ && imaginary_scalar) {
+        apply_scientific_notation((*imaginary_scalar), imaginary_exponent_.get());
+    }
+}
 
 kepler::Number& kepler::Number::operator=(const double& num) {
-    realScalar = num;
+    real_scalar = num;
     return *this;
 }
 
 kepler::StringUTF8 kepler::Number::double_to_string(const double& num) {
     std::string raw = std::to_string(num);
-    raw = raw.erase(std::min(raw.find_last_not_of('0'), raw.size() - 1), raw.size() - 1);
+    auto index = raw.find_last_not_of('0');
+    if(raw[index] != '.') {
+        index++;
+    }
+    raw = raw.erase(std::min(index, raw.size() - 1));
     return raw;
 }
 
 kepler::StringUTF8 kepler::Number::to_string() const {
-    StringUTF32 result = uni::utf8to32u(double_to_string(realScalar));
+    StringUTF32 result = uni::utf8to32u(double_to_string(real_scalar));
     if(result.front() == U'-') {
         result.front() = characters::overbar;
     }
 
-    if(exponent) {
-        StringUTF32 str = uni::utf8to32u(double_to_string(exponent.get()));
-        if(str.front() == U'-') {
-            str.front() = characters::overbar;
-        }
-        result = result + StringUTF32(1, characters::exponent_marker) + str;
-    }
-    if(imaginaryScalar) {
-        StringUTF32 str = uni::utf8to32u(double_to_string(imaginaryScalar.get()));
+
+    if(imaginary_scalar) {
+        StringUTF32 str = uni::utf8to32u(double_to_string(imaginary_scalar.get()));
         if(str.front() == U'-') {
             str.front() = characters::overbar;
         }

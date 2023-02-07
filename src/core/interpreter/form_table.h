@@ -48,7 +48,13 @@ namespace kepler {
         const pattern<conjugate_size> conjugate = {characters::plus, Constant};
 
         constexpr std::size_t negation_size = 2;
-        const pattern<conjugate_size> negation = {characters::bar, Constant};
+        const pattern<negation_size> negation = {characters::bar, Constant};
+
+        constexpr std::size_t direction_size = 2;
+        const pattern<direction_size> direction = {characters::multiply, Constant};
+
+        constexpr std::size_t plus_size = 3;
+        const pattern<plus_size> plus = {Constant, characters::plus, Constant};
 
         constexpr std::size_t niladic_cdf_size = 1;
         const pattern<niladic_cdf_size> niladic_cdf = {DFN};
@@ -61,6 +67,12 @@ namespace kepler {
 
             template <std::size_t S, const pattern<S>& Pattern>
             kepler::Token negation(token_input&& input);
+
+            template <std::size_t S, const pattern<S>& Pattern>
+            kepler::Token direction(token_input&& input);
+
+            template <std::size_t S, const pattern<S>& Pattern>
+            kepler::Token plus(token_input&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
             kepler::Token call_defined_function(token_input&& input);

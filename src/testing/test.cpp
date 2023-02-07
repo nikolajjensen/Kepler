@@ -26,21 +26,21 @@
 
 TEST_CASE_METHOD(fixture, "conjugate (+)", "[conjugate][scalar][func]") {
     CHECK_THAT(run("+2"), Outputs("2"));
-    CHECK_THAT(run("+2E2"), Outputs("2E2"));
-    CHECK_THAT(run("+2E¯2"), Outputs("2E¯2"));
+    CHECK_THAT(run("+2E2"), Outputs("200"));
+    CHECK_THAT(run("+2E¯2"), Outputs("0.02"));
     CHECK_THAT(run("+2J¯2"), Outputs("2J2"));
     CHECK_THAT(run("+2J2"), Outputs("2J¯2"));
 }
 
 TEST_CASE_METHOD(fixture, "negation (-)", "[negation][scalar][func]") {
     CHECK_THAT(run("-2"), Outputs("¯2"));
-    CHECK_THAT(run("-2E2"), Outputs("¯2E2"));
+    CHECK_THAT(run("-2E2"), Outputs("¯200"));
     CHECK_THAT(run("-2J2"), Outputs("¯2J¯2"));
     CHECK_THAT(run("-2J¯2"), Outputs("¯2J2"));
 }
 
 TEST_CASE_METHOD(fixture, "negation and conjugate", "[negation][conjugate][scalar][func]") {
     CHECK_THAT(run("-+2"), Outputs("¯2"));
-    CHECK_THAT(run("-+2E2"), Outputs("¯2E2"));
+    CHECK_THAT(run("-+2E2"), Outputs("¯200"));
     CHECK_THAT(run("-+2J2"), Outputs("¯2J2"));
 }

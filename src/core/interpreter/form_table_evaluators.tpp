@@ -58,3 +58,27 @@ kepler::Token kepler::form_table::evaluators::negation<kepler::form_table::negat
 
     return operand;
 }
+
+template <>
+kepler::Token kepler::form_table::evaluators::direction<kepler::form_table::direction_size, kepler::form_table::direction>(token_input &&input) {
+    kepler::Token& operand = *input[1];
+    if(classifiers::is_scalar(operand)) {
+        auto& arr = operand.get_content<Array>();
+        if(arr.contains_at<Number>(0)) {
+            auto& num = arr.get_content<Number>(0);
+
+            if(0 == num) {
+
+            }
+        }
+    } else {
+        throw kepler::error(DomainError, "Expected a scalar.");
+    }
+
+    return operand;
+}
+
+template <>
+kepler::Token kepler::form_table::evaluators::plus<kepler::form_table::plus_size, kepler::form_table::plus>(token_input &&input) {
+    return kepler::Token();
+}
