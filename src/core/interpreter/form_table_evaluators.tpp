@@ -34,7 +34,8 @@ kepler::Token kepler::form_table::evaluators::conjugate<kepler::form_table::conj
         auto& arr = operand.get_content<Array>();
         if(arr.contains_at<Number>(0)) {
             auto& num = arr.get_content<Number>(0);
-            num.conjugate();
+            //num = kepler::number_manipulators::conjugate(num);
+            num = conj(num);
         }
     } else {
         throw kepler::error(DomainError, "Expected a scalar.");
@@ -50,7 +51,7 @@ kepler::Token kepler::form_table::evaluators::negation<kepler::form_table::negat
         auto& arr = operand.get_content<Array>();
         if(arr.contains_at<Number>(0)) {
             auto& num = arr.get_content<Number>(0);
-            num = 0 - num;
+            num = Number(0) - num;
         }
     } else {
         throw kepler::error(DomainError, "Expected a scalar.");
@@ -66,9 +67,9 @@ kepler::Token kepler::form_table::evaluators::direction<kepler::form_table::dire
         auto& arr = operand.get_content<Array>();
         if(arr.contains_at<Number>(0)) {
             auto& num = arr.get_content<Number>(0);
-
-            if(0 == num) {
-
+            //num = kepler::number_manipulators::magnitude(num);
+            if(num != 0.0) {
+                num = num / abs(num);
             }
         }
     } else {

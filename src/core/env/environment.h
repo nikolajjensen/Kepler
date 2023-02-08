@@ -35,8 +35,8 @@ namespace kepler {
         const Number initialRandomLink = 123;
         const ReductionStyle reductionStyle = ReductionStyle::EncloseReductionStyle;
         const StringUTF8 clearWorkspaceIdentifier = "unnamed";
-        const Number positiveNumberLimit = Number::numeric_limit_max();
-        const Number negativeNumberLimit = Number::numeric_limit_min();
+        const Number positiveNumberLimit = numeric_limit_max();
+        const Number negativeNumberLimit = numeric_limit_min();
         const Integer positiveIntegerLimit = std::numeric_limits<Integer>::max();
         const Integer negativeIntegerLimit = std::numeric_limits<Integer>::min();
         const UnsignedInteger indexLimit = positiveIntegerLimit;

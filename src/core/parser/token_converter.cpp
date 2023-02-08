@@ -95,7 +95,7 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
                 ++cursor;
             } while(cursor != end && *cursor != kepler::characters::blank);
 
-            numeric_vector.emplace_back(Number({start, cursor}));
+            numeric_vector.emplace_back(number_from_characters({start, cursor}));
             start = cursor;
         }
 

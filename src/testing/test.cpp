@@ -39,6 +39,13 @@ TEST_CASE_METHOD(fixture, "negation (-)", "[negation][scalar][func]") {
     CHECK_THAT(run("-2J¯2"), Outputs("¯2J2"));
 }
 
+TEST_CASE_METHOD(fixture, "direction (×)", "[multiply][scalar][func]") {
+    CHECK_THAT(run("×2"), Outputs("1"));
+    CHECK_THAT(run("×0"), Outputs("0"));
+    CHECK_THAT(run("×2E2"), Outputs("1"));
+    //CHECK_THAT(run("×2J2"), Outputs("0.7071067812J0.7071067812"));
+}
+
 TEST_CASE_METHOD(fixture, "negation and conjugate", "[negation][conjugate][scalar][func]") {
     CHECK_THAT(run("-+2"), Outputs("¯2"));
     CHECK_THAT(run("-+2E2"), Outputs("¯200"));

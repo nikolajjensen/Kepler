@@ -71,7 +71,7 @@ namespace kepler {
                     }
 
                     StringUTF8 operator()(Number& number) const {
-                        return number.to_string();
+                        return number_to_string(number);
                     }
 
                     StringUTF8 operator()(List<Char>& list) const {

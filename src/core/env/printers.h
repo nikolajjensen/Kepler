@@ -330,6 +330,10 @@ namespace kepler {
                 stream << uni::utf32to8(StringUTF32(1, c));
             }
 
+            void operator()(const Number& n) const {
+                stream << number_to_string(n);
+            }
+
             template <typename T>
             void operator()(const T& element) const {
                 stream << element;
@@ -362,7 +366,7 @@ namespace kepler {
 
             void operator()(const List<Number>& numbers) const {
                 for(int i = 0; i < numbers.size(); ++i) {
-                    stream << numbers[i];
+                    stream << number_to_string(numbers[i]);
                     if(i < numbers.size() - 1) {
                         stream << " ";
                     }
@@ -404,7 +408,7 @@ namespace kepler {
             void operator()(const List<Number>& numbers) const {
                 stream << "<List<Number>>[";
                 for(int i = 0; i < numbers.size(); ++i) {
-                    stream << numbers[i];
+                    stream << number_to_string(numbers[i]);
                     if(i < numbers.size() - 1) {
                         stream << " ";
                     }

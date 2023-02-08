@@ -21,65 +21,60 @@
 #include "characters.h"
 
 #include <format>
+#include <limits>
 #include <cmath>
 
-kepler::Number::Number(const List<Char>& list) {
-    // std::find returns the first instance.
-    auto real_exponent_begin_it = std::find(list.begin(), list.end(), characters::exponent_marker);
-    auto imaginary_scalar_begin_it = std::find(list.begin(), list.end(), characters::complex_marker);
-    auto imaginary_exponent_begin_it = std::find(imaginary_scalar_begin_it, list.end(), characters::exponent_marker);
+kepler::Number kepler::numeric_limit_max() {
+    return std::numeric_limits<double>::max();
+}
 
-    real_scalar = std::stod(uni::utf32to8(StringUTF32(list.begin(), real_exponent_begin_it)));
+kepler::Number kepler::numeric_limit_min() {
+    return std::numeric_limits<double>::min();
+}
+
+double& kepler::apply_scientific_notation(double& input, double& exponent) {
+    return input *= pow(10.0, exponent);
+}
+
+kepler::Number kepler::number_from_characters(const kepler::List<kepler::Char>& list) {
+    // std::find returns the first instance.
+    auto real_exponent_begin_it = std::find(list.begin(), list.end(), kepler::characters::exponent_marker);
+    auto imaginary_scalar_begin_it = std::find(list.begin(), list.end(), kepler::characters::complex_marker);
+    auto imaginary_exponent_begin_it = std::find(imaginary_scalar_begin_it, list.end(), kepler::characters::exponent_marker);
+
+    double real_scalar = std::stod(uni::utf32to8(kepler::StringUTF32(list.begin(), real_exponent_begin_it)));
+    double imaginary_scalar = 0;
 
     if(real_exponent_begin_it != list.end()) {
-        auto str = StringUTF32(real_exponent_begin_it + 1, imaginary_scalar_begin_it);
-        if (str.front() == characters::overbar) {
+        auto str = kepler::StringUTF32(real_exponent_begin_it + 1, imaginary_scalar_begin_it);
+        if (str.front() == kepler::characters::overbar) {
             str.front() = U'-';
         }
-        double exponent = std::stod(uni::utf32to8(StringUTF32(str)));
-        apply_scientific_notation(real_scalar, exponent);
+        double exponent = std::stod(uni::utf32to8(kepler::StringUTF32(str)));
+        kepler::apply_scientific_notation(real_scalar, exponent);
     }
 
     if(imaginary_scalar_begin_it != list.end()) {
-        auto str = StringUTF32(imaginary_scalar_begin_it + 1, imaginary_exponent_begin_it);
-        if (str.front() == characters::overbar) {
+        auto str = kepler::StringUTF32(imaginary_scalar_begin_it + 1, imaginary_exponent_begin_it);
+        if (str.front() == kepler::characters::overbar) {
             str.front() = U'-';
         }
         imaginary_scalar = std::stod(uni::utf32to8(str));
 
         if(imaginary_exponent_begin_it != list.end()) {
-            auto str = StringUTF32(imaginary_exponent_begin_it + 1, list.end());
-            if (str.front() == characters::overbar) {
-                str.front() = U'-';
+            auto imag_str = kepler::StringUTF32(imaginary_exponent_begin_it + 1, list.end());
+            if (imag_str.front() == kepler::characters::overbar) {
+                imag_str.front() = U'-';
             }
-            double exponent = std::stod(uni::utf32to8(StringUTF32(str)));
-            apply_scientific_notation((*imaginary_scalar), exponent);
+            double exponent = std::stod(uni::utf32to8(kepler::StringUTF32(imag_str)));
+            kepler::apply_scientific_notation(imaginary_scalar, exponent);
         }
     }
+
+    return {real_scalar, imaginary_scalar};
 }
 
-kepler::Number::Number(double real_scalar_,
-                       boost::optional<double> real_exponent_,
-                       boost::optional<double> imaginary_scalar_,
-                       boost::optional<double> imaginary_exponent_)
-        : real_scalar(real_scalar_),
-          imaginary_scalar(imaginary_scalar_) {
-
-    if(real_exponent_) {
-        apply_scientific_notation(real_scalar, real_exponent_.get());
-    }
-
-    if(imaginary_exponent_ && imaginary_scalar) {
-        apply_scientific_notation((*imaginary_scalar), imaginary_exponent_.get());
-    }
-}
-
-kepler::Number& kepler::Number::operator=(const double& num) {
-    real_scalar = num;
-    return *this;
-}
-
-kepler::StringUTF8 kepler::Number::double_to_string(const double& num) {
+kepler::StringUTF8 kepler::double_to_string(const double& num) {
     std::string raw = std::to_string(num);
     auto index = raw.find_last_not_of('0');
     if(raw[index] != '.') {
@@ -89,15 +84,15 @@ kepler::StringUTF8 kepler::Number::double_to_string(const double& num) {
     return raw;
 }
 
-kepler::StringUTF8 kepler::Number::to_string() const {
-    StringUTF32 result = uni::utf8to32u(double_to_string(real_scalar));
+kepler::StringUTF8 kepler::number_to_string(const kepler::Number& num) {
+    StringUTF32 result = uni::utf8to32u(kepler::double_to_string(num.real()));
     if(result.front() == U'-') {
         result.front() = characters::overbar;
     }
 
 
-    if(imaginary_scalar) {
-        StringUTF32 str = uni::utf8to32u(double_to_string(imaginary_scalar.get()));
+    if(num.imag() != 0) {
+        StringUTF32 str = uni::utf8to32u(kepler::double_to_string(num.imag()));
         if(str.front() == U'-') {
             str.front() = characters::overbar;
         }
