@@ -66,6 +66,14 @@ void kepler::Session::evaluate() {
     }
 }
 
+void kepler::Session::lockKeyboard() {
+    keyboardState = LockedKeyboardState;
+}
+
+void kepler::Session::openKeyboard() {
+    keyboardState = OpenKeyboardState;
+}
+
 /*
 void kepler::Session::evaluate_line() {
     // Evaluate current context and do the whole shebang.

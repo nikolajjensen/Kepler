@@ -27,7 +27,7 @@ namespace kepler {
         Workspace activeWorkspace;
         StringUTF8 sessionName;
         //Boolean attentionFlag;
-        //KeyboardState keyboardState;
+        KeyboardState keyboardState;
         List<Char> currentPrompt;
         List<Char> quoteQuadPrompt;
         //UnsignedInteger eventTime;
@@ -56,5 +56,8 @@ namespace kepler {
 
         Token& current_referent(Token& token);
         TokenClass current_class(Token& token);
+
+        void openKeyboard();
+        void lockKeyboard();
     };
 };

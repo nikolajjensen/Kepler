@@ -40,7 +40,7 @@ namespace kepler {
         const Char left_caret = U'<';
         const Char right_caret = U'>';
         const Char up_caret = U'∧';
-        const Char up_caret_tilde = U'⍱';
+        const Char up_caret_tilde = U'⍲';
         const Char circle = U'○';
         const Char circle_back_slash = U'⍉';
         const Char circle_bar = U'⊖';
@@ -60,7 +60,7 @@ namespace kepler {
         const Char divide = U'÷';
         const Char dollar_sign = U'$';
         const Char dot = U'.';
-        const Char epsilon = U'∈';
+        const Char epsilon = U'∊';
         const Char equal = U'=';
         const Char greater_than_or_equal = U'≥';
         const Char iota = U'⍳';

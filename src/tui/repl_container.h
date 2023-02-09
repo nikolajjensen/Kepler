@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include "includes.h"
+#include "info_bar.h"
 #include "context_line.h"
 #include "input_line.h"
 #include "core/env/session.h"
@@ -35,7 +36,7 @@ namespace kepler {
 
             class REPLContainerBase : public ComponentBase {
             public:
-                REPLContainerBase(Component header_, kepler::Session* session_, kepler::Environment* env_) : header(header_), session(session_), env(env_) {
+                REPLContainerBase(Component header_, kepler::Session* session_, kepler::Environment* env_) : header(header_), footer(InfoBar(session_)), session(session_), env(env_) {
                     update_children();
                 }
 
@@ -81,7 +82,11 @@ namespace kepler {
                     }
                      */
 
-                    return vbox(elements) | reflect(box) | yframe;
+                    return vbox({
+                        vbox(elements) | flex | yframe,
+                        separator(),
+                        footer->Render(),
+                    }) | reflect(box);
                 }
 
                 bool OnEvent(Event event) override {
@@ -127,6 +132,7 @@ namespace kepler {
 
             protected:
                 Component header;
+                Component footer;
                 kepler::Session* session;
                 kepler::Environment* env;
                 int selected = 0;

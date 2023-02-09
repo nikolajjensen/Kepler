@@ -22,6 +22,7 @@
 #include "includes.h"
 #include "core/env/session.h"
 #include "core/env/environment.h"
+#include "keyboard.h"
 
 namespace kepler {
     namespace tui {
@@ -86,6 +87,7 @@ namespace kepler {
                         size_t end = GlyphPosition(input, cursor_position());
                         input.erase(start, end - start);
                         cursor_position()--;
+                        session->openKeyboard();
                         option->on_change();
                         return true;
                     }
@@ -98,6 +100,7 @@ namespace kepler {
                         size_t start = GlyphPosition(input, cursor_position());
                         size_t end = GlyphPosition(input, cursor_position() + 1);
                         input.erase(start, end - start);
+                        session->openKeyboard();
                         option->on_change();
                         return true;
                     }
@@ -106,6 +109,7 @@ namespace kepler {
                         trim(input);
 
                         if(!input.empty()) {
+                            session->openKeyboard();
                             session->insert_line(input);
                             return true;
                         }
@@ -150,11 +154,25 @@ namespace kepler {
                         return true;
                     }
 
+
+
                     // Content
                     if (event.is_character()) {
                         size_t start = GlyphPosition(input, cursor_position());
-                        input.insert(start, event.character());
-                        cursor_position()++;
+
+                        if(session->keyboardState == OpenKeyboardState) {
+                            input.insert(start, event.character());
+                            cursor_position()++;
+                            if(keyboard::should_lock(event.character())) {
+                                session->lockKeyboard();
+                            }
+                        } else if(session->keyboardState == LockedKeyboardState) {
+                            if(!keyboard::should_lock(event.character())) {
+                                input.replace(input.size() - 1, 1, keyboard::alternative(event.character()));
+                            }
+                            session->openKeyboard();
+                        }
+
                         option->on_change();
                         return true;
                     }

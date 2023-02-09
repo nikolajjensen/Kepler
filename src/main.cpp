@@ -15,7 +15,6 @@
 #include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
 #include <vector>
 
-#include "tui/context_line_old.h"
 #include "tui/repl_container.h"
 #include "core/env/environment.h"
 #include "core/datatypes.h"
