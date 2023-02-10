@@ -22,64 +22,60 @@
 #include "../classifiers.h"
 #include "../exceptions/error.h"
 
-template <>
-kepler::Token kepler::form_table::evaluators::call_defined_function<kepler::form_table::niladic_cdf_size, kepler::form_table::niladic_cdf>(token_input&& input) {
-    return kepler::Token();
-}
+namespace kepler::form_table {
+    template<>
+    kepler::Token evaluators::call_defined_function<patterns::niladic, patterns::niladic_cdf>(evaluator_input &&input) {
+        return kepler::Token();
+    }
 
-template <>
-kepler::Token kepler::form_table::evaluators::conjugate<kepler::form_table::conjugate_size, kepler::form_table::conjugate>(token_input&& input) {
-    kepler::Token& operand = *input[1];
-    if(classifiers::is_scalar(operand)) {
-        auto& arr = operand.get_content<Array>();
-        if(arr.contains_at<Number>(0)) {
-            auto& num = arr.get_content<Number>(0);
-            //num = kepler::number_manipulators::conjugate(num);
+    template<>
+    kepler::Token evaluators::call_defined_function<patterns::monadic, patterns::monadic_cdf>(evaluator_input &&input) {
+        return kepler::Token();
+    }
+
+    template<>
+    kepler::Token evaluators::conjugate<patterns::monadic, patterns::conjugate>(evaluator_input &&input) {
+        /*
+        kepler::Token& operand = *input[1];
+        if(operand.contains<Number>()) {
+            auto& num = operand.get_content<Number>();
             num = conj(num);
+        } else {
+            throw kepler::error(DomainError, "Expected a number.");
         }
-    } else {
-        throw kepler::error(DomainError, "Expected a scalar.");
+        return operand;*/
+        kepler::Token::content_type& operand = *input[1];
     }
-
-    return operand;
-}
-
-template <>
-kepler::Token kepler::form_table::evaluators::negation<kepler::form_table::negation_size, kepler::form_table::negation>(token_input &&input) {
-    kepler::Token& operand = *input[1];
-    if(classifiers::is_scalar(operand)) {
-        auto& arr = operand.get_content<Array>();
-        if(arr.contains_at<Number>(0)) {
-            auto& num = arr.get_content<Number>(0);
+/*
+    template<>
+    kepler::Token evaluators::negative<patterns::monadic, patterns::negative>(evaluator_input &&input) {
+        kepler::Token& operand = *input[1];
+        if(operand.contains<Number>()) {
+            auto& num = operand.get_content<Number>();
             num = Number(0) - num;
+        } else {
+            throw kepler::error(DomainError, "Expected a number.");
         }
-    } else {
-        throw kepler::error(DomainError, "Expected a scalar.");
+        return operand;
     }
 
-    return operand;
-}
-
-template <>
-kepler::Token kepler::form_table::evaluators::direction<kepler::form_table::direction_size, kepler::form_table::direction>(token_input &&input) {
-    kepler::Token& operand = *input[1];
-    if(classifiers::is_scalar(operand)) {
-        auto& arr = operand.get_content<Array>();
-        if(arr.contains_at<Number>(0)) {
-            auto& num = arr.get_content<Number>(0);
-            //num = kepler::number_manipulators::magnitude(num);
+    template<>
+    kepler::Token evaluators::direction<patterns::monadic, patterns::direction>(evaluator_input &&input) {
+        kepler::Token& operand = *input[1];
+        if(operand.contains<Number>()) {
+            auto& num = operand.get_content<Number>();
             if(num != 0.0) {
                 num = num / abs(num);
             }
+        } else {
+            throw kepler::error(DomainError, "Expected a number.");
         }
-    } else {
-        throw kepler::error(DomainError, "Expected a scalar.");
+        return operand;
     }
 
-    return operand;
-}
-
-template <>
-kepler::Token kepler::form_table::evaluators::plus<kepler::form_table::plus_size, kepler::form_table::plus>(token_input &&input) {
-    return kepler::Token();
-}
+    template<>
+    kepler::Token evaluators::plus<patterns::dyadic, patterns::plus>(evaluator_input &&input) {
+        return kepler::Token();
+    }
+    */
+};

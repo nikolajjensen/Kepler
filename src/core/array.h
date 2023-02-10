@@ -37,7 +37,8 @@ namespace kepler {
 
         Integer rank() const;
 
-        static Array vectorOf(ravel_list_type&& ravelList);
+        template <typename T>
+        static Array vectorOf(List<T>&& ravelList);
 
 
         template <typename Variant>

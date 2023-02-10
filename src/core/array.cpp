@@ -27,9 +27,18 @@ kepler::Integer kepler::Array::rank() const {
     return (Integer)shapeList.size();
 }
 
-kepler::Array kepler::Array::vectorOf(ravel_list_type&& ravel) {
+template <typename T>
+kepler::Array kepler::Array::vectorOf(List<T>&& raw_ravel) {
+    ravel_list_type ravel;
+    ravel.reserve(raw_ravel.size());
+    for(const auto& input : raw_ravel) {
+        ravel.push_back(input);
+    }
     if(ravel.size() == 1) {
         return {{}, ravel};
     }
     return Array({(UnsignedInteger)ravel.size()}, ravel);
 }
+
+template kepler::Array kepler::Array::vectorOf(List<Char> &&ravel);
+template kepler::Array kepler::Array::vectorOf(List<Number> &&ravel);

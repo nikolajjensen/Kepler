@@ -27,108 +27,22 @@
 using namespace kepler;
 using namespace kepler::phrase_table;
 
-/*
-bool kepler::phrase_table::matchers::is_result(kepler::Token &token) {
-    return classifiers::is_result(token);
+void kepler::phrase_table::helpers::niladic_apply(kepler::form_table::form_evaluator evaluator, List<Token *> tokens) {
+
 }
 
-bool kepler::phrase_table::matchers::is_dyadic(kepler::Token &token) {
-    return classifiers::is(token, DyadicOperatorToken);
-}
+void kepler::phrase_table::helpers::monadic_scalar_extension(kepler::form_table::form_evaluator evaluator, Token& token) {
+    auto& arr = token.get_content<Array>();
+    // Here we should be checking if the array is mixed or not...
+    for(auto& element : arr.ravelList) {
 
-bool kepler::phrase_table::matchers::is_func(kepler::Token &token) {
-    return classifiers::is(token, DefinedFunctionNameToken)
-            || classifiers::is(token, PrimitiveFunctionToken)
-            || classifiers::is(token, SystemFunctionNameToken);
+    }
 }
-
-bool kepler::phrase_table::matchers::is_partial_index_list(kepler::Token &token) {
-    return classifiers::is(token, PartialIndexListToken);
-}
-
-bool kepler::phrase_table::matchers::is_complete_index_list(kepler::Token &token) {
-    return classifiers::is(token, CompleteIndexListToken);
-}
-
-bool kepler::phrase_table::matchers::is_left_eos(kepler::Token &token) {
-    return classifiers::is(token, LeftEndOfStatementToken);
-}
-
-bool kepler::phrase_table::matchers::is_monadic(kepler::Token &token) {
-    return classifiers::is(token, MonadicOperatorToken);
-}
-
-bool kepler::phrase_table::matchers::is_niladic(kepler::Token &token) {
-    return classifiers::is(token, NiladicDefinedFunctionNameToken)
-            || classifiers::is(token, NiladicSystemFunctionNameToken);
-}
-
-bool kepler::phrase_table::matchers::is_right_eos(kepler::Token &token) {
-    return classifiers::is(token, RightEndOfStatementToken);
-}
-
-bool kepler::phrase_table::matchers::is_variable(kepler::Token &token) {
-    return classifiers::is(token, VariableNameToken)
-            || classifiers::is(token, SystemVariableNameToken)
-            || classifiers::is(token, SharedVariableNameToken);
-}
-
-bool kepler::phrase_table::matchers::is_wildcard(kepler::Token &token) {
-    return classifiers::is(token, AssignmentArrowToken)
-            || classifiers::is(token, BranchArrowToken)
-            || classifiers::is(token, DefinedFunctionNameToken)
-            || classifiers::is(token, IndexSeparatorToken)
-            || classifiers::is(token, LeftAxisBracketToken)
-            || classifiers::is(token, LeftEndOfStatementToken)
-            || classifiers::is(token, LeftIndexBracketToken)
-            || classifiers::is(token, LeftParenthesisToken)
-            || classifiers::is(token, PrimitiveFunctionToken)
-            || classifiers::is(token, SystemFunctionNameToken)
-            || classifiers::is(token, RightAxisBracketToken);
-}
-
-bool kepler::phrase_table::matchers::is_left_paren(kepler::Token &token) {
-    return classifiers::is(token, LeftParenthesisToken);
-}
-
-bool kepler::phrase_table::matchers::is_right_paren(kepler::Token &token) {
-    return classifiers::is(token, RightParenthesisToken);
-}
-
-bool kepler::phrase_table::matchers::is_left_bracket(kepler::Token &token) {
-    return classifiers::is(token, LeftAxisBracketToken)
-            || classifiers::is(token, LeftIndexBracketToken);
-}
-
-bool kepler::phrase_table::matchers::is_right_bracket(kepler::Token &token) {
-    return classifiers::is(token, RightAxisBracketToken)
-           || classifiers::is(token, RightIndexBracketToken);
-}
-
-bool kepler::phrase_table::matchers::is_small_circle(kepler::Token &token) {
-    return classifiers::is(token, SmallCircleToken);
-}
-
-bool kepler::phrase_table::matchers::is_index_separator(kepler::Token &token) {
-    return classifiers::is(token, SemicolonToken);
-}
-
-bool kepler::phrase_table::matchers::is_assignment_arrow(kepler::Token &token) {
-    return classifiers::is(token, AssignmentArrowToken);
-}
-
-bool kepler::phrase_table::matchers::is_branch_arrow(kepler::Token &token) {
-    return classifiers::is(token, BranchArrowToken);
-}
-
-*/
 
 
 template <>
 void kepler::phrase_table::evaluators::remove_parenthesis<LP_B_RP_size, LP_B_RP>(List<Token> &stack, Session &session) {
     if(classifiers::is(stack[1], NilToken) || classifiers::is(stack[1], BranchToken)) {
-        // Signal value-error
-        //result.set(ValueErrorToken, boost::none);
         throw kepler::error(ValueError, "Cannot remove parenthesis.");
     }
 
@@ -141,12 +55,17 @@ void kepler::phrase_table::evaluators::evaluate_niladic_function<N_size, N>(List
 
     if(classifiers::is(n, NiladicDefinedFunctionNameToken)) {
         if(session.current_class(n) == NiladicDefinedFunctionToken) {
-            n = kepler::form_table::evaluators::call_defined_function<form_table::niladic_cdf_size, form_table::niladic_cdf>({&n});
+            n = kepler::form_table::evaluators::call_defined_function<form_table::patterns::niladic, form_table::patterns::niladic_cdf>({&n.content.get()});
         } else {
             throw kepler::error(SyntaxError, "Undefined niladic function reference.");
         }
     } else if(classifiers::is(n, NiladicSystemFunctionNameToken)) {
-        n = kepler::form_table::evaluate({&n}, {kepler::form_table::Content});
+        auto evaluator = kepler::form_table::lookup({&n}, {kepler::form_table::Content});
+        if(evaluator != nullptr) {
+            n = evaluator({&n.content.get()});
+        } else {
+            throw kepler::error(SyntaxError, "No evaluation sequence.");
+        }
     }
 }
 
@@ -154,11 +73,27 @@ template<>
 void kepler::phrase_table::evaluators::evaluate_monadic_function<X_F_B_size, X_F_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
     Token& f = stack[1];
     Token& b = stack[2];
-    if(classifiers::is(b, DefinedFunctionNameToken)) {
 
+    if(!classifiers::is_value(b)) {
+        throw kepler::error(ValueError, "Monadic argument was not a value.");
+    }
+
+    if(classifiers::is(b, DefinedFunctionNameToken)) {
+        if(session.current_class(f) == DefinedFunctionToken) {
+            f = kepler::form_table::evaluators::call_defined_function<form_table::patterns::monadic, form_table::patterns::monadic_cdf>({&f.content.get(), &b.content.get()});
+            helpers::erase(stack, 2);
+        } else {
+            throw kepler::error(SyntaxError, "Undefined monadic function reference.");
+        }
     } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
-        f = kepler::form_table::evaluate({&f, &b}, {kepler::form_table::Content, kepler::form_table::Type});
-        helpers::erase(stack, 2);
+        auto evaluator = kepler::form_table::lookup({&f, &b}, {kepler::form_table::Content, kepler::form_table::Type});
+
+        if(evaluator != nullptr) {
+            f = evaluator({&f.content.get(), &b.content.get()});
+            helpers::erase(stack, 2);
+        } else {
+            throw kepler::error(SyntaxError, "No evaluation sequence.");
+        }
     }
 }
 

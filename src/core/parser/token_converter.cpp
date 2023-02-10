@@ -78,12 +78,12 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
     Array vector;
 
     if(token.tokenClass == TokenClass::CharacterLiteralToken) {
-        Array::ravel_list_type char_vector(content.begin(), content.end());
+        List<Char> char_vector(content.begin(), content.end());
         char_vector.erase(char_vector.begin());
         char_vector.pop_back();
-        vector = Array::vectorOf(std::move(char_vector));
+        token.content = Array::vectorOf(std::move(char_vector));
     } else if(token.tokenClass == TokenClass::NumericLiteralToken) {
-        Array::ravel_list_type numeric_vector;
+        List<Number> numeric_vector;
 
         auto start = content.begin();
         auto end = content.end();
@@ -99,11 +99,14 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
             start = cursor;
         }
 
-        vector = Array::vectorOf(std::move(numeric_vector));
+        if(numeric_vector.size() > 1) {
+            token.content = Array::vectorOf(std::move(numeric_vector));
+        } else {
+            token.content = numeric_vector.front();
+        }
     }
 
     token.tokenClass = ConstantToken;
-    token.content = vector;
 }
 
 void kepler::parser::scalar_conversion(kepler::Token &token) {

@@ -42,49 +42,65 @@ namespace kepler {
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
         using selector = kepler::List<Selection>;
-        using token_input = kepler::List<kepler::Token*>;
+        using evaluator_input = kepler::List<kepler::Token::content_type*>;
 
-        constexpr std::size_t conjugate_size = 2;
-        const pattern<conjugate_size> conjugate = {characters::plus, Constant};
+        namespace patterns {
+            constexpr std::size_t niladic = 1;
+            constexpr std::size_t monadic = 2;
+            constexpr std::size_t dyadic = 3;
 
-        constexpr std::size_t negation_size = 2;
-        const pattern<negation_size> negation = {characters::bar, Constant};
+            // Niladic functions:
+            const pattern<niladic> niladic_cdf = {DFN};
+            const pattern<monadic> monadic_cdf = {DFN, Constant};
 
-        constexpr std::size_t direction_size = 2;
-        const pattern<direction_size> direction = {characters::multiply, Constant};
+            // Monadic functions:
+            const pattern<monadic> conjugate = {characters::plus, Constant};
+            const pattern<monadic> negative = {characters::bar, Constant};
+            const pattern<monadic> direction = {characters::multiply, Constant};
+            const pattern<monadic> reciprocal = {characters::divide, Constant};
+            const pattern<monadic> floor = {characters::down_stile, Constant};
+            const pattern<monadic> ceiling = {characters::up_stile, Constant};
+            const pattern<monadic> exponential = {characters::star, Constant};
+            const pattern<monadic> natural_log = {characters::circle_star, Constant};
+            const pattern<monadic> magnitude = {characters::stile, Constant};
+            const pattern<monadic> factorial = {characters::quote_dot, Constant};
+            const pattern<monadic> pi_times = {characters::circle, Constant};
+            const pattern<monadic> negation = {characters::tilde, Constant};    // Called 'not' in ISO.
 
-        constexpr std::size_t plus_size = 3;
-        const pattern<plus_size> plus = {Constant, characters::plus, Constant};
+            // Dyadic functions:
+            const pattern<dyadic> plus = {Constant, characters::plus, Constant};
 
-        constexpr std::size_t niladic_cdf_size = 1;
-        const pattern<niladic_cdf_size> niladic_cdf = {DFN};
+        };
 
-        using phrase_evaluator = kepler::Token (*)(token_input&& input);
+        using form_evaluator = kepler::Token (*)(evaluator_input&& input);
 
         namespace evaluators {
+            void conjugate(kepler::Number& number);
+            /*
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token conjugate(token_input&& input);
+            kepler::Token conjugate(evaluator_input&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token negation(token_input&& input);
+            kepler::Token negative(evaluator_input&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token direction(token_input&& input);
+            kepler::Token direction(evaluator_input&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token plus(token_input&& input);
+            kepler::Token plus(evaluator_input&& input);
+             */
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token call_defined_function(token_input&& input);
+            kepler::Token call_defined_function(evaluator_input&& input);
         };
 
         bool match(kepler::Token* token, Selection& selection, const pattern_atomic& target);
 
         template <std::size_t S, const pattern<S>& Pattern>
-        bool match_pattern(token_input& input, selector& selector);
+        bool match_pattern(List<Token*>& tokens, selector& selector);
 
-        phrase_evaluator lookup(token_input&& input, selector&& selector);
-        phrase_evaluator lookup(token_input& input, selector&& selector);
-        kepler::Token evaluate(token_input&& input, selector&& selector);
+        form_evaluator lookup(List<Token*>&& input, selector&& selector);
+        form_evaluator lookup(List<Token*>& input, selector&& selector);
+        //boost::optional<kepler::Token> evaluate(evaluator_input&& input, selector&& selector);
     };
 };

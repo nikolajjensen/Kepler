@@ -381,6 +381,10 @@ namespace kepler {
                 stream << uni::utf32to8(std::u32string(1, c));
             }
 
+            void operator()(const Number& n) const {
+                stream << number_to_string(n);
+            }
+
             void operator()(const List<Char>& chars) const {
                 stream << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
             }
@@ -419,11 +423,15 @@ namespace kepler {
             }
 
             void operator()(const Char& c) const {
-                stream << "<char>" << uni::utf32to8(std::u32string(1, c));
+                stream << "<Char>" << uni::utf32to8(std::u32string(1, c));
+            }
+
+            void operator()(const Number& n) const {
+                stream << "<Number>" << number_to_string(n);
             }
 
             void operator()(const List<Char>& chars) const {
-                stream << "<List<char>>" << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
+                stream << "<List<Char>>" << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
             }
 
             void operator()(const Array& array) const {

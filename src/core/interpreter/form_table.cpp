@@ -51,7 +51,7 @@ bool kepler::form_table::match(kepler::Token *token, Selection &selection, const
 }
 
 template<std::size_t S, const pattern<S> &Pattern>
-bool kepler::form_table::match_pattern(token_input &input, selector &selector) {
+bool kepler::form_table::match_pattern(List<Token*> &input, selector &selector) {
     if(input.size() < S) {
         return false;
     }
@@ -65,26 +65,21 @@ bool kepler::form_table::match_pattern(token_input &input, selector &selector) {
     return true;
 }
 
-phrase_evaluator kepler::form_table::lookup(token_input&& input, selector&& selector) {
+form_evaluator kepler::form_table::lookup(List<Token*>&& input, selector&& selector) {
     // Big if statement where we compare the input to any of the patterns (in .h file)
-    if(match_pattern<conjugate_size, conjugate>(input, selector)) {
-        return evaluators::conjugate<conjugate_size, conjugate>;
-    } else if(match_pattern<negation_size, negation>(input, selector)) {
-        return evaluators::negation<negation_size, negation>;
-    } else if(match_pattern<direction_size, direction>(input, selector)) {
-        return evaluators::direction<direction_size, direction>;
-    } else if(match_pattern<plus_size, plus>(input, selector)) {
-        return evaluators::plus<plus_size, plus>;
-    }
+    if(match_pattern<patterns::monadic, patterns::conjugate>(input, selector)) {
+        return evaluators::conjugate<patterns::monadic, patterns::conjugate>;
+    } /*else if(match_pattern<patterns::monadic, patterns::negative>(input, selector)) {
+        return evaluators::negative<patterns::monadic, patterns::negative>;
+    } else if(match_pattern<patterns::monadic, patterns::direction>(input, selector)) {
+        return evaluators::direction<patterns::monadic, patterns::direction>;
+    } else if(match_pattern<patterns::dyadic, patterns::plus>(input, selector)) {
+        return evaluators::plus<patterns::dyadic, patterns::plus>;
+    }*/
 
     return nullptr;
 }
 
-phrase_evaluator kepler::form_table::lookup(token_input& input, selector&& selector) {
+form_evaluator kepler::form_table::lookup(List<Token*>& input, selector&& selector) {
     return lookup(std::move(input), std::move(selector));
-}
-
-
-kepler::Token kepler::form_table::evaluate(token_input&& input, selector&& selector) {
-    return lookup(input, std::move(selector))(std::move(input));
 }
