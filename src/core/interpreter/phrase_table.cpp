@@ -55,14 +55,14 @@ void kepler::phrase_table::evaluators::evaluate_niladic_function<N_size, N>(List
 
     if(classifiers::is(n, NiladicDefinedFunctionNameToken)) {
         if(session.current_class(n) == NiladicDefinedFunctionToken) {
-            n = kepler::form_table::evaluators::call_defined_function<form_table::patterns::niladic, form_table::patterns::niladic_cdf>({&n.content.get()});
+            n = kepler::form_table::evaluate({kepler::form_table::TableAtomic::DFN}, {&n});
         } else {
             throw kepler::error(SyntaxError, "Undefined niladic function reference.");
         }
     } else if(classifiers::is(n, NiladicSystemFunctionNameToken)) {
-        auto evaluator = kepler::form_table::lookup({&n}, {kepler::form_table::Content});
+        auto evaluator = kepler::form_table::lookup({kepler::form_table::TableAtomic::Func});
         if(evaluator != nullptr) {
-            n = evaluator({&n.content.get()});
+            n = evaluator({&n});
         } else {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
@@ -80,17 +80,17 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<X_F_B_size, X_F
 
     if(classifiers::is(b, DefinedFunctionNameToken)) {
         if(session.current_class(f) == DefinedFunctionToken) {
-            f = kepler::form_table::evaluators::call_defined_function<form_table::patterns::monadic, form_table::patterns::monadic_cdf>({&f.content.get(), &b.content.get()});
-            helpers::erase(stack, 2);
+           f = form_table::evaluate({form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&f, &b});
+           helpers::erase(stack, 2);
         } else {
             throw kepler::error(SyntaxError, "Undefined monadic function reference.");
         }
     } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
-        auto evaluator = kepler::form_table::lookup({&f, &b}, {kepler::form_table::Content, kepler::form_table::Type});
+        auto evaluator = kepler::form_table::lookup({f, kepler::form_table::TableAtomic::Constant});
 
         if(evaluator != nullptr) {
-            f = evaluator({&f.content.get(), &b.content.get()});
-            helpers::erase(stack, 2);
+            b = evaluator({&f, &b});
+            helpers::erase(stack, 1);
         } else {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
@@ -124,7 +124,31 @@ void kepler::phrase_table::evaluators::evaluate_monadic_operator<A_F_M_LB_C_RB_B
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_B_size, A_F_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+    Token& a = stack[0];
+    Token& f = stack[1];
+    Token& b = stack[2];
 
+    if(!classifiers::is_value(a) || !classifiers::is_value(b)) {
+        throw kepler::error(ValueError, "Expected value operands.");
+    }
+
+    if(classifiers::is(f, DefinedFunctionNameToken)) {
+        if(session.current_class(f) == DefinedFunctionToken) {
+            a = form_table::evaluate({form_table::TableAtomic::Constant, form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&a, &f, &b});
+            helpers::erase(stack, 1, 2);
+        } else {
+            throw kepler::error(SyntaxError, "Undefined reference to dyadic operator.");
+        }
+    } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
+        auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, f, form_table::TableAtomic::Constant});
+
+        if(evaluator != nullptr) {
+            a = evaluator({&a, &f, &b});
+            helpers::erase(stack, 1, 2);
+        } else {
+            throw kepler::error(SyntaxError, "No evaluation sequence.");
+        }
+    }
 }
 
 template <>

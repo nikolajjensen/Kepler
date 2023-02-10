@@ -26,38 +26,29 @@
 using namespace kepler;
 using namespace kepler::form_table;
 
-bool kepler::form_table::match(kepler::Token *token, Selection &selection, const pattern_atomic &target) {
-    if(selection == Content && token->content) {
-        if(const kepler::Token::content_type* content = boost::get<kepler::Token::content_type>(&target)) {
-            return *content == token->content.get();
+bool kepler::form_table::match(boost::variant<Token&, TableAtomic> &search, const pattern_atomic &target) {
+    if(Token* token = boost::get<Token>(&search)) {
+        if(const Token::content_type* other = boost::get<Token::content_type>(&target)) {
+            return token->content && (token->content.get() == *other);
         }
-    } else if (selection == Type) {
-        if(const TokenType* type = boost::get<TokenType>(&target)) {
-            switch (*type) {
-                case Constant:
-                    return classifiers::is(*token, ConstantToken);
-                case CompleteList:
-                    return classifiers::is(*token, CompleteIndexListToken);
-                case Func:
-                    return classifiers::is(*token, PrimitiveFunctionToken)
-                           || classifiers::is(*token, DefinedFunctionToken);
-                case DFN:
-                    return true;
-            }
+    } else if (TableAtomic* first = boost::get<TableAtomic>(&search)) {
+        if(const TableAtomic* other = boost::get<TableAtomic>(&target)) {
+            return *first == *other;
         }
     }
 
     return false;
 }
 
-template<std::size_t S, const pattern<S> &Pattern>
-bool kepler::form_table::match_pattern(List<Token*> &input, selector &selector) {
-    if(input.size() < S) {
+
+template <std::size_t S, const pattern<S> &Pattern>
+bool kepler::form_table::match_pattern(search_t &search) {
+    if(search.size() < S) {
         return false;
     }
 
     for(int i = 0; i < S; ++i) {
-        if(!match(input[i], selector[i], Pattern[i])) {
+        if(!match(search[i], Pattern[i])) {
             return false;
         }
     }
@@ -65,21 +56,26 @@ bool kepler::form_table::match_pattern(List<Token*> &input, selector &selector) 
     return true;
 }
 
-form_evaluator kepler::form_table::lookup(List<Token*>&& input, selector&& selector) {
-    // Big if statement where we compare the input to any of the patterns (in .h file)
-    if(match_pattern<patterns::monadic, patterns::conjugate>(input, selector)) {
+form_evaluator kepler::form_table::lookup(search_t &&search) {
+    if(match_pattern<patterns::monadic, patterns::conjugate>(search)) {
         return evaluators::conjugate<patterns::monadic, patterns::conjugate>;
-    } /*else if(match_pattern<patterns::monadic, patterns::negative>(input, selector)) {
+    } else if(match_pattern<patterns::monadic, patterns::negative>(search)) {
         return evaluators::negative<patterns::monadic, patterns::negative>;
-    } else if(match_pattern<patterns::monadic, patterns::direction>(input, selector)) {
+    } else if(match_pattern<patterns::monadic, patterns::direction>(search)) {
         return evaluators::direction<patterns::monadic, patterns::direction>;
-    } else if(match_pattern<patterns::dyadic, patterns::plus>(input, selector)) {
+    } else if(match_pattern<patterns::dyadic, patterns::plus>(search)) {
         return evaluators::plus<patterns::dyadic, patterns::plus>;
-    }*/
+    } else if(match_pattern<patterns::dyadic, patterns::divide>(search)) {
+        return evaluators::divide<patterns::dyadic, patterns::divide>;
+    }
 
     return nullptr;
 }
 
-form_evaluator kepler::form_table::lookup(List<Token*>& input, selector&& selector) {
-    return lookup(std::move(input), std::move(selector));
+kepler::Token kepler::form_table::evaluate(search_t &&search, input_t &&input) {
+    auto evaluator = lookup(std::move(search));
+    if(evaluator == nullptr) {
+        throw error(InternalError, "Expected to find form-table evaluator for expression.");
+    }
+    return evaluator(std::move(input));
 }

@@ -32,7 +32,6 @@ namespace kepler {
     struct Token : boost::spirit::x3::position_tagged {
         typedef boost::variant<
                     Char,
-                    Number,
                     Array,
                     List<Char>,
                     List<Number>

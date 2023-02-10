@@ -25,28 +25,41 @@
 #include "string_maker.h"
 
 TEST_CASE_METHOD(fixture, "conjugate (+)", "[conjugate][scalar][func]") {
-    CHECK_THAT(run("+2"), Outputs("2"));
+    CHECK_THAT(run("+2 "), Outputs("2"));
     CHECK_THAT(run("+2E2"), Outputs("200"));
     CHECK_THAT(run("+2E¯2"), Outputs("0.02"));
     CHECK_THAT(run("+2J¯2"), Outputs("2J2"));
     CHECK_THAT(run("+2J2"), Outputs("2J¯2"));
+    CHECK_THAT(run("+2 3 5"), Outputs("2 3 5"));
+    CHECK_THAT(run("+2 3 5 "), Outputs("2 3 5"));
+    CHECK_THAT(run(" +2 3 5 "), Outputs("2 3 5"));
+    CHECK_THAT(run("+ 3 ¯4 0 0.5 3J4 ¯3J4 3J¯4"), Outputs("3 ¯4 0 0.5 3J¯4 ¯3J¯4 3J4"));
 }
 
-TEST_CASE_METHOD(fixture, "negation (-)", "[negation][scalar][func]") {
+TEST_CASE_METHOD(fixture, "negative (-)", "[negative][scalar][func]") {
     CHECK_THAT(run("-2"), Outputs("¯2"));
     CHECK_THAT(run("-2E2"), Outputs("¯200"));
     CHECK_THAT(run("-2J2"), Outputs("¯2J¯2"));
     CHECK_THAT(run("-2J¯2"), Outputs("¯2J2"));
+    CHECK_THAT(run("- 7 0 ¯7"), Outputs("¯7 0 7"));
 }
 
-TEST_CASE_METHOD(fixture, "direction (×)", "[multiply][scalar][func]") {
+TEST_CASE_METHOD(fixture, "direction (×)", "[direction][scalar][func]") {
     CHECK_THAT(run("×2"), Outputs("1"));
     CHECK_THAT(run("×0"), Outputs("0"));
     CHECK_THAT(run("×2E2"), Outputs("1"));
-    //CHECK_THAT(run("×2J2"), Outputs("0.7071067812J0.7071067812"));
+    CHECK_THAT(run("×3J4"), Outputs("0.6J0.8"));
 }
 
-TEST_CASE_METHOD(fixture, "negation and conjugate", "[negation][conjugate][scalar][func]") {
+TEST_CASE_METHOD(fixture, "plus (+)", "[plus][scalar][func]") {
+    CHECK_THAT(run("1+2"), Outputs("3"));
+    CHECK_THAT(run("100+2"), Outputs("102"));
+    CHECK_THAT(run("23+2"), Outputs("25"));
+    CHECK_THAT(run("1E1+2J2"), Outputs("12J2"));
+    CHECK_THAT(run("1J2+1J7"), Outputs("2J9"));
+}
+
+TEST_CASE_METHOD(fixture, "negative and conjugate", "[negative][conjugate][scalar][func]") {
     CHECK_THAT(run("-+2"), Outputs("¯2"));
     CHECK_THAT(run("-+2E2"), Outputs("¯200"));
     CHECK_THAT(run("-+2J2"), Outputs("¯2J2"));

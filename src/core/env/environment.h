@@ -31,7 +31,7 @@ namespace kepler {
         const Number initialComparisonTolerance = 0.0001;
         const UnsignedInteger initialIndexOrigin = 1;
         const List<Token> initialLatentExpression = {};
-        const UnsignedInteger initialPrintPrecision = 3;
+        const UnsignedInteger initialPrintPrecision = 10;
         const Number initialRandomLink = 123;
         const ReductionStyle reductionStyle = ReductionStyle::EncloseReductionStyle;
         const StringUTF8 clearWorkspaceIdentifier = "unnamed";

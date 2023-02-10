@@ -27,6 +27,7 @@
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
 #include <iostream>
 #include <uni_algo/conv.h>
+#include <iomanip>
 
 namespace kepler {
     namespace printers {
@@ -262,6 +263,104 @@ namespace kepler {
             }
         };
 
+        struct ArrayPrinter {
+            std::ostream& stream;
+            int print_precision;
+
+            explicit ArrayPrinter(std::ostream& stream_, int print_precision_ = -1) : stream(stream_), print_precision(print_precision_) {}
+
+            void operator()(const Array& array) const {
+                //stream << std::setprecision(print_precision);
+
+                if(array.shapeList.size() == 0) {
+                    boost::apply_visitor(*this, array.ravelList[0]);
+                } if(array.shapeList.size() == 1) {
+                    for(int e = 0; e < array.shapeList[0]; ++e) {
+                        boost::apply_visitor(*this, array.ravelList[e]);
+                        if(e < array.shapeList[0] - 1) {
+                            stream << " ";
+                        }
+                    }
+                } else if(array.shapeList.size() == 2) {
+                    for(int row = 0; row < array.shapeList[0]; ++row) {
+                        for(int col = 0; col < array.shapeList[1]; ++col) {
+                            boost::apply_visitor(*this, array.ravelList[row * array.shapeList[0] + col]);
+                            if(col < array.shapeList[1] - 1) {
+                                stream << " ";
+                            }
+                        }
+                    }
+                }
+            }
+
+            void operator()(const Char& c) const {
+                stream << uni::utf32to8(StringUTF32(1, c));
+            }
+
+            void operator()(const Number& n) const {
+                stream << number_to_string(n, print_precision);
+            }
+        };
+
+        struct ErrorPrinter {
+            std::ostream& stream;
+            const std::string padding = "    ";
+
+            explicit ErrorPrinter(std::ostream& stream_) : stream(stream_) {}
+
+            void operator()(const kepler::error& err) const {
+                stream << err.type() << ": " << err.why();
+            }
+
+            void operator()(const kepler::Session& session) const {
+                stream << session.currentContext->error->type() << ": " << session.currentContext->error->why() << "\n";
+
+                if(session.currentContext->error->where() != -1) {
+                    std::cout << "    " << uni::utf32to8(session.currentContext->currentLine) << "\n";
+                    std::cout << "    ";
+                    for (int i = 0; i < session.currentContext->error->where(); ++i) {
+                        std::cout << "~";
+                    }
+                    std::cout << "^";
+                }
+            }
+        };
+
+        struct TokenPrinter {
+            std::ostream& stream;
+            int print_precision;
+
+            explicit TokenPrinter(std::ostream& stream_, int print_precision_ = -1) : stream(stream_), print_precision(print_precision_) {}
+
+            void operator()(const Token& token) const {
+                if(token.content) {
+                    boost::apply_visitor(*this, token.content.get());
+                }
+            }
+
+            void operator()(const Char& c) const {
+                stream << uni::utf32to8(std::u32string(1, c));
+            }
+
+            void operator()(const List<Char>& chars) const {
+                stream << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
+            }
+
+            void operator()(const Array& array) const {
+                ArrayPrinter printer(stream, print_precision);
+                printer(array);
+            }
+
+            void operator()(const List<Number>& numbers) const {
+                for(int i = 0; i < numbers.size(); ++i) {
+                    stream << number_to_string(numbers[i], print_precision);
+                    if(i < numbers.size() - 1) {
+                        stream << " ";
+                    }
+                }
+            }
+        };
+
         struct ArrayDebugPrinter {
             std::ostream& stream;
 
@@ -295,112 +394,8 @@ namespace kepler {
                 stream << uni::utf32to8(StringUTF32(1, c));
             }
 
-            template <typename T>
-            void operator()(const T& element) const {
-                stream << element;
-            }
-        };
-
-        struct ArrayPrinter {
-            std::ostream& stream;
-
-            explicit ArrayPrinter(std::ostream& stream_) : stream(stream_) {}
-
-            void operator()(const Array& array) const {
-                if(array.shapeList.size() == 0) {
-                    boost::apply_visitor(*this, array.ravelList[0]);
-                } if(array.shapeList.size() == 1) {
-                    for(int e = 0; e < array.shapeList[0]; ++e) {
-                        boost::apply_visitor(*this, array.ravelList[e]);
-                        if(e < array.shapeList[0] - 1) {
-                            stream << " ";
-                        }
-                    }
-                } else if(array.shapeList.size() == 2) {
-                    for(int row = 0; row < array.shapeList[0]; ++row) {
-                        for(int col = 0; col < array.shapeList[1]; ++col) {
-                            boost::apply_visitor(*this, array.ravelList[row * array.shapeList[0] + col]);
-                            if(col < array.shapeList[1] - 1) {
-                                stream << " ";
-                            }
-                        }
-                    }
-                }
-            }
-
-            void operator()(const Char& c) const {
-                stream << uni::utf32to8(StringUTF32(1, c));
-            }
-
-            void operator()(const Number& n) const {
-                stream << number_to_string(n);
-            }
-
-            template <typename T>
-            void operator()(const T& element) const {
-                stream << element;
-            }
-        };
-
-        struct ErrorPrinter {
-            std::ostream& stream;
-            const std::string padding = "    ";
-
-            explicit ErrorPrinter(std::ostream& stream_) : stream(stream_) {}
-
-            void operator()(const kepler::error& err) const {
-                stream << err.type() << ": " << err.why();
-            }
-
-            void operator()(const kepler::Session& session) const {
-                stream << session.currentContext->error->type() << ": " << session.currentContext->error->why() << "\n";
-
-                if(session.currentContext->error->where() != -1) {
-                    std::cout << "    " << uni::utf32to8(session.currentContext->currentLine) << "\n";
-                    std::cout << "    ";
-                    for (int i = 0; i < session.currentContext->error->where(); ++i) {
-                        std::cout << "~";
-                    }
-                    std::cout << "^";
-                }
-            }
-        };
-
-        struct TokenPrinter {
-            std::ostream& stream;
-
-            explicit TokenPrinter(std::ostream& stream_) : stream(stream_) {}
-
-            void operator()(const Token& token) const {
-                if(token.content) {
-                    boost::apply_visitor(*this, token.content.get());
-                }
-            }
-
-            void operator()(const Char& c) const {
-                stream << uni::utf32to8(std::u32string(1, c));
-            }
-
-            void operator()(const Number& n) const {
-                stream << number_to_string(n);
-            }
-
-            void operator()(const List<Char>& chars) const {
-                stream << uni::utf32to8(std::u32string(chars.begin(), chars.end()));
-            }
-
-            void operator()(const Array& array) const {
-                ArrayPrinter printer(stream);
-                printer(array);
-            }
-
-            void operator()(const List<Number>& numbers) const {
-                for(int i = 0; i < numbers.size(); ++i) {
-                    stream << number_to_string(numbers[i]);
-                    if(i < numbers.size() - 1) {
-                        stream << " ";
-                    }
-                }
+            void operator()(const Number& num) const {
+                stream << number_to_string(num);
             }
         };
 
@@ -424,10 +419,6 @@ namespace kepler {
 
             void operator()(const Char& c) const {
                 stream << "<Char>" << uni::utf32to8(std::u32string(1, c));
-            }
-
-            void operator()(const Number& n) const {
-                stream << "<Number>" << number_to_string(n);
             }
 
             void operator()(const List<Char>& chars) const {

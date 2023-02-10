@@ -23,6 +23,7 @@
 #include "core/token_class.h"
 #include "core/token.h"
 #include "core/env/printers.h"
+#include <iomanip>
 
 /*
 struct EqualsTokenClass : Catch::Matchers::MatcherGenericBase {
@@ -60,13 +61,12 @@ private:
 */
 
 struct Outputs : Catch::Matchers::MatcherGenericBase {
-    Outputs(std::string const& output_) : output(output_) {}
+    Outputs(std::string const& output_, int print_precision_ = -1) : output(output_), print_precision(print_precision_) {}
 
     bool match(kepler::Token const& token) const {
         std::stringstream ss;
-        kepler::printers::TokenPrinter p(ss);
+        kepler::printers::TokenPrinter p(ss, print_precision);
         p(token);
-        //std::cout << "OUTPUT: '" << ss.str() << "' and we expected: '" << output << "'\n";
         return ss.str() == output;
     }
 
@@ -76,4 +76,5 @@ struct Outputs : Catch::Matchers::MatcherGenericBase {
 
 private:
     std::string const& output;
+    int print_precision;
 };

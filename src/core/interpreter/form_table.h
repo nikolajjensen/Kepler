@@ -26,7 +26,7 @@
 
 namespace kepler {
     namespace form_table {
-        enum TokenType {
+        enum TableAtomic {
             Constant,
             CompleteList,
             Func,
@@ -38,11 +38,13 @@ namespace kepler {
             Type
         };
 
-        using pattern_atomic = boost::variant<kepler::Token::content_type, TokenType>;
+        using pattern_atomic = boost::variant<kepler::Token::content_type, TableAtomic>;
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
         using selector = kepler::List<Selection>;
-        using evaluator_input = kepler::List<kepler::Token::content_type*>;
+
+        using search_t = List<boost::variant<Token&, TableAtomic>>;
+        using input_t = List<Token*>;
 
         namespace patterns {
             constexpr std::size_t niladic = 1;
@@ -69,38 +71,41 @@ namespace kepler {
 
             // Dyadic functions:
             const pattern<dyadic> plus = {Constant, characters::plus, Constant};
+            const pattern<dyadic> divide = {Constant, characters::divide, Constant};
 
         };
 
-        using form_evaluator = kepler::Token (*)(evaluator_input&& input);
+        using form_evaluator = kepler::Token (*)(input_t&& input);
 
         namespace evaluators {
-            void conjugate(kepler::Number& number);
-            /*
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token conjugate(evaluator_input&& input);
+            kepler::Token conjugate(input_t&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token negative(evaluator_input&& input);
+            kepler::Token negative(input_t&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token direction(evaluator_input&& input);
+            kepler::Token direction(input_t&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token plus(evaluator_input&& input);
-             */
+            kepler::Token plus(input_t&& input);
 
             template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token call_defined_function(evaluator_input&& input);
+            kepler::Token divide(input_t&& input);
+
+            template <std::size_t S, const pattern<S>& Pattern>
+            kepler::Token call_defined_function(input_t&& input);
         };
 
-        bool match(kepler::Token* token, Selection& selection, const pattern_atomic& target);
+        bool match(boost::variant<Token&, TableAtomic>& search, const pattern_atomic& target);
 
         template <std::size_t S, const pattern<S>& Pattern>
-        bool match_pattern(List<Token*>& tokens, selector& selector);
+        bool match_pattern(search_t& search);
 
-        form_evaluator lookup(List<Token*>&& input, selector&& selector);
-        form_evaluator lookup(List<Token*>& input, selector&& selector);
-        //boost::optional<kepler::Token> evaluate(evaluator_input&& input, selector&& selector);
+        form_evaluator lookup(search_t&& search);
+
+        // NOTE: This will throw InternalError if there
+        // is no match in form table.
+        kepler::Token evaluate(search_t&& search, input_t&& input);
     };
 };

@@ -120,6 +120,7 @@ int Lexer::numeric_literal() {
                 blanks = 0;
             } else {
                 backtrack(blanks);
+                break;
             }
         }
 

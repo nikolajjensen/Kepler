@@ -89,6 +89,7 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
         auto end = content.end();
 
         while(start != end) {
+            while(start != end && *start == characters::blank) { ++start; }
             auto cursor = start;
 
             do {
@@ -99,11 +100,7 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
             start = cursor;
         }
 
-        if(numeric_vector.size() > 1) {
-            token.content = Array::vectorOf(std::move(numeric_vector));
-        } else {
-            token.content = numeric_vector.front();
-        }
+        token.content = Array::vectorOf(std::move(numeric_vector));
     }
 
     token.tokenClass = ConstantToken;

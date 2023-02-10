@@ -32,7 +32,7 @@ void kepler::tui::setup() {
 
 void kepler::tui::prompt(std::string& input) {
     print("\n" + input_prompt + " ");
-    std::cin >> input;
+    getline(std::cin, input);
 }
 
 void kepler::tui::display_result(Session& session) {
