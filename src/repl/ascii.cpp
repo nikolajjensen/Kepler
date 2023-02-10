@@ -17,9 +17,28 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "info_bar.h"
-#include "includes.h"
+#include "ascii.h"
 
-ftxui::Component kepler::tui::InfoBar(Session* session) {
-    return Make<InfoBarBase>(session);
+std::string kepler::tui::reset_modifier() {
+    return _esc + "[" + std::to_string(reset) + "m";
+}
+
+std::string kepler::tui::modifier(std::initializer_list<int> effects) {
+    std::string result = _esc + "[";
+    for(const auto& effect : effects) {
+        result += std::to_string(effect);
+        result += ";";
+    }
+    if(result.back() == ';') {
+        result.pop_back();
+    }
+    result += "m";
+    return result;
+}
+
+std::string kepler::tui::apply(std::string input, std::initializer_list<int> effects) {
+    std::string result = modifier(effects);
+    result += input;
+    result += reset_modifier();
+    return result;
 }

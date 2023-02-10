@@ -18,30 +18,10 @@
 //
 
 #pragma once
-#include "includes.h"
-#include "core/env/session.h"
+#include <string>
+#include "ascii.h"
 
 namespace kepler::tui {
-    namespace {
-        using namespace ftxui;
-
-        class InfoBarBase : public ComponentBase {
-        public:
-            explicit InfoBarBase(Session* session_) : session(session_) {}
-
-            Element Render() override {
-                bool locked = session->keyboardState == KeyboardState::LockedKeyboardState;
-
-                return hbox({
-                    text("Keyboard locked: "),
-                    text((locked ? "🟥" : "🟩"))
-                }) | align_right | xflex_grow;
-            }
-
-        protected:
-            Session *session;
-        };
-    };
-
-    Component InfoBar(Session* session);
+    const std::string welcome_message = apply("Kepler\n", {blue, bold}) + apply("v1.0", {blue});
+    const std::string input_prompt = apply(">>>", {bold});
 };

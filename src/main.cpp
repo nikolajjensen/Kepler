@@ -5,17 +5,8 @@
 
 #include "core/datatypes.h"
 #include "core/env/printers.h"
-
-
-#include "ftxui/component/captured_mouse.hpp"  // for ftxui
-#include "ftxui/component/component.hpp"       // for Input, Renderer, Vertical
-#include "ftxui/component/component_base.hpp"  // for ComponentBase
-#include "ftxui/component/component_options.hpp"  // for InputOption
-#include "ftxui/component/screen_interactive.hpp"  // for Component, ScreenInteractive
-#include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
 #include <vector>
 
-#include "tui/repl_container.h"
 #include "core/env/environment.h"
 #include "core/datatypes.h"
 #include "core/lexer/lexer.h"
@@ -27,29 +18,6 @@
 
 
 using namespace kepler;
-using namespace ftxui;
-
-void repl() {
-    Environment env = Environment();
-    Session* session = env.spawn_session();
-
-    auto screen = ScreenInteractive::Fullscreen();
-
-    auto header_headline = Renderer([]{
-        return vbox({
-                    text("Kepler") | bold,
-                    text("v1.0"),
-                }) | dim | color(Color::Palette16::Cyan);
-    });
-
-    auto repl = tui::REPLContainer(header_headline, session, &env);
-
-    auto content = Renderer(repl, [&]{
-        return repl->Render();
-    });
-
-    screen.Loop(content);
-}
 
 void test() {
     Environment env = Environment();
@@ -79,6 +47,13 @@ void test() {
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"
+#include "repl/repl.h"
+
+void repl() {
+    Environment env = Environment();
+    Session *session = env.spawn_session();
+    kepler::tui::repl(*session);
+}
 
 int main(int argc, char* argv[]) {
     auto result = kepler::cli::cli.parse({argc, argv});
@@ -99,11 +74,13 @@ int main(int argc, char* argv[]) {
         return session.run();
     } else if(kepler::cli::config.commands.empty()) {
         // Run REPL.
+        //repl();
         repl();
     } else if(kepler::cli::config.commands.size() == 1) {
         // Try to run the file.
         // For now, just run the test.
-        test();
+        std::cout << "Directly executing workspaces is not implemented yet." << std::endl;
+        return 1;
     } else {
         std::cerr << "Command error: only one file can be specified." << std::endl;
     }

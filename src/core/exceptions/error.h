@@ -38,7 +38,7 @@ namespace kepler {
     public:
         error(ErrorType error_type_, std::string message_, int position_ = -1) : error_type(error_type_), message(std::move(message_)), position(position_) {}
 
-        std::string type() {
+        std::string type() const {
             switch (error_type) {
                 case SyntaxError:
                     return "SYNTAX ERROR";
@@ -53,11 +53,11 @@ namespace kepler {
             }
         }
 
-        std::string why() {
+        std::string why() const {
             return message;
         }
 
-        int where() {
+        int where() const {
             return position;
         }
     };

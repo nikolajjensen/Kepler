@@ -21,6 +21,8 @@
 
 #include "../token_class.h"
 #include "../token.h"
+#include "core/exceptions/error.h"
+#include "session.h"
 
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
 #include <iostream>
@@ -337,6 +339,30 @@ namespace kepler {
             template <typename T>
             void operator()(const T& element) const {
                 stream << element;
+            }
+        };
+
+        struct ErrorPrinter {
+            std::ostream& stream;
+            const std::string padding = "    ";
+
+            explicit ErrorPrinter(std::ostream& stream_) : stream(stream_) {}
+
+            void operator()(const kepler::error& err) const {
+                stream << err.type() << ": " << err.why();
+            }
+
+            void operator()(const kepler::Session& session) const {
+                stream << session.currentContext->error->type() << ": " << session.currentContext->error->why() << "\n";
+
+                if(session.currentContext->error->where() != -1) {
+                    std::cout << "    " << uni::utf32to8(session.currentContext->currentLine) << "\n";
+                    std::cout << "    ";
+                    for (int i = 0; i < session.currentContext->error->where(); ++i) {
+                        std::cout << "~";
+                    }
+                    std::cout << "^";
+                }
             }
         };
 

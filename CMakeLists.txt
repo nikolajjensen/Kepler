@@ -15,21 +15,6 @@ include(FetchContent)
    GIT_SHALLOW ON  # Download the branch without its history
    GIT_TAG v0.6.0) # The version you want to download
 
-# --- Fetch FTXUI --------------------------------------------------------------
-set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
-FetchContent_Declare(ftxui
-        GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
-        # Important: Specify a GIT_TAG XXXXX here.
-        )
-
-FetchContent_GetProperties(ftxui)
-if(NOT ftxui_POPULATED)
-    FetchContent_Populate(ftxui)
-    add_subdirectory(${ftxui_SOURCE_DIR} ${ftxui_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif()
-
-# ------------------------------------------------------------------------------
-
 FetchContent_Declare(
         Catch2
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
@@ -58,8 +43,8 @@ file(GLOB Kepler_SRC CONFIGURE_DEPENDS
         "src/core/interpreter/*.tpp"
         "src/core/env/*.h"
         "src/core/env/*.cpp"
-        "src/tui/*.h"
-        "src/tui/*.cpp"
+        "src/repl/*.h"
+        "src/repl/*.cpp"
         "src/testing/*.h"
         "src/testing/*.cpp"
 )
@@ -71,9 +56,3 @@ FetchContent_MakeAvailable(Catch2)
 FetchContent_MakeAvailable(Lyra)
 target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Boost::boost Catch2::Catch2 lyra)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
-
-target_link_libraries(${PROJECT_NAME}
-        PRIVATE ftxui::screen
-        PRIVATE ftxui::dom
-        PRIVATE ftxui::component # Not needed for this example.
-        )

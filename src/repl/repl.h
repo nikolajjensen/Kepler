@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,15 +18,17 @@
 //
 
 #pragma once
+#include "core/env/session.h"
+#include <string>
 
-#include "ftxui/component/captured_mouse.hpp"  // for ftxui
-#include "ftxui/component/component.hpp"       // for Input, Renderer, Vertical
-#include "ftxui/component/component_base.hpp"  // for ComponentBase
-#include "ftxui/component/component_options.hpp"  // for InputOption
-#include "ftxui/component/event.hpp"
-#include "ftxui/component/mouse.hpp"
-#include "ftxui/component/screen_interactive.hpp"  // for Component, ScreenInteractive
-#include "ftxui/dom/elements.hpp"  // for text, hbox, separator, Element, operator|, vbox, border
-#include "ftxui/util/ref.hpp"  // for Ref
-#include "ftxui/screen/box.hpp"
-#include "helpers.h"
+namespace kepler::tui {
+    void print(std::string str);
+
+    void prompt(std::string& input);
+    void display_result(Session& session);
+
+    void setup();
+    void loop(Session& session);
+
+    void repl(Session& session);
+};
