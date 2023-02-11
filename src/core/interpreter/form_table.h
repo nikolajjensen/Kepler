@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <complex.h>
+#include <complex>
 
 #include <utility>
 #include <array>

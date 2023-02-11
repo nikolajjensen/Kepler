@@ -18,7 +18,6 @@
 //
 
 #include "form_table.h"
-#include <boost/optional.hpp>
 #include "form_table_evaluators.h"
 #include "form_table_applicators.h"
 

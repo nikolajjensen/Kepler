@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.78.0 REQUIRED COMPONENTS)
+find_package(Boost 1.74.0 REQUIRED COMPONENTS)
 
 include(FetchContent)
 
@@ -26,7 +26,6 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/bfgroup/Lyra.git
         GIT_TAG        1.6.1 # or a later release
 )
-
 
 file(GLOB Kepler_SRC CONFIGURE_DEPENDS
         "src/main.cpp"

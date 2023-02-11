@@ -26,7 +26,7 @@
 namespace kepler {
     class Array {
     public:
-        typedef boost::variant<Char, Number, Array> element_type;
+        typedef boost::variant<Char, Number, boost::recursive_wrapper<Array>> element_type;
         typedef List<element_type> ravel_list_type;
 
         List<UnsignedInteger> shapeList;
