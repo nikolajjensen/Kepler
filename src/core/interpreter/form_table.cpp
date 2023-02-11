@@ -22,10 +22,7 @@
 #include "form_table_evaluators.h"
 #include "form_table_applicators.h"
 
-using namespace kepler;
-using namespace kepler::form_table;
-
-template <std::size_t S, const pattern<S> &Pattern>
+template <std::size_t S, const kepler::form_table::pattern<S> &Pattern>
 bool kepler::form_table::match_pattern(search_t &search) {
     if(search.size() < S) {
         return false;
@@ -40,7 +37,7 @@ bool kepler::form_table::match_pattern(search_t &search) {
     return true;
 }
 
-evaluator kepler::form_table::lookup(search_t &&search) {
+kepler::form_table::evaluator kepler::form_table::lookup(search_t &&search) {
     if(match_pattern<patterns::monadic, patterns::conjugate>(search)) {
         return [](List<Token*> tokens){
             return applicators::monadic<applicators::scalar<evaluators::conjugate>>()(tokens);
