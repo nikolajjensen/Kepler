@@ -20,26 +20,13 @@
 #include "form_table.h"
 #include "../token.h"
 #include "../classifiers.h"
-#include "../exceptions/error.h"
+#include "../error/error.h"
 #include <boost/optional.hpp>
+#include "form_table_evaluators.h"
+#include "form_table_applicators.h"
 
 using namespace kepler;
 using namespace kepler::form_table;
-
-bool kepler::form_table::match(boost::variant<Token&, TableAtomic> &search, const pattern_atomic &target) {
-    if(Token* token = boost::get<Token>(&search)) {
-        if(const Token::content_type* other = boost::get<Token::content_type>(&target)) {
-            return token->content && (token->content.get() == *other);
-        }
-    } else if (TableAtomic* first = boost::get<TableAtomic>(&search)) {
-        if(const TableAtomic* other = boost::get<TableAtomic>(&target)) {
-            return *first == *other;
-        }
-    }
-
-    return false;
-}
-
 
 template <std::size_t S, const pattern<S> &Pattern>
 bool kepler::form_table::match_pattern(search_t &search) {
@@ -48,7 +35,7 @@ bool kepler::form_table::match_pattern(search_t &search) {
     }
 
     for(int i = 0; i < S; ++i) {
-        if(!match(search[i], Pattern[i])) {
+        if(!boost::apply_visitor(match(), search[i], Pattern[i])) {
             return false;
         }
     }
@@ -57,24 +44,36 @@ bool kepler::form_table::match_pattern(search_t &search) {
 }
 
 evaluator kepler::form_table::lookup(search_t &&search) {
-    /*if(match_pattern<patterns::monadic, patterns::conjugate>(search)) {
-        return [](List<Token*>&& tokens){ return applicators::monadic_scalar(tokens, evaluators::conjugate); };
+    if(match_pattern<patterns::monadic, patterns::conjugate>(search)) {
+        return [](List<Token*> tokens){
+            return applicators::monadic<applicators::scalar<evaluators::conjugate>>()(tokens);
+        };
     } else if(match_pattern<patterns::monadic, patterns::negative>(search)) {
-        return [](List<Token*>&& tokens){ return applicators::monadic_scalar(tokens, evaluators::negative); };
+        return [](List<Token*> tokens){
+            return applicators::monadic<applicators::scalar<evaluators::negative>>()(tokens);
+        };
     } else if(match_pattern<patterns::monadic, patterns::direction>(search)) {
-        return [](List<Token*>&& tokens){ return applicators::monadic_scalar(tokens, evaluators::direction); };
+        return [](List<Token*> tokens){
+            return applicators::monadic<applicators::scalar<evaluators::direction>>()(tokens);
+        };
     } else if(match_pattern<patterns::dyadic, patterns::plus>(search)) {
-        return [](List<Token*>&& tokens){ return applicators::dyadic_scalar(tokens, evaluators::plus); };
+        return [](List<Token*> tokens){
+            return applicators::dyadic<applicators::scalar<evaluators::plus>>()(tokens);
+        };
     } else if(match_pattern<patterns::dyadic, patterns::divide>(search)) {
-        return [](List<Token*>&& tokens){ return applicators::dyadic_scalar(tokens, evaluators::divide); };
+        return [](List<Token*> tokens){
+            return applicators::dyadic<applicators::scalar<evaluators::divide>>()(tokens);
+        };
     } else if(match_pattern<patterns::monadic, patterns::shape>(search)) {
-        return [](List<Token*>&& tokens){ return applicators::monadic_array(tokens, evaluators::shape); };
-    }*/
+        return [](List<Token*> tokens){
+            return applicators::monadic<applicators::array<evaluators::shape>>()(tokens);
+        };
+    }
 
     return nullptr;
 }
 
-kepler::Token kepler::form_table::evaluate(search_t &&search, input_t &&input) {
+kepler::Token kepler::form_table::evaluate(search_t search, input_t input) {
     auto evaluator = lookup(std::move(search));
     if(evaluator == nullptr) {
         throw error(InternalError, "Expected to find form-table evaluator for expression.");

@@ -16,5 +16,19 @@
 // You should have received a copy of the GNU General Public License 
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
+#include "error_type.h"
 
-#include "fixture.h"
+std::string kepler::to_string(ErrorType error_type) {
+    switch (error_type) {
+        case SyntaxError:
+            return "SYNTAX ERROR";
+        case ValueError:
+            return "VALUE ERROR";
+        case DomainError:
+            return "DOMAIN ERROR";
+        case InternalError:
+            return "INTERNAL ERROR";
+        default:
+            return "UNDEFINED ERROR";
+    }
+}

@@ -20,7 +20,7 @@
 #include "lexer.h"
 #include "../characters.h"
 #include "../token.h"
-#include "../exceptions/error.h"
+#include "../error/error.h"
 
 #include <utility>
 

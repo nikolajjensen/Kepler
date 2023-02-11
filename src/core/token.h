@@ -26,6 +26,7 @@
 #include <boost/optional.hpp>
 
 namespace kepler {
+
     struct Token {
         typedef boost::variant<
                     Char,
@@ -40,7 +41,7 @@ namespace kepler {
         optional_content_type content;
 
         Token(TokenClass tokenClass_, content_type content_) : tokenClass(tokenClass_), content(content_) {}
-        Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_) {}
+        Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_), content(boost::none) {}
 
         void set(TokenClass new_class) {
             tokenClass = new_class;

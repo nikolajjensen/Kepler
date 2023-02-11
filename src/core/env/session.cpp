@@ -22,7 +22,7 @@
 #include "core/parser/parser.h"
 #include "core/parser/token_converter.h"
 #include "core/interpreter/interpreter.h"
-#include "core/exceptions/error.h"
+#include "core/error/error.h"
 
 
 #include <uni_algo/conv.h>

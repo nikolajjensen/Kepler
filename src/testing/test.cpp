@@ -23,6 +23,7 @@
 #include "core/token_class.h"
 #include "core/datatypes.h"
 #include "string_maker.h"
+#include "core/error/error_type.h"
 
 TEST_CASE_METHOD(fixture, "conjugate (+)", "[conjugate][scalar][func]") {
     CHECK_THAT(run("+2 "), Outputs("2"));
@@ -57,6 +58,11 @@ TEST_CASE_METHOD(fixture, "plus (+)", "[plus][scalar][func]") {
     CHECK_THAT(run("23+2"), Outputs("25"));
     CHECK_THAT(run("1E1+2J2"), Outputs("12J2"));
     CHECK_THAT(run("1J2+1J7"), Outputs("2J9"));
+}
+
+TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][scalar][func]") {
+    CHECK_THAT(run("2÷5"), Outputs("0.4"));
+    CHECK_THAT(run("2÷0"), Throws(kepler::DomainError));
 }
 
 TEST_CASE_METHOD(fixture, "negative and conjugate", "[negative][conjugate][scalar][func]") {

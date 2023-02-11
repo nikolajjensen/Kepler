@@ -21,7 +21,7 @@
 
 #include "../token_class.h"
 #include "../token.h"
-#include "core/exceptions/error.h"
+#include "core/error/error.h"
 #include "session.h"
 
 #include <boost/spirit/home/x3/support/ast/variant.hpp>

@@ -23,7 +23,7 @@
 #include "../token.h"
 #include "../datatypes.h"
 #include "defined_function.h"
-#include "../exceptions/error.h"
+#include "../error/error.h"
 
 namespace kepler {
     class Context {

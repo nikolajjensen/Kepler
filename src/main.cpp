@@ -14,7 +14,7 @@
 #include "core/interpreter/interpreter.h"
 #include "core/parser/token_converter.h"
 #include <boost/variant.hpp>
-#include "core/exceptions/error.h"
+#include "core/error/error.h"
 
 
 using namespace kepler;

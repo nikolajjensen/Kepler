@@ -20,11 +20,14 @@
 #pragma once
 
 #include <complex.h>
+
+#include <utility>
 #include "../token.h"
 #include "../token_class.h"
 #include "../characters.h"
 #include "evaluation_outcome.h"
 #include "../classifiers.h"
+#include "../error/error.h"
 
 namespace kepler {
     namespace form_table {
@@ -43,8 +46,9 @@ namespace kepler {
         using pattern_atomic = boost::variant<kepler::Token::content_type, TableAtomic>;
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
-        using search_t = List<boost::variant<Token&, TableAtomic>>;
+        using search_t = List<boost::variant<Token*, TableAtomic>>;
         using input_t = List<Token*>;
+        using evaluator = kepler::Token (*)(List<Token*>);
 
         namespace patterns {
             constexpr std::size_t niladic = 1;
@@ -77,54 +81,29 @@ namespace kepler {
             const pattern<monadic> shape = {characters::rho, Constant};
         };
 
-        using evaluator = kepler::Token (*)(List<Token*>&&);
-        using monadic_scalar_evaluator = boost::variant<Number, Char> (*)(boost::variant<Number, Char>& operand);
-        using dyadic_scalar_evaluator = boost::variant<Number, Char> (*)(boost::variant<Number, Char>& lhs, boost::variant<Number, Char>& rhs);
 
-        using monadic_array_evaluator = kepler::Array (*)(Array& operand);
-        using dyadic_array_evaluator = kepler::Array (*)(Array& operand);
-
-
-        namespace evaluators {
-            boost::variant<Number, Char> conjugate(boost::variant<Number, Char>& operand);
-            /*
-            boost::variant<Number, Char> negative(boost::variant<Number, Char>& operand);
-            boost::variant<Number, Char> direction(boost::variant<Number, Char>& operand);
-
-            boost::variant<Number, Char> plus(boost::variant<Number, Char>& lhs, boost::variant<Number, Char>& rhs);
-            boost::variant<Number, Char> divide(boost::variant<Number, Char>& lhs, boost::variant<Number, Char>& rhs);
-
-            kepler::Array shape(kepler::Array& operand);
-
-            int foo(boost::variant<bool, int, double>& input) {
-                return 1;
+        struct match : boost::static_visitor<bool> {
+            bool operator()(Token*& token, const Token::content_type& target) const {
+                return token->content && (token->content.get() == target);
             }
 
-            int bar(boost::variant<bool, int>& input) {
-                return foo(input);
+            bool operator()(TableAtomic& atomic, const TableAtomic& target) const {
+                return atomic == target;
             }
-            */
+
+            template <typename T, typename U>
+            bool operator()(T&, const U&) const {
+                return false;
+            }
         };
-
-        namespace applicators {
-            //Token monadic_scalar(List<Token*>& tokens, monadic_scalar_evaluator evaluator);
-            //Token dyadic_scalar(List<Token*>& tokens, dyadic_scalar_evaluator evaluator);
-
-            //Token monadic_array(List<Token*>& tokens, monadic_array_evaluator evaluator);
-            //Token dyadic_array(List<Token*>& tokens, dyadic_scalar_evaluator evaluator);
-        };
-
-        bool match(boost::variant<Token&, TableAtomic>& search, const pattern_atomic& target);
 
         template <std::size_t S, const pattern<S>& Pattern>
         bool match_pattern(search_t& search);
 
         evaluator lookup(search_t&& search);
 
-        //form_evaluator lookup(search_t&& search);
-
         // NOTE: This will throw InternalError if there
         // is no match in form table.
-        kepler::Token evaluate(search_t&& search, input_t&& input);
+        kepler::Token evaluate(search_t search, input_t input);
     };
 };

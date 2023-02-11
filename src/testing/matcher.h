@@ -23,50 +23,16 @@
 #include "core/token_class.h"
 #include "core/token.h"
 #include "core/env/printers.h"
+#include "core/error/error.h"
 #include <iomanip>
-
-/*
-struct EqualsTokenClass : Catch::Matchers::MatcherGenericBase {
-    EqualsTokenClass(kepler::TokenClass const& tokenClass_) : tokenClass(tokenClass_) {}
-
-    bool match(kepler::Token const& token) const {
-        return token.tokenClass == tokenClass;
-    }
-
-    std::string describe() const override {
-        return "has token class ???";
-    }
-
-private:
-    kepler::TokenClass const& tokenClass;
-};
-struct Contains : Catch::Matchers::MatcherGenericBase {
-    Contains(kepler::Token::content_type const& content_) : content(content_) {}
-
-    bool match(kepler::Token const& token) const {
-        //kepler::printers::TokenDebugPrinter p;
-        //p(token);
-        //auto other = kepler::Token(kepler::NilToken, content);
-        //p(other);
-        return token.content && token.content.get() == content;
-    }
-
-    std::string describe() const override {
-        return "should contain ???";
-    }
-
-private:
-    kepler::Token::content_type const& content;
-};
-*/
 
 struct Outputs : Catch::Matchers::MatcherGenericBase {
     Outputs(std::string const& output_, int print_precision_ = -1) : output(output_), print_precision(print_precision_) {}
 
-    bool match(kepler::Token const& token) const {
+    bool match(kepler::Context const & context) const {
         std::stringstream ss;
         kepler::printers::TokenPrinter p(ss, print_precision);
-        p(token);
+        p(context.result);
         return ss.str() == output;
     }
 
@@ -77,4 +43,19 @@ struct Outputs : Catch::Matchers::MatcherGenericBase {
 private:
     std::string const& output;
     int print_precision;
+};
+
+struct Throws : Catch::Matchers::MatcherGenericBase {
+    Throws(kepler::ErrorType const& error_type_) : error_type(error_type_) {}
+
+    bool match(kepler::Context const & context) const {
+        return context.error->error_type == error_type;
+    }
+
+    std::string describe() const override {
+        return "should be a " + to_string(error_type);
+    }
+
+private:
+    kepler::ErrorType const& error_type;
 };

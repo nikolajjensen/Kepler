@@ -31,7 +31,7 @@ public:
     fixture() : environment(), session(environment.spawn_session()) {}
 
 protected:
-    kepler::Token& run(std::string&& input, bool timing = false) {
+    kepler::Context& run(std::string&& input, bool timing = false) {
         auto start = std::chrono::high_resolution_clock::now();
         session->insert_line(input);
         session->evaluate();
@@ -40,10 +40,6 @@ protected:
             auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
             std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
         }
-        return session->currentContext->result;
-    }
-
-    kepler::Array num(kepler::Number&& n) {
-        return {{}, {n}};
+        return *session->currentContext;
     }
 };

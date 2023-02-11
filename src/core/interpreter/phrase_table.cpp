@@ -72,7 +72,7 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<X_F_B_size, X_F
             throw kepler::error(SyntaxError, "Undefined monadic function reference.");
         }
     } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
-        auto evaluator = kepler::form_table::lookup({f, kepler::form_table::TableAtomic::Constant});
+        auto evaluator = kepler::form_table::lookup({&f, kepler::form_table::TableAtomic::Constant});
 
         if(evaluator != nullptr) {
             b = evaluator({&f, &b});
@@ -126,7 +126,7 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_B_size, A_F_
             throw kepler::error(SyntaxError, "Undefined reference to dyadic operator.");
         }
     } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
-        auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, f, form_table::TableAtomic::Constant});
+        auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, &f, form_table::TableAtomic::Constant});
 
         if(evaluator != nullptr) {
             a = evaluator({&a, &f, &b});

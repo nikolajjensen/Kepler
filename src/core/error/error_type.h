@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,24 +17,16 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "environment.h"
-#include "core/error/error.h"
-#include "core/lexer/lexer.h"
-#include "core/parser/parser.h"
-#include "../interpreter/interpreter.h"
+#pragma once
+#include <string>
 
-kepler::Environment::Environment() {
+namespace kepler {
+    enum ErrorType {
+        SyntaxError,
+        ValueError,
+        DomainError,
+        InternalError
+    };
 
-}
-
-kepler::Session* kepler::Environment::spawn_session() {
-    sessions.emplace_back(Workspace(clearWorkspaceIdentifier),
-                          "new_session",
-                          initialComparisonTolerance,
-                          initialRandomLink,
-                          initialPrintPrecision,
-                          initialIndexOrigin,
-                          initialLatentExpression);
-
-    return &sessions[0];
-}
+    std::string to_string(ErrorType error_type);
+};

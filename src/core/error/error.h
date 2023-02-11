@@ -20,37 +20,19 @@
 #pragma once
 #include <iostream>
 #include <utility>
+#include "error_type.h"
 
 namespace kepler {
-    enum ErrorType {
-        SyntaxError,
-        ValueError,
-        DomainError,
-        InternalError
-    };
-
     class error : public std::exception {
-    private:
+    public:
         ErrorType error_type;
         std::string message;
         int position;
 
-    public:
         error(ErrorType error_type_, std::string message_, int position_ = -1) : error_type(error_type_), message(std::move(message_)), position(position_) {}
 
         std::string type() const {
-            switch (error_type) {
-                case SyntaxError:
-                    return "SYNTAX ERROR";
-                case ValueError:
-                    return "VALUE ERROR";
-                case DomainError:
-                    return "DOMAIN ERROR";
-                case InternalError:
-                    return "INTERNAL ERROR";
-                default:
-                    return "UNDEFINED ERROR";
-            }
+            return to_string(error_type);
         }
 
         std::string why() const {
