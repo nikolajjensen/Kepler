@@ -18,9 +18,7 @@
 //
 
 #include "interpreter.h"
-#include "token_pattern_class.h"
 #include "form_table.h"
-#include "../classifiers.h"
 #include "phrase_table.h"
 
 using namespace kepler::interpreter;
