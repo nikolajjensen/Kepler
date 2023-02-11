@@ -22,6 +22,7 @@
 #include <complex.h>
 
 #include <utility>
+#include <array>
 #include "../token.h"
 #include "../token_class.h"
 #include "../characters.h"
