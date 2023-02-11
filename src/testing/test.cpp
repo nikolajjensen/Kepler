@@ -65,6 +65,11 @@ TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][scalar][func]") {
     CHECK_THAT(run("2÷0"), Throws(kepler::DomainError));
 }
 
+TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
+    CHECK_THAT(run("⍴1 2 3"), Outputs("3"));
+    CHECK_THAT(run("⍴1 2 3 4"), Outputs("4"));
+}
+
 TEST_CASE_METHOD(fixture, "negative and conjugate", "[negative][conjugate][scalar][func]") {
     CHECK_THAT(run("-+2"), Outputs("¯2"));
     CHECK_THAT(run("-+2E2"), Outputs("¯200"));

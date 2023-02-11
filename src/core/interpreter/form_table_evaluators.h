@@ -22,7 +22,7 @@
 namespace kepler::form_table::evaluators {
     struct evaluator : boost::static_visitor<boost::variant<Number, Char, Array>> {
         template <typename T>
-        T operator()(T& arr) const {
+        T operator()(T& arg) const {
             throw kepler::error(InternalError, "Evaluator called with unsupported argument.");
         }
 
@@ -91,8 +91,13 @@ namespace kepler::form_table::evaluators {
     struct shape : evaluator {
         using evaluator::operator();
 
-        Array operator()(Array& num) const {
-            return Array::vectorOf(std::move(num.shapeList));
+        Array operator()(Array& arr) const {
+            List<Number> ravel;
+            ravel.reserve(arr.ravelList.size());
+            for(auto& dim : arr.shapeList) {
+                ravel.emplace_back(dim);
+            }
+            return Array::vectorOf(std::move(ravel));
         }
     };
 };

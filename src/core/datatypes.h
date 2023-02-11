@@ -21,13 +21,6 @@
 
 #include <vector>
 #include <string>
-#include <ostream>
-#include <sstream>
-#include <iostream>
-
-#include <uni_algo/conv.h>
-#include <boost/optional.hpp>
-#include <cmath>
 #include <complex>
 
 namespace kepler {

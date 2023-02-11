@@ -68,7 +68,7 @@ namespace kepler::form_table::applicators {
 
     template <typename Evaluator>
     struct array : boost::static_visitor<Token::content_type> {
-        Array operator()(Array& arr) {
+        Array operator()(Array& arr) const {
             return Evaluator()(arr);
         }
 

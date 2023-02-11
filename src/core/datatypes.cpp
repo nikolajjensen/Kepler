@@ -24,6 +24,7 @@
 #include <limits>
 #include <cmath>
 #include <iomanip>
+#include <uni_algo/conv.h>
 
 kepler::Number kepler::numeric_limit_max() {
     return std::numeric_limits<double>::max();

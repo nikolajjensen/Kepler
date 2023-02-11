@@ -18,9 +18,6 @@
 //
 
 #include "form_table.h"
-#include "../token.h"
-#include "../classifiers.h"
-#include "../error/error.h"
 #include <boost/optional.hpp>
 #include "form_table_evaluators.h"
 #include "form_table_applicators.h"
