@@ -20,7 +20,6 @@
 #include "datatypes.h"
 #include "characters.h"
 
-#include <format>
 #include <limits>
 #include <cmath>
 #include <iomanip>
