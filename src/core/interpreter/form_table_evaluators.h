@@ -32,16 +32,15 @@ namespace kepler::form_table::evaluators {
         }
     };
 
+    ///////////////////////////////////////////////////////
+    /// Monadic functions
+    ///////////////////////////////////////////////////////
 
     struct conjugate : evaluator {
         using evaluator::operator();
 
         Number operator()(Number& num) const {
             return conj(num);
-        }
-
-        Char operator()(Char& ch) const {
-            return ch;
         }
     };
 
@@ -51,10 +50,6 @@ namespace kepler::form_table::evaluators {
         Number operator()(Number& num) const {
             return Number(0) - num;
         }
-
-        Char operator()(Char& ch) const {
-            return ch;
-        }
     };
 
     struct direction : evaluator {
@@ -63,17 +58,112 @@ namespace kepler::form_table::evaluators {
         Number operator()(Number& num) const {
             return (num == 0.0) ? num : num / abs(num);
         }
+    };
 
-        Char operator()(Char& ch) const {
-            return ch;
+    struct reciprocal : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            if(num == 0.0) {
+                throw kepler::error(DomainError, "Reciprocal of 0.");
+            }
+            return Number(1) / num;
         }
     };
+
+    struct floor : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+    struct ceiling : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+    struct exponential : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            return exp(num);
+        }
+    };
+
+    struct natural_log : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            if(num == 0.0) {
+                throw kepler::error(DomainError, "Natural logarithm of 0.");
+            }
+            return log(num);
+        }
+    };
+
+    struct magnitude : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            return abs(num);
+        }
+    };
+
+    struct factorial : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+    struct pi_times : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            return num * M_PI;
+        }
+    };
+
+    struct negation : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& num) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+
+    ///////////////////////////////////////////////////////
+    /// Dyadic functions
+    ///////////////////////////////////////////////////////
 
     struct plus : evaluator {
         using evaluator::operator();
 
         Number operator()(Number& lhs, Number& rhs) const {
             return lhs + rhs;
+        }
+    };
+
+    struct minus : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs - rhs;
+        }
+    };
+
+    struct times : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
         }
     };
 
@@ -85,6 +175,154 @@ namespace kepler::form_table::evaluators {
                 throw kepler::error(DomainError, "Dividing by 0.");
             }
             return lhs / rhs;
+        }
+    };
+
+    struct maximum : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+    struct minimum : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+    struct power : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            if(lhs == 0.0 && rhs == 0.0) return {1};
+            if(lhs == 0.0) {
+                if(rhs.real() > 0) {
+                    return {0};
+                } else {
+                    throw kepler::error(DomainError, "Cannot take power.");
+                }
+            }
+            return pow(lhs, rhs);
+        }
+    };
+
+    struct logarithm : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            if(lhs == rhs) return {1};
+            if(rhs == 1.0) throw kepler::error(DomainError, "Log of base 1 undefined.");
+            lhs = natural_log()(lhs);
+            rhs = natural_log()(rhs);
+            return rhs / lhs;
+        }
+    };
+
+    struct residue : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            throw kepler::error(InternalError, "Not yet implemented.");
+        }
+    };
+
+    struct binomial : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct circular_functions : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct and_lcm : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct or_gcd : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct nand : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct nor : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct equal : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct less_than : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct less_than_or_equal_to : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct not_equal : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct greater_than_or_equal_to : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
+        }
+    };
+
+    struct greater_than : evaluator {
+        using evaluator::operator();
+
+        Number operator()(Number& lhs, Number& rhs) const {
+            return lhs * rhs;
         }
     };
 
