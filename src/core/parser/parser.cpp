@@ -22,7 +22,6 @@
 #include "token_converter.h"
 #include "../env/printers.h"
 #include "../interpreter/form_table.h"
-#include "../interpreter/form_table_evaluators.tpp"
 
 using namespace kepler::parser;
 

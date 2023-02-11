@@ -18,6 +18,8 @@
 //
 
 #pragma once
+
+#include <complex.h>
 #include "../token.h"
 #include "../token_class.h"
 #include "../characters.h"
@@ -41,8 +43,6 @@ namespace kepler {
         using pattern_atomic = boost::variant<kepler::Token::content_type, TableAtomic>;
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
-        using selector = kepler::List<Selection>;
-
         using search_t = List<boost::variant<Token&, TableAtomic>>;
         using input_t = List<Token*>;
 
@@ -73,28 +73,45 @@ namespace kepler {
             const pattern<dyadic> plus = {Constant, characters::plus, Constant};
             const pattern<dyadic> divide = {Constant, characters::divide, Constant};
 
+
+            const pattern<monadic> shape = {characters::rho, Constant};
         };
 
-        using form_evaluator = kepler::Token (*)(input_t&& input);
+        using evaluator = kepler::Token (*)(List<Token*>&&);
+        using monadic_scalar_evaluator = boost::variant<Number, Char> (*)(boost::variant<Number, Char>& operand);
+        using dyadic_scalar_evaluator = boost::variant<Number, Char> (*)(boost::variant<Number, Char>& lhs, boost::variant<Number, Char>& rhs);
+
+        using monadic_array_evaluator = kepler::Array (*)(Array& operand);
+        using dyadic_array_evaluator = kepler::Array (*)(Array& operand);
+
 
         namespace evaluators {
-            template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token conjugate(input_t&& input);
+            boost::variant<Number, Char> conjugate(boost::variant<Number, Char>& operand);
+            /*
+            boost::variant<Number, Char> negative(boost::variant<Number, Char>& operand);
+            boost::variant<Number, Char> direction(boost::variant<Number, Char>& operand);
 
-            template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token negative(input_t&& input);
+            boost::variant<Number, Char> plus(boost::variant<Number, Char>& lhs, boost::variant<Number, Char>& rhs);
+            boost::variant<Number, Char> divide(boost::variant<Number, Char>& lhs, boost::variant<Number, Char>& rhs);
 
-            template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token direction(input_t&& input);
+            kepler::Array shape(kepler::Array& operand);
 
-            template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token plus(input_t&& input);
+            int foo(boost::variant<bool, int, double>& input) {
+                return 1;
+            }
 
-            template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token divide(input_t&& input);
+            int bar(boost::variant<bool, int>& input) {
+                return foo(input);
+            }
+            */
+        };
 
-            template <std::size_t S, const pattern<S>& Pattern>
-            kepler::Token call_defined_function(input_t&& input);
+        namespace applicators {
+            //Token monadic_scalar(List<Token*>& tokens, monadic_scalar_evaluator evaluator);
+            //Token dyadic_scalar(List<Token*>& tokens, dyadic_scalar_evaluator evaluator);
+
+            //Token monadic_array(List<Token*>& tokens, monadic_array_evaluator evaluator);
+            //Token dyadic_array(List<Token*>& tokens, dyadic_scalar_evaluator evaluator);
         };
 
         bool match(boost::variant<Token&, TableAtomic>& search, const pattern_atomic& target);
@@ -102,7 +119,9 @@ namespace kepler {
         template <std::size_t S, const pattern<S>& Pattern>
         bool match_pattern(search_t& search);
 
-        form_evaluator lookup(search_t&& search);
+        evaluator lookup(search_t&& search);
+
+        //form_evaluator lookup(search_t&& search);
 
         // NOTE: This will throw InternalError if there
         // is no match in form table.

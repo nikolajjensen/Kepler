@@ -22,23 +22,9 @@
 #include "../token.h"
 #include "../classifiers.h"
 #include <functional>
-#include "form_table_evaluators.tpp"
 
 using namespace kepler;
 using namespace kepler::phrase_table;
-
-void kepler::phrase_table::helpers::niladic_apply(kepler::form_table::form_evaluator evaluator, List<Token *> tokens) {
-
-}
-
-void kepler::phrase_table::helpers::monadic_scalar_extension(kepler::form_table::form_evaluator evaluator, Token& token) {
-    auto& arr = token.get_content<Array>();
-    // Here we should be checking if the array is mixed or not...
-    for(auto& element : arr.ravelList) {
-
-    }
-}
-
 
 template <>
 void kepler::phrase_table::evaluators::remove_parenthesis<LP_B_RP_size, LP_B_RP>(List<Token> &stack, Session &session) {

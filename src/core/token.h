@@ -23,13 +23,10 @@
 #include "datatypes.h"
 #include "uni_algo/conv.h"
 #include "array.h"
-#include <boost/spirit/home/x3/support/ast/variant.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
-#include <boost/spirit/home/x3/support/ast/position_tagged.hpp>
 #include <boost/optional.hpp>
 
 namespace kepler {
-    struct Token : boost::spirit::x3::position_tagged {
+    struct Token {
         typedef boost::variant<
                     Char,
                     Array,
@@ -78,7 +75,3 @@ namespace kepler {
         }
     };
 };
-
-BOOST_FUSION_ADAPT_STRUCT(kepler::Token,
-        tokenClass, content
-)

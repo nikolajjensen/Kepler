@@ -26,7 +26,8 @@
 namespace kepler {
     class Array {
     public:
-        typedef List<boost::variant<Char, Number, boost::recursive_wrapper<Array>>> ravel_list_type;
+        typedef boost::variant<Char, Number, Array> element_type;
+        typedef List<element_type> ravel_list_type;
 
         List<UnsignedInteger> shapeList;
         ravel_list_type ravelList;
@@ -62,6 +63,13 @@ namespace kepler {
 
         friend bool operator==(const Array& lhs, const Array& rhs) {
             return lhs.shapeList == rhs.shapeList && lhs.ravelList == rhs.ravelList;
+        }
+
+        Array& operator=(const Array& other) {
+            this->shapeList = other.shapeList;
+            this->ravelList = other.ravelList;
+
+            return *this;
         }
     };
 };

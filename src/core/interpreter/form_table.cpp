@@ -20,8 +20,8 @@
 #include "form_table.h"
 #include "../token.h"
 #include "../classifiers.h"
+#include "../exceptions/error.h"
 #include <boost/optional.hpp>
-#include "form_table_evaluators.tpp"
 
 using namespace kepler;
 using namespace kepler::form_table;
@@ -56,18 +56,20 @@ bool kepler::form_table::match_pattern(search_t &search) {
     return true;
 }
 
-form_evaluator kepler::form_table::lookup(search_t &&search) {
-    if(match_pattern<patterns::monadic, patterns::conjugate>(search)) {
-        return evaluators::conjugate<patterns::monadic, patterns::conjugate>;
+evaluator kepler::form_table::lookup(search_t &&search) {
+    /*if(match_pattern<patterns::monadic, patterns::conjugate>(search)) {
+        return [](List<Token*>&& tokens){ return applicators::monadic_scalar(tokens, evaluators::conjugate); };
     } else if(match_pattern<patterns::monadic, patterns::negative>(search)) {
-        return evaluators::negative<patterns::monadic, patterns::negative>;
+        return [](List<Token*>&& tokens){ return applicators::monadic_scalar(tokens, evaluators::negative); };
     } else if(match_pattern<patterns::monadic, patterns::direction>(search)) {
-        return evaluators::direction<patterns::monadic, patterns::direction>;
+        return [](List<Token*>&& tokens){ return applicators::monadic_scalar(tokens, evaluators::direction); };
     } else if(match_pattern<patterns::dyadic, patterns::plus>(search)) {
-        return evaluators::plus<patterns::dyadic, patterns::plus>;
+        return [](List<Token*>&& tokens){ return applicators::dyadic_scalar(tokens, evaluators::plus); };
     } else if(match_pattern<patterns::dyadic, patterns::divide>(search)) {
-        return evaluators::divide<patterns::dyadic, patterns::divide>;
-    }
+        return [](List<Token*>&& tokens){ return applicators::dyadic_scalar(tokens, evaluators::divide); };
+    } else if(match_pattern<patterns::monadic, patterns::shape>(search)) {
+        return [](List<Token*>&& tokens){ return applicators::monadic_array(tokens, evaluators::shape); };
+    }*/
 
     return nullptr;
 }

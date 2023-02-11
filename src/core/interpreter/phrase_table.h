@@ -139,11 +139,6 @@ namespace kepler {
                     counter++;
                 }
             }
-
-            void niladic_apply(kepler::form_table::form_evaluator evaluator, List<Token*> tokens);
-
-            // TODO: Should fail on mixed array types.
-            void monadic_scalar_extension(kepler::form_table::form_evaluator evaluator, Token& token);
         };
 
         namespace evaluators {
