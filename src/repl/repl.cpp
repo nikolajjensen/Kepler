@@ -36,12 +36,12 @@ void kepler::tui::prompt(std::string& input) {
 }
 
 void kepler::tui::display_result(Session& session) {
-    if(session.currentContext->error) {
+    if(session.current_context->error) {
         kepler::printers::ErrorPrinter ep(std::cout);
         ep(session);
     } else {
         kepler::printers::TokenPrinter tp(std::cout);
-        tp(session.currentContext->result);
+        tp(session.current_context->result);
     }
 }
 

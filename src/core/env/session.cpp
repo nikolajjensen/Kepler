@@ -27,76 +27,44 @@
 
 #include <uni_algo/conv.h>
 
-kepler::Session::Session(
-        kepler::Workspace workspace,
-        kepler::StringUTF8 sessionName_,
-        Number comparisonTolerance_,
-        Number randomLink_,
-        UnsignedInteger printPrecision_,
-        UnsignedInteger indexOrigin_,
-        List<Token> latentExpression_)
-        : activeWorkspace(workspace),
-          sessionName(sessionName_),
-          currentContext(nullptr),
-          currentStack(nullptr),
-          comparisonTolerance(comparisonTolerance_),
-          randomLink(randomLink_),
-          printPrecision(printPrecision_),
-          indexOrigin(indexOrigin_),
-          latentExpression(latentExpression_) {}
-
+kepler::Session::Session(std::string&& session_name_, kepler::config&& config_)
+    :   active_workspace(config_.clear_workspace_identifier),
+        keyboard_state(OpenKeyboardState),
+        session_name(session_name_),
+        current_context(nullptr),
+        config(config_) {}
 
 void kepler::Session::update_pointers() {
-    currentContext = &(activeWorkspace.stateIndicator[activeWorkspace.stateIndicator.size() - 1]);
-    currentStack = &currentContext->stack;
+    current_context = &(active_workspace.stateIndicator[active_workspace.stateIndicator.size() - 1]);
 }
 
 void kepler::Session::insert_line(StringUTF8 input) {
-    activeWorkspace.addContext(std::move(input));
+    active_workspace.addContext(std::move(input));
     update_pointers();
 }
 
 void kepler::Session::evaluate() {
     try {
-        kepler::lexer::Lexer::lex(currentContext);
-        kepler::parser::Parser::parse(currentContext, this);
-        kepler::interpreter::interpret(currentContext, this);
+        kepler::lexer::Lexer::lex(current_context);
+        kepler::parser::Parser::parse(current_context, this);
+        kepler::interpreter::interpret(current_context, this);
     } catch (kepler::error& err) {
-        currentContext->setError(err);
+        current_context->setError(err);
     }
 }
 
 void kepler::Session::lockKeyboard() {
-    keyboardState = LockedKeyboardState;
+    keyboard_state = LockedKeyboardState;
 }
 
 void kepler::Session::openKeyboard() {
-    keyboardState = OpenKeyboardState;
+    keyboard_state = OpenKeyboardState;
 }
-
-/*
-void kepler::Session::evaluate_line() {
-    // Evaluate current context and do the whole shebang.
-    //sleep(1);
-    bool lexing_passed = kepler::lexer::lex(uni::utf8to32u(currentContext->currentLine), currentContext->currentStatement);
-    bool parsing_passed = kepler::parser::parse(currentContext->currentStatement, *this);
-    bool interpret_passed = kepler::interpreter::interpret(currentContext->currentStatement, currentContext->result);
-    //currentResult->content = Char(parsing_passed ? U'Y' : U'N');
-}
-*/
-/*
-void kepler::Session::new_context() {
-    activeWorkspace.stateIndicator.emplace_back();
-    currentContext = &(activeWorkspace.stateIndicator[activeWorkspace.stateIndicator.size() - 1]);
-    currentStack = &currentContext->stack;
-    currentResult = &currentContext->result;
-}
-*/
 
 kepler::Token& kepler::Session::current_referent(kepler::Token &token) {
-    List<Char>& char_list = boost::get<List<Char>>(*token.content);
+    auto& char_list = boost::get<List<Char>>(*token.content);
 
-    kepler::Symbol& symbol_named_by_token = activeWorkspace.symbolTable.get_by_name(char_list);
+    kepler::Symbol& symbol_named_by_token = active_workspace.symbolTable.get_by_name(char_list);
     return symbol_named_by_token.referentList.front();
 }
 

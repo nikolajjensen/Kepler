@@ -7,7 +7,7 @@
 #include "core/env/printers.h"
 #include <vector>
 
-#include "core/env/environment.h"
+#include "core/env/system.h"
 #include "core/datatypes.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
@@ -20,8 +20,8 @@
 using namespace kepler;
 
 void test() {
-    Environment env = Environment();
-    Session *session = env.spawn_session();
+    System env = System();
+    Session* session = env.spawn_session();
     //session->insert_line("ABC←FN ⎕⌽[1+0] DEF[1;5 6]×3.45E2,⍴'ABC' ⍝COMMENT");
     session->insert_line("+2");
     //session->insert_line("-1.22E¯1");
@@ -30,13 +30,13 @@ void test() {
     //session->insert_line("-1.2");
 
     session->evaluate();
-    if(session->currentContext->error) {
-        std::cout << session->currentContext->error->type() << ": " << session->currentContext->error->why() << "\n";
+    if(session->current_context->error) {
+        std::cout << session->current_context->error->type() << ": " << session->current_context->error->why() << "\n";
 
-        if(session->currentContext->error->where() != -1) {
-            std::cout << "    " << uni::utf32to8(session->currentContext->currentLine) << "\n";
+        if(session->current_context->error->where() != -1) {
+            std::cout << "    " << uni::utf32to8(session->current_context->currentLine) << "\n";
             std::cout << "    ";
-            for (int i = 0; i < session->currentContext->error->where(); ++i) {
+            for (int i = 0; i < session->current_context->error->where(); ++i) {
                 std::cout << " ";
             }
             std::cout << "^" << "\n";
@@ -50,8 +50,8 @@ void test() {
 #include "repl/repl.h"
 
 void repl() {
-    Environment env = Environment();
-    Session *session = env.spawn_session();
+    System env = System();
+    Session* session = env.spawn_session();
     kepler::tui::repl(*session);
 }
 

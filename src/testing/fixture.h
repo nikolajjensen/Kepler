@@ -18,17 +18,17 @@
 //
 
 #pragma once
-#include "core/env/environment.h"
+#include "core/env/system.h"
 #include "core/env/session.h"
 #include <chrono>
 
 class fixture {
 protected:
-    kepler::Environment environment;
+    kepler::System system;
     kepler::Session* session;
 
 public:
-    fixture() : environment(), session(environment.spawn_session()) {}
+    fixture() : system(), session(system.spawn_session()) {}
 
 protected:
     kepler::Context& run(std::string&& input, bool timing = false) {
@@ -40,6 +40,6 @@ protected:
             auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
             std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
         }
-        return *session->currentContext;
+        return *session->current_context;
     }
 };

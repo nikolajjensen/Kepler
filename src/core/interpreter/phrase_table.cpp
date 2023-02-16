@@ -27,7 +27,7 @@ using namespace kepler;
 using namespace kepler::phrase_table;
 
 template <>
-void kepler::phrase_table::evaluators::remove_parenthesis<LP_B_RP_size, LP_B_RP>(List<Token> &stack, Session &session) {
+void kepler::phrase_table::evaluators::remove_parenthesis<3, LP_B_RP>(List<Token> &stack, Session &session) {
     if(classifiers::is(stack[1], NilToken) || classifiers::is(stack[1], BranchToken)) {
         throw kepler::error(ValueError, "Cannot remove parenthesis.");
     }
@@ -36,27 +36,26 @@ void kepler::phrase_table::evaluators::remove_parenthesis<LP_B_RP_size, LP_B_RP>
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_niladic_function<N_size, N>(List<Token> &stack, Session &session) {
+void kepler::phrase_table::evaluators::evaluate_niladic_function<1, N>(List<Token> &stack, Session &session) {
     Token& n = stack[0];
 
     if(classifiers::is(n, NiladicDefinedFunctionNameToken)) {
         if(session.current_class(n) == NiladicDefinedFunctionToken) {
-            n = kepler::form_table::evaluate({kepler::form_table::TableAtomic::DFN}, {&n});
+            n = kepler::form_table::evaluate({kepler::form_table::TableAtomic::DFN}, {&n}, &session);
         } else {
             throw kepler::error(SyntaxError, "Undefined niladic function reference.");
         }
     } else if(classifiers::is(n, NiladicSystemFunctionNameToken)) {
-        auto evaluator = kepler::form_table::lookup({kepler::form_table::TableAtomic::Func});
-        if(evaluator != nullptr) {
-            n = evaluator({&n});
-        } else {
+        auto evaluator = kepler::form_table::lookup({&n});
+        if(evaluator == nullptr) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
+        n = evaluator({&n}, &session);
     }
 }
 
 template<>
-void kepler::phrase_table::evaluators::evaluate_monadic_function<X_F_B_size, X_F_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_monadic_function<3, X_F_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
     Token& f = stack[1];
     Token& b = stack[2];
 
@@ -66,50 +65,54 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<X_F_B_size, X_F
 
     if(classifiers::is(b, DefinedFunctionNameToken)) {
         if(session.current_class(f) == DefinedFunctionToken) {
-           f = form_table::evaluate({form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&f, &b});
+           f = form_table::evaluate({form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&f, &b}, &session);
            helpers::erase(stack, 2);
         } else {
             throw kepler::error(SyntaxError, "Undefined monadic function reference.");
         }
     } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
         auto evaluator = kepler::form_table::lookup({&f, kepler::form_table::TableAtomic::Constant});
-
-        if(evaluator != nullptr) {
-            b = evaluator({&f, &b});
-            helpers::erase(stack, 1);
-        } else {
+        if(evaluator == nullptr) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
+        b = evaluator({&f, &b}, &session);
+        helpers::erase(stack, 1);
     }
 }
 
 template<>
-void kepler::phrase_table::evaluators::evaluate_monadic_function<X_F_LB_C_RB_B_size, X_F_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+    Token& f = stack[1];
+    Token& b = stack[5];
+    Token& c = stack[3];
+
+    if(!classifiers::is_value(b)) throw kepler::error(ValueError, "Monadic argument was not a value.");
+    if(!classifiers::is(f, PrimitiveFunctionToken)) throw kepler::error(SyntaxError, "Expected a primitive function.");
+    if(session.config.index_origin < 0) throw kepler::error(ImplicitError, "Index origin must be ≥0. Set it via ⎕IO.");
+}
+
+template <>
+void kepler::phrase_table::evaluators::evaluate_monadic_operator<4, X_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_monadic_operator<X_F_M_B_size, X_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_monadic_operator<7, X_F_M_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_monadic_operator<X_F_M_LB_C_RB_B_size, X_F_M_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_monadic_operator<4, A_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_monadic_operator<A_F_M_B_size, A_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_monadic_operator<7, A_F_M_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_monadic_operator<A_F_M_LB_C_RB_B_size, A_F_M_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
-}
-
-template <>
-void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_B_size, A_F_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_dyadic_function<3, A_F_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
     Token& a = stack[0];
     Token& f = stack[1];
     Token& b = stack[2];
@@ -120,7 +123,7 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_B_size, A_F_
 
     if(classifiers::is(f, DefinedFunctionNameToken)) {
         if(session.current_class(f) == DefinedFunctionToken) {
-            a = form_table::evaluate({form_table::TableAtomic::Constant, form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&a, &f, &b});
+            a = form_table::evaluate({form_table::TableAtomic::Constant, form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&a, &f, &b}, &session);
             helpers::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "Undefined reference to dyadic operator.");
@@ -129,7 +132,7 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_B_size, A_F_
         auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, &f, form_table::TableAtomic::Constant});
 
         if(evaluator != nullptr) {
-            a = evaluator({&a, &f, &b});
+            a = evaluator({&a, &f, &b}, &session);
             helpers::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
@@ -138,87 +141,87 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_B_size, A_F_
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_dyadic_function<A_F_LB_C_RB_B_size, A_F_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_dyadic_function<6, A_F_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_dyadic_operator<X_F_D_G_B_size, X_F_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_dyadic_operator<5, X_F_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_dyadic_operator<A_F_D_G_B_size, A_F_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_dyadic_operator<5, A_F_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_dyadic_operator<A_SM_D_G_B_size, A_SM_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_dyadic_operator<5, A_SM_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_indexed_reference<A_LB_K_RB_size, A_LB_K_RB>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_indexed_reference<4, A_LB_K_RB>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_indexed_assignment<V_LB_K_RB_AA_B_size, V_LB_K_RB_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_indexed_assignment<6, V_LB_K_RB_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_assignment<V_AA_B_size, V_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::evaluate_variable<V_size, V>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::evaluate_variable<1, V>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::build_index_list<RB_size, RB>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::build_index_list<1, RB>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::build_index_list<IS_I_size, IS_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::build_index_list<2, IS_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::build_index_list<IS_B_I_size, IS_B_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::build_index_list<3, IS_B_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::build_index_list<LB_I_size, LB_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::build_index_list<2, LB_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::build_index_list<LB_B_I_size, LB_B_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::build_index_list<3, LB_B_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::process_end_of_statement<L_R_size, L_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::process_end_of_statement<2, L_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::process_end_of_statement<L_B_R_size, L_B_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::process_end_of_statement<3, L_B_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
     helpers::erase(stack, 0, 2);
 }
 
 template <>
-void kepler::phrase_table::evaluators::process_end_of_statement<L_BA_B_R_size, L_BA_B_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::process_end_of_statement<4, L_BA_B_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
 template <>
-void kepler::phrase_table::evaluators::process_end_of_statement<L_BA_R_size, L_BA_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+void kepler::phrase_table::evaluators::process_end_of_statement<3, L_BA_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
 
 }
 
@@ -285,58 +288,58 @@ bool kepler::phrase_table::match(const kepler::List<kepler::Token> &tokens) {
 }
 
 lookup_result kepler::phrase_table::lookup(List<Token> &stack) {
-    if(match<LP_B_RP_size, LP_B_RP>(stack)) {
-        return evaluators::remove_parenthesis<LP_B_RP_size, LP_B_RP>;
-    } else if(match<N_size, N>(stack)) {
-        return evaluators::evaluate_niladic_function<N_size, N>;
-    } else if(match<X_F_B_size, X_F_B>(stack)) {
-        return evaluators::evaluate_monadic_function<X_F_B_size, X_F_B>;
-    } else if(match<X_F_LB_C_RB_B_size, X_F_LB_C_RB_B>(stack)) {
-        return evaluators::evaluate_monadic_function<X_F_LB_C_RB_B_size, X_F_LB_C_RB_B>;
-    } else if(match<X_F_M_B_size, X_F_M_B>(stack)) {
-        return evaluators::evaluate_monadic_operator<X_F_M_B_size, X_F_M_B>;
-    } else if(match<X_F_M_LB_C_RB_B_size, X_F_M_LB_C_RB_B>(stack)) {
-        return evaluators::evaluate_monadic_operator<X_F_M_LB_C_RB_B_size, X_F_M_LB_C_RB_B>;
-    } else if(match<A_F_M_B_size, A_F_M_B>(stack)) {
-        return evaluators::evaluate_monadic_operator<A_F_M_B_size, A_F_M_B>;
-    } else if(match<A_F_M_LB_C_RB_B_size, A_F_M_LB_C_RB_B>(stack)) {
-        return evaluators::evaluate_monadic_operator<A_F_M_LB_C_RB_B_size, A_F_M_LB_C_RB_B>;
-    } else if(match<A_F_B_size, A_F_B>(stack)) {
-        return evaluators::evaluate_dyadic_function<A_F_B_size, A_F_B>;
-    } else if(match<A_F_LB_C_RB_B_size, A_F_LB_C_RB_B>(stack)) {
-        return evaluators::evaluate_dyadic_function<A_F_LB_C_RB_B_size, A_F_LB_C_RB_B>;
-    } else if(match<X_F_D_G_B_size, X_F_D_G_B>(stack)) {
-        return evaluators::evaluate_dyadic_operator<X_F_D_G_B_size, X_F_D_G_B>;
-    } else if(match<A_F_D_G_B_size, A_F_D_G_B>(stack)) {
-        return evaluators::evaluate_dyadic_operator<A_F_D_G_B_size, A_F_D_G_B>;
-    } else if(match<A_SM_D_G_B_size, A_SM_D_G_B>(stack)) {
-        return evaluators::evaluate_dyadic_operator<A_SM_D_G_B_size, A_SM_D_G_B>;
-    } else if(match<A_LB_K_RB_size, A_LB_K_RB>(stack)) {
-        return evaluators::evaluate_indexed_reference<A_LB_K_RB_size, A_LB_K_RB>;
-    } else if(match<V_LB_K_RB_AA_B_size, V_LB_K_RB_AA_B>(stack)) {
-        return evaluators::evaluate_indexed_assignment<V_LB_K_RB_AA_B_size, V_LB_K_RB_AA_B>;
-    } else if(match<V_AA_B_size, V_AA_B>(stack)) {
-        return evaluators::evaluate_assignment<V_AA_B_size, V_AA_B>;
-    } else if(match<V_size, V>(stack)) {
-        return evaluators::evaluate_variable<V_size, V>;
-    } else if(match<RB_size, RB>(stack)) {
-        return evaluators::build_index_list<RB_size, RB>;
-    } else if(match<IS_I_size, IS_I>(stack)) {
-        return evaluators::build_index_list<IS_I_size, IS_I>;
-    } else if(match<IS_B_I_size, IS_B_I>(stack)) {
-        return evaluators::build_index_list<IS_B_I_size, IS_B_I>;
-    } else if(match<LB_I_size, LB_I>(stack)) {
-        return evaluators::build_index_list<LB_I_size, LB_I>;
-    } else if(match<LB_B_I_size, LB_B_I>(stack)) {
-        return evaluators::build_index_list<LB_B_I_size, LB_B_I>;
-    } else if(match<L_R_size, L_R>(stack)) {
-        return {evaluators::process_end_of_statement<L_R_size, L_R>, true};
-    } else if(match<L_B_R_size, L_B_R>(stack)) {
-        return {evaluators::process_end_of_statement<L_B_R_size, L_B_R>, true};
-    } else if(match<L_BA_B_R_size, L_BA_B_R>(stack)) {
-        return {evaluators::process_end_of_statement<L_BA_B_R_size, L_BA_B_R>, true};
-    } else if(match<L_BA_R_size, L_BA_R>(stack)) {
-        return {evaluators::process_end_of_statement<L_BA_R_size, L_BA_R>, true};
+    if(match<3, LP_B_RP>(stack)) {
+        return evaluators::remove_parenthesis<3, LP_B_RP>;
+    } else if(match<1, N>(stack)) {
+        return evaluators::evaluate_niladic_function<1, N>;
+    } else if(match<3, X_F_B>(stack)) {
+        return evaluators::evaluate_monadic_function<3, X_F_B>;
+    } else if(match<6, X_F_LB_C_RB_B>(stack)) {
+        return evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_B>;
+    } else if(match<4, X_F_M_B>(stack)) {
+        return evaluators::evaluate_monadic_operator<4, X_F_M_B>;
+    } else if(match<7, X_F_M_LB_C_RB_B>(stack)) {
+        return evaluators::evaluate_monadic_operator<7, X_F_M_LB_C_RB_B>;
+    } else if(match<4, A_F_M_B>(stack)) {
+        return evaluators::evaluate_monadic_operator<4, A_F_M_B>;
+    } else if(match<7, A_F_M_LB_C_RB_B>(stack)) {
+        return evaluators::evaluate_monadic_operator<7, A_F_M_LB_C_RB_B>;
+    } else if(match<3, A_F_B>(stack)) {
+        return evaluators::evaluate_dyadic_function<3, A_F_B>;
+    } else if(match<6, A_F_LB_C_RB_B>(stack)) {
+        return evaluators::evaluate_dyadic_function<6, A_F_LB_C_RB_B>;
+    } else if(match<5, X_F_D_G_B>(stack)) {
+        return evaluators::evaluate_dyadic_operator<5, X_F_D_G_B>;
+    } else if(match<5, A_F_D_G_B>(stack)) {
+        return evaluators::evaluate_dyadic_operator<5, A_F_D_G_B>;
+    } else if(match<5, A_SM_D_G_B>(stack)) {
+        return evaluators::evaluate_dyadic_operator<5, A_SM_D_G_B>;
+    } else if(match<4, A_LB_K_RB>(stack)) {
+        return evaluators::evaluate_indexed_reference<4, A_LB_K_RB>;
+    } else if(match<6, V_LB_K_RB_AA_B>(stack)) {
+        return evaluators::evaluate_indexed_assignment<6, V_LB_K_RB_AA_B>;
+    } else if(match<3, V_AA_B>(stack)) {
+        return evaluators::evaluate_assignment<3, V_AA_B>;
+    } else if(match<1, V>(stack)) {
+        return evaluators::evaluate_variable<1, V>;
+    } else if(match<1, RB>(stack)) {
+        return evaluators::build_index_list<1, RB>;
+    } else if(match<2, IS_I>(stack)) {
+        return evaluators::build_index_list<2, IS_I>;
+    } else if(match<3, IS_B_I>(stack)) {
+        return evaluators::build_index_list<3, IS_B_I>;
+    } else if(match<2, LB_I>(stack)) {
+        return evaluators::build_index_list<2, LB_I>;
+    } else if(match<3, LB_B_I>(stack)) {
+        return evaluators::build_index_list<3, LB_B_I>;
+    } else if(match<2, L_R>(stack)) {
+        return {evaluators::process_end_of_statement<2, L_R>, true};
+    } else if(match<3, L_B_R>(stack)) {
+        return {evaluators::process_end_of_statement<3, L_B_R>, true};
+    } else if(match<4, L_BA_B_R>(stack)) {
+        return {evaluators::process_end_of_statement<4, L_BA_B_R>, true};
+    } else if(match<3, L_BA_R>(stack)) {
+        return {evaluators::process_end_of_statement<3, L_BA_R>, true};
     }
 
     return nullptr;

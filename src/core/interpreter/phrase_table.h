@@ -42,83 +42,32 @@ namespace kepler {
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
 
-        constexpr std::size_t LP_B_RP_size = 3;
-        const pattern<LP_B_RP_size> LP_B_RP = {characters::left_parenthesis, Result, characters::right_parenthesis};
-
-        constexpr std::size_t N_size = 1;
-        const pattern<N_size> N = {Niladic};
-
-        constexpr std::size_t X_F_B_size = 3;
-        const pattern<X_F_B_size> X_F_B = {Wildcard, Func, Result};
-
-        constexpr std::size_t X_F_LB_C_RB_B_size = 6;
-        const pattern<X_F_LB_C_RB_B_size> X_F_LB_C_RB_B = {Wildcard, Func, characters::left_bracket, CompleteList, characters::right_bracket, Result};
-
-        constexpr std::size_t X_F_M_B_size = 4;
-        const pattern<X_F_M_B_size> X_F_M_B = {Wildcard, Func, Monadic, Result};
-
-        constexpr std::size_t X_F_M_LB_C_RB_B_size = 7;
-        const pattern<X_F_M_LB_C_RB_B_size> X_F_M_LB_C_RB_B = {Wildcard, Func, Monadic, characters::left_bracket, CompleteList, characters::right_bracket, Result};
-
-        constexpr std::size_t A_F_M_B_size = 4;
-        const pattern<A_F_M_B_size> A_F_M_B = {Result, Func, Monadic, Result};
-
-        constexpr std::size_t A_F_M_LB_C_RB_B_size = 7;
-        const pattern<A_F_M_LB_C_RB_B_size> A_F_M_LB_C_RB_B = {Result, Func, Monadic, characters::left_bracket, CompleteList, characters::right_bracket, Result};
-
-        constexpr std::size_t A_F_B_size = 3;
-        const pattern<A_F_B_size> A_F_B = {Result, Func, Result};
-
-        constexpr std::size_t A_F_LB_C_RB_B_size = 6;
-        const pattern<A_F_LB_C_RB_B_size> A_F_LB_C_RB_B = {Result, Func, characters::left_bracket, CompleteList, characters::right_bracket, Result};
-
-        constexpr std::size_t X_F_D_G_B_size = 5;
-        const pattern<X_F_D_G_B_size> X_F_D_G_B = {Wildcard, Func, Dyadic, Func, Result};
-
-        constexpr std::size_t A_F_D_G_B_size = 5;
-        const pattern<A_F_D_G_B_size> A_F_D_G_B = {Result, Func, Dyadic, Func, Result};
-
-        constexpr std::size_t A_SM_D_G_B_size = 5;
-        const pattern<A_SM_D_G_B_size> A_SM_D_G_B = {Result, characters::jot, Dyadic, Func, Result};
-
-        constexpr std::size_t A_LB_K_RB_size = 4;
-        const pattern<A_LB_K_RB_size> A_LB_K_RB = {Result, characters::left_bracket, CompleteList, characters::right_bracket};
-
-        constexpr std::size_t V_LB_K_RB_AA_B_size = 6;
-        const pattern<V_LB_K_RB_AA_B_size> V_LB_K_RB_AA_B = {Var, characters::left_bracket, CompleteList, characters::right_bracket, characters::left_arrow, Result};
-
-        constexpr std::size_t V_AA_B_size = 3;
-        const pattern<V_AA_B_size> V_AA_B = {Var, characters::left_arrow, Result};
-
-        constexpr std::size_t V_size = 1;
-        const pattern<V_size> V = {Var};
-
-        constexpr std::size_t RB_size = 1;
-        const pattern<RB_size> RB = {characters::right_bracket};
-
-        constexpr std::size_t IS_I_size = 2;
-        const pattern<IS_I_size> IS_I = {characters::semicolon, PartialList};
-
-        constexpr std::size_t IS_B_I_size = 3;
-        const pattern<IS_B_I_size> IS_B_I = {characters::semicolon, Result, PartialList};
-
-        constexpr std::size_t LB_I_size = 2;
-        const pattern<LB_I_size> LB_I = {characters::left_bracket, PartialList};
-
-        constexpr std::size_t LB_B_I_size = 3;
-        const pattern<LB_B_I_size> LB_B_I = {characters::left_bracket, Result, PartialList};
-
-        constexpr std::size_t L_R_size = 2;
-        const pattern<L_R_size> L_R = {LeftEOS, RightEOS};
-
-        constexpr std::size_t L_B_R_size = 3;
-        const pattern<L_B_R_size> L_B_R = {LeftEOS, Result, RightEOS};
-
-        constexpr std::size_t L_BA_B_R_size = 4;
-        const pattern<L_BA_B_R_size> L_BA_B_R = {LeftEOS, characters::right_arrow, Result, RightEOS};
-
-        constexpr std::size_t L_BA_R_size = 3;
-        const pattern<L_BA_R_size> L_BA_R = {LeftEOS, characters::right_arrow, RightEOS};
+        const pattern<3> LP_B_RP = {characters::left_parenthesis, Result, characters::right_parenthesis};
+        const pattern<1> N = {Niladic};
+        const pattern<3> X_F_B = {Wildcard, Func, Result};
+        const pattern<6> X_F_LB_C_RB_B = {Wildcard, Func, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<4> X_F_M_B = {Wildcard, Func, Monadic, Result};
+        const pattern<7> X_F_M_LB_C_RB_B = {Wildcard, Func, Monadic, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<4> A_F_M_B = {Result, Func, Monadic, Result};
+        const pattern<7> A_F_M_LB_C_RB_B = {Result, Func, Monadic, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<3> A_F_B = {Result, Func, Result};
+        const pattern<6> A_F_LB_C_RB_B = {Result, Func, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<5> X_F_D_G_B = {Wildcard, Func, Dyadic, Func, Result};
+        const pattern<5> A_F_D_G_B = {Result, Func, Dyadic, Func, Result};
+        const pattern<5> A_SM_D_G_B = {Result, characters::jot, Dyadic, Func, Result};
+        const pattern<4> A_LB_K_RB = {Result, characters::left_bracket, CompleteList, characters::right_bracket};
+        const pattern<6> V_LB_K_RB_AA_B = {Var, characters::left_bracket, CompleteList, characters::right_bracket, characters::left_arrow, Result};
+        const pattern<3> V_AA_B = {Var, characters::left_arrow, Result};
+        const pattern<1> V = {Var};
+        const pattern<1> RB = {characters::right_bracket};
+        const pattern<2> IS_I = {characters::semicolon, PartialList};
+        const pattern<3> IS_B_I = {characters::semicolon, Result, PartialList};
+        const pattern<2> LB_I = {characters::left_bracket, PartialList};
+        const pattern<3> LB_B_I = {characters::left_bracket, Result, PartialList};
+        const pattern<2> L_R = {LeftEOS, RightEOS};
+        const pattern<3> L_B_R = {LeftEOS, Result, RightEOS};
+        const pattern<4> L_BA_B_R = {LeftEOS, characters::right_arrow, Result, RightEOS};
+        const pattern<3> L_BA_R = {LeftEOS, characters::right_arrow, RightEOS};
 
         using phrase_evaluator = void (*)(kepler::List<kepler::Token>& stack, kepler::Session& session);
 

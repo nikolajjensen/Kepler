@@ -18,30 +18,19 @@
 //
 
 #pragma once
-#include "workspace.h"
-#include "keyboard_state.h"
-#include "config.h"
+#include "session.h"
+#include "../datatypes.h"
+
+#include <limits>
+#include <string>
 
 namespace kepler {
-    class Session {
+    class System {
+    private:
+        List<Session> sessions;
+
     public:
-        Workspace active_workspace;
-        KeyboardState keyboard_state;
-        std::string session_name;
-        Context* current_context;
-        config config;
-
-        Session(std::string&& name, kepler::config&& config);
-
-        void evaluate();
-
-        void update_pointers();
-        void insert_line(StringUTF8 input);
-
-        Token& current_referent(Token& token);
-        TokenClass current_class(Token& token);
-
-        void openKeyboard();
-        void lockKeyboard();
+        kepler::Session* spawn_session(std::string&& name = "new_session");
+        System();
     };
 };

@@ -22,83 +22,114 @@
 #include "../error/error.h"
 
 namespace kepler::form_table::applicators {
+
     template <typename Evaluator>
-    struct scalar : boost::static_visitor<Token::content_type> {
-        Array operator()(Array& arr) const {
-            for(auto& element : arr.ravelList) {
-                element = boost::apply_visitor(Evaluator(), element);
+    struct extension : boost::static_visitor<Token::content_type> {
+        Evaluator evaluator;
+        kepler::Session* session;
+
+        explicit extension(kepler::Session* session_) : evaluator(session_), session(session_) {}
+    };
+
+
+    template <typename Evaluator>
+    struct scalar : extension<Evaluator> {
+        using extension<Evaluator>::extension;
+
+        Array operator()(const Array& arr) {
+            Array result = arr;
+            for(auto& element : result.ravelList) {
+                element = boost::apply_visitor(this->evaluator, element);
             }
-            return arr;
+            return result;
         }
 
-        Array operator()(Array& lhs, Array& rhs) const {
+        Array operator()(const Array& lhs, const Array& rhs) {
             Array a = lhs;
             for(int i = 0; i < a.ravelList.size(); ++i) {
-                a.ravelList[i] = boost::apply_visitor(Evaluator(), lhs.ravelList[i], rhs.ravelList[i]);
+                a.ravelList[i] = boost::apply_visitor(this->evaluator, lhs.ravelList[i], rhs.ravelList[i]);
             }
             return a;
         }
 
-        Char operator()(Char& input) const {
-            return Evaluator()(input);
+        Char operator()(const Char& input) {
+            return this->evaluator(input);
         }
 
-        Number operator()(Number& input) const {
-            return Evaluator()(input);
+        Number operator()(const Number& input) {
+            return this->evaluator(input);
         }
 
-        Char operator()(Char& lhs, Char& rhs) const {
-            return Evaluator()(lhs, rhs);
+        Char operator()(const Char& lhs, const Char& rhs) {
+            return this->evaluator(lhs, rhs);
         }
 
-        Number operator()(Number& lhs, Number& rhs) const {
-            return Evaluator()(lhs, rhs);
+        Number operator()(const Number& lhs, const Number& rhs) {
+            return this->evaluator(lhs, rhs);
         }
 
         template <typename T>
-        T operator()(T& input) const {
+        T operator()(const T& input) {
             throw kepler::error(InternalError, "Applicator called with unsupported argument.");
         }
 
         template <typename T, typename U>
-        T operator()(T& lhs, U& rhs) const {
+        T operator()(const T& lhs, const U& rhs) {
             throw kepler::error(InternalError, "Applicator called with unsupported argument.");
         }
     };
 
     template <typename Evaluator>
-    struct array : boost::static_visitor<Token::content_type> {
-        Array operator()(Array& arr) const {
-            return Evaluator()(arr);
+    struct array : extension<Evaluator> {
+        using extension<Evaluator>::extension;
+
+        Array operator()(const Array& arr) {
+            return this->evaluator(arr);
         }
 
         template <typename T>
-        T operator()(T& input) const {
+        T operator()(const T& input) {
             throw kepler::error(InternalError, "Applicator called with unsupported argument.");
         }
 
         template <typename T, typename U>
-        T operator()(T& lhs, U& rhs) const {
+        T operator()(const T& lhs, const U& rhs) {
             throw kepler::error(InternalError, "Applicator called with unsupported argument.");
         }
     };
 
+
+
+
+
     template <typename Extension>
-    struct monadic : boost::static_visitor<Token> {
-        Token operator()(List<Token*>& tokens) {
+    struct applicator : boost::static_visitor<Token> {
+        Extension extension;
+        kepler::Session* session;
+
+        explicit applicator(kepler::Session* session_) : extension(session_), session(session_) {}
+    };
+
+    template <typename Extension>
+    struct monadic : applicator<Extension> {
+        using applicator<Extension>::applicator;
+
+        Token operator()(const List<const Token*>& tokens) {
             kepler::Token operand = *tokens[1];
-            operand.content = boost::apply_visitor(Extension(), operand.content.get());
+            operand.content = boost::apply_visitor(this->extension, operand.content.get());
             return operand;
         }
     };
 
     template <typename Extension>
-    struct dyadic : boost::static_visitor<Token> {
-        Token operator()(List<Token*>& tokens) {
+    struct dyadic : applicator<Extension> {
+        using applicator<Extension>::applicator;
+
+        Token operator()(const List<const Token*>& tokens) {
             kepler::Token lhs = *tokens[0];
             kepler::Token rhs = *tokens[2];
             kepler::Token result = lhs;
-            result.content = boost::apply_visitor(Extension(), lhs.content.get(), rhs.content.get());
+            result.content = boost::apply_visitor(this->extension, lhs.content.get(), rhs.content.get());
             return result;
         }
     };

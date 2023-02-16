@@ -313,12 +313,12 @@ namespace kepler {
             }
 
             void operator()(const kepler::Session& session) const {
-                stream << session.currentContext->error->type() << ": " << session.currentContext->error->why() << "\n";
+                stream << session.current_context->error->type() << ": " << session.current_context->error->why() << "\n";
 
-                if(session.currentContext->error->where() != -1) {
-                    std::cout << "    " << uni::utf32to8(session.currentContext->currentLine) << "\n";
+                if(session.current_context->error->where() != -1) {
+                    std::cout << "    " << uni::utf32to8(session.current_context->currentLine) << "\n";
                     std::cout << "    ";
-                    for (int i = 0; i < session.currentContext->error->where(); ++i) {
+                    for (int i = 0; i < session.current_context->error->where(); ++i) {
                         std::cout << "~";
                     }
                     std::cout << "^";

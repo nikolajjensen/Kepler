@@ -17,24 +17,17 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "environment.h"
-#include "core/error/error.h"
-#include "core/lexer/lexer.h"
-#include "core/parser/parser.h"
-#include "../interpreter/interpreter.h"
+#include "system.h"
+#include "workspace.h"
+#include "config.h"
 
-kepler::Environment::Environment() {
+kepler::System::System() : sessions() {
 
 }
 
-kepler::Session* kepler::Environment::spawn_session() {
-    sessions.emplace_back(Workspace(clearWorkspaceIdentifier),
-                          "new_session",
-                          initialComparisonTolerance,
-                          initialRandomLink,
-                          initialPrintPrecision,
-                          initialIndexOrigin,
-                          initialLatentExpression);
+kepler::Session* kepler::System::spawn_session(std::string&& name) {
+    sessions.emplace_back(std::move(name),
+                          config());
 
     return &sessions[0];
 }
