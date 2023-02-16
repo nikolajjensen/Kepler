@@ -20,14 +20,13 @@
 #include "session.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
-#include "core/parser/token_converter.h"
 #include "core/interpreter/interpreter.h"
 #include "core/error/error.h"
 
 
 #include <uni_algo/conv.h>
 
-kepler::Session::Session(std::string&& session_name_, kepler::config&& config_)
+kepler::Session::Session(std::string&& session_name_, kepler::Config&& config_)
     :   active_workspace(config_.clear_workspace_identifier),
         keyboard_state(OpenKeyboardState),
         session_name(session_name_),

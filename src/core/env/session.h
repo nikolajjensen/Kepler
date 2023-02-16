@@ -29,9 +29,9 @@ namespace kepler {
         KeyboardState keyboard_state;
         std::string session_name;
         Context* current_context;
-        config config;
+        Config config;
 
-        Session(std::string&& name, kepler::config&& config);
+        Session(std::string&& name, kepler::Config&& config);
 
         void evaluate();
 

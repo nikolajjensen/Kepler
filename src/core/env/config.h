@@ -23,7 +23,7 @@
 #include "reduction_style.h"
 
 namespace kepler {
-    struct config {
+    struct Config {
         Number comparison_tolerance = 0.0001;
         Integer index_origin = 1;
         List<Token> initialLatent_expression = {};

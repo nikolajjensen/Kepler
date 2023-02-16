@@ -27,7 +27,7 @@ kepler::System::System() : sessions() {
 
 kepler::Session* kepler::System::spawn_session(std::string&& name) {
     sessions.emplace_back(std::move(name),
-                          config());
+                          Config());
 
     return &sessions[0];
 }
