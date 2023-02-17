@@ -19,6 +19,7 @@
 
 #pragma once
 #include "token.h"
+#include "core/env/session.h"
 
 namespace kepler {
     namespace classifiers {
@@ -40,5 +41,8 @@ namespace kepler {
         bool is(const Token& token, TokenClass tokenClass);
 
         bool is_scalar(const Token& token);
+
+        bool is_integral_within(const Number& lhs, const Number& rhs);
+        bool is_near_integer(const Number& number, const Session& session);
     };
 };

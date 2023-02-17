@@ -25,7 +25,7 @@
 namespace kepler {
     struct Config {
         Number comparison_tolerance = 0.0001;
-        Integer index_origin = 1;
+        Number index_origin = 1;
         List<Token> initialLatent_expression = {};
         UnsignedInteger print_precision = 10;
         Number random_link = 123;

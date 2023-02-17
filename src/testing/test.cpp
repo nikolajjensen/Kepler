@@ -25,6 +25,12 @@
 #include "string_maker.h"
 #include "core/error/error_type.h"
 
+TEST_CASE_METHOD(fixture, "System var", "[sys][scalar][func]") {
+    CHECK_THAT(run("⎕IO←1"), Outputs(""));
+    CHECK_THAT(run("⎕IO←0"), Outputs(""));
+    CHECK_THAT(run("⎕IO←2"), Throws(kepler::LimitError));
+}
+
 TEST_CASE_METHOD(fixture, "conjugate (+)", "[conjugate][scalar][func]") {
     CHECK_THAT(run("+2 "), Outputs("2"));
     CHECK_THAT(run("+2E2"), Outputs("200"));

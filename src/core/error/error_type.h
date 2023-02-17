@@ -26,6 +26,9 @@ namespace kepler {
         ValueError,
         DomainError,
         ImplicitError,
+        RankError,
+        LengthError,
+        LimitError,
         InternalError
     };
 

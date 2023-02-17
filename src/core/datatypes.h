@@ -46,6 +46,7 @@ namespace kepler {
     double& apply_scientific_notation(double& input, double& exponent);
 
     StringUTF8 number_to_string(const Number& num, int precision = -1);
-
     StringUTF8 double_to_string(const double& num, int precision);
+
+    Number integer_nearest_to(const Number& num);
 };

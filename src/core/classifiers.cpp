@@ -18,6 +18,7 @@
 //
 
 #include "classifiers.h"
+#include "core/env/session.h"
 
 bool kepler::classifiers::is_identifier(const Token &token) {
     return token.tokenClass == SimpleIdentifierToken || token.tokenClass == DistinguishedIdentifierToken;
@@ -132,4 +133,14 @@ bool kepler::classifiers::is_scalar(const Token& token) {
     }
 
     return false;
+}
+
+bool kepler::classifiers::is_integral_within(const Number &lhs, const Number &rhs) {
+    double rounded = round(lhs.real());
+    return ((rounded + rhs.real()) >= lhs.real())
+            && ((rounded - rhs.real()) <= lhs.real());
+}
+
+bool kepler::classifiers::is_near_integer(const Number &number, const Session &session) {
+    return kepler::classifiers::is_integral_within(number, session.config.integer_tolerance);
 }

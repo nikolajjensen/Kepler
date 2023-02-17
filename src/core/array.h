@@ -61,6 +61,10 @@ namespace kepler {
             return ravelList.empty();
         }
 
+        std::size_t count() const {
+            return ravelList.size();
+        }
+
         friend bool operator==(const Array& lhs, const Array& rhs) {
             return lhs.shapeList == rhs.shapeList && lhs.ravelList == rhs.ravelList;
         }

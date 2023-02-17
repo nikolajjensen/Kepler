@@ -47,29 +47,20 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
             throw kepler::error(InternalError, "bind_token_class error: Unexpected case reached.");
         }
     } else if (token.tokenClass == TokenClass::DistinguishedIdentifierToken) {
-        // Deal with this...
+        auto form_one = kepler::form_table::lookup({&token});
+        auto form_two = kepler::form_table::lookup({&token, characters::left_arrow, form_table::Constant});
+        auto form_three = kepler::form_table::lookup({&token, form_table::Constant});
+        auto form_four = kepler::form_table::lookup({form_table::Constant, &token, form_table::Constant});
 
-        int i = 0;
-        double d = 2.2;
-
-        //test(token, token);
-
-        //throw kepler::error(InternalError, "Unimplemented feature: Looking up a distinguished identifier.");
-
-        /*
-        bool form_one = kepler::interpreter::form_table::lookup({token}, {kepler::interpreter::form_table::PatternClass::Content});
-        bool form_two = kepler::interpreter::form_table::lookup({token, kepler::interpreter::form_table::tokens::B}, {kepler::interpreter::form_table::PatternClass::Content, kepler::interpreter::form_table::PatternClass::B});
-
-        if(form_one && form_two) {
+        if(form_one != nullptr && form_two != nullptr) {
             token.tokenClass = SystemVariableNameToken;
-        } else if (form_one && !form_two) {
+        } else if(form_one != nullptr && form_two == nullptr) {
             token.tokenClass = NiladicSystemFunctionNameToken;
-        } else if (form_one || form_two) {
+        } else if(form_three != nullptr || form_four != nullptr) {
             token.tokenClass = SystemFunctionNameToken;
         } else {
-            throw std::invalid_argument("Form table error");
+            throw kepler::error(SyntaxError, "Distinguished identifier is unrecognised.");
         }
-         */
     }
 }
 

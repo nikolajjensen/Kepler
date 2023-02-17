@@ -19,6 +19,7 @@
 
 #include "datatypes.h"
 #include "characters.h"
+#include "core/error/error.h"
 
 #include <limits>
 #include <cmath>
@@ -112,4 +113,9 @@ kepler::StringUTF8 kepler::number_to_string(const kepler::Number& num, int preci
     }
 
     return uni::utf32to8(result);
+}
+
+kepler::Number kepler::integer_nearest_to(const Number &num) {
+    if(num.imag() != 0) throw kepler::error(DomainError, "Integer closest to complex number is undefined.");
+    return round(num.real());
 }

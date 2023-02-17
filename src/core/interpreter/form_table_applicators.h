@@ -29,12 +29,23 @@ namespace kepler::form_table::applicators {
         kepler::Session* session;
 
         explicit extension(kepler::Session* session_) : evaluator(session_), session(session_) {}
+
+        template <typename T>
+        T operator()(const T& input) {
+            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+        }
+
+        template <typename T, typename U>
+        T operator()(const T& lhs, const U& rhs) {
+            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+        }
     };
 
 
     template <typename Evaluator>
     struct scalar : extension<Evaluator> {
         using extension<Evaluator>::extension;
+        using extension<Evaluator>::operator();
 
         Array operator()(const Array& arr) {
             Array result = arr;
@@ -68,33 +79,48 @@ namespace kepler::form_table::applicators {
             return this->evaluator(lhs, rhs);
         }
 
-        template <typename T>
-        T operator()(const T& input) {
-            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+        Token operator()(const Token& token) {
+            Token result = token;
+            result.content = boost::apply_visitor(*this, token.content.get());
+            return result;
         }
 
-        template <typename T, typename U>
-        T operator()(const T& lhs, const U& rhs) {
-            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+        Token operator()(const Token& lhs, const Token& rhs) {
+            Token result = lhs;
+            result.content = boost::apply_visitor(*this, lhs.content.get(), rhs.content.get());
+            return result;
         }
     };
 
     template <typename Evaluator>
-    struct array : extension<Evaluator> {
+    struct structural : extension<Evaluator> {
         using extension<Evaluator>::extension;
+        using extension<Evaluator>::operator();
 
         Array operator()(const Array& arr) {
             return this->evaluator(arr);
         }
 
-        template <typename T>
-        T operator()(const T& input) {
-            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+        Token operator()(const Token& token) {
+            Token result = token;
+            result.content = boost::apply_visitor(*this, token.content.get());
+            return result;
         }
 
-        template <typename T, typename U>
-        T operator()(const T& lhs, const U& rhs) {
-            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+        Token operator()(const Token& lhs, const Token& rhs) {
+            Token result = lhs;
+            result.content = boost::apply_visitor(*this, lhs.content.get(), rhs.content.get());
+            return result;
+        }
+    };
+
+    template <typename Evaluator>
+    struct system_variable : extension<Evaluator> {
+        using extension<Evaluator>::extension;
+        using extension<Evaluator>::operator();
+
+        Token operator()(const Token& lhs, const Token& rhs) {
+            return this->evaluator(rhs);
         }
     };
 
@@ -116,7 +142,7 @@ namespace kepler::form_table::applicators {
 
         Token operator()(const List<const Token*>& tokens) {
             kepler::Token operand = *tokens[1];
-            operand.content = boost::apply_visitor(this->extension, operand.content.get());
+            operand = this->extension(operand);
             return operand;
         }
     };
@@ -128,9 +154,7 @@ namespace kepler::form_table::applicators {
         Token operator()(const List<const Token*>& tokens) {
             kepler::Token lhs = *tokens[0];
             kepler::Token rhs = *tokens[2];
-            kepler::Token result = lhs;
-            result.content = boost::apply_visitor(this->extension, lhs.content.get(), rhs.content.get());
-            return result;
+            return this->extension(lhs, rhs);
         }
     };
 };

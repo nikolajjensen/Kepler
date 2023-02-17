@@ -21,6 +21,7 @@
 #include "phrase_table.h"
 #include "../token.h"
 #include "../classifiers.h"
+#include "core/env/printers.h"
 #include <functional>
 
 using namespace kepler;
@@ -43,7 +44,7 @@ void kepler::phrase_table::evaluators::evaluate_niladic_function<1, N>(List<Toke
         if(session.current_class(n) == NiladicDefinedFunctionToken) {
             n = kepler::form_table::evaluate({kepler::form_table::TableAtomic::DFN}, {&n}, &session);
         } else {
-            throw kepler::error(SyntaxError, "Undefined niladic function reference.");
+            throw kepler::error(SyntaxError, "Undefined single function reference.");
         }
     } else if(classifiers::is(n, NiladicSystemFunctionNameToken)) {
         auto evaluator = kepler::form_table::lookup({&n});
@@ -88,7 +89,8 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_
 
     if(!classifiers::is_value(b)) throw kepler::error(ValueError, "Monadic argument was not a value.");
     if(!classifiers::is(f, PrimitiveFunctionToken)) throw kepler::error(SyntaxError, "Expected a primitive function.");
-    if(session.config.index_origin < 0) throw kepler::error(ImplicitError, "Index origin must be ≥0. Set it via ⎕IO.");
+    // Incorrect.
+    //if(session.config.index_origin < 0.0) throw kepler::error(ImplicitError, "Index origin must be ≥0. Set it via ⎕IO.");
 }
 
 template <>
@@ -172,7 +174,29 @@ void kepler::phrase_table::evaluators::evaluate_indexed_assignment<6, V_LB_K_RB_
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+    Token& v = stack[0];
+    Token& a = stack[1];
+    Token& b = stack[2];
 
+    if(!classifiers::is_value(b)) throw kepler::error(ValueError, "Expected a value to be assigned.");
+    if(classifiers::is(v, SharedVariableNameToken)) {
+        throw kepler::error(InternalError, "Shared Variables are not supported in Kepler.");
+    } else if (classifiers::is(v, SystemVariableNameToken)) {
+        auto evaluator = form_table::lookup({&v, characters::left_arrow, form_table::Constant});
+
+        if(evaluator != nullptr) {
+            v = evaluator({&v, &a, &b}, &session);
+            helpers::erase(stack, 1, 2);
+        } else {
+            throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
+        }
+    } else if (classifiers::is(v, VariableNameToken)) {
+        if(session.current_class(v) == NilToken || session.current_class(v) == VariableToken) {
+            // TODO: Implement assignment into symbol table.
+        } else {
+            throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
+        }
+    }
 }
 
 template <>

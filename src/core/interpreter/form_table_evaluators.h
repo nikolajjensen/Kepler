@@ -437,4 +437,29 @@ namespace kepler::form_table::evaluators {
             throw kepler::error(InternalError, "Not yet implemented.");
         }
     };
+    ///////////////////////////////////////////////////////
+    /// System variables.
+    ///////////////////////////////////////////////////////
+
+    struct index_origin : evaluator {
+        using evaluator::operator();
+        using evaluator::evaluator;
+
+        Token operator()(const Token& assignment) {
+            const auto& arr = assignment.get_content<Array>();
+
+            if(arr.rank() > 1) throw kepler::error(RankError, "Rank higher than 1.");
+            if(arr.count() != 1) throw kepler::error(LengthError, "Only accepts one number.");
+
+            const auto& num = arr.get_content<Number>(0);
+            if(!classifiers::is_near_integer(num, *session)) throw kepler::error(DomainError, "Only accepts integers.");
+
+            Number new_io = integer_nearest_to(num);
+            if(new_io != 0.0 || new_io != 1.0) throw kepler::error(LimitError, "IO must be either 0 or 1.");
+
+            session->config.index_origin = new_io;
+
+            return {CommittedValueToken, assignment.content.get()};
+        }
+    };
 };

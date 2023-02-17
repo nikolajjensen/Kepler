@@ -26,6 +26,14 @@ std::string kepler::to_string(ErrorType error_type) {
             return "VALUE ERROR";
         case DomainError:
             return "DOMAIN ERROR";
+        case ImplicitError:
+            return "IMPLICIT ERROR";
+        case RankError:
+            return "RANK ERROR";
+        case LengthError:
+            return "LENGTH ERROR";
+        case LimitError:
+            return "LIMIT ERROR";
         case InternalError:
             return "INTERNAL ERROR";
         default:

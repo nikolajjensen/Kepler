@@ -43,63 +43,61 @@ namespace kepler {
         using pattern_atomic = boost::variant<kepler::Token::content_type, TableAtomic>;
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
-        using search_t = List<boost::variant<Token*, TableAtomic>>;
+        using search_t = List<boost::variant<Token*, kepler::Token::content_type, TableAtomic>>;
         using input_t = List<const Token*>;
         using evaluator = kepler::Token (*)(const List<const Token*>, kepler::Session* session);
 
         namespace patterns {
-            constexpr std::size_t niladic = 1;
-            constexpr std::size_t monadic = 2;
-            constexpr std::size_t dyadic = 3;
-
             /// Monadic scalar functions.
-            const pattern<monadic> conjugate = {characters::plus, Constant};
-            const pattern<monadic> negative = {characters::bar, Constant};
-            const pattern<monadic> direction = {characters::multiply, Constant};
-            const pattern<monadic> reciprocal = {characters::divide, Constant};
-            const pattern<monadic> floor = {characters::down_stile, Constant};
-            const pattern<monadic> ceiling = {characters::up_stile, Constant};
-            const pattern<monadic> exponential = {characters::star, Constant};
-            const pattern<monadic> natural_log = {characters::circle_star, Constant};
-            const pattern<monadic> magnitude = {characters::stile, Constant};
-            const pattern<monadic> factorial = {characters::quote_dot, Constant};
-            const pattern<monadic> pi_times = {characters::circle, Constant};
-            const pattern<monadic> negation = {characters::tilde, Constant};    // Called 'not' in ISO.
+            const pattern<2> conjugate = {characters::plus, Constant};
+            const pattern<2> negative = {characters::bar, Constant};
+            const pattern<2> direction = {characters::multiply, Constant};
+            const pattern<2> reciprocal = {characters::divide, Constant};
+            const pattern<2> floor = {characters::down_stile, Constant};
+            const pattern<2> ceiling = {characters::up_stile, Constant};
+            const pattern<2> exponential = {characters::star, Constant};
+            const pattern<2> natural_log = {characters::circle_star, Constant};
+            const pattern<2> magnitude = {characters::stile, Constant};
+            const pattern<2> factorial = {characters::quote_dot, Constant};
+            const pattern<2> pi_times = {characters::circle, Constant};
+            const pattern<2> negation = {characters::tilde, Constant};    // Called 'not' in ISO.
 
             /// Dyadic scalar functions.
-            const pattern<dyadic> plus = {Constant, characters::plus, Constant};
-            const pattern<dyadic> divide = {Constant, characters::divide, Constant};
-            const pattern<dyadic> maximum = {Constant, characters::up_stile, Constant};
-            const pattern<dyadic> minimum = {Constant, characters::down_stile, Constant};
-            const pattern<dyadic> power = {Constant, characters::star, Constant};
-            const pattern<dyadic> logarithm = {Constant, characters::circle_star, Constant};
-            const pattern<dyadic> residue = {Constant, characters::stile, Constant};
-            const pattern<dyadic> binomial = {Constant, characters::quote_dot, Constant};
-            const pattern<dyadic> circular_functions = {Constant, characters::circle, Constant};
-            const pattern<dyadic> and_lcm = {Constant, characters::up_caret, Constant};
-            const pattern<dyadic> or_gcd = {Constant, characters::down_caret, Constant};
-            const pattern<dyadic> nand = {Constant, characters::up_caret_tilde, Constant};
-            const pattern<dyadic> nor = {Constant, characters::down_caret_tilde, Constant};
-            const pattern<dyadic> equal = {Constant, characters::equal, Constant};
-            const pattern<dyadic> less_than = {Constant, characters::left_caret, Constant};
-            const pattern<dyadic> less_than_or_equal_to = {Constant, characters::less_than_or_equal, Constant};
-            const pattern<dyadic> not_equal = {Constant, characters::not_equal, Constant};
-            const pattern<dyadic> greater_than_or_equal_to = {Constant, characters::greater_than_or_equal, Constant};
-            const pattern<dyadic> greater_than = {Constant, characters::right_caret, Constant};
+            const pattern<3> plus = {Constant, characters::plus, Constant};
+            const pattern<3> divide = {Constant, characters::divide, Constant};
+            const pattern<3> maximum = {Constant, characters::up_stile, Constant};
+            const pattern<3> minimum = {Constant, characters::down_stile, Constant};
+            const pattern<3> power = {Constant, characters::star, Constant};
+            const pattern<3> logarithm = {Constant, characters::circle_star, Constant};
+            const pattern<3> residue = {Constant, characters::stile, Constant};
+            const pattern<3> binomial = {Constant, characters::quote_dot, Constant};
+            const pattern<3> circular_functions = {Constant, characters::circle, Constant};
+            const pattern<3> and_lcm = {Constant, characters::up_caret, Constant};
+            const pattern<3> or_gcd = {Constant, characters::down_caret, Constant};
+            const pattern<3> nand = {Constant, characters::up_caret_tilde, Constant};
+            const pattern<3> nor = {Constant, characters::down_caret_tilde, Constant};
+            const pattern<3> equal = {Constant, characters::equal, Constant};
+            const pattern<3> less_than = {Constant, characters::left_caret, Constant};
+            const pattern<3> less_than_or_equal_to = {Constant, characters::less_than_or_equal, Constant};
+            const pattern<3> not_equal = {Constant, characters::not_equal, Constant};
+            const pattern<3> greater_than_or_equal_to = {Constant, characters::greater_than_or_equal, Constant};
+            const pattern<3> greater_than = {Constant, characters::right_caret, Constant};
 
 
             /// Monadic array functions.
-            const pattern<monadic> ravel = {characters::comma, Constant};
-            const pattern<monadic> shape = {characters::rho, Constant};
-            const pattern<monadic> index_generator = {characters::iota, Constant};
-            const pattern<monadic> table = {characters::comma_bar, Constant};
+            const pattern<2> ravel = {characters::comma, Constant};
+            const pattern<2> shape = {characters::rho, Constant};
+            const pattern<2> index_generator = {characters::iota, Constant};
+            const pattern<2> table = {characters::comma_bar, Constant};
 
             /// Dyadic array functions.
-            const pattern<dyadic> reshape = {Constant, characters::rho, Constant};
-            const pattern<dyadic> join_1 = {Constant, characters::comma, Constant};
-            const pattern<dyadic> join_2 = {Constant, characters::comma_bar, Constant};
+            const pattern<3> reshape = {Constant, characters::rho, Constant};
+            const pattern<3> join_1 = {Constant, characters::comma, Constant};
+            const pattern<3> join_2 = {Constant, characters::comma_bar, Constant};
 
-            /// Operators.
+
+            const pattern<3> index_origin_1 = {List<Char>{characters::quad, characters::I, characters::O}, characters::left_arrow, Constant};
+            const pattern<1> index_origin_2 = {List<Char>{characters::quad, characters::I, characters::O}};
 
         };
 
@@ -113,8 +111,12 @@ namespace kepler {
                 return atomic == target;
             }
 
+            bool operator()(Token::content_type& content, const Token::content_type& target) const {
+                return content == target;
+            }
+
             template <typename T, typename U>
-            bool operator()(T&, const U&) const {
+            bool operator()(T& lhs, const U& rhs) const {
                 return false;
             }
         };
