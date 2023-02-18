@@ -23,15 +23,16 @@
 #include "core/interpreter/interpreter.h"
 #include "core/error/error.h"
 
-kepler::Session::Session(std::string&& session_name_, kepler::Config&& config_)
-    :   active_workspace(config_.clear_workspace_identifier),
+kepler::Session::Session(std::string&& session_name_)
+    :   active_workspace(config::clear_workspace_identifier),
         keyboard_state(OpenKeyboardState),
         session_name(session_name_),
-        current_context(nullptr),
-        config(config_) {}
+        current_context(nullptr) {
+    config::set_initial_values(active_workspace.symbol_table);
+}
 
 void kepler::Session::update_pointers() {
-    current_context = &(active_workspace.stateIndicator[active_workspace.stateIndicator.size() - 1]);
+    current_context = &(active_workspace.state_indicator[active_workspace.state_indicator.size() - 1]);
 }
 
 void kepler::Session::insert_line(StringUTF8 input) {
@@ -57,13 +58,18 @@ void kepler::Session::openKeyboard() {
     keyboard_state = OpenKeyboardState;
 }
 
-kepler::Token& kepler::Session::current_referent(kepler::Token &token) {
+kepler::Token& kepler::Session::get_current_referent(kepler::Token &token) {
     auto& char_list = boost::get<List<Char>>(*token.content);
 
-    kepler::Symbol& symbol_named_by_token = active_workspace.symbolTable.get_by_name(char_list);
+    kepler::Symbol& symbol_named_by_token = active_workspace.symbol_table.lookup(char_list);
     return symbol_named_by_token.referentList.front();
 }
 
+void kepler::Session::set_current_referent(kepler::Token &token, List<Token> &&content) {
+    auto& id = token.get_content<List<Char>>();
+    active_workspace.symbol_table.set(id, std::move(content));
+}
+
 kepler::TokenClass kepler::Session::current_class(kepler::Token &token) {
-    return current_referent(token).tokenClass;
+    return get_current_referent(token).tokenClass;
 }

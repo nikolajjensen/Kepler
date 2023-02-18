@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,30 +18,15 @@
 //
 
 #pragma once
-#include "workspace.h"
-#include "keyboard_state.h"
-#include "config.h"
+#include "../datatypes.h"
+#include "../characters.h"
 
 namespace kepler {
-    class Session {
-    public:
-        Workspace active_workspace;
-        KeyboardState keyboard_state;
-        std::string session_name;
-        Context* current_context;
-
-        explicit Session(std::string&& name);
-
-        void evaluate();
-
-        void update_pointers();
-        void insert_line(StringUTF8 input);
-
-        Token& get_current_referent(Token& token);
-        void set_current_referent(Token& token, List<Token> &&content);
-        TokenClass current_class(Token& token);
-
-        void openKeyboard();
-        void lockKeyboard();
+    namespace distinguished_identifiers {
+        const List<Char> CT = {characters::quad, characters::C, characters::T};
+        const List<Char> RL = {characters::quad, characters::R, characters::L};
+        const List<Char> PP = {characters::quad, characters::P, characters::P};
+        const List<Char> IO = {characters::quad, characters::I, characters::O};
+        const List<Char> LX = {characters::quad, characters::L, characters::X};
     };
 };

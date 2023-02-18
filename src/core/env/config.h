@@ -18,20 +18,21 @@
 //
 
 #pragma once
+#include "symbol_table.h"
 #include "../datatypes.h"
 #include "../token.h"
 #include "reduction_style.h"
 
 namespace kepler {
-    struct Config {
-        Number comparison_tolerance = 0.0001;
-        Number index_origin = 1;
-        List<Token> initialLatent_expression = {};
-        UnsignedInteger print_precision = 10;
-        Number random_link = 123;
-        ReductionStyle reduction_style = ReductionStyle::EncloseReductionStyle;
+    namespace config {
+        const Number initial_comparison_tolerance = 0.0001;
+        const Number initial_index_origin = 1;
+        const List<Token> initial_latent_expression = {};
+        const UnsignedInteger initial_print_precision = 10;
+        const Number initial_random_link = 123;
 
 
+        const ReductionStyle reduction_style = ReductionStyle::EncloseReductionStyle;
         const StringUTF8 clear_workspace_identifier = "unnamed";
         const Number positive_number_limit = numeric_limit_max();
         const Number negative_number_limit = numeric_limit_min();
@@ -54,5 +55,7 @@ namespace kepler {
         const StringUTF8 function_definition_prompt = indent_prompt;
         const UnsignedInteger line_limit = 100;
         const UnsignedInteger definition_line_limit = 100;
+
+        void set_initial_values(SymbolTable& symbol_table);
     };
 };

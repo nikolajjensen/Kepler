@@ -142,5 +142,5 @@ bool kepler::classifiers::is_integral_within(const Number &lhs, const Number &rh
 }
 
 bool kepler::classifiers::is_near_integer(const Number &number, const Session &session) {
-    return kepler::classifiers::is_integral_within(number, session.config.integer_tolerance);
+    return kepler::classifiers::is_integral_within(number, config::integer_tolerance);
 }

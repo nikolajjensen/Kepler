@@ -119,42 +119,12 @@ namespace kepler::form_table::applicators {
         using extension<Evaluator>::extension;
         using extension<Evaluator>::operator();
 
-        Token operator()(const Token& lhs, const Token& rhs) {
-            return this->evaluator(rhs);
+        Token operator()() {
+            return this->evaluator();
         }
-    };
 
-
-
-
-
-    template <typename Extension>
-    struct applicator : boost::static_visitor<Token> {
-        Extension extension;
-        kepler::Session* session;
-
-        explicit applicator(kepler::Session* session_) : extension(session_), session(session_) {}
-    };
-
-    template <typename Extension>
-    struct monadic : applicator<Extension> {
-        using applicator<Extension>::applicator;
-
-        Token operator()(const List<const Token*>& tokens) {
-            kepler::Token operand = *tokens[1];
-            operand = this->extension(operand);
-            return operand;
-        }
-    };
-
-    template <typename Extension>
-    struct dyadic : applicator<Extension> {
-        using applicator<Extension>::applicator;
-
-        Token operator()(const List<const Token*>& tokens) {
-            kepler::Token lhs = *tokens[0];
-            kepler::Token rhs = *tokens[2];
-            return this->extension(lhs, rhs);
+        Token operator()(const Token& token) {
+            return this->evaluator(token);
         }
     };
 };

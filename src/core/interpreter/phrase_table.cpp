@@ -76,13 +76,15 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<3, X_F_B>(keple
         if(evaluator == nullptr) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
-        b = evaluator({&f, &b}, &session);
+        b = evaluator({&b}, &session);
         helpers::erase(stack, 1);
     }
 }
 
 template<>
 void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+    throw kepler::error(InternalError, "'evaluate_monadic_function' phrase table evaluator not implemented.");
+
     Token& f = stack[1];
     Token& b = stack[5];
     Token& c = stack[3];
@@ -95,22 +97,22 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_monadic_operator<4, X_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_monadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_monadic_operator<7, X_F_M_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_monadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_monadic_operator<4, A_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_monadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_monadic_operator<7, A_F_M_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_monadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
@@ -125,7 +127,7 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<3, A_F_B>(kepler
 
     if(classifiers::is(f, DefinedFunctionNameToken)) {
         if(session.current_class(f) == DefinedFunctionToken) {
-            a = form_table::evaluate({form_table::TableAtomic::Constant, form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&a, &f, &b}, &session);
+            a = form_table::evaluate({form_table::TableAtomic::Constant, form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&a, &b}, &session);
             helpers::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "Undefined reference to dyadic operator.");
@@ -134,7 +136,7 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<3, A_F_B>(kepler
         auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, &f, form_table::TableAtomic::Constant});
 
         if(evaluator != nullptr) {
-            a = evaluator({&a, &f, &b}, &session);
+            a = evaluator({&a, &b}, &session);
             helpers::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
@@ -144,38 +146,37 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<3, A_F_B>(kepler
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_dyadic_function<6, A_F_LB_C_RB_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_dyadic_function' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_dyadic_operator<5, X_F_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_dyadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_dyadic_operator<5, A_F_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_dyadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_dyadic_operator<5, A_SM_D_G_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_dyadic_operator' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_indexed_reference<4, A_LB_K_RB>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_indexed_reference' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_indexed_assignment<6, V_LB_K_RB_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'evaluate_indexed_assignment' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
     Token& v = stack[0];
-    Token& a = stack[1];
     Token& b = stack[2];
 
     if(!classifiers::is_value(b)) throw kepler::error(ValueError, "Expected a value to be assigned.");
@@ -185,14 +186,17 @@ void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::Li
         auto evaluator = form_table::lookup({&v, characters::left_arrow, form_table::Constant});
 
         if(evaluator != nullptr) {
-            v = evaluator({&v, &a, &b}, &session);
+            v = evaluator({&b}, &session);
             helpers::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
         }
     } else if (classifiers::is(v, VariableNameToken)) {
         if(session.current_class(v) == NilToken || session.current_class(v) == VariableToken) {
-            // TODO: Implement assignment into symbol table.
+            b.tokenClass = VariableToken;
+            session.set_current_referent(v, {b});
+            b.tokenClass = CommittedValueToken;
+            helpers::erase(stack, 0, 1);
         } else {
             throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
         }
@@ -201,37 +205,49 @@ void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::Li
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_variable<1, V>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
+    Token &v = stack[0];
 
+    if (classifiers::is(v, SharedVariableNameToken)) {
+        throw kepler::error(InternalError, "Shared Variables are not supported in Kepler.");
+    } else if (classifiers::is(v, SystemVariableNameToken)) {
+        if(session.current_class(v) == NilToken) throw kepler::error(ValueError, "Current class of system variable is nil.");
+        v = form_table::evaluate({&v}, {}, &session);
+    } else if (classifiers::is(v, VariableNameToken)) {
+        if(session.current_class(v) == NilToken) throw kepler::error(ValueError, "Undefined variable.");
+        if(session.current_class(v) != VariableToken) throw kepler::error(SyntaxError, "Undefined variable");
+        v = session.get_current_referent(v);
+        v.tokenClass = CommittedValueToken;
+    }
 }
 
 template <>
 void kepler::phrase_table::evaluators::build_index_list<1, RB>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'build_index_list' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::build_index_list<2, IS_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'build_index_list' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::build_index_list<3, IS_B_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'build_index_list' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::build_index_list<2, LB_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'build_index_list' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::build_index_list<3, LB_B_I>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'build_index_list' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::process_end_of_statement<2, L_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'process_end_of_statement' phrase table evaluator not implemented.");
 }
 
 template <>
@@ -241,12 +257,12 @@ void kepler::phrase_table::evaluators::process_end_of_statement<3, L_B_R>(kepler
 
 template <>
 void kepler::phrase_table::evaluators::process_end_of_statement<4, L_BA_B_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'process_end_of_statement' phrase table evaluator not implemented.");
 }
 
 template <>
 void kepler::phrase_table::evaluators::process_end_of_statement<3, L_BA_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-
+    throw kepler::error(InternalError, "'process_end_of_statement' phrase table evaluator not implemented.");
 }
 
 bool kepler::phrase_table::match_type(const kepler::Token &token, TokenType type) {

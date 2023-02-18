@@ -26,11 +26,13 @@ namespace kepler {
     private:
         List<Symbol> symbol_table;
 
-        bool create_symbol(const List<Char>& name);
+        kepler::Symbol& create(const List<Char>& id);
 
     public:
         SymbolTable();
 
-        Symbol& get_by_name(const List<Char>& name);
+        Symbol& set(const List<Char>& id, List<Token> &&content);
+        Symbol& set(const List<Char>& id, const List<Token> &content);
+        Symbol& lookup(const List<Char>& id);
     };
 };

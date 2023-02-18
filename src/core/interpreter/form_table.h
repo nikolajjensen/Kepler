@@ -30,6 +30,7 @@
 #include "../classifiers.h"
 #include "../error/error.h"
 #include "core/env/session.h"
+#include "../env/distinguished_identifiers.h"
 
 namespace kepler {
     namespace form_table {
@@ -64,6 +65,8 @@ namespace kepler {
 
             /// Dyadic scalar functions.
             const pattern<3> plus = {Constant, characters::plus, Constant};
+            const pattern<3> minus = {Constant, characters::bar, Constant};
+            const pattern<3> times = {Constant, characters::multiply, Constant};
             const pattern<3> divide = {Constant, characters::divide, Constant};
             const pattern<3> maximum = {Constant, characters::up_stile, Constant};
             const pattern<3> minimum = {Constant, characters::down_stile, Constant};
@@ -96,8 +99,11 @@ namespace kepler {
             const pattern<3> join_2 = {Constant, characters::comma_bar, Constant};
 
 
-            const pattern<3> index_origin_1 = {List<Char>{characters::quad, characters::I, characters::O}, characters::left_arrow, Constant};
-            const pattern<1> index_origin_2 = {List<Char>{characters::quad, characters::I, characters::O}};
+            const pattern<3> index_origin_1 = {distinguished_identifiers::IO, characters::left_arrow, Constant};
+            const pattern<1> index_origin_2 = {distinguished_identifiers::IO};
+
+            const pattern<3> print_precision_1 = {distinguished_identifiers::PP, characters::left_arrow, Constant};
+            const pattern<1> print_precision_2 = {distinguished_identifiers::PP};
 
         };
 

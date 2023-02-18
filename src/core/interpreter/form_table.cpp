@@ -20,6 +20,7 @@
 #include "form_table.h"
 #include "form_table_evaluators.h"
 #include "form_table_applicators.h"
+#include "form_table_extractors.h"
 
 template <std::size_t S, const kepler::form_table::pattern<S> &Pattern>
 bool kepler::form_table::match_pattern(search_t &search) {
@@ -48,96 +49,104 @@ kepler::form_table::evaluator kepler::form_table::build() {
 kepler::form_table::evaluator kepler::form_table::lookup(search_t &&search) {
     /// Monadic scalar functions.
     if(match_pattern<2, patterns::conjugate>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::conjugate>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::conjugate>>>();
     } else if(match_pattern<2, patterns::negative>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::negative>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::negative>>>();
     } else if(match_pattern<2, patterns::direction>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::direction>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::direction>>>();
     } else if(match_pattern<2, patterns::reciprocal>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::reciprocal>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::reciprocal>>>();
     } else if(match_pattern<2, patterns::floor>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::floor>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::floor>>>();
     } else if(match_pattern<2, patterns::ceiling>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::ceiling>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::ceiling>>>();
     } else if(match_pattern<2, patterns::exponential>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::exponential>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::exponential>>>();
     } else if(match_pattern<2, patterns::natural_log>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::natural_log>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::natural_log>>>();
     } else if(match_pattern<2, patterns::magnitude>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::magnitude>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::magnitude>>>();
     } else if(match_pattern<2, patterns::factorial>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::factorial>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::factorial>>>();
     } else if(match_pattern<2, patterns::pi_times>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::pi_times>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::pi_times>>>();
     } else if(match_pattern<2, patterns::negation>(search)) {
-        return build<applicators::monadic<applicators::scalar<evaluators::negation>>>();
+        return build<extractors::monadic<applicators::scalar<evaluators::negation>>>();
     }
 
     /// Dyadic scalar functions.
     else if(match_pattern<3, patterns::plus>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::plus>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::plus>>>();
+    } else if(match_pattern<3, patterns::minus>(search)) {
+        return build<extractors::dyadic<applicators::scalar<evaluators::minus>>>();
+    } else if(match_pattern<3, patterns::times>(search)) {
+        return build<extractors::dyadic<applicators::scalar<evaluators::times>>>();
     } else if(match_pattern<3, patterns::divide>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::divide>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::divide>>>();
     } else if(match_pattern<3, patterns::maximum>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::maximum>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::maximum>>>();
     } else if(match_pattern<3, patterns::minimum>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::minimum>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::minimum>>>();
     } else if(match_pattern<3, patterns::power>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::power>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::power>>>();
     } else if(match_pattern<3, patterns::logarithm>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::logarithm>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::logarithm>>>();
     } else if(match_pattern<3, patterns::residue>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::residue>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::residue>>>();
     } else if(match_pattern<3, patterns::binomial>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::binomial>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::binomial>>>();
     } else if(match_pattern<3, patterns::circular_functions>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::circular_functions>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::circular_functions>>>();
     } else if(match_pattern<3, patterns::and_lcm>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::and_lcm>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::and_lcm>>>();
     } else if(match_pattern<3, patterns::or_gcd>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::or_gcd>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::or_gcd>>>();
     } else if(match_pattern<3, patterns::nand>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::nand>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::nand>>>();
     } else if(match_pattern<3, patterns::nor>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::nor>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::nor>>>();
     } else if(match_pattern<3, patterns::equal>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::equal>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::equal>>>();
     } else if(match_pattern<3, patterns::less_than>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::less_than>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::less_than>>>();
     } else if(match_pattern<3, patterns::less_than_or_equal_to>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::less_than_or_equal_to>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::less_than_or_equal_to>>>();
     } else if(match_pattern<3, patterns::not_equal>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::not_equal>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::not_equal>>>();
     } else if(match_pattern<3, patterns::greater_than_or_equal_to>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::greater_than_or_equal_to>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::greater_than_or_equal_to>>>();
     } else if(match_pattern<3, patterns::greater_than>(search)) {
-        return build<applicators::dyadic<applicators::scalar<evaluators::greater_than>>>();
+        return build<extractors::dyadic<applicators::scalar<evaluators::greater_than>>>();
     }
 
     /// Monadic array functions.
     else if(match_pattern<2, patterns::ravel>(search)) {
-        return build<applicators::monadic<applicators::structural<evaluators::ravel>>>();
+        return build<extractors::monadic<applicators::structural<evaluators::ravel>>>();
     } else if(match_pattern<2, patterns::shape>(search)) {
-        return build<applicators::monadic<applicators::structural<evaluators::shape>>>();
+        return build<extractors::monadic<applicators::structural<evaluators::shape>>>();
     } else if(match_pattern<2, patterns::index_generator>(search)) {
-        return build<applicators::monadic<applicators::structural<evaluators::index_generator>>>();
+        return build<extractors::monadic<applicators::structural<evaluators::index_generator>>>();
     } else if(match_pattern<2, patterns::table>(search)) {
-        return build<applicators::monadic<applicators::structural<evaluators::table>>>();
+        return build<extractors::monadic<applicators::structural<evaluators::table>>>();
     }
 
     /// Dyadic array functions.
     else if(match_pattern<3, patterns::reshape>(search)) {
-        return build<applicators::dyadic<applicators::structural<evaluators::reshape>>>();
+        return build<extractors::dyadic<applicators::structural<evaluators::reshape>>>();
     } else if(match_pattern<3, patterns::join_1>(search)) {
-        return build<applicators::dyadic<applicators::structural<evaluators::join_1>>>();
+        return build<extractors::dyadic<applicators::structural<evaluators::join_1>>>();
     } else if(match_pattern<3, patterns::join_2>(search)) {
-        return build<applicators::dyadic<applicators::structural<evaluators::join_2>>>();
+        return build<extractors::dyadic<applicators::structural<evaluators::join_2>>>();
     }
 
     else if(match_pattern<3, patterns::index_origin_1>(search)) {
-        return build<applicators::dyadic<applicators::system_variable<evaluators::index_origin>>>();
+        return build<extractors::monadic<applicators::system_variable<evaluators::index_origin>>>();
     } else if(match_pattern<1, patterns::index_origin_2>(search)) {
-        return build<applicators::dyadic<applicators::system_variable<evaluators::index_origin>>>();
+        return build<extractors::niladic<applicators::system_variable<evaluators::index_origin>>>();
+    } else if(match_pattern<3, patterns::print_precision_1>(search)) {
+        return build<extractors::monadic<applicators::system_variable<evaluators::print_precision>>>();
+    } else if(match_pattern<1, patterns::print_precision_2>(search)) {
+        return build<extractors::niladic<applicators::system_variable<evaluators::print_precision>>>();
     }
 
     return nullptr;

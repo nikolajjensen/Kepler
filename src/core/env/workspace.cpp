@@ -19,13 +19,15 @@
 
 #include "workspace.h"
 
+#include <utility>
+
 kepler::Workspace::Workspace(
-        StringUTF8 workspaceName_)
-        : workspaceName(workspaceName_),
-          symbolTable(),
-          stateIndicator(),
-          existentialProperty(WorkspacePresence::AbsentWorkspace) {}
+        StringUTF8 workspace_name_)
+        : workspace_name(std::move(workspace_name_)),
+          symbol_table(),
+          state_indicator(),
+          existential_property(WorkspacePresence::AbsentWorkspace) {}
 
 void kepler::Workspace::addContext(kepler::StringUTF8 &&line) {
-    stateIndicator.emplace_back(std::move(line));
+    state_indicator.emplace_back(std::move(line));
 }

@@ -26,8 +26,8 @@
 #include "core/error/error_type.h"
 
 TEST_CASE_METHOD(fixture, "System var", "[sys][scalar][func]") {
-    CHECK_THAT(run("⎕IO←1"), Outputs(""));
-    CHECK_THAT(run("⎕IO←0"), Outputs(""));
+    CHECK_THAT(run("⎕IO←1"), Outputs("1"));
+    CHECK_THAT(run("⎕IO←0"), Outputs("0"));
     CHECK_THAT(run("⎕IO←2"), Throws(kepler::LimitError));
 }
 

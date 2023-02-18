@@ -18,31 +18,34 @@
 //
 
 #include "symbol_table.h"
+#include "printers.h"
 
 kepler::SymbolTable::SymbolTable() : symbol_table() {}
 
-bool kepler::SymbolTable::create_symbol(const List<Char> &name) {
-    auto it = std::find_if(symbol_table.begin(), symbol_table.end(), [&name](const Symbol& symbol){
-        return symbol.name == name;
-    });
-
-    if(it == symbol_table.end()) {
-        symbol_table.emplace_back(name);
-        return true;
-    }
-
-    return false;
+kepler::Symbol& kepler::SymbolTable::create(const List<Char> &id) {
+    return symbol_table.emplace_back(id);
 }
 
-kepler::Symbol& kepler::SymbolTable::get_by_name(const List<Char> &name) {
+kepler::Symbol& kepler::SymbolTable::lookup(const List<Char> &name) {
     auto it = std::find_if(symbol_table.begin(), symbol_table.end(), [&name](const Symbol& symbol){
         return symbol.name == name;
     });
 
     if(it != symbol_table.end()) {
         return *it;
+    } else {
+        return create(name);
     }
+}
 
-    create_symbol(name);
-    return get_by_name(name);
+kepler::Symbol& kepler::SymbolTable::set(const List<Char>& id, List<Token> &&content) {
+    auto& symbol = lookup(id);
+    symbol.referentList = std::move(content);
+    return symbol;
+}
+
+kepler::Symbol& kepler::SymbolTable::set(const List<Char>& id, const List<Token> &content) {
+    auto& symbol = lookup(id);
+    symbol.referentList = content;
+    return symbol;
 }

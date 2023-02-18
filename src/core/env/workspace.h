@@ -27,12 +27,12 @@
 namespace kepler {
     class Workspace {
     public:
-        StringUTF8 workspaceName;
-        SymbolTable symbolTable;
-        List<Context> stateIndicator;
-        WorkspacePresence existentialProperty;
+        StringUTF8 workspace_name;
+        SymbolTable symbol_table;
+        List<Context> state_indicator;
+        WorkspacePresence existential_property;
 
-        Workspace(StringUTF8 workspaceName);
+        explicit Workspace(StringUTF8 workspaceName);
 
         void addContext(kepler::StringUTF8&& line);
     };

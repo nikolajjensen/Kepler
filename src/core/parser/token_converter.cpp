@@ -41,7 +41,7 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
             token.tokenClass = TokenClass::SharedVariableNameToken;
         } else if (current_class == TokenClass::LabelToken) {
             token.tokenClass = TokenClass::ConstantToken;
-            token.content = session.current_referent(token).content;
+            token.content = session.get_current_referent(token).content;
         } else {
             // Should throw something here, this should never be reached.
             throw kepler::error(InternalError, "bind_token_class error: Unexpected case reached.");
