@@ -18,9 +18,9 @@
 //
 
 #include "lexer.h"
-#include "../characters.h"
-#include "../token.h"
-#include "../error/error.h"
+#include "core/constants/characters.h"
+#include "core/token.h"
+#include "core/error.h"
 
 #include <utility>
 

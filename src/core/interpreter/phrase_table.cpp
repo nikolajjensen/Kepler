@@ -19,9 +19,9 @@
 
 #include "form_table.h"
 #include "phrase_table.h"
-#include "../token.h"
-#include "../classifiers.h"
-#include "core/env/printers.h"
+#include "core/token.h"
+#include "core/helpers/classifiers.h"
+#include "core/helpers/printers.h"
 #include <functional>
 
 using namespace kepler;

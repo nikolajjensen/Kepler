@@ -18,7 +18,7 @@
 //
 
 #include "classifiers.h"
-#include "core/env/session.h"
+#include "core/session.h"
 
 bool kepler::classifiers::is_identifier(const Token &token) {
     return token.token_class == SimpleIdentifierToken || token.token_class == DistinguishedIdentifierToken;

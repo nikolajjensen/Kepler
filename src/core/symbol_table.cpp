@@ -18,7 +18,7 @@
 //
 
 #include "symbol_table.h"
-#include "printers.h"
+#include "core/helpers/printers.h"
 
 kepler::SymbolTable::SymbolTable() : symbol_table() {}
 

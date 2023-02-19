@@ -18,13 +18,13 @@
 //
 
 #include "datatypes.h"
-#include "characters.h"
-#include "core/error/error.h"
+#include "core/constants/characters.h"
+#include "error.h"
 
 #include <limits>
 #include <cmath>
 #include <iomanip>
-#include <uni_algo/conv.h>
+#include "uni_algo/conv.h"
 
 kepler::Number kepler::numeric_limit_max() {
     return std::numeric_limits<double>::max();

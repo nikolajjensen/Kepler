@@ -18,11 +18,19 @@
 //
 
 #pragma once
+#include "session.h"
+#include "datatypes.h"
+
+#include <limits>
+#include <string>
 
 namespace kepler {
-    enum ArrayType {
-        Character,
-        Numeric,
-        Mixed
+    class System {
+    private:
+        List<Session> sessions;
+
+    public:
+        kepler::Session* spawn_session(std::string&& name = "new_session");
+        System();
     };
 };

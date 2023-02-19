@@ -23,7 +23,7 @@
 #include "core/token_class.h"
 #include "core/datatypes.h"
 #include "string_maker.h"
-#include "core/error/error_type.h"
+#include "core/error_type.h"
 #include "macros.h"
 
 TEST_CASE_METHOD(fixture, "System var", "[sys][scalar][func]") {

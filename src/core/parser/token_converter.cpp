@@ -19,9 +19,9 @@
 
 #include <exception>
 #include "token_converter.h"
-#include "core/env/printers.h"
-#include "core/characters.h"
-#include "core/classifiers.h"
+#include "core/helpers/printers.h"
+#include "core/constants/characters.h"
+#include "core/helpers/classifiers.h"
 #include "../interpreter/form_table.h"
 
 void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& session) {

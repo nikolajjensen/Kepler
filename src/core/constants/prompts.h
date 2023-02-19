@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,19 +18,18 @@
 //
 
 #pragma once
-#include "session.h"
-#include "../datatypes.h"
+#include "core/datatypes.h"
+#include "characters.h"
+#include "core/array.h"
 
-#include <limits>
-#include <string>
+namespace kepler::prompts {
+    const std::string indent_prompt = "     > ";
+    const std::string quad_prompt = "⎕:\n     > ";
 
-namespace kepler {
-    class System {
-    private:
-        List<Session> sessions;
-
-    public:
-        kepler::Session* spawn_session(std::string&& name = "new_session");
-        System();
-    };
+    std::string function_definition_prompt(int line_number) {
+        if(line_number >= 10) {
+            return "[" + std::to_string(line_number) + "] > ";
+        }
+        return "[" + std::to_string(line_number) + "]  > ";
+    }
 };

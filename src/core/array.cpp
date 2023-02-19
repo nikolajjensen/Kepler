@@ -21,10 +21,10 @@
 
 #include <utility>
 
-kepler::Array::Array(List<UnsignedInteger> shapeList_, ravel_list_type ravelList_) : shapeList(std::move(shapeList_)), ravelList(std::move(ravelList_)), type() {}
+kepler::Array::Array(List<int> shapeList_, ravel_list_type ravelList_) : shapeList(std::move(shapeList_)), ravelList(std::move(ravelList_)) {}
 
-kepler::Integer kepler::Array::rank() const {
-    return (Integer)shapeList.size();
+int kepler::Array::rank() const {
+    return (int)shapeList.size();
 }
 
 template <typename T>
@@ -37,7 +37,7 @@ kepler::Array kepler::Array::vectorOf(List<T>&& raw_ravel) {
     if(ravel.size() == 1) {
         return {{}, ravel};
     }
-    return Array({(UnsignedInteger)ravel.size()}, ravel);
+    return Array({(int)ravel.size()}, ravel);
 }
 
 template kepler::Array kepler::Array::vectorOf(List<Char> &&ravel);

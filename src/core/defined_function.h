@@ -1,5 +1,5 @@
 //
-// Copyright 2023 Nikolaj Banke Jensen.
+// Copyright 2022 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,18 +18,12 @@
 //
 
 #pragma once
-#include "core/datatypes.h"
-#include "core/characters.h"
-#include "core/array.h"
+#include "datatypes.h"
 
-namespace kepler::prompts {
-    const std::string indent_prompt = "     > ";
-    const std::string quad_prompt = "⎕:\n     > ";
-
-    std::string function_definition_prompt(int line_number) {
-        if(line_number >= 10) {
-            return "[" + std::to_string(line_number) + "] > ";
-        }
-        return "[" + std::to_string(line_number) + "]  > ";
-    }
+namespace kepler {
+    struct DefinedFunction {
+        List<Char> canonicalRepresentation;
+        List<Number> stopVector;
+        List<Number> traceVector;
+    };
 };

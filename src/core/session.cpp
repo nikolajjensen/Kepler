@@ -21,23 +21,14 @@
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
 #include "core/interpreter/interpreter.h"
-#include "core/error/error.h"
-#include "prompts.h"
-#include "printers.h"
+#include "error.h"
+#include "core/constants/prompts.h"
+#include "core/helpers/printers.h"
 
 kepler::Session::Session(std::string&& session_name_)
     :   active_workspace(config::clear_workspace_identifier),
-        keyboard_state(OpenKeyboardState),
         session_name(session_name_) {
     config::set_initial_values(active_workspace.symbol_table);
-}
-
-void kepler::Session::lockKeyboard() {
-    keyboard_state = LockedKeyboardState;
-}
-
-void kepler::Session::openKeyboard() {
-    keyboard_state = OpenKeyboardState;
 }
 
 kepler::Token& kepler::Session::get_current_referent(kepler::Token &token) {

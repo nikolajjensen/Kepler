@@ -17,14 +17,16 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "system.h"
-#include "workspace.h"
-#include "config.h"
+#pragma once
+#include "datatypes.h"
+#include "token.h"
 
-kepler::System::System() : sessions() {
+namespace kepler {
+    struct Symbol {
+        List<Char> name;
+        List<Token> referentList;
 
-}
-
-kepler::Session* kepler::System::spawn_session(std::string&& name) {
-    return &sessions.emplace_back(std::move(name));
-}
+        Symbol(List<Char> name, List<Token> referentList);
+        Symbol(List<Char> name);
+    };
+};

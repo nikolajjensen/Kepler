@@ -17,7 +17,7 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include "form_table.h"
-#include "../error/error.h"
+#include "core/error.h"
 
 namespace kepler::form_table::evaluators {
     struct evaluator : boost::static_visitor<boost::variant<Number, Char, Array>> {

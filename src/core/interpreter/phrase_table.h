@@ -18,9 +18,9 @@
 //
 
 #pragma once
-#include "../token.h"
-#include "../env/session.h"
-#include "../characters.h"
+#include "core/token.h"
+#include "core/session.h"
+#include "core/constants/characters.h"
 
 namespace kepler {
     namespace phrase_table {

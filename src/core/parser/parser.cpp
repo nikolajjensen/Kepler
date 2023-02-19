@@ -18,9 +18,9 @@
 //
 
 #include "parser.h"
-#include "../characters.h"
+#include "core/constants/characters.h"
 #include "token_converter.h"
-#include "../env/printers.h"
+#include "core/helpers/printers.h"
 #include "../interpreter/form_table.h"
 
 using namespace kepler::parser;

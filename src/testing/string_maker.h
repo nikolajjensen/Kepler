@@ -18,7 +18,7 @@
 //
 
 #pragma once
-#include "../core/token.h"
+#include "core/token.h"
 #include <catch2/catch_tostring.hpp>
 
 namespace Catch {

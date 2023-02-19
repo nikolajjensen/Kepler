@@ -20,8 +20,8 @@
 #pragma once
 
 #include "form_table.h"
-#include "../token.h"
-#include "../error/error.h"
+#include "core/token.h"
+#include "core/error.h"
 
 namespace kepler::form_table::extractors {
     template <typename Extension>

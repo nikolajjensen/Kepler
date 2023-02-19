@@ -18,10 +18,10 @@
 //
 
 #pragma once
-#include "../datatypes.h"
-#include "../token.h"
-#include "../env/context.h"
-#include "../env/session.h"
+#include "core/datatypes.h"
+#include "core/token.h"
+#include "core/context.h"
+#include "core/session.h"
 
 
 namespace kepler {

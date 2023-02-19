@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,28 +18,15 @@
 //
 
 #pragma once
-
-#include "mode.h"
-#include "../token.h"
-#include "../datatypes.h"
-#include "defined_function.h"
-#include "../error/error.h"
+#include "core/datatypes.h"
+#include "core/constants/characters.h"
 
 namespace kepler {
-    class Context {
-    public:
-        Mode mode;
-        List<Token> stack;
-        List<Char> current_line;
-        List<Token> currentStatement;
-        boost::optional<DefinedFunction> currentFunction;
-        UnsignedInteger currentLineNumber;
-
-        Context();
-        Context(Mode mode, List<Char> line);
-
-        StringUTF8 current_line_string() {
-            return uni::utf32to8(std::u32string(current_line.begin(), current_line.end()));
-        }
+    namespace distinguished_identifiers {
+        const List<Char> CT = {characters::quad, characters::C, characters::T};
+        const List<Char> RL = {characters::quad, characters::R, characters::L};
+        const List<Char> PP = {characters::quad, characters::P, characters::P};
+        const List<Char> IO = {characters::quad, characters::I, characters::O};
+        const List<Char> LX = {characters::quad, characters::L, characters::X};
     };
 };

@@ -17,9 +17,9 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include "config.h"
-#include "symbol_table.h"
-#include "../characters.h"
-#include "../array.h"
+#include "core/symbol_table.h"
+#include "core/constants/characters.h"
+#include "core/array.h"
 
 namespace kepler {
     void config::set_initial_values(SymbolTable &symbol_table) {

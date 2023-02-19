@@ -18,7 +18,7 @@
 //
 
 #pragma once
-#include "datatypes.h"
+#include "core/datatypes.h"
 
 namespace kepler {
     namespace characters {

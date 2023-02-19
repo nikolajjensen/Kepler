@@ -18,15 +18,21 @@
 //
 
 #pragma once
-#include "../datatypes.h"
-#include "../token.h"
+#include "symbol.h"
+#include "datatypes.h"
 
 namespace kepler {
-    struct Symbol {
-        List<Char> name;
-        List<Token> referentList;
+    class SymbolTable {
+    private:
+        List<Symbol> symbol_table;
 
-        Symbol(List<Char> name, List<Token> referentList);
-        Symbol(List<Char> name);
+        kepler::Symbol& create(const List<Char>& id);
+
+    public:
+        SymbolTable();
+
+        Symbol& set(const List<Char>& id, List<Token> &&content);
+        Symbol& set(const List<Char>& id, const List<Token> &content);
+        Symbol& lookup(const List<Char>& id);
     };
 };

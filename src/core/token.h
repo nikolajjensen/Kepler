@@ -24,6 +24,7 @@
 #include "uni_algo/conv.h"
 #include "array.h"
 #include <boost/optional.hpp>
+#include <utility>
 
 namespace kepler {
 
@@ -41,20 +42,7 @@ namespace kepler {
         optional_content_type content;
 
         Token(TokenClass token_class_, content_type content_) : token_class(token_class_), content(content_) {}
-        Token(TokenClass token_class_ = TokenClass::NilToken) : token_class(token_class_), content(boost::none) {}
-
-        void set(TokenClass new_class) {
-            token_class = new_class;
-        }
-
-        void set(optional_content_type new_content) {
-            content = new_content;
-        }
-
-        void set(TokenClass new_class, optional_content_type new_content) {
-            set(new_class);
-            set(new_content);
-        }
+        explicit Token(TokenClass token_class_ = TokenClass::NilToken) : token_class(token_class_), content(boost::none) {}
 
         template <typename Variant>
         bool contains() const {

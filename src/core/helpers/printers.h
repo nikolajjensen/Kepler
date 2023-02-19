@@ -19,14 +19,14 @@
 
 #pragma once
 
-#include "../token_class.h"
-#include "../token.h"
-#include "core/error/error.h"
-#include "session.h"
+#include "core/token_class.h"
+#include "core/token.h"
+#include "core/error.h"
+#include "core/session.h"
 
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
 #include <iostream>
-#include <uni_algo/conv.h>
+#include "uni_algo/conv.h"
 #include <iomanip>
 
 namespace kepler {

@@ -23,16 +23,6 @@
 #include <boost/preprocessor.hpp>
 
 namespace kepler {
-
-    #define PROCESS_ONE_ELEMENT(r, unused, idx, elem) \
-      BOOST_PP_COMMA_IF(idx) BOOST_PP_STRINGIZE(elem)
-
-    #define ENUM_MACRO(name, ...)\
-        enum name { __VA_ARGS__ };\
-        const char *name##Strings[] = { BOOST_PP_SEQ_FOR_EACH_I(PROCESS_ONE_ELEMENT, %%, BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__)) };\
-        const char *name##ToString(int value) { return name##Strings[value]; }
-
-
     enum TokenClass {
         AssignmentArrowToken,
         AxisErrorToken,

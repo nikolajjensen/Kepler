@@ -21,11 +21,11 @@
 #include <utility>
 #include <map>
 
-#include "../datatypes.h"
-#include "../token.h"
-#include "../token_class.h"
-#include "../env/context.h"
-#include "../env/session.h"
+#include "core/datatypes.h"
+#include "core/token.h"
+#include "core/token_class.h"
+#include "core/context.h"
+#include "core/session.h"
 
 namespace kepler {
     namespace parser {

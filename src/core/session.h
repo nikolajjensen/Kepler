@@ -18,10 +18,28 @@
 //
 
 #pragma once
+#include "workspace.h"
+#include "core/constants/config.h"
 
 namespace kepler {
-    enum KeyboardState {
-        OpenKeyboardState,
-        LockedKeyboardState,
+    class Session {
+    private:
+        Token evaluate_line(Context& context);
+
+    public:
+        Workspace active_workspace;
+        std::string session_name;
+
+        explicit Session(std::string&& name);
+
+        Token& get_current_referent(Token& token);
+        void set_current_referent(Token& token, List<Token> &&content);
+        TokenClass current_class(Token& token);
+
+        void immediate_execution_mode();
+        kepler::Token immediately_execute(Token& input);
+        kepler::Token immediately_execute(Token&& input);
+        kepler::Token immediately_execute(List<Char>&& input);
+        kepler::Token immediately_execute(std::string&& input);
     };
 };

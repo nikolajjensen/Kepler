@@ -18,7 +18,6 @@
 //
 
 #pragma once
-#include "array_type.h"
 #include "datatypes.h"
 
 #include <boost/variant.hpp>
@@ -29,14 +28,13 @@ namespace kepler {
         typedef boost::variant<Char, Number, boost::recursive_wrapper<Array>> element_type;
         typedef List<element_type> ravel_list_type;
 
-        List<UnsignedInteger> shapeList;
+        List<int> shapeList;
         ravel_list_type ravelList;
-        ArrayType type;
 
         Array() = default;
-        Array(List<UnsignedInteger> shapeList, ravel_list_type ravelList);
+        Array(List<int> shapeList, ravel_list_type ravelList);
 
-        Integer rank() const;
+        int rank() const;
 
         template <typename T>
         static Array vectorOf(List<T>&& ravelList);

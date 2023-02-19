@@ -21,9 +21,8 @@
 
 #include "core/datatypes.h"
 #include "core/token.h"
-#include "core/env/symbol_table.h"
-#include "core/env/session.h"
-#include "core/utils.h"
+#include "core/symbol_table.h"
+#include "core/session.h"
 
 namespace kepler {
     namespace parser {

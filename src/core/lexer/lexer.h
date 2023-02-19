@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include "../datatypes.h"
-#include "../token.h"
-#include "../env/context.h"
+#include "core/datatypes.h"
+#include "core/token.h"
+#include "core/context.h"
 
 namespace kepler {
     namespace lexer {

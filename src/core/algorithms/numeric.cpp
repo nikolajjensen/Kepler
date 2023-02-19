@@ -17,8 +17,8 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include "numeric.h"
-#include "../env/config.h"
-#include "../env/session.h"
+#include "core/constants/config.h"
+#include "core/session.h"
 
 namespace kepler {
     bool numeric_operations::in_same_half_plane(const Number &lhs, const Number &rhs) {

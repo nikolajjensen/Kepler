@@ -18,23 +18,28 @@
 //
 
 #pragma once
-#include "../datatypes.h"
-#include "symbol.h"
-#include "context.h"
-#include "workspace_presence.h"
-#include "symbol_table.h"
+
+#include "mode.h"
+#include "token.h"
+#include "datatypes.h"
+#include "defined_function.h"
+#include "error.h"
 
 namespace kepler {
-    class Workspace {
+    class Context {
     public:
-        StringUTF8 workspace_name;
-        SymbolTable symbol_table;
-        List<Context> state_indicator;
-        WorkspacePresence existential_property;
+        Mode mode;
+        List<Token> stack;
+        List<Char> current_line;
+        List<Token> currentStatement;
+        boost::optional<DefinedFunction> currentFunction;
+        int currentLineNumber;
 
-        explicit Workspace(StringUTF8 workspaceName);
+        Context();
+        Context(Mode mode, List<Char> line);
 
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
+        StringUTF8 current_line_string() {
+            return uni::utf32to8(std::u32string(current_line.begin(), current_line.end()));
+        }
     };
 };

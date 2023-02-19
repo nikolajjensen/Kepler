@@ -26,17 +26,11 @@
 namespace kepler {
     template<typename T>
     using List = std::vector<T>;
-
     using Char = char32_t;
-    using Double = double;
-    using Integer = int;
-    using UnsignedInteger = unsigned int;
-
+    using Number = std::complex<double>;
     using StringUTF8 = std::string;
     using StringUTF32 = std::u32string;
-    using Boolean = bool;
 
-    using Number = std::complex<double>;
 
     Number numeric_limit_max();
     Number numeric_limit_min();

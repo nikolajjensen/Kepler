@@ -1,5 +1,5 @@
 //
-// Copyright 2023 Nikolaj Banke Jensen.
+// Copyright 2022 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,16 +17,14 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "../datatypes.h"
-#include "../characters.h"
+#include "system.h"
+#include "workspace.h"
+#include "core/constants/config.h"
 
-namespace kepler {
-    namespace distinguished_identifiers {
-        const List<Char> CT = {characters::quad, characters::C, characters::T};
-        const List<Char> RL = {characters::quad, characters::R, characters::L};
-        const List<Char> PP = {characters::quad, characters::P, characters::P};
-        const List<Char> IO = {characters::quad, characters::I, characters::O};
-        const List<Char> LX = {characters::quad, characters::L, characters::X};
-    };
-};
+kepler::System::System() : sessions() {
+
+}
+
+kepler::Session* kepler::System::spawn_session(std::string&& name) {
+    return &sessions.emplace_back(std::move(name));
+}

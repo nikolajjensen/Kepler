@@ -18,20 +18,23 @@
 //
 
 #pragma once
-
-#include <boost/variant.hpp>
+#include "datatypes.h"
+#include "symbol.h"
+#include "context.h"
+#include "workspace_presence.h"
+#include "symbol_table.h"
 
 namespace kepler {
-    namespace utils {
-        /*
-        template <typename R, typename A> R convert_variant(A const& arg) {
-            return boost::apply_visitor([](auto const& v) -> R {
-                if constexpr (std::is_convertible_v<decltype(v), R>)
-                    return v;
-                else
-                    throw std::runtime_error("bad conversion");
-            } , arg);
-        }
-         */
+    class Workspace {
+    public:
+        StringUTF8 workspace_name;
+        SymbolTable symbol_table;
+        List<Context> state_indicator;
+        WorkspacePresence existential_property;
+
+        explicit Workspace(StringUTF8 workspaceName);
+
+        kepler::Context& add_context(kepler::Context&& context);
+        void pop_context();
     };
 };

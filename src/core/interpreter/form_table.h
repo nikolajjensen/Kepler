@@ -23,14 +23,14 @@
 
 #include <utility>
 #include <array>
-#include "../token.h"
-#include "../token_class.h"
-#include "../characters.h"
+#include "core/token.h"
+#include "core/token_class.h"
+#include "core/constants/characters.h"
 #include "evaluation_outcome.h"
-#include "../classifiers.h"
-#include "../error/error.h"
-#include "core/env/session.h"
-#include "../env/distinguished_identifiers.h"
+#include "core/helpers/classifiers.h"
+#include "core/error.h"
+#include "core/session.h"
+#include "core/constants/distinguished_identifiers.h"
 
 namespace kepler {
     namespace form_table {

@@ -23,8 +23,8 @@
 #include <catch2/matchers/catch_matchers_exception.hpp>
 #include "core/token_class.h"
 #include "core/token.h"
-#include "core/env/printers.h"
-#include "core/error/error.h"
+#include "core/helpers/printers.h"
+#include "core/error.h"
 #include <iomanip>
 
 struct Outputs : Catch::Matchers::MatcherGenericBase {

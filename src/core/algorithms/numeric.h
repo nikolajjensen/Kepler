@@ -18,8 +18,8 @@
 //
 
 #pragma once
-#include "../datatypes.h"
-#include "../env/session.h"
+#include "core/datatypes.h"
+#include "core/session.h"
 
 namespace kepler::numeric_operations {
     bool in_same_half_plane(const Number& lhs, const Number& rhs);
