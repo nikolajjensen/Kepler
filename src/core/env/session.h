@@ -28,20 +28,24 @@ namespace kepler {
         Workspace active_workspace;
         KeyboardState keyboard_state;
         std::string session_name;
-        Context* current_context;
 
         explicit Session(std::string&& name);
-
-        void evaluate();
-
-        void update_pointers();
-        void insert_line(StringUTF8 input);
 
         Token& get_current_referent(Token& token);
         void set_current_referent(Token& token, List<Token> &&content);
         TokenClass current_class(Token& token);
 
+        Array system_variable(const List<Char>& id);
+
         void openKeyboard();
         void lockKeyboard();
+
+        Token evaluate_line(Context& context);
+
+        void immediate_execution_mode();
+        kepler::Token immediately_execute(Token& input);
+        kepler::Token immediately_execute(Token&& input);
+        kepler::Token immediately_execute(List<Char>&& input);
+        kepler::Token immediately_execute(std::string&& input);
     };
 };

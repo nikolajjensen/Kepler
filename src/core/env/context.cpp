@@ -23,30 +23,15 @@
 kepler::Context::Context()
         : mode(Mode::ImmediateExecutionMode),
           stack(),
-          currentLine(),
+          current_line(),
           currentStatement(),
-          currentFunction(nullptr),
-          error(boost::none),
-          currentLineNumber(0) {}
+          currentFunction(boost::none),
+          currentLineNumber(1) {}
 
-kepler::Context::Context(kepler::StringUTF8 line)
-        : mode(Mode::ImmediateExecutionMode),
+kepler::Context::Context(Mode mode_, List<Char> line_)
+        : mode(mode_),
           stack(),
-          currentLine(uni::utf8to32u(line)),
+          current_line(std::move(line_)),
           currentStatement(),
-          currentFunction(nullptr),
-          error(boost::none),
-          currentLineNumber(0) {}
-
-kepler::Context::Context(kepler::StringUTF32&& line)
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          currentLine(line),
-          currentStatement(),
-          currentFunction(nullptr),
-          error(boost::none),
-          currentLineNumber(0) {}
-
-void kepler::Context::setError(kepler::error err) {
-    error = err;
-}
+          currentFunction(boost::none),
+          currentLineNumber(1) {}

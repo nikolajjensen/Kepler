@@ -28,36 +28,36 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
     if(kepler::classifiers::is(token, SimpleIdentifierToken)){
         TokenClass current_class = session.current_class(token);
         if(current_class == TokenClass::DefinedMonadicOperatorToken) {
-            token.tokenClass = TokenClass::DefinedMonadicOperatorNameToken;
+            token.token_class = TokenClass::DefinedMonadicOperatorNameToken;
         } else if (current_class == TokenClass::DefinedDyadicOperatorToken) {
-            token.tokenClass = TokenClass::DefinedDyadicOperatorNameToken;
+            token.token_class = TokenClass::DefinedDyadicOperatorNameToken;
         } else if (current_class == TokenClass::DefinedFunctionToken) {
-            token.tokenClass = TokenClass::DefinedFunctionNameToken;
+            token.token_class = TokenClass::DefinedFunctionNameToken;
         } else if (current_class == TokenClass::NiladicDefinedFunctionToken) {
-            token.tokenClass = TokenClass::NiladicDefinedFunctionNameToken;
+            token.token_class = TokenClass::NiladicDefinedFunctionNameToken;
         } else if (current_class == TokenClass::NilToken || current_class == TokenClass::VariableToken) {
-            token.tokenClass = TokenClass::VariableNameToken;
+            token.token_class = TokenClass::VariableNameToken;
         } else if (current_class == TokenClass::SharedVariableToken) {
-            token.tokenClass = TokenClass::SharedVariableNameToken;
+            token.token_class = TokenClass::SharedVariableNameToken;
         } else if (current_class == TokenClass::LabelToken) {
-            token.tokenClass = TokenClass::ConstantToken;
+            token.token_class = TokenClass::ConstantToken;
             token.content = session.get_current_referent(token).content;
         } else {
             // Should throw something here, this should never be reached.
             throw kepler::error(InternalError, "bind_token_class error: Unexpected case reached.");
         }
-    } else if (token.tokenClass == TokenClass::DistinguishedIdentifierToken) {
+    } else if (token.token_class == TokenClass::DistinguishedIdentifierToken) {
         auto form_one = kepler::form_table::lookup({&token});
         auto form_two = kepler::form_table::lookup({&token, characters::left_arrow, form_table::Constant});
         auto form_three = kepler::form_table::lookup({&token, form_table::Constant});
         auto form_four = kepler::form_table::lookup({form_table::Constant, &token, form_table::Constant});
 
         if(form_one != nullptr && form_two != nullptr) {
-            token.tokenClass = SystemVariableNameToken;
+            token.token_class = SystemVariableNameToken;
         } else if(form_one != nullptr && form_two == nullptr) {
-            token.tokenClass = NiladicSystemFunctionNameToken;
+            token.token_class = NiladicSystemFunctionNameToken;
         } else if(form_three != nullptr || form_four != nullptr) {
-            token.tokenClass = SystemFunctionNameToken;
+            token.token_class = SystemFunctionNameToken;
         } else {
             throw kepler::error(SyntaxError, "Distinguished identifier is unrecognised.");
         }
@@ -68,12 +68,12 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
     List<Char> content = boost::get<List<Char>>(token.content.get());
     Array vector;
 
-    if(token.tokenClass == TokenClass::CharacterLiteralToken) {
+    if(token.token_class == TokenClass::CharacterLiteralToken) {
         List<Char> char_vector(content.begin(), content.end());
         char_vector.erase(char_vector.begin());
         char_vector.pop_back();
         token.content = Array::vectorOf(std::move(char_vector));
-    } else if(token.tokenClass == TokenClass::NumericLiteralToken) {
+    } else if(token.token_class == TokenClass::NumericLiteralToken) {
         List<Number> numeric_vector;
 
         auto start = content.begin();
@@ -94,7 +94,7 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
         token.content = Array::vectorOf(std::move(numeric_vector));
     }
 
-    token.tokenClass = ConstantToken;
+    token.token_class = ConstantToken;
 }
 
 void kepler::parser::scalar_conversion(kepler::Token &token) {

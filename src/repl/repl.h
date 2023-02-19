@@ -20,7 +20,7 @@
 #pragma once
 #include "core/env/session.h"
 #include <string>
-
+/*
 namespace kepler::tui {
     void print(std::string str);
 
@@ -32,3 +32,4 @@ namespace kepler::tui {
 
     void repl(Session& session);
 };
+*/

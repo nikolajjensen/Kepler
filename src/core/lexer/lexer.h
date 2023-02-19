@@ -27,7 +27,7 @@ namespace kepler {
     namespace lexer {
         class Lexer {
         public:
-            Lexer(kepler::StringUTF32 input_, kepler::List<kepler::Token>* output_);
+            Lexer(List<Char> input, kepler::List<kepler::Token>* output_);
 
             bool lex();
 
@@ -87,8 +87,8 @@ namespace kepler {
             kepler::Char& peek();
             kepler::Char& previous();
 
-            kepler::StringUTF32 input;
-            kepler::StringUTF32 content;
+            List<Char> input;
+            List<Char> content;
             kepler::List<kepler::Token>* output;
             int current = 0;
         };

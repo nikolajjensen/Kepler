@@ -26,10 +26,10 @@
 
 using namespace kepler::lexer;
 
-Lexer::Lexer(kepler::StringUTF32 input_, kepler::List<kepler::Token>* output_) : input(std::move(input_)), content(), output(output_) {}
+Lexer::Lexer(List<Char> input_, kepler::List<kepler::Token>* output_) : input(std::move(input_)), content(), output(output_) {}
 
 void Lexer::lex(kepler::Context *context) {
-    Lexer l(context->currentLine, &context->currentStatement);
+    Lexer l(context->current_line, &context->currentStatement);
     if(!l.lex()) {
         throw kepler::error(SyntaxError, "Could not tokenize input.");
     }
@@ -429,7 +429,7 @@ void Lexer::advance() {
 void Lexer::backtrack(int& amount) {
     if(current - amount >= 0) {
         current -= amount;
-        content.erase(content.length() - amount);
+        content.resize(content.size() - amount);
         amount = 0;
     }
 }

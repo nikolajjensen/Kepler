@@ -394,13 +394,13 @@ bool Parser::match(std::initializer_list<kepler::Token::content_type> contents, 
 }
 
 void Parser::set_class(kepler::TokenClass tokenClass) {
-    backtrack_log[current - 1] = previous().tokenClass;
-    previous().tokenClass = tokenClass;
+    backtrack_log[current - 1] = previous().token_class;
+    previous().token_class = tokenClass;
 }
 
 bool Parser::check(kepler::TokenClass tokenClass) {
     if(isAtEnd()) return false;
-    return peek().tokenClass == tokenClass;
+    return peek().token_class == tokenClass;
 }
 
 bool Parser::check(const kepler::Token::content_type& content) {
@@ -417,7 +417,7 @@ void Parser::backtrack(int& amount) {
         for(int i = 1; i <= amount; ++i) {
             int index = current - i;
             if(backtrack_log.contains(index)) {
-                tokens->at(index).tokenClass = backtrack_log[index];
+                tokens->at(index).token_class = backtrack_log[index];
                 backtrack_log.erase(index);
             }
         }

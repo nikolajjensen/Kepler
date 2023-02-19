@@ -23,19 +23,27 @@
 
 namespace Catch {
     template <>
-    struct StringMaker<kepler::Context> {
-        static std::string convert(kepler::Context const & context) {
+    struct StringMaker<kepler::Token> {
+        static std::string convert(kepler::Token const & token) {
             std::stringstream ss;
             ss << "\"";
 
-            if(context.error) {
-                kepler::printers::ErrorPrinter p(ss);
-                p(context.error.get());
-            } else {
-                kepler::printers::TokenDebugPrinter p(ss);
-                p(context.result);
-            }
+            kepler::printers::TokenDebugPrinter p(ss);
+            p(token);
+            ss << "\"";
 
+            return ss.str();
+        }
+    };
+
+    template <>
+    struct StringMaker<kepler::error> {
+        static std::string convert(kepler::error const & err) {
+            std::stringstream ss;
+            ss << "\"";
+
+            kepler::printers::ErrorPrinter p(ss);
+            p(err);
             ss << "\"";
 
             return ss.str();

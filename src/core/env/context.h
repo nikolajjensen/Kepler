@@ -30,17 +30,16 @@ namespace kepler {
     public:
         Mode mode;
         List<Token> stack;
-        StringUTF32 currentLine;
+        List<Char> current_line;
         List<Token> currentStatement;
-        Token result;
-        boost::optional<kepler::error> error;
-        DefinedFunction* currentFunction;
+        boost::optional<DefinedFunction> currentFunction;
         UnsignedInteger currentLineNumber;
 
         Context();
-        Context(kepler::StringUTF8 line);
-        Context(kepler::StringUTF32&& line);
+        Context(Mode mode, List<Char> line);
 
-        void setError(kepler::error error);
+        StringUTF8 current_line_string() {
+            return uni::utf32to8(std::u32string(current_line.begin(), current_line.end()));
+        }
     };
 };

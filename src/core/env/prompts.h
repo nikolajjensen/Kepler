@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,23 +18,18 @@
 //
 
 #pragma once
-#include "../datatypes.h"
-#include "symbol.h"
-#include "context.h"
-#include "workspace_presence.h"
-#include "symbol_table.h"
+#include "core/datatypes.h"
+#include "core/characters.h"
+#include "core/array.h"
 
-namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspace_name;
-        SymbolTable symbol_table;
-        List<Context> state_indicator;
-        WorkspacePresence existential_property;
+namespace kepler::prompts {
+    const std::string indent_prompt = "     > ";
+    const std::string quad_prompt = "⎕:\n     > ";
 
-        explicit Workspace(StringUTF8 workspaceName);
-
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
-    };
+    std::string function_definition_prompt(int line_number) {
+        if(line_number >= 10) {
+            return "[" + std::to_string(line_number) + "] > ";
+        }
+        return "[" + std::to_string(line_number) + "]  > ";
+    }
 };

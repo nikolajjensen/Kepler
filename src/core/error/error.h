@@ -20,6 +20,7 @@
 #pragma once
 #include <iostream>
 #include <utility>
+#include <boost/optional.hpp>
 #include "error_type.h"
 
 namespace kepler {
@@ -27,9 +28,17 @@ namespace kepler {
     public:
         ErrorType error_type;
         std::string message;
-        int position;
+        boost::optional<int> position;
+        boost::optional<std::string> input_line;
 
-        error(ErrorType error_type_, std::string message_, int position_ = -1) : error_type(error_type_), message(std::move(message_)), position(position_) {}
+        error(ErrorType error_type_,
+              std::string message_,
+              boost::optional<int> position_ = boost::none,
+              boost::optional<std::string> input_line_ = boost::none)
+              : error_type(error_type_),
+                message(std::move(message_)),
+                position(position_),
+                input_line(input_line_) {}
 
         std::string type() const {
             return to_string(error_type);
@@ -39,8 +48,19 @@ namespace kepler {
             return message;
         }
 
-        int where() const {
-            return position;
+        std::string where() const {
+            std::stringstream ss;
+
+            if(input_line && position) {
+                ss << "   " << input_line.get() << "\n";
+                std::cout << "   ";
+                for (int i = 0; i < position.get(); ++i) {
+                    std::cout << "~";
+                }
+                std::cout << "^";
+            }
+
+            return ss.str();
         }
     };
 };

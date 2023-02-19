@@ -84,7 +84,7 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Number operator()(const Number& num) {
-            throw kepler::error(InternalError, "Not yet implemented.");
+            return {std::floor(num.real()), std::floor(num.imag())};
         }
     };
 
@@ -93,7 +93,7 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Number operator()(const Number& num) {
-            throw kepler::error(InternalError, "Not yet implemented.");
+            return {std::ceil(num.real()), std::ceil(num.imag())};
         }
     };
 
@@ -132,7 +132,9 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Number operator()(const Number& num) {
-            throw kepler::error(InternalError, "Not yet implemented.");
+            if(num.imag() != 0.0) throw kepler::error(DomainError, "Cannot take factorial of complex number.");
+            if(num.real() < 0.0 && round(num.real()) == num.real()) throw kepler::error(DomainError, "Cannot take factorial of negative integer.");
+            return lgamma(num.real());
         }
     };
 
@@ -150,7 +152,9 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Number operator()(const Number& num) {
-            throw kepler::error(InternalError, "Not yet implemented.");
+            auto rounded = round(num.real());
+            if(rounded != 0.0 && rounded != 1.0) throw kepler::error(DomainError, "Not near boolean");
+            return rounded == 1.0 ? 0.0 : 1.0;
         }
     };
 
@@ -203,7 +207,7 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Number operator()(const Number& lhs, const Number& rhs) {
-            throw kepler::error(InternalError, "Not yet implemented.");
+            return std::max(lhs.real(), rhs.real());
         }
     };
 
@@ -212,7 +216,7 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Number operator()(const Number& lhs, const Number& rhs) {
-            throw kepler::error(InternalError, "Not yet implemented.");
+            return std::min(lhs.real(), rhs.real());
         }
     };
 

@@ -24,7 +24,7 @@
 using namespace kepler::interpreter;
 using namespace kepler::phrase_table;
 
-bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *session) {
+kepler::Token kepler::interpreter::interpret(kepler::Context *context, kepler::Session *session) {
     context->stack = {};
 
     auto it = context->currentStatement.rbegin();
@@ -38,7 +38,6 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
             // No evaluator was found with lookup, so we push to stack.
             if(context->currentStatement.empty()) {
                 throw kepler::error(SyntaxError, "Ran out of tokens to evaluate, but is still not done...");
-                done = true;
             } else {
                 context->stack.insert(context->stack.begin(),
                                       std::make_move_iterator(context->currentStatement.end() - 1),
@@ -49,11 +48,10 @@ bool kepler::interpreter::interpret(kepler::Context *context, kepler::Session *s
             result.evaluator(context->stack, *session);
 
             if(result.end_of_statement) {
-                context->result = context->stack[0];
                 done = true;
             }
         }
     }
 
-    return true;
+    return context->stack[0];
 }

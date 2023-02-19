@@ -26,6 +26,6 @@
 
 namespace kepler {
     namespace interpreter {
-        bool interpret(kepler::Context* context, kepler::Session* session);
+        kepler::Token interpret(kepler::Context* context, kepler::Session* session);
     }
 };

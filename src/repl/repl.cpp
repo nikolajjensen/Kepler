@@ -21,7 +21,7 @@
 #include "texts.h"
 #include "core/env/printers.h"
 #include <iostream>
-
+/*
 void kepler::tui::print(std::string str) {
     std::cout << str << std::flush;
 }
@@ -50,9 +50,10 @@ void kepler::tui::loop(Session& session) {
 
     while(true) {
         prompt(input);
-        session.insert_line(input);
-        session.evaluate();
-        display_result(session);
+        //session.insert_line(input);
+        session.execute(input);
+        //session.evaluate();
+        //display_result(session);
     }
 }
 
@@ -60,3 +61,4 @@ void kepler::tui::repl(Session &session) {
     setup();
     loop(session);
 }
+*/

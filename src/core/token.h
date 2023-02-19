@@ -37,14 +37,14 @@ namespace kepler {
 
         typedef boost::optional<content_type> optional_content_type;
 
-        TokenClass tokenClass;
+        TokenClass token_class;
         optional_content_type content;
 
-        Token(TokenClass tokenClass_, content_type content_) : tokenClass(tokenClass_), content(content_) {}
-        Token(TokenClass tokenClass_ = TokenClass::NilToken) : tokenClass(tokenClass_), content(boost::none) {}
+        Token(TokenClass token_class_, content_type content_) : token_class(token_class_), content(content_) {}
+        Token(TokenClass token_class_ = TokenClass::NilToken) : token_class(token_class_), content(boost::none) {}
 
         void set(TokenClass new_class) {
-            tokenClass = new_class;
+            token_class = new_class;
         }
 
         void set(optional_content_type new_content) {
@@ -72,7 +72,7 @@ namespace kepler {
         }
 
         friend bool operator==(const Token& lhs, const Token& rhs) {
-            return lhs.tokenClass == rhs.tokenClass && lhs.content == rhs.content;
+            return lhs.token_class == rhs.token_class && lhs.content == rhs.content;
         }
     };
 };

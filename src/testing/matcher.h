@@ -20,6 +20,7 @@
 #pragma once
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_templated.hpp>
+#include <catch2/matchers/catch_matchers_exception.hpp>
 #include "core/token_class.h"
 #include "core/token.h"
 #include "core/env/printers.h"
@@ -27,12 +28,12 @@
 #include <iomanip>
 
 struct Outputs : Catch::Matchers::MatcherGenericBase {
-    Outputs(std::string const& output_, int print_precision_ = -1) : output(output_), print_precision(print_precision_) {}
+    explicit Outputs(std::string const& output_, int print_precision_ = -1) : output(output_), print_precision(print_precision_) {}
 
-    bool match(kepler::Context const & context) const {
+    bool match(kepler::Token const & result) const {
         std::stringstream ss;
         kepler::printers::TokenPrinter p(ss, print_precision);
-        p(context.result);
+        p(result);
         return ss.str() == output;
     }
 
@@ -46,10 +47,10 @@ private:
 };
 
 struct Throws : Catch::Matchers::MatcherGenericBase {
-    Throws(kepler::ErrorType const& error_type_) : error_type(error_type_) {}
+    explicit Throws(kepler::ErrorType const& error_type_) : error_type(error_type_) {}
 
-    bool match(kepler::Context const & context) const {
-        return context.error->error_type == error_type;
+    bool match(kepler::error const & err) const{
+        return err.error_type == error_type;
     }
 
     std::string describe() const override {

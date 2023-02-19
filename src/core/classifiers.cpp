@@ -21,62 +21,62 @@
 #include "core/env/session.h"
 
 bool kepler::classifiers::is_identifier(const Token &token) {
-    return token.tokenClass == SimpleIdentifierToken || token.tokenClass == DistinguishedIdentifierToken;
+    return token.token_class == SimpleIdentifierToken || token.token_class == DistinguishedIdentifierToken;
 }
 
 bool kepler::classifiers::is_literal(const Token &token) {
-    return token.tokenClass == CharacterLiteralToken || token.tokenClass == NumericLiteralToken;
+    return token.token_class == CharacterLiteralToken || token.token_class == NumericLiteralToken;
 }
 
 bool kepler::classifiers::is_lexical_unit(const Token &token) {
-    return token.tokenClass == PrimitiveToken
+    return token.token_class == PrimitiveToken
             || kepler::classifiers::is_literal(token)
             || kepler::classifiers::is_literal(token);
 }
 
 bool kepler::classifiers::is_value(const Token &token) {
-    return token.tokenClass == CommittedValueToken || token.tokenClass == ConstantToken;
+    return token.token_class == CommittedValueToken || token.token_class == ConstantToken;
 }
 
 bool kepler::classifiers::is_delimiter(const Token &token) {
-    return token.tokenClass == PrimitiveFunctionToken
-            || token.tokenClass == BranchArrowToken
-            || token.tokenClass == AssignmentArrowToken
-            || token.tokenClass == LeftEndOfStatementToken
-            || token.tokenClass == RightEndOfStatementToken
-            || token.tokenClass == LeftIndexBracketToken
-            || token.tokenClass == RightIndexBracketToken
-            || token.tokenClass == ElidedIndexMarkerToken
-            || token.tokenClass == LeftAxisBracketToken
-            || token.tokenClass == RightAxisBracketToken
-            || token.tokenClass == LeftParenthesisToken
-            || token.tokenClass == RightParenthesisToken
-            || token.tokenClass == SmallCircleToken
-            || token.tokenClass == SemicolonToken;
+    return token.token_class == PrimitiveFunctionToken
+            || token.token_class == BranchArrowToken
+            || token.token_class == AssignmentArrowToken
+            || token.token_class == LeftEndOfStatementToken
+            || token.token_class == RightEndOfStatementToken
+            || token.token_class == LeftIndexBracketToken
+            || token.token_class == RightIndexBracketToken
+            || token.token_class == ElidedIndexMarkerToken
+            || token.token_class == LeftAxisBracketToken
+            || token.token_class == RightAxisBracketToken
+            || token.token_class == LeftParenthesisToken
+            || token.token_class == RightParenthesisToken
+            || token.token_class == SmallCircleToken
+            || token.token_class == SemicolonToken;
 }
 
 bool kepler::classifiers::is_defined_name(const Token &token) {
-    return token.tokenClass == SharedVariableNameToken
-            || token.tokenClass == VariableNameToken
-            || token.tokenClass == DefinedFunctionNameToken
-            || token.tokenClass == DefinedDyadicOperatorNameToken
-            || token.tokenClass == DefinedMonadicOperatorNameToken
-            || token.tokenClass == NiladicSystemFunctionNameToken
-            || token.tokenClass == ResultNameToken
-            || token.tokenClass == LeftArgumentNameToken
-            || token.tokenClass == RightArgumentNameToken
-            || token.tokenClass == LabelNameToken
-            || token.tokenClass == LocalNameToken;
+    return token.token_class == SharedVariableNameToken
+            || token.token_class == VariableNameToken
+            || token.token_class == DefinedFunctionNameToken
+            || token.token_class == DefinedDyadicOperatorNameToken
+            || token.token_class == DefinedMonadicOperatorNameToken
+            || token.token_class == NiladicSystemFunctionNameToken
+            || token.token_class == ResultNameToken
+            || token.token_class == LeftArgumentNameToken
+            || token.token_class == RightArgumentNameToken
+            || token.token_class == LabelNameToken
+            || token.token_class == LocalNameToken;
 }
 
 bool kepler::classifiers::is_defined_operator(const Token &token) {
-    return token.tokenClass == DefinedDyadicOperatorToken || token.tokenClass == DefinedMonadicOperatorToken;
+    return token.token_class == DefinedDyadicOperatorToken || token.token_class == DefinedMonadicOperatorToken;
 }
 
 bool kepler::classifiers::is_system_name(const Token &token) {
-    return token.tokenClass == SystemVariableNameToken
-            || token.tokenClass == SystemFunctionNameToken
-            || token.tokenClass == NiladicSystemFunctionNameToken;
+    return token.token_class == SystemVariableNameToken
+            || token.token_class == SystemFunctionNameToken
+            || token.token_class == NiladicSystemFunctionNameToken;
 }
 
 bool kepler::classifiers::is_classified_name(const Token &token) {
@@ -88,43 +88,43 @@ bool kepler::classifiers::is_syntactic_unit(const Token &token) {
 }
 
 bool kepler::classifiers::is_error(const Token &token) {
-    return token.tokenClass == AxisErrorToken
-            || token.tokenClass == DomainErrorToken
-            || token.tokenClass == ImplicitErrorToken
-            || token.tokenClass == IndexErrorToken
-            || token.tokenClass == LengthErrorToken
-            || token.tokenClass == LimitErrorToken
-            || token.tokenClass == RankErrorToken
-            || token.tokenClass == SyntaxErrorToken
-            || token.tokenClass == ValueErrorToken
-            || token.tokenClass == InterruptToken;
+    return token.token_class == AxisErrorToken
+            || token.token_class == DomainErrorToken
+            || token.token_class == ImplicitErrorToken
+            || token.token_class == IndexErrorToken
+            || token.token_class == LengthErrorToken
+            || token.token_class == LimitErrorToken
+            || token.token_class == RankErrorToken
+            || token.token_class == SyntaxErrorToken
+            || token.token_class == ValueErrorToken
+            || token.token_class == InterruptToken;
 }
 
 bool kepler::classifiers::is_report(const Token &token) {
-    return token.tokenClass == IncorrectCommandToken
-            || token.tokenClass == NotCopiedToken
-            || token.tokenClass == NotErasedToken
-            || token.tokenClass == NotFoundToken
-            || token.tokenClass == NotSavedToken;
+    return token.token_class == IncorrectCommandToken
+            || token.token_class == NotCopiedToken
+            || token.token_class == NotErasedToken
+            || token.token_class == NotFoundToken
+            || token.token_class == NotSavedToken;
 }
 
 bool kepler::classifiers::is_exception(const Token &token) {
-    return token.tokenClass == BranchToken
-            || token.tokenClass == EscapeToken
-            || token.tokenClass == ClearStateIndicatorToken
-            || token.tokenClass == UnwindToken
+    return token.token_class == BranchToken
+            || token.token_class == EscapeToken
+            || token.token_class == ClearStateIndicatorToken
+            || token.token_class == UnwindToken
             || kepler::classifiers::is_error(token)
             || kepler::classifiers::is_report(token);
 }
 
 bool kepler::classifiers::is_result(const Token &token) {
-    return token.tokenClass == NilToken
+    return token.token_class == NilToken
             || kepler::classifiers::is_exception(token)
             || kepler::classifiers::is_value(token);
 }
 
 bool kepler::classifiers::is(const Token &token, TokenClass tokenClass) {
-    return token.tokenClass == tokenClass;
+    return token.token_class == tokenClass;
 }
 
 bool kepler::classifiers::is_scalar(const Token& token) {

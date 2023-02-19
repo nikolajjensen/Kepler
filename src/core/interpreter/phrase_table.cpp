@@ -193,9 +193,9 @@ void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::Li
         }
     } else if (classifiers::is(v, VariableNameToken)) {
         if(session.current_class(v) == NilToken || session.current_class(v) == VariableToken) {
-            b.tokenClass = VariableToken;
+            b.token_class = VariableToken;
             session.set_current_referent(v, {b});
-            b.tokenClass = CommittedValueToken;
+            b.token_class = CommittedValueToken;
             helpers::erase(stack, 0, 1);
         } else {
             throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
@@ -216,7 +216,7 @@ void kepler::phrase_table::evaluators::evaluate_variable<1, V>(kepler::List<kepl
         if(session.current_class(v) == NilToken) throw kepler::error(ValueError, "Undefined variable.");
         if(session.current_class(v) != VariableToken) throw kepler::error(SyntaxError, "Undefined variable");
         v = session.get_current_referent(v);
-        v.tokenClass = CommittedValueToken;
+        v.token_class = CommittedValueToken;
     }
 }
 

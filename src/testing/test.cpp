@@ -24,11 +24,12 @@
 #include "core/datatypes.h"
 #include "string_maker.h"
 #include "core/error/error_type.h"
+#include "macros.h"
 
 TEST_CASE_METHOD(fixture, "System var", "[sys][scalar][func]") {
     CHECK_THAT(run("⎕IO←1"), Outputs("1"));
     CHECK_THAT(run("⎕IO←0"), Outputs("0"));
-    CHECK_THAT(run("⎕IO←2"), Throws(kepler::LimitError));
+    CHECK_THAT_THROWS(run("⎕IO←2"), Throws(kepler::LimitError));
 }
 
 TEST_CASE_METHOD(fixture, "conjugate (+)", "[conjugate][scalar][func]") {
@@ -68,7 +69,7 @@ TEST_CASE_METHOD(fixture, "plus (+)", "[plus][scalar][func]") {
 
 TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][scalar][func]") {
     CHECK_THAT(run("2÷5"), Outputs("0.4"));
-    CHECK_THAT(run("2÷0"), Throws(kepler::DomainError));
+    CHECK_THAT_THROWS(run("2÷0"), Throws(kepler::DomainError));
 }
 
 TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
