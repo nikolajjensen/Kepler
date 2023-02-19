@@ -27,35 +27,9 @@ FetchContent_Declare(
         GIT_TAG        1.6.1 # or a later release
 )
 
-file(GLOB Kepler_SRC CONFIGURE_DEPENDS
-        "src/main.cpp"
-        "src/core/*.h"
-        "src/core/*.cpp"
-        "src/core/objects/*.h"
-        "src/core/objects/*.cpp"
-        "src/core/constants/*.h"
-        "src/core/constants/*.cpp"
-        "src/core/algorithms/*.h"
-        "src/core/algorithms/*.cpp"
-        "src/core/helpers/*.h"
-        "src/core/helpers/*.cpp"
-        "src/core/error/*.h"
-        "src/core/error/*.cpp"
-        "src/core/lexer/*.h"
-        "src/core/lexer/*.cpp"
-        "src/core/parser/*.h"
-        "src/core/parser/*.cpp"
-        "src/core/interpreter/*.h"
-        "src/core/interpreter/*.cpp"
-        "src/core/interpreter/*.tpp"
-        "src/core/env/*.h"
-        "src/core/env/*.cpp"
-        "src/core/operations/*.h"
-        "src/core/operations/*.cpp"
-        "src/repl/*.h"
-        "src/repl/*.cpp"
-        "src/testing/*.h"
-        "src/testing/*.cpp"
+file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
+        "src/*.h"
+        "src/*.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${Kepler_SRC})

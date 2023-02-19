@@ -18,22 +18,15 @@
 //
 
 #include "lexer.h"
-#include "core/constants/characters.h"
+#include "core/constants/literals.h"
 #include "core/token.h"
 #include "core/error.h"
 
 #include <utility>
 
-using namespace kepler::lexer;
+using namespace kepler::evaluation;
 
 Lexer::Lexer(List<Char> input_, kepler::List<kepler::Token>* output_) : input(std::move(input_)), content(), output(output_) {}
-
-void Lexer::lex(kepler::Context *context) {
-    Lexer l(context->current_line, &context->currentStatement);
-    if(!l.lex()) {
-        throw kepler::error(SyntaxError, "Could not tokenize input.");
-    }
-}
 
 bool Lexer::lex() {
     return line() == input.size();
@@ -89,7 +82,7 @@ int Lexer::literal_identifier() {
 }
 
 int Lexer::direct_identifier() {
-    return match(characters::alpha, nullptr, false) || match(characters::omega, nullptr, false);
+    return match(constants::alpha, nullptr, false) || match(constants::omega, nullptr, false);
 }
 
 int Lexer::distinguished_identifier() {
@@ -285,106 +278,106 @@ int Lexer::statement_separator() {
 
 int Lexer::letter() {
     return match({
-         characters::A, characters::B, characters::C,
-         characters::D, characters::E, characters::F,
-         characters::G, characters::H, characters::I,
-         characters::J, characters::K, characters::L,
-         characters::M, characters::N, characters::O,
-         characters::P, characters::Q, characters::R,
-         characters::S, characters::T, characters::U,
-         characters::V, characters::W, characters::X,
-         characters::Y, characters::Z
+                         constants::A, constants::B, constants::C,
+                         constants::D, constants::E, constants::F,
+                         constants::G, constants::H, constants::I,
+                         constants::J, constants::K, constants::L,
+                         constants::M, constants::N, constants::O,
+                         constants::P, constants::Q, constants::R,
+                         constants::S, constants::T, constants::U,
+                         constants::V, constants::W, constants::X,
+                         constants::Y, constants::Z
     });
 }
 
 int Lexer::digit() {
     return match({
-        characters::one, characters::two, characters::three,
-        characters::four, characters::five, characters::six,
-        characters::seven, characters::eight, characters::nine,
-        characters::zero
+                         constants::one, constants::two, constants::three,
+                         constants::four, constants::five, constants::six,
+                         constants::seven, constants::eight, constants::nine,
+                         constants::zero
     });
 }
 
 int Lexer::ideogram() {
     return match({
-         characters::diaeresis, characters::overbar, characters::left_caret,
-         characters::less_than_or_equal, characters::equal, characters::greater_than_or_equal,
-         characters::right_caret, characters::not_equal, characters::down_caret,
-         characters::up_caret, characters::bar, characters::divide,
-         characters::plus, characters::multiply, characters::query,
-         characters::omega, characters::epsilon, characters::rho,
-         characters::tilde, characters::up_arrow, characters::down_arrow,
-         characters::iota, characters::circle, characters::star,
-         characters::right_arrow, characters::left_arrow, characters::alpha,
-         characters::up_stile, characters::down_stile, characters::underbar,
-         characters::jot, characters::left_parenthesis, characters::right_parenthesis,
-         characters::left_bracket, characters::right_bracket, characters::left_shoe,
-         characters::right_shoe, characters::up_shoe, characters::down_shoe,
-         characters::up_tack, characters::down_tack, characters::stile,
-         characters::semicolon, characters::colon, characters::back_slash,
-         characters::comma, characters::dot, characters::slash,
-         characters::del_stile, characters::delta_stile, characters::circle_stile,
-         characters::circle_back_slash, characters::circle_bar, characters::circle_star,
-         characters::down_caret_tilde, characters::up_caret_tilde, characters::quote_dot,
-         characters::quote_quad, characters::up_tack_jot, characters::down_tack_jot,
-         characters::back_slash_bar, characters::slash_bar, characters::diaeresis_jot,
-         characters::comma_bar, characters::diaeresis_tilde, characters::left_brace,
-         characters::right_brace, characters::right_tack, characters::left_tack,
-         characters::dollar_sign
+                         constants::diaeresis, constants::overbar, constants::left_caret,
+                         constants::less_than_or_equal, constants::equal, constants::greater_than_or_equal,
+                         constants::right_caret, constants::not_equal, constants::down_caret,
+                         constants::up_caret, constants::bar, constants::divide,
+                         constants::plus, constants::multiply, constants::query,
+                         constants::omega, constants::epsilon, constants::rho,
+                         constants::tilde, constants::up_arrow, constants::down_arrow,
+                         constants::iota, constants::circle, constants::star,
+                         constants::right_arrow, constants::left_arrow, constants::alpha,
+                         constants::up_stile, constants::down_stile, constants::underbar,
+                         constants::jot, constants::left_parenthesis, constants::right_parenthesis,
+                         constants::left_bracket, constants::right_bracket, constants::left_shoe,
+                         constants::right_shoe, constants::up_shoe, constants::down_shoe,
+                         constants::up_tack, constants::down_tack, constants::stile,
+                         constants::semicolon, constants::colon, constants::back_slash,
+                         constants::comma, constants::dot, constants::slash,
+                         constants::del_stile, constants::delta_stile, constants::circle_stile,
+                         constants::circle_back_slash, constants::circle_bar, constants::circle_star,
+                         constants::down_caret_tilde, constants::up_caret_tilde, constants::quote_dot,
+                         constants::quote_quad, constants::up_tack_jot, constants::down_tack_jot,
+                         constants::back_slash_bar, constants::slash_bar, constants::diaeresis_jot,
+                         constants::comma_bar, constants::diaeresis_tilde, constants::left_brace,
+                         constants::right_brace, constants::right_tack, constants::left_tack,
+                         constants::dollar_sign
     });
 }
 
 int Lexer::quote() {
-    return match(characters::quote);
+    return match(constants::quote);
 }
 
 int Lexer::exponent_marker() {
-    return match(characters::exponent_marker);
+    return match(constants::exponent_marker);
 }
 
 int Lexer::complex_marker() {
-    return match(characters::complex_marker);
+    return match(constants::complex_marker);
 }
 
 int Lexer::dot() {
-    return match(characters::dot);
+    return match(constants::dot);
 }
 
 int Lexer::underbar() {
-    return match(characters::underbar);
+    return match(constants::underbar);
 }
 
 int Lexer::overbar() {
-    return match(characters::overbar);
+    return match(constants::overbar);
 }
 
 int Lexer::blank() {
-    return match(characters::blank);
+    return match(constants::blank);
 }
 
 int Lexer::del() {
-    return match(characters::del);
+    return match(constants::del);
 }
 
 int Lexer::del_tilde() {
-    return match(characters::del_tilde);
+    return match(constants::del_tilde);
 }
 
 int Lexer::lamp() {
-    return match(characters::up_shoe_jot);
+    return match(constants::up_shoe_jot);
 }
 
 int Lexer::quad() {
-    return match(characters::quad);
+    return match(constants::quad);
 }
 
 int Lexer::quote_quad() {
-    return match(characters::quote_quad);
+    return match(constants::quote_quad);
 }
 
 int Lexer::diamond() {
-    return match(characters::diamond);
+    return match(constants::diamond);
 }
 
 bool Lexer::match(rule rule, int* counter) {

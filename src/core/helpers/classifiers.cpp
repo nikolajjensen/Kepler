@@ -20,25 +20,25 @@
 #include "classifiers.h"
 #include "core/session.h"
 
-bool kepler::classifiers::is_identifier(const Token &token) {
+bool kepler::helpers::is_identifier(const Token &token) {
     return token.token_class == SimpleIdentifierToken || token.token_class == DistinguishedIdentifierToken;
 }
 
-bool kepler::classifiers::is_literal(const Token &token) {
+bool kepler::helpers::is_literal(const Token &token) {
     return token.token_class == CharacterLiteralToken || token.token_class == NumericLiteralToken;
 }
 
-bool kepler::classifiers::is_lexical_unit(const Token &token) {
+bool kepler::helpers::is_lexical_unit(const Token &token) {
     return token.token_class == PrimitiveToken
-            || kepler::classifiers::is_literal(token)
-            || kepler::classifiers::is_literal(token);
+            || kepler::helpers::is_literal(token)
+            || kepler::helpers::is_literal(token);
 }
 
-bool kepler::classifiers::is_value(const Token &token) {
+bool kepler::helpers::is_value(const Token &token) {
     return token.token_class == CommittedValueToken || token.token_class == ConstantToken;
 }
 
-bool kepler::classifiers::is_delimiter(const Token &token) {
+bool kepler::helpers::is_delimiter(const Token &token) {
     return token.token_class == PrimitiveFunctionToken
             || token.token_class == BranchArrowToken
             || token.token_class == AssignmentArrowToken
@@ -55,7 +55,7 @@ bool kepler::classifiers::is_delimiter(const Token &token) {
             || token.token_class == SemicolonToken;
 }
 
-bool kepler::classifiers::is_defined_name(const Token &token) {
+bool kepler::helpers::is_defined_name(const Token &token) {
     return token.token_class == SharedVariableNameToken
             || token.token_class == VariableNameToken
             || token.token_class == DefinedFunctionNameToken
@@ -69,25 +69,25 @@ bool kepler::classifiers::is_defined_name(const Token &token) {
             || token.token_class == LocalNameToken;
 }
 
-bool kepler::classifiers::is_defined_operator(const Token &token) {
+bool kepler::helpers::is_defined_operator(const Token &token) {
     return token.token_class == DefinedDyadicOperatorToken || token.token_class == DefinedMonadicOperatorToken;
 }
 
-bool kepler::classifiers::is_system_name(const Token &token) {
+bool kepler::helpers::is_system_name(const Token &token) {
     return token.token_class == SystemVariableNameToken
             || token.token_class == SystemFunctionNameToken
             || token.token_class == NiladicSystemFunctionNameToken;
 }
 
-bool kepler::classifiers::is_classified_name(const Token &token) {
-    return kepler::classifiers::is_system_name(token) || kepler::classifiers::is_defined_name(token);
+bool kepler::helpers::is_classified_name(const Token &token) {
+    return kepler::helpers::is_system_name(token) || kepler::helpers::is_defined_name(token);
 }
 
-bool kepler::classifiers::is_syntactic_unit(const Token &token) {
-    return kepler::classifiers::is_classified_name(token) || kepler::classifiers::is_delimiter(token);
+bool kepler::helpers::is_syntactic_unit(const Token &token) {
+    return kepler::helpers::is_classified_name(token) || kepler::helpers::is_delimiter(token);
 }
 
-bool kepler::classifiers::is_error(const Token &token) {
+bool kepler::helpers::is_error(const Token &token) {
     return token.token_class == AxisErrorToken
             || token.token_class == DomainErrorToken
             || token.token_class == ImplicitErrorToken
@@ -100,7 +100,7 @@ bool kepler::classifiers::is_error(const Token &token) {
             || token.token_class == InterruptToken;
 }
 
-bool kepler::classifiers::is_report(const Token &token) {
+bool kepler::helpers::is_report(const Token &token) {
     return token.token_class == IncorrectCommandToken
             || token.token_class == NotCopiedToken
             || token.token_class == NotErasedToken
@@ -108,26 +108,26 @@ bool kepler::classifiers::is_report(const Token &token) {
             || token.token_class == NotSavedToken;
 }
 
-bool kepler::classifiers::is_exception(const Token &token) {
+bool kepler::helpers::is_exception(const Token &token) {
     return token.token_class == BranchToken
             || token.token_class == EscapeToken
             || token.token_class == ClearStateIndicatorToken
             || token.token_class == UnwindToken
-            || kepler::classifiers::is_error(token)
-            || kepler::classifiers::is_report(token);
+            || kepler::helpers::is_error(token)
+            || kepler::helpers::is_report(token);
 }
 
-bool kepler::classifiers::is_result(const Token &token) {
+bool kepler::helpers::is_result(const Token &token) {
     return token.token_class == NilToken
-            || kepler::classifiers::is_exception(token)
-            || kepler::classifiers::is_value(token);
+            || kepler::helpers::is_exception(token)
+            || kepler::helpers::is_value(token);
 }
 
-bool kepler::classifiers::is(const Token &token, TokenClass tokenClass) {
+bool kepler::helpers::is(const Token &token, TokenClass tokenClass) {
     return token.token_class == tokenClass;
 }
 
-bool kepler::classifiers::is_scalar(const Token& token) {
+bool kepler::helpers::is_scalar(const Token& token) {
     if(token.contains<Array>()) {
         return token.get_content<Array>().rank() == 0;
     }
@@ -135,12 +135,12 @@ bool kepler::classifiers::is_scalar(const Token& token) {
     return false;
 }
 
-bool kepler::classifiers::is_integral_within(const Number &lhs, const Number &rhs) {
+bool kepler::helpers::is_integral_within(const Number &lhs, const Number &rhs) {
     double rounded = round(lhs.real());
     return ((rounded + rhs.real()) >= lhs.real())
             && ((rounded - rhs.real()) <= lhs.real());
 }
 
-bool kepler::classifiers::is_near_integer(const Number &number, const Session &session) {
-    return kepler::classifiers::is_integral_within(number, config::integer_tolerance);
+bool kepler::helpers::is_near_integer(const Number &number, const Session &session) {
+    return kepler::helpers::is_integral_within(number, constants::integer_tolerance);
 }

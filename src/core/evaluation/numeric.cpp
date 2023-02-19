@@ -21,7 +21,7 @@
 #include "core/session.h"
 
 namespace kepler {
-    bool numeric_operations::in_same_half_plane(const Number &lhs, const Number &rhs) {
+    bool algorithms::in_same_half_plane(const Number &lhs, const Number &rhs) {
         if(lhs.real() > 0 && rhs.real() > 0) return true;
         if(lhs.real() < 0 && rhs.real() < 0) return true;
         if(lhs.imag() > 0 && rhs.imag() > 0) return true;
@@ -32,49 +32,49 @@ namespace kepler {
 
 
 
-    bool numeric_operations::equals(const Number &lhs, const Number &rhs) {
+    bool algorithms::equals(const Number &lhs, const Number &rhs) {
         return lhs == rhs;
     }
 
-    Number numeric_operations::direction(const Number &num) {
+    Number algorithms::direction(const Number &num) {
         return (num == 0.0) ? num : num / abs(num);
     }
 
-    bool numeric_operations::greater_than(const Number &lhs, const Number &rhs) {
+    bool algorithms::greater_than(const Number &lhs, const Number &rhs) {
         return lhs.real() > rhs.real();
     }
 
-    bool numeric_operations::less_than(const Number &lhs, const Number &rhs) {
+    bool algorithms::less_than(const Number &lhs, const Number &rhs) {
         return greater_than(rhs, lhs);
     }
 
-    Number numeric_operations::negation(const Number &num) {
+    Number algorithms::negation(const Number &num) {
         return 0.0 - num;
     }
 
-    Number numeric_operations::magnitude(const Number &num) {
+    Number algorithms::magnitude(const Number &num) {
         return abs(num);
     }
 
-    bool numeric_operations::in_open_interval_between(const Number &n, const Number &start, const Number &end) {
+    bool algorithms::in_open_interval_between(const Number &n, const Number &start, const Number &end) {
         return greater_than(n, start) && less_than(n, end);
     }
 
-    bool numeric_operations::in_closed_interval_between(const Number &n, const Number &start, const Number &end) {
+    bool algorithms::in_closed_interval_between(const Number &n, const Number &start, const Number &end) {
         return equals(n, start) || equals(n, end) || in_open_interval_between(n, start, end);
     }
 
-    Number numeric_operations::larger_magnitude(const Number &lhs, const Number &rhs) {
+    Number algorithms::larger_magnitude(const Number &lhs, const Number &rhs) {
         Number lhs_mag = magnitude(lhs);
         Number rhs_mag = magnitude(rhs);
         return greater_than(lhs_mag, rhs_mag) ? lhs_mag : rhs_mag;
     }
 
-    Number numeric_operations::distance_between(const Number &lhs, const Number &rhs) {
+    Number algorithms::distance_between(const Number &lhs, const Number &rhs) {
         return magnitude(lhs - rhs);
     }
 
-    bool numeric_operations::tolerantly_equal_within(const Number &n, const Number &to, const Number &tolerance) {
+    bool algorithms::tolerantly_equal_within(const Number &n, const Number &to, const Number &tolerance) {
         if(equals(n, to)) return true;
         if(!in_same_half_plane(n, to)) return false;
 
@@ -83,34 +83,34 @@ namespace kepler {
         return (less_than(distance, tolerance * larger_mag) || equals(distance, tolerance * larger_mag));
     }
 
-    Number numeric_operations::floor(const Number &n) {
+    Number algorithms::floor(const Number &n) {
         return {std::floor(n.real()), std::floor(n.imag())};
     }
 
-    bool numeric_operations::integral_within(const Number &n, const Number &tolerance) {
+    bool algorithms::integral_within(const Number &n, const Number &tolerance) {
         return less_than(floor(n) + tolerance, n) || less_than(floor(n + 1.0) - tolerance, n);
     }
 
-    bool numeric_operations::near_integer(const Number &n) {
-        return integral_within(n, config::integer_tolerance);
+    bool algorithms::near_integer(const Number &n) {
+        return integral_within(n, constants::integer_tolerance);
     }
 
-    Number numeric_operations::integer_nearest_to(const Number &n) {
+    Number algorithms::integer_nearest_to(const Number &n) {
         return floor(n);
     }
 
-    bool numeric_operations::near_boolean(const Number &n) {
+    bool algorithms::near_boolean(const Number &n) {
         Number nearest_int = integer_nearest_to(n);
         return (nearest_int == 0.0 || nearest_int == 1.0);
     }
 
-    bool numeric_operations::real_within(const Number &n, const Number &tolerance) {
+    bool algorithms::real_within(const Number &n, const Number &tolerance) {
         Number r_mag = magnitude(n.real());
         Number i_mag = magnitude(n.imag());
         return (less_than(i_mag, tolerance) || equals(i_mag, tolerance)) || (less_than(i_mag, tolerance * r_mag) || equals(i_mag, tolerance * r_mag));
     }
 
-    bool numeric_operations::near_real(const Number &n) {
-        return real_within(n, config::real_tolerance);
+    bool algorithms::near_real(const Number &n) {
+        return real_within(n, constants::real_tolerance);
     }
 };

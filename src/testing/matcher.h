@@ -32,7 +32,7 @@ struct Outputs : Catch::Matchers::MatcherGenericBase {
 
     bool match(kepler::Token const & result) const {
         std::stringstream ss;
-        kepler::printers::TokenPrinter p(ss, print_precision);
+        kepler::helpers::TokenPrinter p(ss, print_precision);
         p(result);
         return ss.str() == output;
     }

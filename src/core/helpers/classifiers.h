@@ -21,28 +21,26 @@
 #include "core/token.h"
 #include "core/session.h"
 
-namespace kepler {
-    namespace classifiers {
-        bool is_identifier(const Token& token);
-        bool is_literal(const Token& token);
-        bool is_lexical_unit(const Token& token);
-        bool is_value(const Token& token);
-        bool is_delimiter(const Token& token);
-        bool is_defined_name(const Token& token);
-        bool is_defined_operator(const Token& token);
-        bool is_system_name(const Token& token);
-        bool is_classified_name(const Token& token);
-        bool is_syntactic_unit(const Token& token);
-        bool is_error(const Token& token);
-        bool is_report(const Token& token);
-        bool is_exception(const Token& token);
-        bool is_result(const Token& token);
+namespace kepler::helpers {
+    bool is_identifier(const Token& token);
+    bool is_literal(const Token& token);
+    bool is_lexical_unit(const Token& token);
+    bool is_value(const Token& token);
+    bool is_delimiter(const Token& token);
+    bool is_defined_name(const Token& token);
+    bool is_defined_operator(const Token& token);
+    bool is_system_name(const Token& token);
+    bool is_classified_name(const Token& token);
+    bool is_syntactic_unit(const Token& token);
+    bool is_error(const Token& token);
+    bool is_report(const Token& token);
+    bool is_exception(const Token& token);
+    bool is_result(const Token& token);
 
-        bool is(const Token& token, TokenClass tokenClass);
+    bool is(const Token& token, TokenClass tokenClass);
 
-        bool is_scalar(const Token& token);
+    bool is_scalar(const Token& token);
 
-        bool is_integral_within(const Number& lhs, const Number& rhs);
-        bool is_near_integer(const Number& number, const Session& session);
-    };
+    bool is_integral_within(const Number& lhs, const Number& rhs);
+    bool is_near_integer(const Number& number, const Session& session);
 };

@@ -29,24 +29,24 @@ using namespace kepler::phrase_table;
 
 template <>
 void kepler::phrase_table::evaluators::remove_parenthesis<3, LP_B_RP>(List<Token> &stack, Session &session) {
-    if(classifiers::is(stack[1], NilToken) || classifiers::is(stack[1], BranchToken)) {
+    if(helpers::is(stack[1], NilToken) || helpers::is(stack[1], BranchToken)) {
         throw kepler::error(ValueError, "Cannot remove parenthesis.");
     }
 
-    helpers::erase(stack, 0, 2);
+    kepler::phrase_table::erase(stack, 0, 2);
 }
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_niladic_function<1, N>(List<Token> &stack, Session &session) {
     Token& n = stack[0];
 
-    if(classifiers::is(n, NiladicDefinedFunctionNameToken)) {
+    if(helpers::is(n, NiladicDefinedFunctionNameToken)) {
         if(session.current_class(n) == NiladicDefinedFunctionToken) {
             n = kepler::form_table::evaluate({kepler::form_table::TableAtomic::DFN}, {&n}, &session);
         } else {
             throw kepler::error(SyntaxError, "Undefined single function reference.");
         }
-    } else if(classifiers::is(n, NiladicSystemFunctionNameToken)) {
+    } else if(helpers::is(n, NiladicSystemFunctionNameToken)) {
         auto evaluator = kepler::form_table::lookup({&n});
         if(evaluator == nullptr) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
@@ -60,24 +60,24 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<3, X_F_B>(keple
     Token& f = stack[1];
     Token& b = stack[2];
 
-    if(!classifiers::is_value(b)) {
+    if(!helpers::is_value(b)) {
         throw kepler::error(ValueError, "Monadic argument was not a value.");
     }
 
-    if(classifiers::is(b, DefinedFunctionNameToken)) {
+    if(helpers::is(b, DefinedFunctionNameToken)) {
         if(session.current_class(f) == DefinedFunctionToken) {
            f = form_table::evaluate({form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&f, &b}, &session);
-           helpers::erase(stack, 2);
+           kepler::phrase_table::erase(stack, 2);
         } else {
             throw kepler::error(SyntaxError, "Undefined monadic function reference.");
         }
-    } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
+    } else if(helpers::is(f, PrimitiveFunctionToken) || helpers::is(f, SystemFunctionNameToken)) {
         auto evaluator = kepler::form_table::lookup({&f, kepler::form_table::TableAtomic::Constant});
         if(evaluator == nullptr) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
         b = evaluator({&b}, &session);
-        helpers::erase(stack, 1);
+        kepler::phrase_table::erase(stack, 1);
     }
 }
 
@@ -89,8 +89,8 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_
     Token& b = stack[5];
     Token& c = stack[3];
 
-    if(!classifiers::is_value(b)) throw kepler::error(ValueError, "Monadic argument was not a value.");
-    if(!classifiers::is(f, PrimitiveFunctionToken)) throw kepler::error(SyntaxError, "Expected a primitive function.");
+    if(!helpers::is_value(b)) throw kepler::error(ValueError, "Monadic argument was not a value.");
+    if(!helpers::is(f, PrimitiveFunctionToken)) throw kepler::error(SyntaxError, "Expected a primitive function.");
     // Incorrect.
     //if(session.config.index_origin < 0.0) throw kepler::error(ImplicitError, "Index origin must be ≥0. Set it via ⎕IO.");
 }
@@ -121,23 +121,23 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<3, A_F_B>(kepler
     Token& f = stack[1];
     Token& b = stack[2];
 
-    if(!classifiers::is_value(a) || !classifiers::is_value(b)) {
+    if(!helpers::is_value(a) || !helpers::is_value(b)) {
         throw kepler::error(ValueError, "Expected value operands.");
     }
 
-    if(classifiers::is(f, DefinedFunctionNameToken)) {
+    if(helpers::is(f, DefinedFunctionNameToken)) {
         if(session.current_class(f) == DefinedFunctionToken) {
             a = form_table::evaluate({form_table::TableAtomic::Constant, form_table::TableAtomic::DFN, form_table::TableAtomic::Constant}, {&a, &b}, &session);
-            helpers::erase(stack, 1, 2);
+            kepler::phrase_table::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "Undefined reference to dyadic operator.");
         }
-    } else if(classifiers::is(f, PrimitiveFunctionToken) || classifiers::is(f, SystemFunctionNameToken)) {
+    } else if(helpers::is(f, PrimitiveFunctionToken) || helpers::is(f, SystemFunctionNameToken)) {
         auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, &f, form_table::TableAtomic::Constant});
 
         if(evaluator != nullptr) {
             a = evaluator({&a, &b}, &session);
-            helpers::erase(stack, 1, 2);
+            kepler::phrase_table::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
@@ -179,24 +179,24 @@ void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::Li
     Token& v = stack[0];
     Token& b = stack[2];
 
-    if(!classifiers::is_value(b)) throw kepler::error(ValueError, "Expected a value to be assigned.");
-    if(classifiers::is(v, SharedVariableNameToken)) {
+    if(!helpers::is_value(b)) throw kepler::error(ValueError, "Expected a value to be assigned.");
+    if(helpers::is(v, SharedVariableNameToken)) {
         throw kepler::error(InternalError, "Shared Variables are not supported in Kepler.");
-    } else if (classifiers::is(v, SystemVariableNameToken)) {
-        auto evaluator = form_table::lookup({&v, characters::left_arrow, form_table::Constant});
+    } else if (helpers::is(v, SystemVariableNameToken)) {
+        auto evaluator = form_table::lookup({&v, constants::left_arrow, form_table::Constant});
 
         if(evaluator != nullptr) {
             v = evaluator({&b}, &session);
-            helpers::erase(stack, 1, 2);
+            kepler::phrase_table::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
         }
-    } else if (classifiers::is(v, VariableNameToken)) {
+    } else if (helpers::is(v, VariableNameToken)) {
         if(session.current_class(v) == NilToken || session.current_class(v) == VariableToken) {
             b.token_class = VariableToken;
             session.set_current_referent(v, {b});
             b.token_class = CommittedValueToken;
-            helpers::erase(stack, 0, 1);
+            kepler::phrase_table::erase(stack, 0, 1);
         } else {
             throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
         }
@@ -207,12 +207,12 @@ template <>
 void kepler::phrase_table::evaluators::evaluate_variable<1, V>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
     Token &v = stack[0];
 
-    if (classifiers::is(v, SharedVariableNameToken)) {
+    if (helpers::is(v, SharedVariableNameToken)) {
         throw kepler::error(InternalError, "Shared Variables are not supported in Kepler.");
-    } else if (classifiers::is(v, SystemVariableNameToken)) {
+    } else if (helpers::is(v, SystemVariableNameToken)) {
         if(session.current_class(v) == NilToken) throw kepler::error(ValueError, "Current class of system variable is nil.");
         v = form_table::evaluate({&v}, {}, &session);
-    } else if (classifiers::is(v, VariableNameToken)) {
+    } else if (helpers::is(v, VariableNameToken)) {
         if(session.current_class(v) == NilToken) throw kepler::error(ValueError, "Undefined variable.");
         if(session.current_class(v) != VariableToken) throw kepler::error(SyntaxError, "Undefined variable");
         v = session.get_current_referent(v);
@@ -252,7 +252,7 @@ void kepler::phrase_table::evaluators::process_end_of_statement<2, L_R>(kepler::
 
 template <>
 void kepler::phrase_table::evaluators::process_end_of_statement<3, L_B_R>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-    helpers::erase(stack, 0, 2);
+    kepler::phrase_table::erase(stack, 0, 2);
 }
 
 template <>
@@ -268,42 +268,42 @@ void kepler::phrase_table::evaluators::process_end_of_statement<3, L_BA_R>(keple
 bool kepler::phrase_table::match_type(const kepler::Token &token, TokenType type) {
     switch (type) {
         case Result:
-            return classifiers::is_result(token);
+            return helpers::is_result(token);
         case Dyadic:
-            return classifiers::is(token, DyadicOperatorToken);
+            return helpers::is(token, DyadicOperatorToken);
         case Func:
-            return classifiers::is(token, DefinedFunctionNameToken)
-                   || classifiers::is(token, PrimitiveFunctionToken)
-                   || classifiers::is(token, SystemFunctionNameToken);
+            return helpers::is(token, DefinedFunctionNameToken)
+                   || helpers::is(token, PrimitiveFunctionToken)
+                   || helpers::is(token, SystemFunctionNameToken);
         case PartialList:
-            return classifiers::is(token, PartialIndexListToken);
+            return helpers::is(token, PartialIndexListToken);
         case CompleteList:
-            return classifiers::is(token, CompleteIndexListToken);
+            return helpers::is(token, CompleteIndexListToken);
         case LeftEOS:
-            return classifiers::is(token, LeftEndOfStatementToken);
+            return helpers::is(token, LeftEndOfStatementToken);
         case Monadic:
-            return classifiers::is(token, MonadicOperatorToken);
+            return helpers::is(token, MonadicOperatorToken);
         case Niladic:
-            return classifiers::is(token, NiladicDefinedFunctionNameToken)
-                   || classifiers::is(token, NiladicSystemFunctionNameToken);
+            return helpers::is(token, NiladicDefinedFunctionNameToken)
+                   || helpers::is(token, NiladicSystemFunctionNameToken);
         case RightEOS:
-            return classifiers::is(token, RightEndOfStatementToken);
+            return helpers::is(token, RightEndOfStatementToken);
         case Var:
-            return classifiers::is(token, VariableNameToken)
-                   || classifiers::is(token, SystemVariableNameToken)
-                   || classifiers::is(token, SharedVariableNameToken);
+            return helpers::is(token, VariableNameToken)
+                   || helpers::is(token, SystemVariableNameToken)
+                   || helpers::is(token, SharedVariableNameToken);
         case Wildcard:
-            return classifiers::is(token, AssignmentArrowToken)
-                   || classifiers::is(token, BranchArrowToken)
-                   || classifiers::is(token, DefinedFunctionNameToken)
-                   || classifiers::is(token, IndexSeparatorToken)
-                   || classifiers::is(token, LeftAxisBracketToken)
-                   || classifiers::is(token, LeftEndOfStatementToken)
-                   || classifiers::is(token, LeftIndexBracketToken)
-                   || classifiers::is(token, LeftParenthesisToken)
-                   || classifiers::is(token, PrimitiveFunctionToken)
-                   || classifiers::is(token, SystemFunctionNameToken)
-                   || classifiers::is(token, RightAxisBracketToken);
+            return helpers::is(token, AssignmentArrowToken)
+                   || helpers::is(token, BranchArrowToken)
+                   || helpers::is(token, DefinedFunctionNameToken)
+                   || helpers::is(token, IndexSeparatorToken)
+                   || helpers::is(token, LeftAxisBracketToken)
+                   || helpers::is(token, LeftEndOfStatementToken)
+                   || helpers::is(token, LeftIndexBracketToken)
+                   || helpers::is(token, LeftParenthesisToken)
+                   || helpers::is(token, PrimitiveFunctionToken)
+                   || helpers::is(token, SystemFunctionNameToken)
+                   || helpers::is(token, RightAxisBracketToken);
         default:
             return false;
     }

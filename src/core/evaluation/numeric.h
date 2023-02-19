@@ -21,7 +21,7 @@
 #include "core/datatypes.h"
 #include "core/session.h"
 
-namespace kepler::numeric_operations {
+namespace kepler::algorithms {
     bool in_same_half_plane(const Number& lhs, const Number& rhs);
 
     bool equals(const Number&, const Number&);

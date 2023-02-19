@@ -18,38 +18,45 @@
 //
 #include "config.h"
 #include "core/symbol_table.h"
-#include "core/constants/characters.h"
+#include "core/constants/literals.h"
 #include "core/array.h"
 
 namespace kepler {
-    void config::set_initial_values(SymbolTable &symbol_table) {
+    void constants::set_initial_values(SymbolTable &symbol_table) {
         symbol_table.set(
-                {characters::quad, characters::C, characters::T},
+                {constants::quad, constants::C, constants::T},
                 {
                     {VariableToken, Array::vectorOf(List<Number>{initial_comparison_tolerance})}
                 });
 
         symbol_table.set(
-                {characters::quad, characters::R, characters::L},
+                {constants::quad, constants::R, constants::L},
                 {
                         {VariableToken, Array::vectorOf(List<Number>{initial_random_link})}
                 });
 
         symbol_table.set(
-                {characters::quad, characters::P, characters::P},
+                {constants::quad, constants::P, constants::P},
                 {
                         {VariableToken, Array::vectorOf(List<Number>{initial_print_precision})}
                 });
 
 
         symbol_table.set(
-                {characters::quad, characters::I, characters::O},
+                {constants::quad, constants::I, constants::O},
                 {
                         {VariableToken, Array::vectorOf(List<Number>{initial_index_origin})}
                 });
 
         symbol_table.set(
-                {characters::quad, characters::L, characters::X},
+                {constants::quad, constants::L, constants::X},
                 initial_latent_expression);
+    }
+
+    std::string constants::function_definition_prompt(int line_number) {
+        if(line_number >= 10) {
+            return "[" + std::to_string(line_number) + "] > ";
+        }
+        return "[" + std::to_string(line_number) + "]  > ";
     }
 };

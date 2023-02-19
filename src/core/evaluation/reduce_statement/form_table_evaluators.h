@@ -450,7 +450,7 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Token operator()() {
-            auto& symbol = session->active_workspace.symbol_table.lookup(distinguished_identifiers::IO);
+            auto& symbol = session->active_workspace.symbol_table.lookup(constants::IO);
             return {ConstantToken, symbol.referentList[0].get_content<Array>()};
         }
 
@@ -462,12 +462,12 @@ namespace kepler::form_table::evaluators {
             if(arr.count() != 1) throw kepler::error(LengthError, "Only accepts one number.");
 
             auto& num = arr.get_content<Number>(0);
-            if(!classifiers::is_near_integer(num, *session)) throw kepler::error(DomainError, "Only accepts integers.");
+            if(!helpers::is_near_integer(num, *session)) throw kepler::error(DomainError, "Only accepts integers.");
 
             num = integer_nearest_to(num);
             if(num != 0.0 && num != 1.0) throw kepler::error(LimitError, "IO must be either 0 or 1.");
 
-            session->active_workspace.symbol_table.set(distinguished_identifiers::IO, {guarded_assignment});
+            session->active_workspace.symbol_table.set(constants::IO, {guarded_assignment});
             return {CommittedValueToken, assignment.content.get()};
         }
     };
@@ -477,7 +477,7 @@ namespace kepler::form_table::evaluators {
         using evaluator::evaluator;
 
         Token operator()() {
-            auto& symbol = session->active_workspace.symbol_table.lookup(distinguished_identifiers::PP);
+            auto& symbol = session->active_workspace.symbol_table.lookup(constants::PP);
             return {ConstantToken, symbol.referentList[0].get_content<Array>()};
         }
 
@@ -489,12 +489,12 @@ namespace kepler::form_table::evaluators {
             if(arr.count() != 1) throw kepler::error(LengthError, "Only accepts one number.");
 
             auto& num = arr.get_content<Number>(0);
-            if(!classifiers::is_near_integer(num, *session)) throw kepler::error(DomainError, "Only accepts integers.");
+            if(!helpers::is_near_integer(num, *session)) throw kepler::error(DomainError, "Only accepts integers.");
 
             num = integer_nearest_to(num);
             if(num.real() < 1.0 || num.real() > numeric_limit_max().real()) throw kepler::error(LimitError, "IO must be either 0 or 1.");
 
-            session->active_workspace.symbol_table.set(distinguished_identifiers::PP, {guarded_assignment});
+            session->active_workspace.symbol_table.set(constants::PP, {guarded_assignment});
             return {CommittedValueToken, assignment.content.get()};
         }
     };

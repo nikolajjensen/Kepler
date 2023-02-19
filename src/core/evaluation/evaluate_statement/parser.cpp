@@ -18,25 +18,10 @@
 //
 
 #include "parser.h"
-#include "core/constants/characters.h"
-#include "token_converter.h"
+#include "core/constants/literals.h"
 #include "core/helpers/printers.h"
-#include "../interpreter/form_table.h"
 
-using namespace kepler::parser;
-
-bool Parser::parse(kepler::Context* context, kepler::Session* session) {
-    kepler::parser::convert_tokens(context->currentStatement, *session);
-    Parser p(&context->currentStatement);
-    bool success = p.parse();
-
-    if(success) {
-        context->currentStatement.insert(context->currentStatement.begin(), Token(LeftEndOfStatementToken));
-        context->currentStatement.emplace_back(RightEndOfStatementToken);
-    }
-
-    return success;
-}
+using namespace kepler::evaluation;
 
 bool Parser::parse() {
     return statement() == tokens->size();
@@ -216,21 +201,21 @@ int Parser::index() {
 
 int Parser::primitive_function() {
     if(match({
-        characters::left_caret, characters::less_than_or_equal, characters::equal,
-        characters::greater_than_or_equal, characters::right_caret, characters::not_equal,
-        characters::down_caret, characters::up_caret, characters::bar,
-        characters::divide, characters::plus, characters::multiply,
-        characters::query, characters::epsilon, characters::rho,
-        characters::tilde, characters::up_arrow, characters::down_arrow,
-        characters::iota, characters::circle, characters::star,
-        characters::up_stile, characters::down_stile, characters::up_tack,
-        characters::down_tack, characters::stile, characters::back_slash,
-        characters::comma, characters::slash, characters::del_stile,
-        characters::delta_stile, characters::circle_stile, characters::circle_back_slash,
-        characters::circle_bar, characters::circle_star, characters::down_caret_tilde,
-        characters::up_caret_tilde, characters::quote_dot, characters::quad_divide,
-        characters::up_tack_jot, characters::down_tack_jot, characters::back_slash_bar,
-        characters::slash_bar, characters::comma_bar
+                     constants::left_caret, constants::less_than_or_equal, constants::equal,
+                     constants::greater_than_or_equal, constants::right_caret, constants::not_equal,
+                     constants::down_caret, constants::up_caret, constants::bar,
+                     constants::divide, constants::plus, constants::multiply,
+                     constants::query, constants::epsilon, constants::rho,
+                     constants::tilde, constants::up_arrow, constants::down_arrow,
+                     constants::iota, constants::circle, constants::star,
+                     constants::up_stile, constants::down_stile, constants::up_tack,
+                     constants::down_tack, constants::stile, constants::back_slash,
+                     constants::comma, constants::slash, constants::del_stile,
+                     constants::delta_stile, constants::circle_stile, constants::circle_back_slash,
+                     constants::circle_bar, constants::circle_star, constants::down_caret_tilde,
+                     constants::up_caret_tilde, constants::quote_dot, constants::quad_divide,
+                     constants::up_tack_jot, constants::down_tack_jot, constants::back_slash_bar,
+                     constants::slash_bar, constants::comma_bar
     })) {
         set_class(kepler::PrimitiveFunctionToken);
         return true;
@@ -278,10 +263,10 @@ int Parser::monadic_operator() {
 
 int Parser::axis_monadic_operator() {
     return match({
-        characters::slash,
-        characters::slash_bar,
-        characters::back_slash,
-        characters::back_slash_bar
+                         constants::slash,
+                         constants::slash_bar,
+                         constants::back_slash,
+                         constants::back_slash_bar
     });
 }
 
@@ -299,35 +284,35 @@ int Parser::primitive_dyadic_operator() {
 }
 
 int Parser::diaeresis_jot() {
-    return match(characters::diaeresis_jot);
+    return match(constants::diaeresis_jot);
 }
 
 int Parser::diaeresis_tilde() {
-    return match(characters::diaeresis_tilde);
+    return match(constants::diaeresis_tilde);
 }
 
 int Parser::left_parenthesis() {
-    return match(characters::left_parenthesis);
+    return match(constants::left_parenthesis);
 }
 
 int Parser::right_parenthesis() {
-    return match(characters::right_parenthesis);
+    return match(constants::right_parenthesis);
 }
 
 int Parser::left_axis_bracket() {
-    return match(characters::left_bracket);
+    return match(constants::left_bracket);
 }
 
 int Parser::right_axis_bracket() {
-    return match(characters::right_bracket);
+    return match(constants::right_bracket);
 }
 
 int Parser::branch_arrow() {
-    return match(characters::right_arrow);
+    return match(constants::right_arrow);
 }
 
 int Parser::assignment_arrow() {
-    if(match(characters::left_arrow)) {
+    if(match(constants::left_arrow)) {
         set_class(AssignmentArrowToken);
         return true;
     }
@@ -336,23 +321,23 @@ int Parser::assignment_arrow() {
 }
 
 int Parser::left_index_bracket() {
-    return match(characters::left_bracket);
+    return match(constants::left_bracket);
 }
 
 int Parser::right_index_bracket() {
-    return match(characters::right_bracket);
+    return match(constants::right_bracket);
 }
 
 int Parser::index_separator() {
-    return match(characters::semicolon);
+    return match(constants::semicolon);
 }
 
 int Parser::small_circle() {
-    return match(characters::circle);
+    return match(constants::circle);
 }
 
 int Parser::dot() {
-    return match(characters::dot);
+    return match(constants::dot);
 }
 
 bool Parser::match(rule rule, int* counter) {

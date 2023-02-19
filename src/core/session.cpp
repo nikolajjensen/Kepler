@@ -18,17 +18,16 @@
 //
 
 #include "session.h"
-#include "core/lexer/lexer.h"
-#include "core/parser/parser.h"
-#include "core/interpreter/interpreter.h"
 #include "error.h"
-#include "core/constants/prompts.h"
 #include "core/helpers/printers.h"
+#include "core/constants/config.h"
+#include "core/constants/literals.h"
+#include "core/evaluation/evaluators.h"
 
 kepler::Session::Session(std::string&& session_name_)
-    :   active_workspace(config::clear_workspace_identifier),
+    :   active_workspace(constants::clear_workspace_identifier),
         session_name(session_name_) {
-    config::set_initial_values(active_workspace.symbol_table);
+    constants::set_initial_values(active_workspace.symbol_table);
 }
 
 kepler::Token& kepler::Session::get_current_referent(kepler::Token &token) {
@@ -49,7 +48,7 @@ kepler::TokenClass kepler::Session::current_class(kepler::Token &token) {
 
 
 void display_prompt(std::string& input) {
-    std::cout << kepler::prompts::indent_prompt << std::flush;
+    std::cout << kepler::constants::indent_prompt << std::flush;
     getline(std::cin, input);
 }
 
@@ -72,12 +71,12 @@ void kepler::Session::immediate_execution_mode() {
                 || result.token_class == EscapeToken) && !active_workspace.state_indicator.empty()) {
                 throw kepler::error(InternalError, "Unclear result.");
             } else if(result.token_class == ConstantToken) {
-                kepler::printers::TokenPrinter tokenPrinter(std::cout);
+                kepler::helpers::TokenPrinter tokenPrinter(std::cout);
                 tokenPrinter(result);
                 std::cout << std::endl;
             }
         } catch(kepler::error& err) {
-            kepler::printers::ErrorPrinter errorPrinter(std::cout);
+            kepler::helpers::ErrorPrinter errorPrinter(std::cout);
             errorPrinter(err);
             std::cout << std::endl;
         }
@@ -102,23 +101,18 @@ kepler::Token kepler::Session::immediately_execute(Token &input) {
     if(input.token_class == ConstantToken) {
         auto& content = input.get_content<List<Char>>();
 
-        if(content.front() == kepler::characters::right_parenthesis) {
+        if(content.front() == kepler::constants::right_parenthesis) {
             throw kepler::error(InternalError, "System commands are not supported yet.");
-        } else if(content.front() == kepler::characters::del) {
+        } else if(content.front() == kepler::constants::del) {
             throw kepler::error(InternalError, "User defined functions are not supported yet.");
         } else {
             Context& new_context = active_workspace.add_context({kepler::ImmediateExecutionMode, content});
-            Token result = evaluate_line(new_context);
+
+            Token result = evaluation::evaluate_line(new_context, *this);
             active_workspace.pop_context();
             return result;
         }
     } else {
         throw kepler::error(InternalError, "Execution of unexpected token class.");
     }
-}
-
-kepler::Token kepler::Session::evaluate_line(kepler::Context& context) {
-    kepler::lexer::Lexer::lex(&context);
-    kepler::parser::Parser::parse(&context, this);
-    return kepler::interpreter::interpret(&context, this);
 }

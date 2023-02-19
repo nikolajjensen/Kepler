@@ -23,9 +23,6 @@
 
 namespace kepler {
     class Session {
-    private:
-        Token evaluate_line(Context& context);
-
     public:
         Workspace active_workspace;
         std::string session_name;

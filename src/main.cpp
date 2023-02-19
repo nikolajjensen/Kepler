@@ -1,14 +1,6 @@
 
 #include <iostream>
-
-#include <uni_algo/conv.h>
-
-#include "core/datatypes.h"
-
 #include "core/system.h"
-#include "core/parser/token_converter.h"
-#include <boost/variant.hpp>
-#include "core/error.h"
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"

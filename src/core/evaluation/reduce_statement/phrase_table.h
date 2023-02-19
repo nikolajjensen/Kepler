@@ -20,7 +20,7 @@
 #pragma once
 #include "core/token.h"
 #include "core/session.h"
-#include "core/constants/characters.h"
+#include "core/constants/literals.h"
 
 namespace kepler {
     namespace phrase_table {
@@ -42,32 +42,32 @@ namespace kepler {
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
 
-        const pattern<3> LP_B_RP = {characters::left_parenthesis, Result, characters::right_parenthesis};
+        const pattern<3> LP_B_RP = {constants::left_parenthesis, Result, constants::right_parenthesis};
         const pattern<1> N = {Niladic};
         const pattern<3> X_F_B = {Wildcard, Func, Result};
-        const pattern<6> X_F_LB_C_RB_B = {Wildcard, Func, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<6> X_F_LB_C_RB_B = {Wildcard, Func, constants::left_bracket, CompleteList, constants::right_bracket, Result};
         const pattern<4> X_F_M_B = {Wildcard, Func, Monadic, Result};
-        const pattern<7> X_F_M_LB_C_RB_B = {Wildcard, Func, Monadic, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<7> X_F_M_LB_C_RB_B = {Wildcard, Func, Monadic, constants::left_bracket, CompleteList, constants::right_bracket, Result};
         const pattern<4> A_F_M_B = {Result, Func, Monadic, Result};
-        const pattern<7> A_F_M_LB_C_RB_B = {Result, Func, Monadic, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<7> A_F_M_LB_C_RB_B = {Result, Func, Monadic, constants::left_bracket, CompleteList, constants::right_bracket, Result};
         const pattern<3> A_F_B = {Result, Func, Result};
-        const pattern<6> A_F_LB_C_RB_B = {Result, Func, characters::left_bracket, CompleteList, characters::right_bracket, Result};
+        const pattern<6> A_F_LB_C_RB_B = {Result, Func, constants::left_bracket, CompleteList, constants::right_bracket, Result};
         const pattern<5> X_F_D_G_B = {Wildcard, Func, Dyadic, Func, Result};
         const pattern<5> A_F_D_G_B = {Result, Func, Dyadic, Func, Result};
-        const pattern<5> A_SM_D_G_B = {Result, characters::jot, Dyadic, Func, Result};
-        const pattern<4> A_LB_K_RB = {Result, characters::left_bracket, CompleteList, characters::right_bracket};
-        const pattern<6> V_LB_K_RB_AA_B = {Var, characters::left_bracket, CompleteList, characters::right_bracket, characters::left_arrow, Result};
-        const pattern<3> V_AA_B = {Var, characters::left_arrow, Result};
+        const pattern<5> A_SM_D_G_B = {Result, constants::jot, Dyadic, Func, Result};
+        const pattern<4> A_LB_K_RB = {Result, constants::left_bracket, CompleteList, constants::right_bracket};
+        const pattern<6> V_LB_K_RB_AA_B = {Var, constants::left_bracket, CompleteList, constants::right_bracket, constants::left_arrow, Result};
+        const pattern<3> V_AA_B = {Var, constants::left_arrow, Result};
         const pattern<1> V = {Var};
-        const pattern<1> RB = {characters::right_bracket};
-        const pattern<2> IS_I = {characters::semicolon, PartialList};
-        const pattern<3> IS_B_I = {characters::semicolon, Result, PartialList};
-        const pattern<2> LB_I = {characters::left_bracket, PartialList};
-        const pattern<3> LB_B_I = {characters::left_bracket, Result, PartialList};
+        const pattern<1> RB = {constants::right_bracket};
+        const pattern<2> IS_I = {constants::semicolon, PartialList};
+        const pattern<3> IS_B_I = {constants::semicolon, Result, PartialList};
+        const pattern<2> LB_I = {constants::left_bracket, PartialList};
+        const pattern<3> LB_B_I = {constants::left_bracket, Result, PartialList};
         const pattern<2> L_R = {LeftEOS, RightEOS};
         const pattern<3> L_B_R = {LeftEOS, Result, RightEOS};
-        const pattern<4> L_BA_B_R = {LeftEOS, characters::right_arrow, Result, RightEOS};
-        const pattern<3> L_BA_R = {LeftEOS, characters::right_arrow, RightEOS};
+        const pattern<4> L_BA_B_R = {LeftEOS, constants::right_arrow, Result, RightEOS};
+        const pattern<3> L_BA_R = {LeftEOS, constants::right_arrow, RightEOS};
 
         using phrase_evaluator = void (*)(kepler::List<kepler::Token>& stack, kepler::Session& session);
 
@@ -76,18 +76,6 @@ namespace kepler {
             bool end_of_statement;
 
             lookup_result(phrase_evaluator evaluator_, bool end_of_statement_ = false) : evaluator(evaluator_), end_of_statement(end_of_statement_) {}
-        };
-
-        namespace helpers {
-            template <typename... Args>
-            void erase(kepler::List<kepler::Token>& stack, Args... args) {
-                static_assert(std::conjunction_v<std::is_same<Args, int>...>, "All indexes to delete must be 'int'.");
-                int counter = 0;
-                for(int i : {args ...}) {
-                    stack.erase(stack.begin() + i - counter);
-                    counter++;
-                }
-            }
         };
 
         namespace evaluators {
@@ -127,6 +115,16 @@ namespace kepler {
             template <std::size_t S, const pattern<S>& Pattern>
             void process_end_of_statement(kepler::List<kepler::Token>& stack, kepler::Session& session);
         };
+
+        template <typename... Args>
+        void erase(kepler::List<kepler::Token>& stack, Args... args) {
+            static_assert(std::conjunction_v<std::is_same<Args, int>...>, "All indexes to delete must be 'int'.");
+            int counter = 0;
+            for(int i : {args ...}) {
+                stack.erase(stack.begin() + i - counter);
+                counter++;
+            }
+        }
 
         bool match_type(const kepler::Token& token, TokenType type);
 

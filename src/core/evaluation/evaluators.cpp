@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,15 +17,80 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include <exception>
-#include "token_converter.h"
-#include "core/helpers/printers.h"
-#include "core/constants/characters.h"
-#include "core/helpers/classifiers.h"
-#include "../interpreter/form_table.h"
+#include "evaluators.h"
+#include "evaluate_line/lexer.h"
+#include "evaluate_statement/parser.h"
+#include "reduce_statement/form_table.h"
+#include "reduce_statement/phrase_table.h"
 
-void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& session) {
-    if(kepler::classifiers::is(token, SimpleIdentifierToken)){
+
+using namespace kepler;
+
+Token evaluation::reduce_statement(Context &context, Session &session) {
+    context.stack = {};
+
+    auto it = context.currentStatement.rbegin();
+    auto end_it = context.currentStatement.rend();
+    bool done = false;
+
+    while(!done) {
+        phrase_table::lookup_result result = kepler::phrase_table::lookup(context.stack);
+
+        if(result.evaluator == nullptr) {
+            // No evaluator was found with lookup, so we push to stack.
+            if(context.currentStatement.empty()) {
+                throw kepler::error(SyntaxError, "Ran out of tokens to evaluate, but is still not done...");
+            } else {
+                context.stack.insert(context.stack.begin(),
+                                      std::make_move_iterator(context.currentStatement.end() - 1),
+                                      std::make_move_iterator(context.currentStatement.end()));
+                context.currentStatement.erase(context.currentStatement.end() - 1);
+            }
+        } else {
+            result.evaluator(context.stack, session);
+
+            if(result.end_of_statement) {
+                done = true;
+            }
+        }
+    }
+
+    return context.stack[0];
+}
+
+Token evaluation::evaluate_statement(Context &context, Session& session) {
+    for(auto& token : context.currentStatement) {
+        if(helpers::is_identifier(token)) {
+            bind_token_class(token, session);
+        } else if (helpers::is_literal(token)) {
+            literal_conversion(token, session);
+        } else if (helpers::is(token, kepler::PrimitiveToken)) {
+            scalar_conversion(token);
+        }
+        // Potential error handling here (If the above if-statement returns an exception)...
+    }
+
+    Parser p(&context.currentStatement);
+    bool success = p.parse();
+
+    if(success) {
+        context.currentStatement.emplace(context.currentStatement.begin(), LeftEndOfStatementToken);
+        context.currentStatement.emplace_back(RightEndOfStatementToken);
+    }
+
+    return reduce_statement(context, session);
+}
+
+Token evaluation::evaluate_line(Context &context, Session &session) {
+    Lexer lexer(context.current_line, &context.currentStatement);
+    if(!lexer.lex()) {
+        throw kepler::error(SyntaxError, "Could not tokenize input.");
+    }
+    return evaluate_statement(context, session);
+}
+
+void evaluation::bind_token_class(Token &token, Session &session) {
+    if(kepler::helpers::is(token, SimpleIdentifierToken)){
         TokenClass current_class = session.current_class(token);
         if(current_class == TokenClass::DefinedMonadicOperatorToken) {
             token.token_class = TokenClass::DefinedMonadicOperatorNameToken;
@@ -48,7 +113,7 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
         }
     } else if (token.token_class == TokenClass::DistinguishedIdentifierToken) {
         auto form_one = kepler::form_table::lookup({&token});
-        auto form_two = kepler::form_table::lookup({&token, characters::left_arrow, form_table::Constant});
+        auto form_two = kepler::form_table::lookup({&token, constants::left_arrow, form_table::Constant});
         auto form_three = kepler::form_table::lookup({&token, form_table::Constant});
         auto form_four = kepler::form_table::lookup({form_table::Constant, &token, form_table::Constant});
 
@@ -64,7 +129,7 @@ void kepler::parser::bind_token_class(kepler::Token& token, kepler::Session& ses
     }
 }
 
-void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& session) {
+void evaluation::literal_conversion(kepler::Token& token, kepler::Session& session) {
     List<Char> content = boost::get<List<Char>>(token.content.get());
     Array vector;
 
@@ -80,12 +145,12 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
         auto end = content.end();
 
         while(start != end) {
-            while(start != end && *start == characters::blank) { ++start; }
+            while(start != end && *start == constants::blank) { ++start; }
             auto cursor = start;
 
             do {
                 ++cursor;
-            } while(cursor != end && *cursor != kepler::characters::blank);
+            } while(cursor != end && *cursor != kepler::constants::blank);
 
             numeric_vector.emplace_back(number_from_characters({start, cursor}));
             start = cursor;
@@ -97,22 +162,9 @@ void kepler::parser::literal_conversion(kepler::Token& token, kepler::Session& s
     token.token_class = ConstantToken;
 }
 
-void kepler::parser::scalar_conversion(kepler::Token &token) {
+void evaluation::scalar_conversion(kepler::Token &token) {
     if(token.contains<List<Char>>()) {
         auto& list = token.get_content<List<Char>>();
         token.content = list[0];
-    }
-}
-
-void kepler::parser::convert_tokens(kepler::List<kepler::Token>& tokens, kepler::Session& session) {
-    for(auto& token : tokens) {
-        if(classifiers::is_identifier(token)) {
-            bind_token_class(token, session);
-        } else if (classifiers::is_literal(token)) {
-            literal_conversion(token, session);
-        } else if (classifiers::is(token, kepler::PrimitiveToken)) {
-            scalar_conversion(token);
-        }
-        // Potential error handling here (If the above if-statement returns an exception)...
     }
 }

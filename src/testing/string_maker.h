@@ -28,7 +28,7 @@ namespace Catch {
             std::stringstream ss;
             ss << "\"";
 
-            kepler::printers::TokenDebugPrinter p(ss);
+            kepler::helpers::TokenDebugPrinter p(ss);
             p(token);
             ss << "\"";
 
@@ -42,7 +42,7 @@ namespace Catch {
             std::stringstream ss;
             ss << "\"";
 
-            kepler::printers::ErrorPrinter p(ss);
+            kepler::helpers::ErrorPrinter p(ss);
             p(err);
             ss << "\"";
 

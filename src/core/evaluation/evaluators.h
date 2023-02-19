@@ -18,11 +18,16 @@
 //
 
 #pragma once
+#include "core/token.h"
+#include "core/context.h"
+#include "core/session.h"
 
-namespace kepler {
-    namespace interpreter {
-        enum EvaluationOutcome {
-            Success, Unmatched, Error, Finished
-        };
-    };
+namespace kepler::evaluation {
+    Token reduce_statement(Context& context, Session& session);
+    Token evaluate_statement(Context& context, Session& session);
+    Token evaluate_line(Context& context, Session& session);
+
+    void bind_token_class(Token& token, Session& session);
+    void literal_conversion(Token& token, Session& session);
+    void scalar_conversion(Token& token);
 };
