@@ -26,19 +26,26 @@ class fixture {
 protected:
     kepler::System system;
     kepler::Session* session;
+    std::stringstream output_stream;
 
 public:
     fixture() : system(), session(system.spawn_session()) {}
 
 protected:
-    kepler::Token run(std::string&& input, bool timing = false) {
+    std::string run(std::string&& input, bool timing = false) {
         auto start = std::chrono::high_resolution_clock::now();
-        kepler::Token result = session->immediately_execute(std::move(input));
+
+        // Clear the output_stream between runs.
+        output_stream.str("");
+
+        session->immediate_execution(std::move(input), output_stream);
+
         auto stop = std::chrono::high_resolution_clock::now();
         if(timing) {
             auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
             std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
         }
-        return result;
+
+        return output_stream.str();
     }
 };

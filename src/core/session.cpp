@@ -61,29 +61,60 @@ kepler::Token read_input() {
 }
 
 void kepler::Session::immediate_execution_mode() {
+    std::stringstream ss;
+
     while(true) {
         Token input = read_input();
-
-        try {
-            Token result = immediately_execute(input);
-            if((result.token_class == BranchToken
-                || result.token_class == ClearStateIndicatorToken
-                || result.token_class == EscapeToken) && !active_workspace.state_indicator.empty()) {
-                throw kepler::error(InternalError, "Unclear result.");
-            } else if(result.token_class == ConstantToken) {
-                Array& pp = get_system_parameter(constants::PP);
-                kepler::helpers::TokenPrinter tokenPrinter(std::cout, pp.get_content<Number>(0).real());
-                tokenPrinter(result);
-                std::cout << std::endl;
-            }
-        } catch(kepler::error& err) {
-            kepler::helpers::ErrorPrinter errorPrinter(std::cout);
-            errorPrinter(err);
-            std::cout << std::endl;
+        ss.str("");
+        immediate_execution(std::move(input), ss);
+        if(!ss.str().empty()) {
+            std::cout << ss.str() << std::endl;
         }
     }
 }
 
+void kepler::Session::immediate_execution(std::string &&input, std::ostream &stream) {
+    std::u32string result = uni::utf8to32u(input);
+    immediate_execution({kepler::ConstantToken, kepler::List<kepler::Char>(result.begin(), result.end())}, stream);
+}
+
+void kepler::Session::immediate_execution(Token &&input, std::ostream &stream) {
+    try {
+        if(input.token_class == ConstantToken) {
+            auto& content = input.get_content<List<Char>>();
+
+            if(content.front() == kepler::constants::right_parenthesis) {
+                throw kepler::error(InternalError, "System commands are not supported yet.");
+            } else if(content.front() == kepler::constants::del) {
+                throw kepler::error(InternalError, "User defined functions are not supported yet.");
+            } else {
+                Context& new_context = active_workspace.add_context({kepler::ImmediateExecutionMode, content});
+
+                Token result = evaluation::evaluate_line(new_context, *this);
+                active_workspace.pop_context();
+
+                if((result.token_class == BranchToken
+                    || result.token_class == ClearStateIndicatorToken
+                    || result.token_class == EscapeToken) && !active_workspace.state_indicator.empty()) {
+                    throw kepler::error(InternalError, "Unclear result.");
+                } else if(result.token_class == ConstantToken) {
+                    Array& pp = get_system_parameter(constants::PP);
+                    kepler::helpers::TokenPrinter tokenPrinter(stream, pp.get_content<Number>(0).real());
+                    tokenPrinter(result);
+                    stream << std::flush;
+                }
+            }
+        } else {
+            throw kepler::error(InternalError, "Execution of unexpected token class.");
+        }
+    } catch(kepler::error& err) {
+        kepler::helpers::ErrorPrinter errorPrinter(stream);
+        errorPrinter(err);
+        stream << std::flush;
+    }
+}
+
+/*
 kepler::Token kepler::Session::immediately_execute(List<Char> &&input) {
     return immediately_execute({kepler::ConstantToken, std::move(input)});
 }
@@ -117,7 +148,7 @@ kepler::Token kepler::Session::immediately_execute(Token &input) {
         throw kepler::error(InternalError, "Execution of unexpected token class.");
     }
 }
-
+*/
 kepler::Array& kepler::Session::get_system_parameter(const List<Char> &id) {
     Symbol& symbol = active_workspace.symbol_table.lookup(id);
     return symbol.referentList[0].get_content<Array>();

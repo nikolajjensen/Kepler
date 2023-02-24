@@ -30,14 +30,10 @@
 #include <iomanip>
 
 struct Prints : Catch::Matchers::MatcherGenericBase {
-    explicit Prints(std::string const& output_, kepler::Session* session_) : output(output_), session(session_) {}
+    explicit Prints(std::string const& output_) : output(output_) {}
 
-    bool match(kepler::Token const & result) const {
-        std::stringstream ss;
-        kepler::Array& pp = session->get_system_parameter(kepler::constants::PP);
-        kepler::helpers::TokenPrinter p(ss, pp.get_content<kepler::Number>(0).real());
-        p(result);
-        return ss.str() == output;
+    bool match(std::string const & result) const {
+        return result == output;
     }
 
     std::string describe() const override {
@@ -46,7 +42,6 @@ struct Prints : Catch::Matchers::MatcherGenericBase {
 
 private:
     std::string const& output;
-    kepler::Session* session;
 };
 
 struct Outputs : Catch::Matchers::MatcherGenericBase {
@@ -66,6 +61,10 @@ private:
 
 struct Throws : Catch::Matchers::MatcherGenericBase {
     explicit Throws(kepler::ErrorType const& error_type_) : error_type(error_type_) {}
+
+    bool match(std::string const & err) const{
+        return err.starts_with(kepler::to_string(error_type));
+    }
 
     bool match(kepler::error const & err) const{
         return err.error_type == error_type;

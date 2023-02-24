@@ -36,9 +36,7 @@ namespace kepler {
         Array& get_system_parameter(const List<Char>& id);
 
         void immediate_execution_mode();
-        kepler::Token immediately_execute(Token& input);
-        kepler::Token immediately_execute(Token&& input);
-        kepler::Token immediately_execute(List<Char>&& input);
-        kepler::Token immediately_execute(std::string&& input);
+        void immediate_execution(std::string&& input, std::ostream& stream = std::cout);
+        void immediate_execution(Token&& input, std::ostream& stream = std::cout);
     };
 };

@@ -124,12 +124,14 @@ kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
         }
     }
 
-    if(abs(mantissa) >= precision) {
-        if(mantissa > 0) {
-            raw += "E" + std::to_string(mantissa);
-        } else {
-            raw += "E¯" + std::to_string(abs(mantissa));
-        }
+    if(mantissa > 0 && mantissa >= precision) {
+        raw += "E" + std::to_string(mantissa);
+    } else if(mantissa < 0 && abs(mantissa) + 3 >= precision) {
+        raw += "E¯" + std::to_string(abs(mantissa));
+    } else if(mantissa > 0) {
+        raw += std::string(mantissa, '0');
+    } else if(mantissa < 0) {
+        raw = "0." + std::string(abs(mantissa) - 1, '0') + raw;
     }
 
     if(raw.back() == '.') {
