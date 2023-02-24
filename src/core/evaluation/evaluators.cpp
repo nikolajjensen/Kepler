@@ -71,22 +71,22 @@ Token evaluation::evaluate_statement(Context &context, Session& session) {
     }
 
     Parser p(&context.currentStatement);
-    bool success = p.parse();
+    p.parse();
 
-    if(success) {
-        context.currentStatement.emplace(context.currentStatement.begin(), LeftEndOfStatementToken);
-        context.currentStatement.emplace_back(RightEndOfStatementToken);
-    }
+    context.currentStatement.emplace(context.currentStatement.begin(), LeftEndOfStatementToken);
+    context.currentStatement.emplace_back(RightEndOfStatementToken);
 
     return reduce_statement(context, session);
 }
 
 Token evaluation::evaluate_line(Context &context, Session &session) {
     Lexer lexer(context.current_line, &context.currentStatement);
-    if(!lexer.lex()) {
-        throw kepler::error(SyntaxError, "Could not tokenize input.");
-    }
+    lexer.lex();
     return evaluate_statement(context, session);
+}
+
+void evaluation::evaluate_function_definition_request(Token &token) {
+
 }
 
 void evaluation::bind_token_class(Token &token, Session &session) {
@@ -112,10 +112,10 @@ void evaluation::bind_token_class(Token &token, Session &session) {
             throw kepler::error(InternalError, "bind_token_class error: Unexpected case reached.");
         }
     } else if (token.token_class == TokenClass::DistinguishedIdentifierToken) {
-        auto form_one = kepler::form_table::lookup({&token});
-        auto form_two = kepler::form_table::lookup({&token, constants::left_arrow, form_table::Constant});
-        auto form_three = kepler::form_table::lookup({&token, form_table::Constant});
-        auto form_four = kepler::form_table::lookup({form_table::Constant, &token, form_table::Constant});
+        auto form_one = kepler::form_table::lookup({&token}, &session);
+        auto form_two = kepler::form_table::lookup({&token, constants::left_arrow, form_table::Constant}, &session);
+        auto form_three = kepler::form_table::lookup({&token, form_table::Constant}, &session);
+        auto form_four = kepler::form_table::lookup({form_table::Constant, &token, form_table::Constant}, &session);
 
         if(form_one != nullptr && form_two != nullptr) {
             token.token_class = SystemVariableNameToken;

@@ -30,9 +30,9 @@
 namespace kepler::evaluation {
     class Parser {
     public:
-        Parser(kepler::List<kepler::Token>* tokens_) : tokens(tokens_) {}
+        explicit Parser(kepler::List<kepler::Token>* tokens_) : tokens(tokens_) {}
 
-        bool parse();
+        void parse();
     private:
         using rule = int (Parser::*)();
 

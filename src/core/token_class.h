@@ -99,6 +99,11 @@ namespace kepler {
         VariableNameToken,
 
         //Not present in ISO-13751:2001
+        AxisMonadicOperatorToken,
+        PrimitiveMonadicOperatorToken,
+        PrimitiveDyadicOperatorToken,
+
+
         DirectIdentifierToken,
         StatementSeparatorToken,
     };

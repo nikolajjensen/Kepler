@@ -254,6 +254,9 @@ namespace kepler::helpers {
                 case VariableNameToken:
                     stream << "VariableNameToken";
                     break;
+                case StatementSeparatorToken:
+                    stream << "StatementSeparatorToken";
+                    break;
                 default:
                     stream << tokenType;
                     break;
@@ -428,6 +431,27 @@ namespace kepler::helpers {
                 }
             }
             stream << "]";
+        }
+    };
+
+    struct TokenListDebugPrinter {
+        std::ostream& stream;
+
+        explicit TokenListDebugPrinter(std::ostream& stream_) : stream(stream_) {}
+
+        void operator()(const List<Token>& tokens) const {
+            TokenDebugPrinter printer(stream);
+
+            stream << "{\n";
+            for(int i = 0; i < tokens.size(); ++i) {
+                stream << "\t[" << i << "]\t";
+                if(i < 10) {
+                    stream << "\t";
+                }
+                printer(tokens[i]);
+                stream << "\n";
+            }
+            stream << "}\n";
         }
     };
 };

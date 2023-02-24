@@ -88,7 +88,7 @@ namespace kepler {
     }
 
     bool algorithms::integral_within(const Number &n, const Number &tolerance) {
-        return less_than(floor(n) + tolerance, n) || less_than(floor(n + 1.0) - tolerance, n);
+        return (less_than(n, floor(n) + tolerance) || greater_than(n, floor(n + 1.0) - tolerance));
     }
 
     bool algorithms::near_integer(const Number &n) {

@@ -47,11 +47,11 @@ void kepler::phrase_table::evaluators::evaluate_niladic_function<1, N>(List<Toke
             throw kepler::error(SyntaxError, "Undefined single function reference.");
         }
     } else if(helpers::is(n, NiladicSystemFunctionNameToken)) {
-        auto evaluator = kepler::form_table::lookup({&n});
-        if(evaluator == nullptr) {
+        auto evaluator = kepler::form_table::lookup({&n}, &session);
+        if(!evaluator) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
-        n = evaluator({&n}, &session);
+        n = evaluator->apply({&n});
     }
 }
 
@@ -72,11 +72,11 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<3, X_F_B>(keple
             throw kepler::error(SyntaxError, "Undefined monadic function reference.");
         }
     } else if(helpers::is(f, PrimitiveFunctionToken) || helpers::is(f, SystemFunctionNameToken)) {
-        auto evaluator = kepler::form_table::lookup({&f, kepler::form_table::TableAtomic::Constant});
-        if(evaluator == nullptr) {
+        auto evaluator = kepler::form_table::lookup({&f, kepler::form_table::TableAtomic::Constant}, &session);
+        if(!evaluator) {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
         }
-        b = evaluator({&b}, &session);
+        b = evaluator->apply({&b});
         kepler::phrase_table::erase(stack, 1);
     }
 }
@@ -97,7 +97,21 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_
 
 template <>
 void kepler::phrase_table::evaluators::evaluate_monadic_operator<4, X_F_M_B>(kepler::List<kepler::Token> &stack, kepler::Session &session) {
-    throw kepler::error(InternalError, "'evaluate_monadic_operator' phrase table evaluator not implemented.");
+    Token& f = stack[1];
+    Token& m = stack[2];
+    Token& b = stack[3];
+
+    if(!helpers::is_value(b)) throw kepler::error(ValueError, "Operand has no value.");
+    if(helpers::is(m, PrimitiveMonadicOperatorToken) || helpers::is(m, AxisMonadicOperatorToken)) {
+        auto evaluator = kepler::form_table::lookup({&f, &m, form_table::Constant}, &session);
+        if(evaluator == nullptr) {
+            throw kepler::error(SyntaxError, "No evaluation sequence.");
+        }
+        b = evaluator->apply({&f, &b});
+        kepler::phrase_table::erase(stack, 1, 2);
+    } else {
+        throw kepler::error(InternalError, "User-defined operators are not supported.");
+    }
 }
 
 template <>
@@ -133,10 +147,10 @@ void kepler::phrase_table::evaluators::evaluate_dyadic_function<3, A_F_B>(kepler
             throw kepler::error(SyntaxError, "Undefined reference to dyadic operator.");
         }
     } else if(helpers::is(f, PrimitiveFunctionToken) || helpers::is(f, SystemFunctionNameToken)) {
-        auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, &f, form_table::TableAtomic::Constant});
+        auto evaluator = form_table::lookup({form_table::TableAtomic::Constant, &f, form_table::TableAtomic::Constant}, &session);
 
         if(evaluator != nullptr) {
-            a = evaluator({&a, &b}, &session);
+            a = evaluator->apply({&a, &b});
             kepler::phrase_table::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No evaluation sequence.");
@@ -183,10 +197,10 @@ void kepler::phrase_table::evaluators::evaluate_assignment<3, V_AA_B>(kepler::Li
     if(helpers::is(v, SharedVariableNameToken)) {
         throw kepler::error(InternalError, "Shared Variables are not supported in Kepler.");
     } else if (helpers::is(v, SystemVariableNameToken)) {
-        auto evaluator = form_table::lookup({&v, constants::left_arrow, form_table::Constant});
+        auto evaluator = form_table::lookup({&v, constants::left_arrow, form_table::Constant}, &session);
 
         if(evaluator != nullptr) {
-            v = evaluator({&b}, &session);
+            v = evaluator->apply({&b});
             kepler::phrase_table::erase(stack, 1, 2);
         } else {
             throw kepler::error(SyntaxError, "No assignment evaluation sequence.");
@@ -216,7 +230,7 @@ void kepler::phrase_table::evaluators::evaluate_variable<1, V>(kepler::List<kepl
         if(session.current_class(v) == NilToken) throw kepler::error(ValueError, "Undefined variable.");
         if(session.current_class(v) != VariableToken) throw kepler::error(SyntaxError, "Undefined variable");
         v = session.get_current_referent(v);
-        v.token_class = CommittedValueToken;
+        v.token_class = ConstantToken;
     }
 }
 
@@ -282,7 +296,10 @@ bool kepler::phrase_table::match_type(const kepler::Token &token, TokenType type
         case LeftEOS:
             return helpers::is(token, LeftEndOfStatementToken);
         case Monadic:
-            return helpers::is(token, MonadicOperatorToken);
+            return helpers::is(token, MonadicOperatorToken)
+                   || helpers::is(token, AxisMonadicOperatorToken)      // <-- Not in ISO.
+                   || helpers::is(token, PrimitiveMonadicOperatorToken) // <-- Not in ISO.
+                   || helpers::is(token, PrimitiveDyadicOperatorToken); // <-- Not in ISO.
         case Niladic:
             return helpers::is(token, NiladicDefinedFunctionNameToken)
                    || helpers::is(token, NiladicSystemFunctionNameToken);
@@ -303,7 +320,11 @@ bool kepler::phrase_table::match_type(const kepler::Token &token, TokenType type
                    || helpers::is(token, LeftParenthesisToken)
                    || helpers::is(token, PrimitiveFunctionToken)
                    || helpers::is(token, SystemFunctionNameToken)
-                   || helpers::is(token, RightAxisBracketToken);
+                   || helpers::is(token, RightAxisBracketToken)
+                   || helpers::is(token, MonadicOperatorToken)          // <-- Not in ISO.
+                   || helpers::is(token, AxisMonadicOperatorToken)          // <-- Not in ISO.
+                   || helpers::is(token, PrimitiveMonadicOperatorToken) // <-- Not in ISO.
+                   || helpers::is(token, PrimitiveDyadicOperatorToken); // <-- Not in ISO.
         default:
             return false;
     }

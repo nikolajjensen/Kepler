@@ -28,21 +28,23 @@ using namespace kepler::evaluation;
 
 Lexer::Lexer(List<Char> input_, kepler::List<kepler::Token>* output_) : input(std::move(input_)), content(), output(output_) {}
 
-bool Lexer::lex() {
-    return line() == input.size();
+void Lexer::lex() {
+    if(line() != input.size()) {
+        throw kepler::error(SyntaxError, "Could not tokenize input.");
+    }
 }
 
 int Lexer::line() {
     int counter = 0;
 
-    if(match(&Lexer::identifier, &counter)) {}
+    if(match(&Lexer::identifier, &counter));
     else if(match(&Lexer::numeric_literal, &counter)) {}
 
     while(match(&Lexer::primitive, &counter)
             || match(&Lexer::character_literal, &counter)
             || match(&Lexer::space, &counter)
             || match(&Lexer::statement_separator, &counter)) {
-        if(match(&Lexer::identifier, &counter)) {}
+        if(match(&Lexer::identifier, &counter));
         else if(match(&Lexer::numeric_literal, &counter)) {}
     }
 
@@ -53,7 +55,7 @@ int Lexer::line() {
 int Lexer::identifier() {
     int counter = 0;
 
-    if(match(&Lexer::simple_identifier, &counter)) {}
+    if(match(&Lexer::simple_identifier, &counter));
     else if(match(&Lexer::distinguished_identifier, &counter)) {}
 
     return counter;
@@ -62,7 +64,7 @@ int Lexer::identifier() {
 int Lexer::simple_identifier() {
     int counter = 0;
 
-    if(match(&Lexer::literal_identifier, &counter)) {}
+    if(match(&Lexer::literal_identifier, &counter));
     else if(match(&Lexer::direct_identifier, &counter)) {}
 
     return counter;
@@ -88,7 +90,7 @@ int Lexer::direct_identifier() {
 int Lexer::distinguished_identifier() {
     int counter = 0;
 
-    if(match(&Lexer::quote_quad, &counter)) {}
+    if(match(&Lexer::quote_quad, &counter));
     else if(match(&Lexer::quad, &counter)) {
         while(match(&Lexer::letter, &counter) || match(&Lexer::digit, &counter)) {}
     }
@@ -162,8 +164,6 @@ int Lexer::exponent() {
 
     if(!match(&Lexer::digit, &counter)) {
         throw kepler::error(SyntaxError, "Expected at least one digit here.", current);
-        backtrack(counter);
-        return counter;
     }
 
     while(match(&Lexer::digit, &counter)) {}
@@ -231,7 +231,7 @@ int Lexer::comment() {
 int Lexer::any() {
     int counter = 0;
 
-    if(match(&Lexer::quote, &counter)) {}
+    if(match(&Lexer::quote, &counter));
     else if (match(&Lexer::nonquote, &counter)) {}
 
     return counter;
@@ -258,22 +258,26 @@ int Lexer::space() {
 int Lexer::nonquote() {
     int counter = 0;
 
-    if(match(&Lexer::ideogram, &counter)) {}
-    else if (match(&Lexer::digit, &counter)) {}
-    else if (match(&Lexer::blank, &counter)) {}
-    else if (match(&Lexer::letter, &counter)) {}
-    else if (match(&Lexer::lamp, &counter)) {}
-    else if (match(&Lexer::del, &counter)) {}
-    else if (match(&Lexer::del_tilde, &counter)) {}
-    else if (match(&Lexer::quad, &counter)) {}
-    else if (match(&Lexer::quote_quad, &counter)) {}
+    if(match(&Lexer::ideogram, &counter));
+    else if (match(&Lexer::digit, &counter));
+    else if (match(&Lexer::blank, &counter));
+    else if (match(&Lexer::letter, &counter));
+    else if (match(&Lexer::lamp, &counter));
+    else if (match(&Lexer::del, &counter));
+    else if (match(&Lexer::del_tilde, &counter));
+    else if (match(&Lexer::quad, &counter));
+    else if (match(&Lexer::quote_quad, &counter));
     else if (match(&Lexer::diamond, &counter)) {}
 
     return counter;
 }
 
 int Lexer::statement_separator() {
-    return match(&Lexer::diamond);
+    int matched = match(&Lexer::diamond);
+    if(matched) {
+        create(StatementSeparatorToken);
+    }
+    return matched;
 }
 
 int Lexer::letter() {
@@ -286,7 +290,16 @@ int Lexer::letter() {
                          constants::P, constants::Q, constants::R,
                          constants::S, constants::T, constants::U,
                          constants::V, constants::W, constants::X,
-                         constants::Y, constants::Z
+                         constants::Y, constants::Z,
+                         constants::a, constants::b, constants::c,
+                         constants::d, constants::e, constants::f,
+                         constants::g, constants::h, constants::i,
+                         constants::j, constants::k, constants::l,
+                         constants::m, constants::n, constants::o,
+                         constants::p, constants::q, constants::r,
+                         constants::s, constants::t, constants::u,
+                         constants::v, constants::w, constants::x,
+                         constants::y, constants::z
     });
 }
 
@@ -391,7 +404,7 @@ bool Lexer::match(rule rule, int* counter) {
 bool Lexer::match(kepler::Char character, int *counter, bool append) {
     if(check(character)) {
         if(append) content.push_back(peek());
-        if(counter != nullptr) (*counter)++;
+        //if(counter != nullptr) (*counter)++;
         advance();
 
         return true;
@@ -401,13 +414,10 @@ bool Lexer::match(kepler::Char character, int *counter, bool append) {
 }
 
 bool Lexer::match(std::initializer_list<kepler::Char> characters, int *counter, bool append) {
-    for(auto& character : characters) {
-        if(match(character, counter, append)) {
-            return true;
-        }
-    }
-
-    return false;
+    return std::any_of(
+            characters.begin(),
+            characters.end(),
+            [&](const kepler::Char& character){ return match(character, counter, append); });
 }
 
 bool Lexer::check(kepler::Char character) {
@@ -445,8 +455,4 @@ bool Lexer::isAtEnd() {
 
 kepler::Char& Lexer::peek() {
     return input.at(current);
-}
-
-kepler::Char& Lexer::previous() {
-    return input.at(current - 1);
 }

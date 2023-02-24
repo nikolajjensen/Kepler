@@ -23,8 +23,10 @@
 
 using namespace kepler::evaluation;
 
-bool Parser::parse() {
-    return statement() == tokens->size();
+void Parser::parse() {
+    if(statement() != tokens->size()) {
+        throw kepler::error(SyntaxError, "Could not parse input.");
+    }
 }
 
 // If a rule fails, it must backtrack appropriately, such
@@ -47,21 +49,25 @@ int Parser::expression() {
     while(match(&Parser::operation, &counter)) {}
 
     bool stop = false;
+    int operand_counter = 0;
     while(!stop) {
-        if(match(&Parser::operand, &counter)) {
+        if(match(&Parser::operand, &operand_counter)) {
             int operations = 0;
             while(match(&Parser::operation, &operations)) {}
-            counter += operations;
+            operand_counter += operations;
 
             if(operations < 1) {
                 // Stop repeating first branch.
                 stop = true;
             }
         } else {
+            backtrack(operand_counter);
             backtrack(counter);
             return 0;
         }
     }
+
+    counter += operand_counter;
 
     return counter;
 }
@@ -262,12 +268,17 @@ int Parser::monadic_operator() {
 }
 
 int Parser::axis_monadic_operator() {
-    return match({
+    if(match({
                          constants::slash,
                          constants::slash_bar,
                          constants::back_slash,
                          constants::back_slash_bar
-    });
+    })) {
+        set_class(AxisMonadicOperatorToken);
+        return true;
+    }
+
+    return false;
 }
 
 int Parser::primitive_monadic_operator() {
@@ -276,11 +287,19 @@ int Parser::primitive_monadic_operator() {
     if(match(&Parser::axis_monadic_operator, &counter)) {}
     else if (match(&Parser::diaeresis_tilde, &counter)) {}
 
+    if(counter) {
+        set_class(PrimitiveMonadicOperatorToken);
+    }
+
     return counter;
 }
 
 int Parser::primitive_dyadic_operator() {
-    return diaeresis_jot();
+    if(diaeresis_jot()) {
+        set_class(PrimitiveDyadicOperatorToken);
+        return true;
+    }
+    return false;
 }
 
 int Parser::diaeresis_jot() {

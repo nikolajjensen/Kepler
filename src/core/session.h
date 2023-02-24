@@ -33,6 +33,8 @@ namespace kepler {
         void set_current_referent(Token& token, List<Token> &&content);
         TokenClass current_class(Token& token);
 
+        Array& get_system_parameter(const List<Char>& id);
+
         void immediate_execution_mode();
         kepler::Token immediately_execute(Token& input);
         kepler::Token immediately_execute(Token&& input);

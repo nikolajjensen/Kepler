@@ -134,13 +134,3 @@ bool kepler::helpers::is_scalar(const Token& token) {
 
     return false;
 }
-
-bool kepler::helpers::is_integral_within(const Number &lhs, const Number &rhs) {
-    double rounded = round(lhs.real());
-    return ((rounded + rhs.real()) >= lhs.real())
-            && ((rounded - rhs.real()) <= lhs.real());
-}
-
-bool kepler::helpers::is_near_integer(const Number &number, const Session &session) {
-    return kepler::helpers::is_integral_within(number, constants::integer_tolerance);
-}

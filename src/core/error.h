@@ -19,6 +19,7 @@
 
 #pragma once
 #include <iostream>
+#include <sstream>
 #include <utility>
 #include <boost/optional.hpp>
 #include "error_type.h"

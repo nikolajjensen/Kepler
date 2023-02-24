@@ -4,7 +4,6 @@
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"
-#include "repl/repl.h"
 
 using namespace kepler;
 

@@ -30,6 +30,7 @@ FetchContent_Declare(
 file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
         "src/*.h"
         "src/*.cpp"
+        "src/*.tpp"
 )
 
 add_executable(${PROJECT_NAME} ${Kepler_SRC})

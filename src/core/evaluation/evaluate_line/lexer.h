@@ -28,7 +28,7 @@ namespace kepler::evaluation {
     public:
         Lexer(List<Char> input, kepler::List<kepler::Token>* output_);
 
-        bool lex();
+        void lex();
     private:
         using rule = int (Lexer::*)();
 
@@ -80,7 +80,6 @@ namespace kepler::evaluation {
         void create(kepler::TokenClass tokenClass);
 
         kepler::Char& peek();
-        kepler::Char& previous();
 
         List<Char> input;
         List<Char> content;

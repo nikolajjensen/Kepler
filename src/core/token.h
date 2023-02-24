@@ -42,6 +42,10 @@ namespace kepler {
         optional_content_type content;
 
         Token(TokenClass token_class_, content_type content_) : token_class(token_class_), content(content_) {}
+        Token(TokenClass token_class_, std::string content_) : token_class(token_class_), content() {
+            StringUTF32 tmp = uni::utf8to32u(content_);
+            content = List<Char>{tmp.begin(), tmp.end()};
+        }
         explicit Token(TokenClass token_class_ = TokenClass::NilToken) : token_class(token_class_), content(boost::none) {}
 
         template <typename Variant>

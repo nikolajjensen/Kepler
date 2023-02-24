@@ -71,7 +71,8 @@ void kepler::Session::immediate_execution_mode() {
                 || result.token_class == EscapeToken) && !active_workspace.state_indicator.empty()) {
                 throw kepler::error(InternalError, "Unclear result.");
             } else if(result.token_class == ConstantToken) {
-                kepler::helpers::TokenPrinter tokenPrinter(std::cout);
+                Array& pp = get_system_parameter(constants::PP);
+                kepler::helpers::TokenPrinter tokenPrinter(std::cout, pp.get_content<Number>(0).real());
                 tokenPrinter(result);
                 std::cout << std::endl;
             }
@@ -115,4 +116,9 @@ kepler::Token kepler::Session::immediately_execute(Token &input) {
     } else {
         throw kepler::error(InternalError, "Execution of unexpected token class.");
     }
+}
+
+kepler::Array& kepler::Session::get_system_parameter(const List<Char> &id) {
+    Symbol& symbol = active_workspace.symbol_table.lookup(id);
+    return symbol.referentList[0].get_content<Array>();
 }

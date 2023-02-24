@@ -82,18 +82,64 @@ kepler::Number kepler::number_from_characters(const kepler::List<kepler::Char>& 
 
 kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
     std::stringstream ss;
-    if(precision != -1) {
-        ss << std::setprecision(precision);
-    }
+    ss << std::setprecision(precision);
     ss << num;
+
     std::string raw = ss.str();
 
-    auto dot_index = raw.find_first_of('.');
-    auto trail_index = raw.find_last_not_of('0');
-    if(dot_index != std::string::npos && trail_index != std::string::npos && dot_index != trail_index) {
-        trail_index++;
-        raw = raw.erase(std::min(trail_index, raw.size()));
+    bool negative = raw[0] == '-';
+    if(negative) {
+        raw.erase(0, 1);
     }
+
+    int mantissa = 0;
+
+    auto e_index = raw.find_first_of('e');
+    if(e_index != std::string::npos) {
+        // Scientific notation.
+        auto mantissa_string = raw.substr(e_index + 1);
+        raw.erase(e_index);
+        mantissa = std::stoi(mantissa_string);
+    } else {
+        auto dot_index = raw.find_first_of('.');
+        auto last_after_dot = raw.find_last_not_of('0');
+        auto first_after_dot = raw.find_first_not_of('0', dot_index + 1);
+        auto last_before_dot = raw.find_last_not_of('0', dot_index - 1);
+
+        auto erase_from = std::max(dot_index, last_after_dot) + 1;
+        if(dot_index != std::string::npos && erase_from < raw.length()) {
+            raw.erase();
+
+            if(dot_index < last_after_dot) {
+                mantissa = dot_index - last_after_dot;
+            } else {
+                mantissa = dot_index - last_before_dot - 1;
+            }
+        }
+
+        if(mantissa > 0) {
+            raw.erase(last_before_dot + 1);
+        } else if(mantissa < 0) {
+            raw.erase(0, first_after_dot);
+        }
+    }
+
+    if(abs(mantissa) >= precision) {
+        if(mantissa > 0) {
+            raw += "E" + std::to_string(mantissa);
+        } else {
+            raw += "E¯" + std::to_string(abs(mantissa));
+        }
+    }
+
+    if(raw.back() == '.') {
+        raw.pop_back();
+    }
+
+    if(negative && raw != "0") {
+        raw.insert(0, "¯");
+    }
+
     return raw;
 }
 

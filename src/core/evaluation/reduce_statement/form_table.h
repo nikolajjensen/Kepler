@@ -23,12 +23,14 @@
 
 #include <utility>
 #include <array>
+#include <memory>
 #include "core/token.h"
 #include "core/token_class.h"
 #include "core/constants/literals.h"
 #include "core/helpers/classifiers.h"
 #include "core/error.h"
 #include "core/session.h"
+#include "form_table_applicators.h"
 
 namespace kepler {
     namespace form_table {
@@ -42,9 +44,9 @@ namespace kepler {
         using pattern_atomic = boost::variant<kepler::Token::content_type, TableAtomic>;
         template <std::size_t Size>
         using pattern = std::array<pattern_atomic, Size>;
-        using search_t = List<boost::variant<Token*, kepler::Token::content_type, TableAtomic>>;
+        using search_t = List<boost::variant<const Token*, kepler::Token::content_type, TableAtomic>>;
         using input_t = List<const Token*>;
-        using evaluator = kepler::Token (*)(const List<const Token*>, kepler::Session* session);
+        using applicator = kepler::Token (*)(const List<const Token*>, kepler::Session* session);
 
         namespace patterns {
             /// Monadic scalar functions.
@@ -97,6 +99,13 @@ namespace kepler {
             const pattern<3> join_2 = {Constant, constants::comma_bar, Constant};
 
 
+            /// Operators.
+            const pattern<3> reduction_1 = {Func, constants::slash, Constant};
+
+
+            const pattern<3> comparison_tolerance_1 = {constants::CT, constants::left_arrow, Constant};
+            const pattern<1> comparison_tolerance_2 = {constants::CT};
+
             const pattern<3> index_origin_1 = {constants::IO, constants::left_arrow, Constant};
             const pattern<1> index_origin_2 = {constants::IO};
 
@@ -107,7 +116,7 @@ namespace kepler {
 
 
         struct match : boost::static_visitor<bool> {
-            bool operator()(Token*& token, const Token::content_type& target) const {
+            bool operator()(const Token*& token, const Token::content_type& target) const {
                 return token->content && (token->content.get() == target);
             }
 
@@ -117,6 +126,17 @@ namespace kepler {
 
             bool operator()(Token::content_type& content, const Token::content_type& target) const {
                 return content == target;
+            }
+
+            bool operator()(const Token*& token, const TableAtomic& target) const {
+                if(target == Func) {
+                    return helpers::is(*token, PrimitiveFunctionToken)
+                            || helpers::is(*token, PrimitiveDyadicOperatorToken)
+                            || helpers::is(*token, PrimitiveMonadicOperatorToken)
+                            || helpers::is(*token, AxisMonadicOperatorToken);
+                }
+
+                return false;
             }
 
             template <typename T, typename U>
@@ -129,9 +149,16 @@ namespace kepler {
         bool match_pattern(search_t& search);
 
         template <typename F>
-        evaluator build();
+        applicator build();
 
-        evaluator lookup(search_t&& search);
+
+        //extensions::extension lookup_evaluator(search_t& search, Session* session);
+
+        std::unique_ptr<applicators::applicator> lookup(search_t&& search, Session* session);
+
+
+
+        //applicator lookup(search_t&& search);
 
         // NOTE: This will throw InternalError if there
         // is no match in form table.

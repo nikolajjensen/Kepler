@@ -53,7 +53,7 @@ namespace kepler::constants {
     const Char delta_stile = U'⍋';
     const Char delta_underbar = U'⍙';
     const Char diaeresis = U'¨';
-    const Char diamond = U'⋄';
+    const Char diamond = U'◊';
     const Char divide = U'÷';
     const Char dollar_sign = U'$';
     const Char dot = U'.';
@@ -142,6 +142,33 @@ namespace kepler::constants {
     const Char X = U'X';
     const Char Y = U'Y';
     const Char Z = U'Z';
+
+    const Char a = U'a';
+    const Char b = U'b';
+    const Char c = U'c';
+    const Char d = U'd';
+    const Char e = U'e';
+    const Char f = U'f';
+    const Char g = U'g';
+    const Char h = U'h';
+    const Char i = U'i';
+    const Char j = U'j';
+    const Char k = U'k';
+    const Char l = U'l';
+    const Char m = U'm';
+    const Char n = U'n';
+    const Char o = U'o';
+    const Char p = U'p';
+    const Char q = U'q';
+    const Char r = U'r';
+    const Char s = U's';
+    const Char t = U't';
+    const Char u = U'u';
+    const Char v = U'v';
+    const Char w = U'w';
+    const Char x = U'x';
+    const Char y = U'y';
+    const Char z = U'z';
 
 
     const List<Char> CT = {constants::quad, constants::C, constants::T};

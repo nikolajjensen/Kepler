@@ -25,25 +25,43 @@
 #include "core/token.h"
 #include "core/helpers/printers.h"
 #include "core/error.h"
+#include "string_maker.h"
+#include "core/constants/literals.h"
 #include <iomanip>
 
-struct Outputs : Catch::Matchers::MatcherGenericBase {
-    explicit Outputs(std::string const& output_, int print_precision_ = -1) : output(output_), print_precision(print_precision_) {}
+struct Prints : Catch::Matchers::MatcherGenericBase {
+    explicit Prints(std::string const& output_, kepler::Session* session_) : output(output_), session(session_) {}
 
     bool match(kepler::Token const & result) const {
         std::stringstream ss;
-        kepler::helpers::TokenPrinter p(ss, print_precision);
+        kepler::Array& pp = session->get_system_parameter(kepler::constants::PP);
+        kepler::helpers::TokenPrinter p(ss, pp.get_content<kepler::Number>(0).real());
         p(result);
         return ss.str() == output;
     }
 
     std::string describe() const override {
-        return "should output " + output;
+        return "should print " + output;
     }
 
 private:
     std::string const& output;
-    int print_precision;
+    kepler::Session* session;
+};
+
+struct Outputs : Catch::Matchers::MatcherGenericBase {
+    explicit Outputs(kepler::List<kepler::Token> const& output_) : output(output_) {}
+
+    bool match(kepler::List<kepler::Token> const & result) const {
+        return result == output;
+    }
+
+    std::string describe() const override {
+        return "should output \n" + Catch::StringMaker<std::vector<kepler::Token, std::allocator<kepler::Token>>, void>::convert(output);
+    }
+
+private:
+    kepler::List<kepler::Token> const& output;
 };
 
 struct Throws : Catch::Matchers::MatcherGenericBase {

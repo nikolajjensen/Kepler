@@ -17,114 +17,109 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#pragma once
+
+#include <utility>
+#include <memory>
+
 #include "form_table.h"
 #include "core/token.h"
 #include "core/error.h"
+#include "form_table_extensions.h"
+#include "core/helpers/printers.h"
 
 namespace kepler::form_table::applicators {
 
-    template <typename Evaluator>
-    struct extension : boost::static_visitor<Token::content_type> {
-        Evaluator evaluator;
-        kepler::Session* session;
+    struct extractor {
+        std::unique_ptr<extensions::extension> ex;
 
-        explicit extension(kepler::Session* session_) : evaluator(session_), session(session_) {}
+        explicit extractor(std::unique_ptr<extensions::extension> ex_) : ex(std::move(ex_)) {}
+        virtual ~extractor() = default;
 
-        template <typename T>
-        T operator()(const T& input) {
-            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
-        }
+        virtual Token apply(const List<const Token*>& tokens) const = 0;
+    };
 
-        template <typename T, typename U>
-        T operator()(const T& lhs, const U& rhs) {
-            throw kepler::error(InternalError, "Applicator called with unsupported argument.");
+    struct niladic : extractor {
+        using extractor::extractor;
+
+        Token apply(const List<const Token*>& tokens) const override {
+            if(!tokens.empty()) throw kepler::error(InternalError, "Expected no tokens.");
+            return ex->apply();
         }
     };
 
+    struct monadic : extractor {
+        using extractor::extractor;
 
-    template <typename Evaluator>
-    struct scalar : extension<Evaluator> {
-        using extension<Evaluator>::extension;
-        using extension<Evaluator>::operator();
-
-        Array operator()(const Array& arr) {
-            Array result = arr;
-            for(auto& element : result.ravelList) {
-                element = boost::apply_visitor(this->evaluator, element);
-            }
-            return result;
-        }
-
-        Array operator()(const Array& lhs, const Array& rhs) {
-            Array a = lhs;
-            for(int i = 0; i < a.ravelList.size(); ++i) {
-                a.ravelList[i] = boost::apply_visitor(this->evaluator, lhs.ravelList[i], rhs.ravelList[i]);
-            }
-            return a;
-        }
-
-        Char operator()(const Char& input) {
-            return this->evaluator(input);
-        }
-
-        Number operator()(const Number& input) {
-            return this->evaluator(input);
-        }
-
-        Char operator()(const Char& lhs, const Char& rhs) {
-            return this->evaluator(lhs, rhs);
-        }
-
-        Number operator()(const Number& lhs, const Number& rhs) {
-            return this->evaluator(lhs, rhs);
-        }
-
-        Token operator()(const Token& token) {
-            Token result = token;
-            result.content = boost::apply_visitor(*this, token.content.get());
-            return result;
-        }
-
-        Token operator()(const Token& lhs, const Token& rhs) {
-            Token result = lhs;
-            result.content = boost::apply_visitor(*this, lhs.content.get(), rhs.content.get());
-            return result;
+        Token apply(const List<const Token*>& tokens) const override {
+            if(tokens.size() != 1) throw kepler::error(InternalError, "Expected only two tokens.");
+            return ex->apply(*tokens[0]);
         }
     };
 
-    template <typename Evaluator>
-    struct structural : extension<Evaluator> {
-        using extension<Evaluator>::extension;
-        using extension<Evaluator>::operator();
+    struct dyadic : extractor {
+        using extractor::extractor;
 
-        Array operator()(const Array& arr) {
-            return this->evaluator(arr);
-        }
-
-        Token operator()(const Token& token) {
-            Token result = token;
-            result.content = boost::apply_visitor(*this, token.content.get());
-            return result;
-        }
-
-        Token operator()(const Token& lhs, const Token& rhs) {
-            Token result = lhs;
-            result.content = boost::apply_visitor(*this, lhs.content.get(), rhs.content.get());
-            return result;
+        Token apply(const List<const Token*>& tokens) const override {
+            if(tokens.size() != 2) throw kepler::error(InternalError, "Expected only two tokens.");
+            return ex->apply(*tokens[0], *tokens[1]);
         }
     };
 
-    template <typename Evaluator>
-    struct system_variable : extension<Evaluator> {
-        using extension<Evaluator>::extension;
-        using extension<Evaluator>::operator();
+    struct applicator {
+        std::unique_ptr<extractor> ar;
 
-        Token operator()() {
-            return this->evaluator();
+        applicator(std::unique_ptr<extractor> ar_)
+                : ar(std::move(ar_)) {}
+
+        Token apply(const List<const Token*>& tokens) const {
+            return ar->apply(tokens);
         }
 
-        Token operator()(const Token& token) {
-            return this->evaluator(token);
+        template <typename Ar, typename Ex, typename Ev>
+        static applicator construct(kepler::Session* session) {
+            return applicator(std::make_unique<Ar>(std::make_unique<Ex>(std::make_unique<Ev>(session))));
         }
     };
+
+    /*
+    struct applicator : boost::static_visitor<Token> {
+        extensions::extension extension;
+
+        explicit applicator(extensions::extension extension_) : extension(std::move(extension_)) {}
+
+        virtual Token operator()(const List<const Token*>& tokens) {
+            throw kepler::error(InternalError, "Expected no tokens.");
+        }
+    };
+
+    struct niladic : applicator {
+        using applicator::applicator;
+
+        Token operator()(const List<const Token*>& tokens) override {
+            if(!tokens.empty()) throw kepler::error(InternalError, "Expected no tokens.");
+            return (this->extension).operator()<Token>();
+        }
+    };
+
+    struct monadic : applicator {
+        using applicator::applicator;
+
+        Token operator()(const List<const Token*>& tokens) override {
+            if(tokens.size() != 1) throw kepler::error(InternalError, "Expected only one token.");
+            return this->extension(*tokens[0]);
+        }
+    };
+
+    struct dyadic : applicator {
+        using applicator::applicator;
+
+        Token operator()(const List<const Token*>& tokens) override {
+            if(tokens.size() != 2) throw kepler::error(InternalError, "Expected only two tokens.");
+            return this->extension(*tokens[0], *tokens[1]);
+        }
+    };
+    */
+
+
 };

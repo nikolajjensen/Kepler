@@ -19,6 +19,7 @@
 
 #pragma once
 #include "core/token.h"
+#include "core/constants/literals.h"
 #include <catch2/catch_tostring.hpp>
 
 namespace Catch {
@@ -28,10 +29,20 @@ namespace Catch {
             std::stringstream ss;
             ss << "\"";
 
-            kepler::helpers::TokenDebugPrinter p(ss);
+            kepler::helpers::TokenPrinter p(ss, kepler::constants::initial_print_precision);
             p(token);
             ss << "\"";
 
+            return ss.str();
+        }
+    };
+
+    template <>
+    struct StringMaker<kepler::List<kepler::Token>> {
+        static std::string convert(kepler::List<kepler::Token> const & tokens) {
+            std::stringstream ss;
+            kepler::helpers::TokenListDebugPrinter p(ss);
+            p(tokens);
             return ss.str();
         }
     };
