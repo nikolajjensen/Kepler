@@ -23,7 +23,6 @@
 #include <catch2/matchers/catch_matchers_exception.hpp>
 #include "core/token_class.h"
 #include "core/token.h"
-#include "core/helpers/printers.h"
 #include "core/error.h"
 #include "string_maker.h"
 #include "core/constants/literals.h"

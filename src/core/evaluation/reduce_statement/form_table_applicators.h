@@ -26,7 +26,6 @@
 #include "core/token.h"
 #include "core/error.h"
 #include "form_table_extensions.h"
-#include "core/helpers/printers.h"
 
 namespace kepler::form_table::applicators {
 

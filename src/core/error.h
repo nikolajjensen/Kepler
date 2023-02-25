@@ -24,34 +24,34 @@
 #include <boost/optional.hpp>
 #include "error_type.h"
 #include "datatypes.h"
+#include "core/helpers/printers/token_printer.h"
 
 #include <uni_algo/conv.h>
 
 namespace kepler {
+
     class error : public std::exception {
     public:
         ErrorType error_type;
         std::string message;
         boost::optional<int> position;
-        boost::optional<std::string> input_line;
+        boost::optional<boost::variant<std::vector<Char>, std::vector<Token>>> input;
 
         error(ErrorType error_type_,
               std::string message_,
-              boost::optional<int> position_ = boost::none,
-              boost::optional<std::string> input_line_ = boost::none)
+              int position_,
+              boost::variant<std::vector<Char>, std::vector<Token>> input_)
               : error_type(error_type_),
                 message(std::move(message_)),
                 position(position_),
-                input_line(std::move(input_line_)) {}
+                input(std::move(input_)) {}
 
         error(ErrorType error_type_,
-              std::string message_,
-              boost::optional<int> position_,
-              boost::optional<List<Char>> input_line_)
+              std::string message_)
                 : error_type(error_type_),
                   message(std::move(message_)),
-                  position(position_),
-                  input_line(uni::utf32to8(std::u32string(input_line_->begin(), input_line_->end()))) {}
+                  position(boost::none),
+                  input(boost::none) {}
 
         std::string type() const {
             return to_string(error_type);
@@ -61,11 +61,33 @@ namespace kepler {
             return message;
         }
 
+        struct visitor : boost::static_visitor<> {
+            std::ostream& stream;
+
+            explicit visitor(std::ostream& stream_) : stream(stream_) {}
+
+            void operator()(const std::vector<Char>& vec) {
+                std::string str = uni::utf32to8(std::u32string(vec.begin(), vec.end()));
+                stream << str;
+            }
+
+            void operator()(const std::vector<Token>& vec) {
+                helpers::TokenPrinter pr(stream);
+                for(auto& token : vec) {
+                    pr(token);
+                }
+            }
+        };
+
         std::string where() const {
             std::stringstream ss;
 
-            if(input_line && position) {
-                ss << "   " << input_line.get() << "\n";
+            if(input && position) {
+                ss << "   ";
+                visitor v(ss);
+                boost::apply_visitor(v, input.get());
+                ss << "\n";
+
                 ss << "   ";
                 for (int i = 0; i < position.get(); ++i) {
                     ss << "~";

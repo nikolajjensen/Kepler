@@ -81,7 +81,7 @@ namespace kepler::grammar {
         if(context.match(small_circle, input, counter) || context.match(primitive_function, input, counter)) {
             if(context.match(token_dot, input, counter)) {
                 if(!context.match(primitive_function, input, counter)) {
-                    // TODO: Throw.
+                    throw error(SyntaxError, "Expected a primitive function.", counter, input);
                 }
             } else {
                 context.match(axis_monadic_operator, input, counter);
@@ -91,7 +91,7 @@ namespace kepler::grammar {
         else if(context.match(operand, input, counter) || context.match(function, input, counter)) {
             if(context.match(dyadic_operator, input, counter)) {
                 if(!context.match(operand, input, counter) || context.match(function, input, counter)) {
-                    // TODO: Throw.
+                    throw error(SyntaxError, "Expected either an operand or another function.", counter, input);
                 }
             }
             else if(context.match(monadic_operator, input, counter)) {}
@@ -116,12 +116,10 @@ namespace kepler::grammar {
         if(context.match(left_axis_bracket, input, counter)) {
             int end = context.peek(constants::right_bracket, input, counter);
             if(end == -1) {
-                // TODO: Throw here.
-                throw error(SyntaxError, "Expected a matching closing bracket.");
+                throw error(SyntaxError, "Expected a matching closing bracket.", counter - 1, input);
             }
             if(!context.match(expression, input, counter)) {
-                // TODO: Throw here.
-                return false;
+                throw error(SyntaxError, "Expected an expression here.", counter - 1, input);
             }
             context.match(right_axis_bracket, input, counter);
             head = counter;
@@ -136,12 +134,10 @@ namespace kepler::grammar {
             int counter = head;
             int end = context.peek(constants::right_parenthesis, input, counter);
             if(end == -1) {
-                // TODO: Throw here.
-                return false;
+                throw error(SyntaxError, "Expected a matching closing parenthesis.", counter - 1, input);
             }
             if(!context.match(expression, input, counter)) {
-                // TODO: Throw here.
-                return false;
+                throw error(SyntaxError, "Expected an expression here.", counter - 1, input);
             }
             context.match(right_parenthesis, input, counter);
             head = counter;
@@ -168,7 +164,7 @@ namespace kepler::grammar {
         if(context.match(left_index_bracket, input, counter)) {
             int end = context.peek(constants::right_bracket, input, counter);
             if(end != -1) {
-                // TODO: Set end for matching to 'end'.
+                // Should match only until 'end'.
                 context.match(expression, input, counter);
                 while(context.match(index_separator, input, counter)) {
                     while(context.match(index_separator, input, counter)) {}
@@ -183,7 +179,7 @@ namespace kepler::grammar {
                 return true;
             }
 
-            //throw kepler::error(SyntaxError, "Expected a matching end quote", counter - 1, input);
+            throw kepler::error(SyntaxError, "Expected a matching end index bracket", counter + 1, input);
         }
 
         return false;
@@ -461,7 +457,7 @@ namespace kepler::grammar {
         if(context.match(quote, input, counter)) {
             int end = context.peek(constants::quote, input, counter);
             if(end != -1) {
-                // TODO: Set end for matching to 'end'.
+                // Should match only until 'end'.
                 while(context.match(nonquote, input, counter)) {}
                 context.match(quote, input, counter);
 

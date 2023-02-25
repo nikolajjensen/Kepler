@@ -19,7 +19,7 @@
 
 #include "session.h"
 #include "error.h"
-#include "core/helpers/printers.h"
+#include "core/helpers/printers/error_printer.h"
 #include "core/constants/config.h"
 #include "core/constants/literals.h"
 #include "core/evaluation/evaluators.h"

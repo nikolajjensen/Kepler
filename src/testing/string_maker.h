@@ -20,6 +20,9 @@
 #pragma once
 #include "core/token.h"
 #include "core/constants/literals.h"
+#include "core/constants/config.h"
+#include "core/helpers/printers/error_printer.h"
+#include "core/helpers/printers/token_printer.h"
 #include <catch2/catch_tostring.hpp>
 
 namespace Catch {
