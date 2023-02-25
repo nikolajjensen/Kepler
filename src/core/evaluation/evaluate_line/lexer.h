@@ -22,6 +22,8 @@
 #include "core/datatypes.h"
 #include "core/token.h"
 #include "core/context.h"
+#include "core/evaluation/grammar/matcher.h"
+#include "core/evaluation/grammar/rules.h"
 
 namespace kepler::evaluation {
     class Lexer {

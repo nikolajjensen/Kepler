@@ -18,11 +18,11 @@
 //
 
 #include "evaluators.h"
-#include "evaluate_line/lexer.h"
+//#include "evaluate_line/lexer.h"
+#include "grammar/lexer.h"
 #include "evaluate_statement/parser.h"
 #include "reduce_statement/form_table.h"
 #include "reduce_statement/phrase_table.h"
-
 
 using namespace kepler;
 
@@ -80,8 +80,9 @@ Token evaluation::evaluate_statement(Context &context, Session& session) {
 }
 
 Token evaluation::evaluate_line(Context &context, Session &session) {
-    Lexer lexer(context.current_line, &context.currentStatement);
+    Lexer lexer(context.current_line);
     lexer.lex();
+    context.currentStatement = lexer.context.output;
     return evaluate_statement(context, session);
 }
 

@@ -23,6 +23,9 @@
 #include <utility>
 #include <boost/optional.hpp>
 #include "error_type.h"
+#include "datatypes.h"
+
+#include <uni_algo/conv.h>
 
 namespace kepler {
     class error : public std::exception {
@@ -39,7 +42,16 @@ namespace kepler {
               : error_type(error_type_),
                 message(std::move(message_)),
                 position(position_),
-                input_line(input_line_) {}
+                input_line(std::move(input_line_)) {}
+
+        error(ErrorType error_type_,
+              std::string message_,
+              boost::optional<int> position_,
+              boost::optional<List<Char>> input_line_)
+                : error_type(error_type_),
+                  message(std::move(message_)),
+                  position(position_),
+                  input_line(uni::utf32to8(std::u32string(input_line_->begin(), input_line_->end()))) {}
 
         std::string type() const {
             return to_string(error_type);
@@ -54,11 +66,11 @@ namespace kepler {
 
             if(input_line && position) {
                 ss << "   " << input_line.get() << "\n";
-                std::cout << "   ";
+                ss << "   ";
                 for (int i = 0; i < position.get(); ++i) {
-                    std::cout << "~";
+                    ss << "~";
                 }
-                std::cout << "^";
+                ss << "^";
             }
 
             return ss.str();

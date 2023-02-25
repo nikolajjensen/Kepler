@@ -4,6 +4,7 @@
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"
+#include "core/helpers/printers.h"
 
 using namespace kepler;
 

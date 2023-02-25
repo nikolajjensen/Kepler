@@ -92,7 +92,7 @@ void kepler::phrase_table::evaluators::evaluate_monadic_function<6, X_F_LB_C_RB_
     if(!helpers::is_value(b)) throw kepler::error(ValueError, "Monadic argument was not a value.");
     if(!helpers::is(f, PrimitiveFunctionToken)) throw kepler::error(SyntaxError, "Expected a primitive function.");
     // Incorrect.
-    //if(session.config.index_origin < 0.0) throw kepler::error(ImplicitError, "Index origin must be ≥0. Set it via ⎕IO.");
+    //if(session.context.index_origin < 0.0) throw kepler::error(ImplicitError, "Index origin must be ≥0. Set it via ⎕IO.");
 }
 
 template <>
