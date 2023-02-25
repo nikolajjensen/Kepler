@@ -112,6 +112,9 @@ namespace kepler {
             const pattern<3> print_precision_1 = {constants::PP, constants::left_arrow, Constant};
             const pattern<1> print_precision_2 = {constants::PP};
 
+
+            const pattern<1> quad_input = {constants::quad};
+
         };
 
 

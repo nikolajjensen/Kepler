@@ -18,21 +18,10 @@
 //
 
 #pragma once
-#include "matcher.h"
-#include "context.h"
+#include "core/constants/literals.h"
 #include "core/datatypes.h"
-#include "rules.h"
+#include "context.h"
 
-namespace kepler {
-    class Lexer : public grammar::Matcher<Char, grammar::lexer_context> {
-    public:
-        using grammar::Matcher<Char, grammar::lexer_context>::Matcher;
+namespace kepler::grammar {
 
-        std::vector<Token>& lex() {
-            if(!grammar::Matcher<Char, grammar::lexer_context>::match(grammar::rules::line)) {
-                throw kepler::error(SyntaxError, "Could not tokenize input.");
-            }
-            return context.output;
-        }
-    };
 };

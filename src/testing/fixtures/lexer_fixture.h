@@ -21,7 +21,7 @@
 #include "core/system.h"
 #include "core/session.h"
 #include "core/datatypes.h"
-#include "core/evaluation/evaluate_line/lexer.h"
+#include "core/evaluation/grammar/lexer.h"
 #include <chrono>
 
 class lexer_fixture {
@@ -33,13 +33,15 @@ public:
     lexer_fixture() : system(), session(system.spawn_session()) {}
 
 protected:
-    kepler::List<kepler::Token> run(std::string&& input, bool timing = false) {
-        kepler::StringUTF32 converted = uni::utf8to32u(input);
-        kepler::List<kepler::Token> output;
+    kepler::List<kepler::Token> run(std::string&& raw, bool timing = false) {
+        kepler::StringUTF32 converted = uni::utf8to32u(raw);
+        std::vector<kepler::Char> input(converted.begin(), converted.end());
 
         auto start = std::chrono::high_resolution_clock::now();
-        kepler::evaluation::Lexer lexer({converted.begin(), converted.end()}, &output);
-        lexer.lex();
+
+        kepler::Lexer lexer(input);
+        kepler::List<kepler::Token> output = lexer.lex();
+
         auto stop = std::chrono::high_resolution_clock::now();
         if(timing) {
             auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();

@@ -23,15 +23,17 @@
 #include "core/datatypes.h"
 #include "rules.h"
 
-namespace kepler {
-    class Lexer : public grammar::Matcher<Char, grammar::lexer_context> {
-    public:
-        using grammar::Matcher<Char, grammar::lexer_context>::Matcher;
 
-        std::vector<Token>& lex() {
-            if(!grammar::Matcher<Char, grammar::lexer_context>::match(grammar::rules::line)) {
-                throw kepler::error(SyntaxError, "Could not tokenize input.");
+namespace kepler {
+    class Parser : public grammar::Matcher<Token, grammar::parser_context> {
+    public:
+        using grammar::Matcher<Token, grammar::parser_context>::Matcher;
+
+        std::vector<Token>& parse() {
+            if(!grammar::Matcher<Token, grammar::parser_context>::match(grammar::rules::statement)) {
+                throw kepler::error(SyntaxError, "Could not parse input.");
             }
+
             return context.output;
         }
     };

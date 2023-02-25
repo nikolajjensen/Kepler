@@ -28,7 +28,7 @@ namespace kepler::grammar {
     public:
         explicit Matcher(const std::vector<Atom>& input);
 
-        bool match(rule_type<Atom> base_rule);
+        bool match(rule_type<Atom, Context> base_rule);
 
         const std::vector<Atom>& input;
         Context context;

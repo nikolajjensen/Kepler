@@ -151,6 +151,11 @@ std::unique_ptr<kepler::form_table::applicators::applicator> kepler::form_table:
         return std::make_unique<applicators::applicator>(applicators::applicator::construct<applicators::niladic, extensions::system_variable, evaluators::print_precision>(session));
     }
 
+    else if(match_pattern<1, patterns::quad_input>(search)) {
+        // TODO: Implement real applicator.
+        return std::make_unique<applicators::applicator>(applicators::applicator::construct<applicators::niladic, extensions::system_variable, evaluators::print_precision>(session));
+    }
+
     return nullptr;
 }
 /*

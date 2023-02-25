@@ -18,9 +18,8 @@
 //
 
 #include "evaluators.h"
-//#include "evaluate_line/lexer.h"
 #include "grammar/lexer.h"
-#include "evaluate_statement/parser.h"
+#include "grammar/parser.h"
 #include "reduce_statement/form_table.h"
 #include "reduce_statement/phrase_table.h"
 
@@ -64,14 +63,12 @@ Token evaluation::evaluate_statement(Context &context, Session& session) {
             bind_token_class(token, session);
         } else if (helpers::is_literal(token)) {
             literal_conversion(token, session);
-        } else if (helpers::is(token, kepler::PrimitiveToken)) {
-            scalar_conversion(token);
         }
         // Potential error handling here (If the above if-statement returns an exception)...
     }
 
-    Parser p(&context.currentStatement);
-    p.parse();
+    Parser parser(context.currentStatement);
+    context.currentStatement = parser.parse();
 
     context.currentStatement.emplace(context.currentStatement.begin(), LeftEndOfStatementToken);
     context.currentStatement.emplace_back(RightEndOfStatementToken);
@@ -81,8 +78,7 @@ Token evaluation::evaluate_statement(Context &context, Session& session) {
 
 Token evaluation::evaluate_line(Context &context, Session &session) {
     Lexer lexer(context.current_line);
-    lexer.lex();
-    context.currentStatement = lexer.context.output;
+    context.currentStatement = lexer.lex();
     return evaluate_statement(context, session);
 }
 
@@ -131,7 +127,16 @@ void evaluation::bind_token_class(Token &token, Session &session) {
 }
 
 void evaluation::literal_conversion(kepler::Token& token, kepler::Session& session) {
-    List<Char> content = boost::get<List<Char>>(token.content.get());
+    List<Char> content;
+
+    if(token.contains<List<Char>>()) {
+        content = token.get_content<List<Char>>();
+    } else if(token.contains<Char>()) {
+        content = {token.get_content<Char>()};
+    } else {
+        throw kepler::error(InternalError, "Cannot convert unrecognized token to literal.");
+    }
+
     Array vector;
 
     if(token.token_class == TokenClass::CharacterLiteralToken) {

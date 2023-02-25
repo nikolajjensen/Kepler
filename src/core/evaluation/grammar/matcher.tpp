@@ -18,18 +18,16 @@
 //
 #pragma once
 
-#include "matcher.h"
 #include "context.h"
-#include "helpers.h"
 
 namespace kepler::grammar {
     template <typename Atom, typename Context>
     Matcher<Atom, Context>::Matcher(const std::vector<Atom> &input_) : input(input_), context() {}
 
     template <typename Atom, typename Context>
-    bool Matcher<Atom, Context>::match(rule_type<Atom> base_rule) {
+    bool Matcher<Atom, Context>::match(rule_type<Atom, Context> base_rule) {
         int head = 0;
-        if(rules::helpers::match(base_rule, input, context, head)) {
+        if(context.match(base_rule, input, head)) {
             return head == input.size();
         }
 
