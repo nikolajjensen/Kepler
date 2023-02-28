@@ -31,12 +31,13 @@ namespace kepler {
         Mode mode;
         List<Token> stack;
         List<Char> current_line;
-        List<Token> currentStatement;
-        boost::optional<DefinedFunction> currentFunction;
-        int currentLineNumber;
+        List<Token> current_statement;
+        boost::optional<DefinedFunction> current_function;
+        int current_line_number;
 
         Context();
         Context(Mode mode, List<Char> line);
+        Context(Mode mode, List<Char> line, DefinedFunction function, int line_number);
 
         StringUTF8 current_line_string() {
             return uni::utf32to8(std::u32string(current_line.begin(), current_line.end()));

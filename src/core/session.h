@@ -29,9 +29,13 @@ namespace kepler {
 
         explicit Session(std::string&& name);
 
-        Token& get_current_referent(Token& token);
-        void set_current_referent(Token& token, List<Token> &&content);
-        TokenClass current_class(Token& token);
+        Token& get_current_referent(const Token& token);
+        void set_current_referent(const Token& token, List<Token> &&content);
+        TokenClass current_class(const Token& token);
+        bool editable(const Token& identifier);
+        bool waiting(const Token& identifier);
+        bool pendent(const Token& identifier);
+        bool suspended(const Token& identifier);
 
         Array& get_system_parameter(const List<Char>& id);
 

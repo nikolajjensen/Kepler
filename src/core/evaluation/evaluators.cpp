@@ -20,6 +20,7 @@
 #include "evaluators.h"
 #include "grammar/lexer.h"
 #include "grammar/parser.h"
+#include "grammar/function_parser.h"
 #include "reduce_statement/form_table.h"
 #include "reduce_statement/phrase_table.h"
 
@@ -28,8 +29,8 @@ using namespace kepler;
 Token evaluation::reduce_statement(Context &context, Session &session) {
     context.stack = {};
 
-    auto it = context.currentStatement.rbegin();
-    auto end_it = context.currentStatement.rend();
+    auto it = context.current_statement.rbegin();
+    auto end_it = context.current_statement.rend();
     bool done = false;
 
     while(!done) {
@@ -37,13 +38,13 @@ Token evaluation::reduce_statement(Context &context, Session &session) {
 
         if(result.evaluator == nullptr) {
             // No evaluator was found with lookup, so we push to stack.
-            if(context.currentStatement.empty()) {
+            if(context.current_statement.empty()) {
                 throw kepler::error(SyntaxError, "Ran out of tokens to evaluate, but is still not done...");
             } else {
                 context.stack.insert(context.stack.begin(),
-                                      std::make_move_iterator(context.currentStatement.end() - 1),
-                                      std::make_move_iterator(context.currentStatement.end()));
-                context.currentStatement.erase(context.currentStatement.end() - 1);
+                                      std::make_move_iterator(context.current_statement.end() - 1),
+                                      std::make_move_iterator(context.current_statement.end()));
+                context.current_statement.erase(context.current_statement.end() - 1);
             }
         } else {
             result.evaluator(context.stack, session);
@@ -58,31 +59,50 @@ Token evaluation::reduce_statement(Context &context, Session &session) {
 }
 
 Token evaluation::evaluate_statement(Context &context, Session& session) {
-    for(auto& token : context.currentStatement) {
+    for(auto& token : context.current_statement) {
         if(helpers::is_identifier(token)) {
             bind_token_class(token, session);
         } else if (helpers::is_literal(token)) {
             literal_conversion(token, session);
         }
-        // Potential error handling here (If the above if-statement returns an exception)...
     }
 
-    Parser parser(context.currentStatement);
-    context.currentStatement = parser.parse();
+    Parser parser(context.current_statement);
+    context.current_statement = parser.parse();
 
-    context.currentStatement.emplace(context.currentStatement.begin(), LeftEndOfStatementToken);
-    context.currentStatement.emplace_back(RightEndOfStatementToken);
+    context.current_statement.emplace(context.current_statement.begin(), LeftEndOfStatementToken);
+    context.current_statement.emplace_back(RightEndOfStatementToken);
 
     return reduce_statement(context, session);
 }
 
 Token evaluation::evaluate_line(Context &context, Session &session) {
     Lexer lexer(context.current_line);
-    context.currentStatement = lexer.lex();
+    context.current_statement = lexer.lex();
     return evaluate_statement(context, session);
 }
 
-void evaluation::evaluate_function_definition_request(Token &token) {
+void evaluation::evaluate_function_definition_request(List<Char> &input, Session &session) {
+    FunctionParser parser(input);
+    parser.parse();
+
+    TokenClass current_class = session.current_class(parser.get_identifier());
+    DefinedFunction defined_function;
+
+    if(current_class == NilToken) {
+        // Do nothing here, as defined_function has default initializer.
+    } else {
+        // If N is not editable, throw DefinitionError.
+        // Set M to the current-referent of N.
+    }
+
+    session.active_workspace.add_context({
+        FunctionDefinitionMode,
+        parser.get_request(),
+        defined_function,
+        static_cast<int>(defined_function.canonical_representation.size())
+    });
+
 
 }
 

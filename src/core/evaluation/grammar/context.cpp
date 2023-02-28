@@ -21,6 +21,30 @@
 #include "rules.h"
 
 namespace kepler::grammar {
+    template <>
+    template <>
+    bool context<Char>::comparator(const Char &atom, const Char &comp) {
+        return atom == comp;
+    }
+
+    template <>
+    template <>
+    bool context<Token>::comparator(const Token &atom, const Char &comp) {
+        return atom.contains<Char>() && atom.get_content<Char>() == comp;
+    }
+
+    template <>
+    template <>
+    bool context<Token>::comparator(const Token &atom, const TokenClass &comp) {
+        return atom.token_class == comp;
+    }
+
+
+
+
+
+
+
 
     void lexer_context::backtrack(int amount) {
         content.resize(content.size() - amount);
@@ -43,7 +67,7 @@ namespace kepler::grammar {
         content.clear();
     }
 
-    void lexer_context::apply_semantic_action(rule_type<Char, lexer_context> rule, const std::vector<Char> &input, const int &start, const int &end) {
+    void lexer_context::apply_semantic_action(rule_type rule, const std::vector<Char> &input, const int &start, const int &end) {
         if(rule == rules::diamond
            || rule == rules::quote_quad
            || rule == rules::quad
@@ -80,47 +104,6 @@ namespace kepler::grammar {
         }
     }
 
-    bool lexer_context::match(rule_type<Char, lexer_context> rule, const std::vector<Char> &input, int &head) {
-        int prev_head = head;
-        if(head < input.size() && rule(input, *this, head)) {
-            apply_semantic_action(rule, input, prev_head, head);
-            return true;
-        }
-
-        return false;
-    }
-
-    bool lexer_context::match(const Char &atom, const std::vector<Char> &input, int &head) {
-        if(check(atom, input, head)) {
-            head++;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    bool lexer_context::match(std::vector<Char> &&atoms, const std::vector<Char> &input, int &head) {
-        return std::any_of(
-                atoms.begin(),
-                atoms.end(),
-                [&](const Char& atom) { return match(atom, input, head); });
-    }
-
-    bool lexer_context::check(const Char &atom, const std::vector<Char> &input, int &head) {
-        return head < input.size() && input[head] == atom;
-    }
-
-    int lexer_context::peek(const Char &atom, const std::vector<Char> &input, int &head) {
-        auto begin = input.begin() + head;
-        auto end = input.end();
-        auto it = std::find(begin, end, atom);
-        if(it != end) {
-            return std::distance(input.begin(), it);
-        }
-        return -1;
-    }
-
-
 
 
     void parser_context::backtrack(int amount) {
@@ -136,7 +119,7 @@ namespace kepler::grammar {
         output.back().token_class = token_class;
     }
 
-    void parser_context::apply_semantic_action(rule_type<Token, parser_context> rule, const std::vector<Token> &input, const int &head) {
+    void parser_context::apply_semantic_action(rule_type rule, const std::vector<Token> &input, const int &head, const int& end) {
         if(rule == rules::token_operand
            || rule == rules::token_variable
            || rule == rules::token_operation
@@ -197,58 +180,22 @@ namespace kepler::grammar {
         }
     }
 
-    bool parser_context::match(rule_type<Token, parser_context> rule, const std::vector<Token> &input, int &head) {
-        int prev_head = head;
-        if(head < input.size() && rule(input, *this, head)) {
-            apply_semantic_action(rule, input, prev_head);
-            return true;
+    void function_context::backtrack(int amount) {
+
+    }
+
+    void function_context::apply_semantic_action(rule_type rule, const std::vector<Char> &input, const int &start,
+                                                 const int &end) {
+        if(rule == rules::creation_request) {
+            request.clear();
+            std::copy(input.begin() + start, input.begin() + end, std::back_inserter(request));
+        } else if(rule == rules::function_name) {
+            identifier = {SimpleIdentifierToken, {input.begin() + start, input.begin() + end}};
+        } else if(rule == rules::subject_function) {
+            identifier = {SimpleIdentifierToken, {input.begin() + start, input.begin() + end}};
+        } else if(rule == rules::initial_request) {
+            request.clear();
+            std::copy(input.begin() + start, input.begin() + end, std::back_inserter(request));
         }
-
-        return false;
-    }
-
-    bool parser_context::match(const Token::content_type &content, const std::vector<Token> &input, int &head) {
-        if(check(PrimitiveToken, input, head) && check(content, input, head)) {
-            head++;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    bool parser_context::match(std::vector<Token::content_type> &&contents, const std::vector<Token> &input, int &head) {
-        return std::any_of(
-                contents.begin(),
-                contents.end(),
-                [&](const Token::content_type& content) { return match(content, input, head); });
-    }
-
-    bool parser_context::match(const TokenClass &token_class, const std::vector<Token> &input, int &head) {
-        if(check(token_class, input, head)) {
-            head++;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    bool parser_context::check(TokenClass token_class, const std::vector<Token> &input, int &head) {
-        return head < input.size() && input[head].token_class == token_class;
-    }
-
-    bool parser_context::check(const Token::content_type &content, const std::vector<Token> &input, int &head) {
-        return head < input.size() && (!input[head].content || input[head].content.get() == content);
-    }
-
-    int parser_context::peek(const Token::content_type &content, const std::vector<Token> &input, int &head) {
-        auto begin = input.begin() + head;
-        auto end = input.end();
-        auto it = std::find_if(begin, end, [&](const Token& token) {
-            return token.content && token.content.get() == content;
-        });
-        if(it != end) {
-            return std::distance(input.begin(), it);
-        }
-        return -1;
     }
 };

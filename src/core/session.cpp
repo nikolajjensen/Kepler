@@ -23,6 +23,7 @@
 #include "core/constants/config.h"
 #include "core/constants/literals.h"
 #include "core/evaluation/evaluators.h"
+#include "core/helpers/classifiers.h"
 
 kepler::Session::Session(std::string&& session_name_)
     :   active_workspace(constants::clear_workspace_identifier),
@@ -30,20 +31,49 @@ kepler::Session::Session(std::string&& session_name_)
     constants::set_initial_values(active_workspace.symbol_table);
 }
 
-kepler::Token& kepler::Session::get_current_referent(kepler::Token &token) {
+kepler::Token& kepler::Session::get_current_referent(const kepler::Token &token) {
     auto& char_list = boost::get<List<Char>>(*token.content);
 
     kepler::Symbol& symbol_named_by_token = active_workspace.symbol_table.lookup(char_list);
     return symbol_named_by_token.referentList.front();
 }
 
-void kepler::Session::set_current_referent(kepler::Token &token, List<Token> &&content) {
+void kepler::Session::set_current_referent(const kepler::Token &token, List<Token> &&content) {
     auto& id = token.get_content<List<Char>>();
     active_workspace.symbol_table.set(id, std::move(content));
 }
 
-kepler::TokenClass kepler::Session::current_class(kepler::Token &token) {
+kepler::TokenClass kepler::Session::current_class(const kepler::Token &token) {
     return get_current_referent(token).token_class;
+}
+
+bool kepler::Session::waiting(const Token &identifier) {
+    return true;
+}
+
+bool kepler::Session::pendent(const Token &identifier) {
+    return true;
+}
+
+bool kepler::Session::suspended(const Token &identifier) {
+    return true;
+}
+
+bool kepler::Session::editable(const Token &identifier) {
+    if(get_current_referent(identifier).token_class == NilToken) {
+        return true;
+    }
+
+    TokenClass current_class = Session::current_class(identifier);
+    bool is_defined = current_class == DefinedFunctionToken
+                      || current_class == DefinedDyadicOperatorToken
+                      || current_class == DefinedMonadicOperatorToken
+                      || current_class == NiladicDefinedFunctionToken;
+
+    Symbol& symbol = active_workspace.symbol_table.lookup(identifier.get_content<List<Char>>());
+    bool has_one_in_referent_list = symbol.referentList.size() == 1;
+
+    return is_defined && has_one_in_referent_list && !pendent(identifier) && !waiting(identifier);
 }
 
 
@@ -86,7 +116,7 @@ void kepler::Session::immediate_execution(Token &&input, std::ostream &stream) {
             if(content.front() == kepler::constants::right_parenthesis) {
                 throw kepler::error(InternalError, "System commands are not supported yet.");
             } else if(content.front() == kepler::constants::del) {
-                throw kepler::error(InternalError, "User defined functions are not supported yet.");
+                evaluation::evaluate_function_definition_request(content, *this);
             } else {
                 Context& new_context = active_workspace.add_context({kepler::ImmediateExecutionMode, content});
 

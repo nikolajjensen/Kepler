@@ -22,8 +22,10 @@
 
 namespace kepler {
     struct DefinedFunction {
-        List<Char> canonicalRepresentation;
-        List<Number> stopVector;
-        List<Number> traceVector;
+        List<Char> canonical_representation;
+        List<Number> stop_vector;
+        List<Number> trace_vector;
+
+        DefinedFunction();
     };
 };

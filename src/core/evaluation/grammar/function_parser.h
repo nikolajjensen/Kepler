@@ -16,21 +16,31 @@
 // You should have received a copy of the GNU General Public License 
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
+
 #pragma once
-
+#include "matcher.h"
 #include "context.h"
+#include "core/error.h"
+#include "core/datatypes.h"
+#include "rules.h"
 
-namespace kepler::grammar {
-    template <typename Atom, typename Context>
-    Matcher<Atom, Context>::Matcher(const std::vector<Atom> &input_) : input(input_), context() {}
+namespace kepler {
+    class FunctionParser : public grammar::Matcher<Char, grammar::function_context> {
+    public:
+        using grammar::Matcher<Char, grammar::function_context>::Matcher;
 
-    template <typename Atom, typename Context>
-    bool Matcher<Atom, Context>::match(rule_type<Atom, Context> base_rule) {
-        int head = 0;
-        if(context.match(base_rule, input, head)) {
-            return head == input.size();
+        void parse() {
+            if(!grammar::Matcher<Char, grammar::function_context>::match(grammar::rules::opening_request)) {
+                throw kepler::error(DefinitionError, "Could not parse input.");
+            }
         }
 
-        return false;
-    }
+        Token& get_identifier() {
+            return context.identifier;
+        }
+
+        std::vector<Char>& get_request() {
+            return context.request;
+        }
+    };
 };

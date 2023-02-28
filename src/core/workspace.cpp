@@ -29,7 +29,7 @@ kepler::Workspace::Workspace(
           existential_property(WorkspacePresence::AbsentWorkspace) {}
 
 kepler::Context& kepler::Workspace::add_context(kepler::Context &&context) {
-    return state_indicator.emplace_back(std::move(context));
+    return *state_indicator.emplace(state_indicator.begin(), std::move(context));
 }
 
 void kepler::Workspace::pop_context() {

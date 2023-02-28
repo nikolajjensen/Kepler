@@ -23,18 +23,37 @@
 #include "core/token_class.h"
 
 namespace kepler::grammar {
-
-    template <typename Atom, typename Context>
-    using rule_type = bool (*)(const std::vector<Atom>& input, Context& context, int& head);
-
     template <typename Atom>
     class context {
     public:
+        using rule_type = bool (*)(const std::vector<Atom>& input, context<Atom>& context, int& head);
+
         ~context() = default;
 
         virtual void backtrack(int amount) = 0;
+        virtual void apply_semantic_action(rule_type rule, const std::vector<Atom>& input, const int& start, const int& end) = 0;
+
+        template <typename CompType>
+        bool comparator(const Atom& atom, const CompType& comp);
+
+        bool match(rule_type rule, const std::vector<Atom> &input, int &head);
+
+        template <typename CompType>
+        bool match(const CompType &atom, const std::vector<Atom>& input, int& head);
+
+        template <typename CompType>
+        bool match(std::vector<CompType> &&atoms, const std::vector<Atom> &input, int &head);
+
+        template <typename CompType>
+        bool check(const CompType& atom, const std::vector<Atom>& input, int& head);
+
+        template <typename CompType>
+        int peek(const CompType& atom, const std::vector<Atom>& input, int& head);
+
     };
 };
+
+#include "context.tpp"
 
 namespace kepler::grammar {
     class lexer_context : public context<Char> {
@@ -48,14 +67,7 @@ namespace kepler::grammar {
         void clear();
         void create(TokenClass cl);
 
-        void apply_semantic_action(rule_type<Char, lexer_context> rule, const std::vector<Char>& input, const int& start, const int& end);
-
-        bool match(rule_type<Char, lexer_context> rule, const std::vector<Char> &input, int &head);
-        bool match(const Char &atom, const std::vector<Char> &input, int &head);
-        bool match(std::vector<Char> &&atoms, const std::vector<Char> &input, int &head);
-
-        static bool check(const Char& atom, const std::vector<Char>& input, int& head);
-        static int peek(const Char& atom, const std::vector<Char>& input, int& head);
+        void apply_semantic_action(rule_type rule, const std::vector<Char>& input, const int& start, const int& end) override;
     };
 
     class parser_context : public context<Token> {
@@ -67,15 +79,16 @@ namespace kepler::grammar {
         void accept(const std::vector<Token>& input, const int& head);
         void set_class(TokenClass token_class);
 
-        void apply_semantic_action(rule_type<Token, parser_context> rule, const std::vector<Token>& input, const int& head);
+        void apply_semantic_action(rule_type rule, const std::vector<Token>& input, const int& head, const int& end) override;
+    };
 
-        bool match(rule_type<Token, parser_context> rule, const std::vector<Token> &input, int &head);
-        bool match(const Token::content_type &content, const std::vector<Token> &input, int &head);
-        bool match(std::vector<Token::content_type> &&content, const std::vector<Token> &input, int &head);
-        bool match(const TokenClass &token_class, const std::vector<Token> &input, int &head);
+    class function_context : public context<Char> {
+    public:
+        Token identifier;
+        std::vector<Char> request;
 
-        static bool check(TokenClass token_class, const std::vector<Token> &input, int& head);
-        static bool check(const Token::content_type &content, const std::vector<Token> &input, int& head);
-        static int peek(const Token::content_type& content, const std::vector<Token>& input, int& head);
+        void backtrack(int amount) override;
+
+        void apply_semantic_action(rule_type rule, const std::vector<Char>& input, const int& start, const int& end) override;
     };
 };

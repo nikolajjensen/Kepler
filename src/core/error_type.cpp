@@ -36,6 +36,8 @@ std::string kepler::to_string(ErrorType error_type) {
             return "LIMIT ERROR";
         case InternalError:
             return "INTERNAL ERROR";
+        case DefinitionError:
+            return "DEFINITION ERROR";
         default:
             return "UNDEFINED ERROR";
     }

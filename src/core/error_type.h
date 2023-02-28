@@ -29,6 +29,7 @@ namespace kepler {
         RankError,
         LengthError,
         LimitError,
+        DefinitionError,
         InternalError
     };
 

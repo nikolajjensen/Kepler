@@ -16,29 +16,6 @@
 // You should have received a copy of the GNU General Public License 
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
+#include "defined_function.h"
 
-#pragma once
-#include <vector>
-#include <memory>
-#include "context.h"
-
-namespace kepler::grammar {
-    template <typename Atom, typename Context>
-    class Matcher {
-    public:
-        explicit Matcher(const std::vector<Atom> &input_) : input(input_), context() {}
-
-        bool match(typename Context::rule_type base_rule) {
-            int head = 0;
-            if(context.match(base_rule, input, head)) {
-                return head == input.size();
-            }
-
-            return false;
-        }
-
-        const std::vector<Atom>& input;
-        Context context;
-    };
-
-};
+kepler::DefinedFunction::DefinedFunction() : canonical_representation(), stop_vector(), trace_vector() {}

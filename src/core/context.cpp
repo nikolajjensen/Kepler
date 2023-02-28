@@ -18,20 +18,30 @@
 //
 
 #include "context.h"
+
+#include <utility>
 #include "datatypes.h"
 
 kepler::Context::Context()
         : mode(Mode::ImmediateExecutionMode),
           stack(),
           current_line(),
-          currentStatement(),
-          currentFunction(boost::none),
-          currentLineNumber(1) {}
+          current_statement(),
+          current_function(boost::none),
+          current_line_number(1) {}
 
 kepler::Context::Context(Mode mode_, List<Char> line_)
         : mode(mode_),
           stack(),
           current_line(std::move(line_)),
-          currentStatement(),
-          currentFunction(boost::none),
-          currentLineNumber(1) {}
+          current_statement(),
+          current_function(boost::none),
+          current_line_number(1) {}
+
+kepler::Context::Context(Mode mode_, List<Char> line_, DefinedFunction function_, int line_number_)
+        : mode(mode_),
+          stack(),
+          current_line(std::move(line_)),
+          current_statement(),
+          current_function(std::move(function_)),
+          current_line_number(line_number_) {}

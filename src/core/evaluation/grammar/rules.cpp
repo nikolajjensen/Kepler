@@ -22,14 +22,676 @@
 #include "core/error.h"
 
 namespace kepler::grammar {
+    bool rules::opening_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
 
-    bool rules::statement(const std::vector<Token> &input, parser_context &context, int &head) {
+        if(context.match(permitted_blanks, input, counter)
+           && context.match(del, input, counter)
+           && (context.match(creation_request, input, counter) || context.match(change_request, input, counter))) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::creation_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(header_line, input, head);
+    }
+
+    bool rules::change_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(permitted_blanks, input, counter)
+           && context.match(subject_function, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(initial_request, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::initial_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_bracket, input, counter)) {
+            if(!context.match(any, input, counter)) {
+                context.backtrack(counter - head);
+                return false;
+            }
+            while(context.match(any, input, counter)) {}
+
+            head = counter;
+            return true;
+        }
+
+        return false;
+    }
+
+    bool rules::general_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+        if(context.match(permitted_blanks, input, counter)) {
+            bool matched_pos_req = false;
+
+            while(context.match(positioning_request, input, counter)) {
+                matched_pos_req = true;
+
+                if(!context.match(permitted_blanks, input, counter)) {
+                    break; // Escape while loop.
+                }
+            }
+
+            if(matched_pos_req && context.match(function_line, input, counter)) {}
+            else if(context.match(deletion_request, input, counter)) {}
+            else if(context.match(display_request, input, counter)) {}
+            else {
+                context.backtrack(counter - head);
+                return false;
+            }
+
+            context.match(end_definition, input, counter);
+            head = counter;
+            return true;
+        }
+
+        return false;
+    }
+
+    bool rules::positioning_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_bracket, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(line_number, input, counter)
+           && context.match(right_bracket, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::deletion_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_bracket, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(delta, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(line_number, input, counter)
+           && context.match(right_bracket, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::display_request(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_bracket, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(quad, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(right_bracket, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::function_line(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(body_line, input, head);
+    }
+
+    bool rules::end_definition(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(permitted_blanks, input, counter)
+           && context.match(del, input, counter)
+           && context.match(permitted_blanks, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::line_number(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(decimal_rational, input, counter)
+           && context.match(permitted_blanks, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::subject_function(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::delta(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(constants::delta, input, head);
+    }
+
+    bool rules::left_bracket(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(constants::left_bracket, input, head);
+    }
+
+    bool rules::right_bracket(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(constants::right_bracket, input, head);
+    }
+
+
+
+    bool rules::header_line(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(permitted_blanks, input, counter)
+           && (context.match(result, input, counter) || true)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(form, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && (context.match(locals_list, input, counter) || true)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::result(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(result_name, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(constants::left_arrow, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::result_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::form(const std::vector<Char> &input, context<Char> &context, int &head) {
+        if(context.match(niladic_function_header, input, head)) {}
+        else if(context.match(monadic_function_header, input, head)) {}
+        else if(context.match(ambivalent_function_header, input, head)) {}
+        else if(context.match(monadic_monadic_operator_header, input, head)) {}
+        else if(context.match(monadic_dyadic_operator_header, input, head)) {}
+        else if(context.match(ambivalent_monadic_operator_header, input, head)) {}
+        else if(context.match(ambivalent_dyadic_operator_header, input, head)) {}
+        else { return false; }
+
+        return true;
+    }
+
+    bool rules::niladic_function_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(function_name, input, head);
+    }
+
+    bool rules::monadic_function_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(function_name, input, counter)
+           && context.match(required_blanks, input, counter)
+           && context.match(right_argument_name, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::ambivalent_function_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_argument_name, input, counter)
+           && context.match(required_blanks, input, counter)
+           && context.match(function_name, input, counter)
+           && context.match(required_blanks, input, counter)
+           && context.match(right_argument_name, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::monadic_monadic_operator_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(permitted_blanks, input, counter)
+           && context.match(monadic_operator_part, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(right_argument_name, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::monadic_dyadic_operator_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(permitted_blanks, input, counter)
+           && context.match(dyadic_operator_part, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(right_argument_name, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::ambivalent_monadic_operator_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_argument_name, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(monadic_operator_part, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(right_argument_name, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::ambivalent_dyadic_operator_header(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(left_argument_name, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(dyadic_operator_part, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(right_argument_name, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::monadic_operator_part(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(constants::left_parenthesis, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(left_operand_name, input, counter)
+           && context.match(required_blanks, input, counter)
+           && context.match(function_name, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(constants::right_parenthesis, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::dyadic_operator_part(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(constants::left_parenthesis, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(left_operand_name, input, counter)
+           && context.match(required_blanks, input, counter)
+           && context.match(function_name, input, counter)
+           && context.match(required_blanks, input, counter)
+           && context.match(right_operand_name, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(constants::right_parenthesis, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::right_argument_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::left_argument_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::right_operand_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::left_operand_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::locals_list(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        while(true) {
+            if(context.match(local_marker, input, counter)
+               && context.match(permitted_blanks, input, counter)
+               && context.match(local_name, input, counter)
+               && context.match(permitted_blanks, input, counter)) {
+                head = counter;
+            } else {
+                context.backtrack(counter - head);
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    bool rules::colon(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(constants::colon, input, head);
+    }
+
+    bool rules::local_marker(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(constants::semicolon, input, head);
+    }
+
+    bool rules::function_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::local_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(identifier, input, head);
+    }
+
+    bool rules::label_name(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(simple_identifier, input, head);
+    }
+
+    bool rules::body_line(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(permitted_blanks, input, counter)
+           && (context.match(labelled_line, input, counter) || context.match(line, input, counter))) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::labelled_line(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(label_name, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(colon, input, counter)
+           && context.match(permitted_blanks, input, counter)
+           && context.match(line, input, counter)) {
+            head = counter;
+            return true;
+        }
+
+        context.backtrack(counter - head);
+        return false;
+    }
+
+    bool rules::permitted_blanks(const std::vector<Char> &input, context<Char> &context, int &head) {
+        while(context.match(blank, input, head)) {}
+        return true;
+    }
+
+    bool rules::required_blanks(const std::vector<Char> &input, context<Char> &context, int &head) {
+        if(context.match(blank, input, head)) {
+            while(context.match(blank, input, head)) {}
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    bool rules::zero_digit(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match(constants::zero, input, head);
+    }
+
+    bool rules::nonzero_digit(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match<Char>(
+                {
+                    constants::one, constants::two, constants::three,
+                    constants::four, constants::five, constants::six,
+                    constants::seven, constants::eight, constants::nine,
+                }, input, head);
+    }
+
+    bool rules::sign(const std::vector<Char> &input, context<Char> &context, int &head) {
+        context.match(constants::overbar, input, head);
+        return true;
+    }
+
+    bool rules::decimal_integer(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(zero_digit, input, counter)) {}
+        else if(context.match(sign, input, counter) && context.match(nonzero_digit, input, counter)) {
+            while(context.match(digit, input, counter)) {}
+        } else {
+            context.backtrack(counter - head);
+            return false;
+        }
+
+        head = counter;
+        return true;
+    }
+
+    bool rules::decimal_rational(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(decimal_integer, input, counter)) {
+            if(context.match(dot, input, counter)) {
+                while(context.match(digit, input, counter)) {}
+                if(!context.match(nonzero_digit, input, counter)) {
+                    context.backtrack(counter - head);
+                    return false;
+                }
+            }
+        } else if(context.match(overbar, input, counter)
+                  && context.match(zero_digit, input, counter)
+                  && context.match(dot, input, counter)) {
+            while(context.match(digit, input, counter)) {}
+            if(!context.match(nonzero_digit, input, counter)) {
+                context.backtrack(counter - head);
+                return false;
+            }
+        } else {
+            context.backtrack(counter - head);
+            return false;
+        }
+
+        head = counter;
+        return true;
+    }
+
+    bool rules::decimal_rational_row(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+        int matched_decimal_rational = false;
+
+        while(context.match(blank, input, counter)) {}
+        while(context.match(decimal_rational, input, counter)) {
+            matched_decimal_rational = true;
+            while(context.match(blank, input, counter)) {}
+        }
+
+        if(matched_decimal_rational) {
+            head = counter;
+            return true;
+        } else {
+            context.backtrack(counter - head);
+            return false;
+        }
+    }
+
+    bool rules::minimal_decimal_exponential(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(zero_digit, input, counter)
+           && context.match(exponent_marker, input, counter)
+           && context.match(zero_digit, input, counter)) {}
+        else if(context.match(sign, input, counter)) {
+
+            int optional = counter;
+            if(context.match(nonzero_digit, input, optional)
+               && context.match(dot, input, optional)) {
+                while(context.match(digit, input, optional)) {}
+
+                counter = optional;
+            } else {
+                context.backtrack(optional - counter);
+            }
+
+            if(!(context.match(nonzero_digit, input, counter)
+                 && context.match(exponent_marker, input, counter)
+                 && context.match(decimal_integer, input, counter))) {
+                context.backtrack(counter - head);
+                return false;
+            }
+        } else {
+            context.backtrack(counter - head);
+            return false;
+        }
+
+        head = counter;
+        return true;
+    }
+
+    bool rules::decimal_exponential(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(sign, input, counter)) {
+            if(!context.match(nonzero_digit, input, counter)) {
+                context.backtrack(counter - head);
+                return false;
+            }
+
+            if(context.match(dot, input, counter)) {
+                if(!context.match(digit, input, counter)) {
+                    context.backtrack(counter - head);
+                    return false;
+                }
+
+                while(context.match(digit, input, counter)) {}
+            }
+
+            if(!(context.match(exponent_marker, input, counter)
+                 && context.match(decimal_integer, input, counter))) {
+                context.backtrack(counter - head);
+                return false;
+            }
+        } else if(context.match(zero_digit, input, counter)) {
+            if(context.match(dot, input, counter)) {
+                if(!context.match(zero_digit, input, counter)) {
+                    context.backtrack(counter - head);
+                    return false;
+                }
+
+                while(context.match(zero_digit, input, counter)) {}
+            }
+
+            if(!(context.match(exponent_marker, input, counter)
+                 && context.match(zero_digit, input, counter))) {
+                context.backtrack(counter - head);
+                return false;
+            }
+        }
+
+        head = counter;
+        return true;
+    }
+
+    bool rules::decimal_exponential_row(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+        int matched_decimal_rational = false;
+
+        while(context.match(blank, input, counter)) {
+            while(context.match(blank, input, counter)) {}
+
+            if(context.match(decimal_exponential, input, counter)) {
+                matched_decimal_rational = true;
+            } else {
+                break;
+            }
+        }
+
+        if(matched_decimal_rational) {
+            head = counter;
+            return true;
+        } else {
+            context.backtrack(counter - head);
+            return false;
+        }
+    }
+
+    bool rules::fixed_decimal(const std::vector<Char> &input, context<Char> &context, int &head) {
+        int counter = head;
+
+        if(context.match(decimal_integer, input, counter)) {}
+        else if(context.match(zero_digit, input, counter)) {
+            if(!context.match(dot, input, counter)) {
+                context.backtrack(counter - head);
+                return false;
+            }
+
+            if(!context.match(zero_digit, input, counter)) {
+                context.backtrack(counter - head);
+                return false;
+            }
+
+            while(context.match(zero_digit, input, counter)) {}
+        } else if(context.match(sign, input, counter)) {
+            if(!context.match(nonzero_digit, input, counter)) {
+
+            }
+        }
+
+        head = counter;
+        return true;
+    }
+
+    bool rules::statement(const std::vector<Token> &input, context<Token> &context, int &head) {
         context.match(branch_arrow, input, head);
         context.match(expression, input, head);
         return true;
     }
 
-    bool rules::expression(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::expression(const std::vector<Token> &input, context<Token> &context, int &head) {
         while(context.match(operation, input, head)) {}
         while(context.match(operand, input, head)) {
             if(!context.match(operation, input, head)) {
@@ -42,18 +704,18 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::operation(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::operation(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(assignment, input, head)
                 || context.match(token_operation, input, head)
                 || context.match(derived_function, input, head);
     }
 
-    bool rules::token_operation(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::token_operation(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(DefinedFunctionNameToken, input, head)
                || context.match(SystemFunctionNameToken, input, head);
     }
 
-    bool rules::assignment(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::assignment(const std::vector<Token> &input, context<Token> &context, int &head) {
         int counter = head;
 
         if(context.match(token_variable, input, counter)) {
@@ -70,13 +732,13 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::token_variable(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::token_variable(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(VariableNameToken, input, head)
                || context.match(SystemVariableNameToken, input, head)
                || context.match(SharedVariableNameToken, input, head);
     }
 
-    bool rules::derived_function(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::derived_function(const std::vector<Token> &input, context<Token> &context, int &head) {
         int counter = head;
         if(context.match(small_circle, input, counter) || context.match(primitive_function, input, counter)) {
             if(context.match(token_dot, input, counter)) {
@@ -106,11 +768,11 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::token_dot(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::token_dot(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::dot, input, head);
     }
 
-    bool rules::axis_specification(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::axis_specification(const std::vector<Token> &input, context<Token> &context, int &head) {
         int counter = head;
 
         if(context.match(left_axis_bracket, input, counter)) {
@@ -129,7 +791,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::operand(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::operand(const std::vector<Token> &input, context<Token> &context, int &head) {
         if(context.match(left_parenthesis, input, head)) {
             int counter = head;
             int end = context.peek(constants::right_parenthesis, input, counter);
@@ -150,7 +812,7 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::token_operand(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::token_operand(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(ConstantToken, input, head)
                 || context.match(VariableNameToken, input, head)
                 || context.match(SharedVariableNameToken, input, head)
@@ -159,7 +821,7 @@ namespace kepler::grammar {
                 || context.match(NiladicDefinedFunctionNameToken, input, head);
     }
 
-    bool rules::index(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::index(const std::vector<Token> &input, context<Token> &context, int &head) {
         int counter = head;
         if(context.match(left_index_bracket, input, counter)) {
             int end = context.peek(constants::right_bracket, input, counter);
@@ -185,8 +847,8 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::primitive_function(const std::vector<Token> &input, parser_context &context, int &head) {
-        return context.match(
+    bool rules::primitive_function(const std::vector<Token> &input, context<Token> &context, int &head) {
+        return context.match<Char>(
                 {
                     constants::left_caret, constants::less_than_or_equal, constants::equal,
                     constants::greater_than_or_equal, constants::right_caret, constants::not_equal,
@@ -206,43 +868,43 @@ namespace kepler::grammar {
                 }, input, head);
     }
 
-    bool rules::function(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::function(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(primitive_function, input, head)
                /*|| context.match(derived_function, input, head)*/
                || context.match(token_function, input, head);
     }
 
-    bool rules::token_function(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::token_function(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(DefinedFunctionNameToken, input, head)
                || context.match(SystemFunctionNameToken, input, head);
     }
 
-    bool rules::dyadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::dyadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(primitive_dyadic_operator, input, head)
                || context.match(defined_dyadic_operator, input, head);
     }
 
-    bool rules::defined_dyadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::defined_dyadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(DefinedDyadicOperatorNameToken, input, head);
     }
 
-    bool rules::monadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::monadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(primitive_monadic_operator, input, head)
                || context.match(defined_monadic_operator, input, head);
     }
 
-    bool rules::defined_monadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::defined_monadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(DefinedMonadicOperatorNameToken, input, head);
     }
 
-    bool rules::axis_monadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::axis_monadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::slash, input, head)
                || context.match(constants::slash_bar, input, head)
                || context.match(constants::back_slash, input, head)
                || context.match(constants::back_slash_bar, input, head);
     }
 
-    bool rules::primitive_monadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::primitive_monadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         if(context.match(axis_monadic_operator, input, head)) {}
         else if(context.match(diaeresis_tilde, input, head)) {}
         else { return false; }
@@ -250,59 +912,74 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::primitive_dyadic_operator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::primitive_dyadic_operator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(diaeresis_jot, input, head);
     }
 
-    bool rules::diaeresis_jot(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::diaeresis_jot(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::diaeresis_jot, input, head);
     }
 
-    bool rules::diaeresis_tilde(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::diaeresis_tilde(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::diaeresis_tilde, input, head);
     }
 
-    bool rules::left_parenthesis(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::left_parenthesis(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::left_parenthesis, input, head);
     }
 
-    bool rules::right_parenthesis(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::right_parenthesis(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::right_parenthesis, input, head);
     }
 
-    bool rules::left_axis_bracket(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::left_axis_bracket(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::left_bracket, input, head);
     }
 
-    bool rules::right_axis_bracket(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::right_axis_bracket(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::right_bracket, input, head);
     }
 
-    bool rules::branch_arrow(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::branch_arrow(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::right_arrow, input, head);
     }
 
-    bool rules::assignment_arrow(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::assignment_arrow(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::left_arrow, input, head);
     }
 
-    bool rules::left_index_bracket(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::left_index_bracket(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::left_bracket, input, head);
     }
 
-    bool rules::right_index_bracket(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::right_index_bracket(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::right_bracket, input, head);
     }
 
-    bool rules::index_separator(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::index_separator(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::semicolon, input, head);
     }
 
-    bool rules::small_circle(const std::vector<Token> &input, parser_context &context, int &head) {
+    bool rules::small_circle(const std::vector<Token> &input, context<Token> &context, int &head) {
         return context.match(constants::jot, input, head);
     }
 
-    bool rules::line(const std::vector<Char> &input, lexer_context &context, int &head) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    bool rules::line(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(identifier, input, head));
         else if(context.match(numeric_literal, input, head)) {}
 
@@ -317,7 +994,7 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::identifier(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::identifier(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(simple_identifier, input, head)) {}
         else if(context.match(distinguished_identifier, input, head)) {}
         else { return false; }
@@ -325,7 +1002,7 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::simple_identifier(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::simple_identifier(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(literal_identifier, input, head)) {}
         else if(context.match(direct_identifier, input, head)) {}
         else { return false; }
@@ -333,7 +1010,7 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::literal_identifier(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::literal_identifier(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(letter, input, head)) {
             while(context.match(letter, input, head)
                     || context.match(digit, input, head)
@@ -346,7 +1023,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::direct_identifier(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::direct_identifier(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(constants::alpha, input, head)) {}
         else if(context.match(constants::omega, input, head)) {}
         else { return false; }
@@ -354,7 +1031,7 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::distinguished_identifier(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::distinguished_identifier(const std::vector<Char> &input, context<Char>& context, int &head) {
         if(context.match(quote_quad, input, head)) {
             return true;
         } else if(context.match(quad, input, head)) {
@@ -365,7 +1042,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::numeric_literal(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::numeric_literal(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(numeric_scalar_literal, input, head)) {
             int counter = head;
 
@@ -385,7 +1062,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::real_scalar_literal(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::real_scalar_literal(const std::vector<Char> &input, context<Char> &context, int &head) {
         int counter = head;
 
         context.match(overbar, input, counter);
@@ -411,7 +1088,7 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::exponent(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::exponent(const std::vector<Char> &input, context<Char> &context, int &head) {
         int counter = head;
         if(context.match(exponent_marker, input, counter)) {
             context.match(overbar, input, counter);
@@ -428,7 +1105,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::numeric_scalar_literal(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::numeric_scalar_literal(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(real_scalar_literal, input, head)) {
             context.match(imaginary_part, input, head);
 
@@ -438,7 +1115,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::imaginary_part(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::imaginary_part(const std::vector<Char> &input, context<Char> &context, int &head) {
         int counter = head;
         if(context.match(complex_marker, input, counter)) {
             if(context.match(real_scalar_literal, input, counter)) {
@@ -452,7 +1129,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::character_literal(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::character_literal(const std::vector<Char> &input, context<Char>& context, int &head) {
         int counter = head;
         if(context.match(quote, input, counter)) {
             int end = context.peek(constants::quote, input, counter);
@@ -471,7 +1148,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::comment(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::comment(const std::vector<Char> &input, context<Char>& context, int &head) {
         if(context.match(lamp, input, head)) {
             while(context.match(any, input, head)) {}
             return true;
@@ -479,7 +1156,7 @@ namespace kepler::grammar {
         return false;
     }
 
-    bool rules::any(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::any(const std::vector<Char> &input, context<Char> &context, int &head) {
         if(context.match(quote, input, head)) {}
         else if(context.match(nonquote, input, head)) {}
         else { return false; }
@@ -487,15 +1164,15 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::primitive(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::primitive(const std::vector<Char> &input, context<Char> &context, int &head) {
         return context.match(ideogram, input, head);
     }
 
-    bool rules::space(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::space(const std::vector<Char> &input, context<Char> &context, int &head) {
         return context.match(constants::blank, input, head);
     }
 
-    bool rules::nonquote(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::nonquote(const std::vector<Char> &input, context<Char>& context, int &head) {
         if(context.match(ideogram, input, head)) {}
         else if(context.match(digit, input, head)) {}
         else if(context.match(blank, input, head)) {}
@@ -511,12 +1188,12 @@ namespace kepler::grammar {
         return true;
     }
 
-    bool rules::statement_separator(const std::vector<Char> &input, lexer_context &context, int &head) {
+    bool rules::statement_separator(const std::vector<Char> &input, context<Char> &context, int &head) {
         return context.match(diamond, input, head);
     }
 
-    bool rules::letter(const std::vector<Char> &input, lexer_context& context, int &head) {
-        return context.match(
+    bool rules::letter(const std::vector<Char> &input, context<Char>& context, int &head) {
+        return context.match<Char>(
                 {
                     constants::A, constants::B, constants::C,
                     constants::D, constants::E, constants::F,
@@ -539,8 +1216,8 @@ namespace kepler::grammar {
                 }, input, head);
     }
 
-    bool rules::digit(const std::vector<Char> &input, lexer_context &context, int &head) {
-        return context.match(
+    bool rules::digit(const std::vector<Char> &input, context<Char> &context, int &head) {
+        return context.match<Char>(
                 {
                     constants::one, constants::two, constants::three,
                     constants::four, constants::five, constants::six,
@@ -549,8 +1226,8 @@ namespace kepler::grammar {
                 }, input, head);
     }
 
-    bool rules::ideogram(const std::vector<Char> &input, lexer_context& context, int &head) {
-        return context.match(
+    bool rules::ideogram(const std::vector<Char> &input, context<Char>& context, int &head) {
+        return context.match<Char>(
                 {
                     constants::diaeresis, constants::overbar, constants::left_caret,
                     constants::less_than_or_equal, constants::equal, constants::greater_than_or_equal,
@@ -579,55 +1256,55 @@ namespace kepler::grammar {
                 }, input, head);
     }
 
-    bool rules::quote(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::quote(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::quote, input, head);
     }
 
-    bool rules::exponent_marker(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::exponent_marker(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::E, input, head);
     }
 
-    bool rules::complex_marker(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::complex_marker(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::J, input, head);
     }
 
-    bool rules::dot(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::dot(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::dot, input, head);
     }
 
-    bool rules::underbar(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::underbar(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::underbar, input, head);
     }
 
-    bool rules::overbar(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::overbar(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::overbar, input, head);
     }
 
-    bool rules::blank(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::blank(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::blank, input, head);
     }
 
-    bool rules::del(const std::vector<Char>& input, lexer_context& context, int &head) {
+    bool rules::del(const std::vector<Char>& input, context<Char>& context, int &head) {
         return context.match(constants::del, input, head);
     }
 
-    bool rules::del_tilde(const std::vector<Char>& input, lexer_context& context, int &head) {
+    bool rules::del_tilde(const std::vector<Char>& input, context<Char>& context, int &head) {
         return context.match(constants::del_tilde, input, head);
     }
 
-    bool rules::lamp(const std::vector<Char>& input, lexer_context& context, int &head) {
+    bool rules::lamp(const std::vector<Char>& input, context<Char>& context, int &head) {
         return context.match(constants::up_shoe_jot, input, head);
     }
 
-    bool rules::quad(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::quad(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::quad, input, head);
     }
 
-    bool rules::quote_quad(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::quote_quad(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::quote_quad, input, head);
     }
 
-    bool rules::diamond(const std::vector<Char> &input, lexer_context& context, int &head) {
+    bool rules::diamond(const std::vector<Char> &input, context<Char>& context, int &head) {
         return context.match(constants::diamond, input, head);
     }
 };
