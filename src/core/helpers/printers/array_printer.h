@@ -32,20 +32,20 @@ namespace kepler::helpers {
         void operator()(const Array& array) const {
             //stream << std::setprecision(print_precision);
 
-            if(array.shapeList.size() == 0) {
-                boost::apply_visitor(*this, array.ravelList[0]);
-            } if(array.shapeList.size() == 1) {
-                for(int e = 0; e < array.shapeList[0]; ++e) {
-                    boost::apply_visitor(*this, array.ravelList[e]);
-                    if(e < array.shapeList[0] - 1) {
+            if(array.shape_list.size() == 0) {
+                boost::apply_visitor(*this, array.ravel_list[0]);
+            } if(array.shape_list.size() == 1) {
+                for(int e = 0; e < array.shape_list[0]; ++e) {
+                    boost::apply_visitor(*this, array.ravel_list[e]);
+                    if(e < array.shape_list[0] - 1) {
                         stream << " ";
                     }
                 }
-            } else if(array.shapeList.size() == 2) {
-                for(int row = 0; row < array.shapeList[0]; ++row) {
-                    for(int col = 0; col < array.shapeList[1]; ++col) {
-                        boost::apply_visitor(*this, array.ravelList[row * array.shapeList[0] + col]);
-                        if(col < array.shapeList[1] - 1) {
+            } else if(array.shape_list.size() == 2) {
+                for(int row = 0; row < array.shape_list[0]; ++row) {
+                    for(int col = 0; col < array.shape_list[1]; ++col) {
+                        boost::apply_visitor(*this, array.ravel_list[row * array.shape_list[0] + col]);
+                        if(col < array.shape_list[1] - 1) {
                             stream << " ";
                         }
                     }
@@ -69,20 +69,20 @@ namespace kepler::helpers {
 
         void operator()(const Array& array) const {
             stream << "<Array>[";
-            if(array.shapeList.size() == 0) {
-                boost::apply_visitor(*this, array.ravelList[0]);
-            } if(array.shapeList.size() == 1) {
-                for(int e = 0; e < array.shapeList[0]; ++e) {
-                    boost::apply_visitor(*this, array.ravelList[e]);
-                    if(e < array.shapeList[0] - 1) {
+            if(array.shape_list.size() == 0) {
+                boost::apply_visitor(*this, array.ravel_list[0]);
+            } if(array.shape_list.size() == 1) {
+                for(int e = 0; e < array.shape_list[0]; ++e) {
+                    boost::apply_visitor(*this, array.ravel_list[e]);
+                    if(e < array.shape_list[0] - 1) {
                         stream << " ";
                     }
                 }
-            } else if(array.shapeList.size() == 2) {
-                for(int row = 0; row < array.shapeList[0]; ++row) {
-                    for(int col = 0; col < array.shapeList[1]; ++col) {
-                        boost::apply_visitor(*this, array.ravelList[row * array.shapeList[0] + col]);
-                        if(col < array.shapeList[1] - 1) {
+            } else if(array.shape_list.size() == 2) {
+                for(int row = 0; row < array.shape_list[0]; ++row) {
+                    for(int col = 0; col < array.shape_list[1]; ++col) {
+                        boost::apply_visitor(*this, array.ravel_list[row * array.shape_list[0] + col]);
+                        if(col < array.shape_list[1] - 1) {
                             stream << " ";
                         }
                     }

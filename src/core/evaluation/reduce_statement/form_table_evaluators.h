@@ -409,8 +409,8 @@ namespace kepler::form_table::evaluators {
 
         Array operator()(const Array& arr) override {
             List<Number> ravel;
-            ravel.reserve(arr.ravelList.size());
-            for(auto& dim : arr.shapeList) {
+            ravel.reserve(arr.ravel_list.size());
+            for(auto& dim : arr.shape_list) {
                 ravel.emplace_back(dim);
             }
             return Array::vectorOf(std::move(ravel));

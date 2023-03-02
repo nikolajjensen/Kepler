@@ -19,6 +19,8 @@
 
 #include "context.h"
 #include "rules.h"
+#include "matcher.h"
+#include "core/evaluation/numeric.h"
 
 namespace kepler::grammar {
     template <>
@@ -40,9 +42,10 @@ namespace kepler::grammar {
     }
 
 
+    void generic_char_context::backtrack(int amount) {}
 
-
-
+    void generic_char_context::apply_semantic_action(rule_type rule, const std::vector<Char> &input, const int &start,
+                                                     const int &end) {}
 
 
 
@@ -196,6 +199,66 @@ namespace kepler::grammar {
         } else if(rule == rules::initial_request) {
             request.clear();
             std::copy(input.begin() + start, input.begin() + end, std::back_inserter(request));
+        }
+    }
+
+    function_editing_context::function_editing_context(Token& identifier_, Context &context_) : identifier(identifier_), context(context_) {}
+
+    void function_editing_context::backtrack(int amount) {
+
+    }
+
+    void
+    function_editing_context::apply_semantic_action(rule_type rule, const std::vector<Char> &input, const int &start, const int &end) {
+        DefinedFunction& function = context.current_function.get();
+
+        if(rule == rules::positioning_request) {
+            List<Char> char_list = {input.begin() + start, input.begin() + end};
+            Number number = number_from_characters(char_list);
+            if(algorithms::less_than(number, 0)) {
+                throw kepler::error(DefinitionError, "Line number cannot be negative.");
+            }
+            if(algorithms::greater_than(number, constants::definition_line_limit)) {
+                throw kepler::error(LimitError, "Line number cannot be greater than " + std::to_string(constants::definition_line_limit) + ".");
+            }
+
+            context.current_line_number = number;
+        } else if(rule == rules::deletion_request) {
+            List<Char> char_list = {input.begin() + start, input.begin() + end};
+            Number number = number_from_characters(char_list);
+
+            if(!algorithms::greater_than(number, 0)) {
+                throw kepler::error(DefinitionError, "Line number must be positive.");
+            }
+            if(algorithms::greater_than(number, constants::definition_line_limit)) {
+                throw kepler::error(LimitError, "Line number cannot be greater than " + std::to_string(constants::definition_line_limit) + ".");
+            }
+
+            context.current_line_number = number;
+
+            // TODO: Delete the row associated with 'number' in
+            //  canonical-representation, current-stop-vector,
+            //  and current-trace-vector.
+        } else if(rule == rules::display_request) {
+            // TODO: Display the function.
+        } else if(rule == rules::function_line) {
+            List<Char> char_list = {input.begin() + start, input.begin() + end};
+
+            bool is_all_blanks = Matcher<Char, grammar::generic_char_context>(char_list).match(rules::permitted_blanks);
+
+            if(!is_all_blanks) {
+                if(context.current_line_number == 0.0) {
+                    bool is_header = Matcher<Char, grammar::generic_char_context>(char_list).match(rules::header_line);
+                    if(!is_header) throw kepler::error(DefinitionError, "Line 0 must be a function header.");
+                }
+
+                function.canonical_representation[(int)context.current_line_number.real()] = char_list;
+
+            }
+        } else if(rule == rules::end_definition) {
+            std::cout << "End definition" << std::endl;
+            // TODO: Check if properly defined.
+            // TODO: Check if repeated argument
         }
     }
 };

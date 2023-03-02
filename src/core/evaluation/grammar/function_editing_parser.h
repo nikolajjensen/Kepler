@@ -18,28 +18,27 @@
 //
 
 #pragma once
-#include <vector>
-#include <memory>
+#include "matcher.h"
 #include "context.h"
+#include "core/error.h"
+#include "core/datatypes.h"
+#include "rules.h"
 
-namespace kepler::grammar {
-    template <typename Atom, typename Context>
-    class Matcher {
+namespace kepler {
+    class FunctionEditingParser : public grammar::Matcher<Char, grammar::function_editing_context> {
+    private:
+        Token& identifier;
+        Context& context;
+
     public:
-        template <typename... Args>
-        explicit Matcher(const std::vector<Atom> &input_, Args... args) : input(input_), context(args...) {}
+        explicit FunctionEditingParser(Token& identifier_, Context& context_)
+                              : grammar::Matcher<Char, grammar::function_editing_context>(context_.current_line, identifier_, context_),
+                                identifier(identifier_), context(context_) {}
 
-        bool match(typename Context::rule_type base_rule) {
-            int head = 0;
-            if(context.match(base_rule, input, head)) {
-                return head == input.size();
+        void parse() {
+            if(!grammar::Matcher<Char, grammar::function_editing_context>::match(grammar::rules::general_request)) {
+                throw kepler::error(DefinitionError, "Could not parse input.");
             }
-
-            return false;
         }
-
-        const std::vector<Atom>& input;
-        Context context;
     };
-
 };

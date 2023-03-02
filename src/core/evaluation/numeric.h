@@ -42,4 +42,5 @@ namespace kepler::algorithms {
     bool near_boolean(const Number& n);
     bool real_within(const Number&, const Number&);
     bool near_real(const Number& n);
+
 };

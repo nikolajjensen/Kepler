@@ -33,7 +33,7 @@ namespace kepler {
         List<Char> current_line;
         List<Token> current_statement;
         boost::optional<DefinedFunction> current_function;
-        int current_line_number;
+        Number current_line_number;
 
         Context();
         Context(Mode mode, List<Char> line);

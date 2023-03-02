@@ -21,6 +21,7 @@
 #include "grammar/lexer.h"
 #include "grammar/parser.h"
 #include "grammar/function_parser.h"
+#include "grammar/function_editing_parser.h"
 #include "reduce_statement/form_table.h"
 #include "reduce_statement/phrase_table.h"
 
@@ -82,7 +83,7 @@ Token evaluation::evaluate_line(Context &context, Session &session) {
     return evaluate_statement(context, session);
 }
 
-void evaluation::evaluate_function_definition_request(List<Char> &input, Session &session) {
+Token evaluation::evaluate_function_definition_request(List<Char> &input, Session &session) {
     FunctionParser parser(input);
     parser.parse();
 
@@ -96,13 +97,28 @@ void evaluation::evaluate_function_definition_request(List<Char> &input, Session
         // Set M to the current-referent of N.
     }
 
-    session.active_workspace.add_context({
+    Context& context = session.active_workspace.add_context({
         FunctionDefinitionMode,
         parser.get_request(),
         defined_function,
         static_cast<int>(defined_function.canonical_representation.size())
     });
 
+    Token result;
+    while(true) {
+        result = evaluate_editing_request(parser.get_identifier(), context, session);
+
+        if(result.token_class == CommandCompleteToken) {
+            session.active_workspace.state_indicator.erase(session.active_workspace.state_indicator.begin());
+            return result;
+        }
+    }
+}
+
+Token evaluation::evaluate_editing_request(Token& identifier, Context& context, Session& session) {
+    DefinedFunction function = context.current_function.get();
+
+    FunctionEditingParser parser(identifier, context);
 
 }
 
@@ -186,11 +202,4 @@ void evaluation::literal_conversion(kepler::Token& token, kepler::Session& sessi
     }
 
     token.token_class = ConstantToken;
-}
-
-void evaluation::scalar_conversion(kepler::Token &token) {
-    if(token.contains<List<Char>>()) {
-        auto& list = token.get_content<List<Char>>();
-        token.content = list[0];
-    }
 }

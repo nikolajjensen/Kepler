@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,15 +17,25 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "datatypes.h"
+#include "lexer.h"
 
-namespace kepler {
-    struct DefinedFunction {
-        List<List<Char>> canonical_representation;
-        List<Number> stop_vector;
-        List<Number> trace_vector;
+namespace kepler {/*
+    Lexer::Lexer(const List<Char> &input_) : input(input_) {}
 
-        DefinedFunction();
-    };
+    Token Lexer::next() {
+        //skip_blanks();
+        //skip_comment();
+
+
+    }
+
+    List<Token> Lexer::lex() {
+        List<Token> result = {next()};
+
+        while(cursor < input.size()) {
+            result.emplace_back(std::move(next()));
+        }
+
+        return result;
+    }*/
 };

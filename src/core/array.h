@@ -19,6 +19,7 @@
 
 #pragma once
 #include "datatypes.h"
+#include "array_types.h"
 
 #include <boost/variant.hpp>
 
@@ -26,15 +27,31 @@ namespace kepler {
     class Array {
     public:
         typedef boost::variant<Char, Number, boost::recursive_wrapper<Array>> element_type;
-        typedef List<element_type> ravel_list_type;
 
-        List<int> shapeList;
-        ravel_list_type ravelList;
+        ArrayType type;
+        List<int> shape_list;
+        List<element_type> ravel_list;
 
         Array() = default;
-        Array(List<int> shapeList, ravel_list_type ravelList);
+        Array(List<int> shapeList, List<element_type> ravelList);
+        Array(ArrayType type, List<int> shapeList, List<element_type> ravelList);
 
+        ArrayType sufficient_type() const;
         int rank() const;
+        bool is_simple() const;
+        bool is_scalar() const;
+        bool is_simple_scalar() const;
+        Array first_thingy() const;
+        Array numeric_scalar_with_value(const Number& num) const;
+        int count() const;
+        bool is_vector() const;
+        bool is_matrix() const;
+        int length() const;
+        element_type typical_element() const;
+        bool is_empty() const;
+
+
+
 
         template <typename T>
         static Array vectorOf(List<T>&& ravelList);
@@ -42,34 +59,26 @@ namespace kepler {
 
         template <typename Variant>
         bool contains_at(int i) const {
-            return ravelList[i].type() == typeid(Variant);
+            return ravel_list[i].type() == typeid(Variant);
         }
 
         template <typename Variant>
         Variant& get_content(int i = 0) {
-            return boost::get<Variant>(ravelList[i]);
+            return boost::get<Variant>(ravel_list[i]);
         }
 
         template <typename Variant>
         const Variant& get_content(int i = 0) const {
-            return boost::get<const Variant>(ravelList[i]);
-        }
-
-        bool empty() const {
-            return ravelList.empty();
-        }
-
-        std::size_t count() const {
-            return ravelList.size();
+            return boost::get<const Variant>(ravel_list[i]);
         }
 
         friend bool operator==(const Array& lhs, const Array& rhs) {
-            return lhs.shapeList == rhs.shapeList && lhs.ravelList == rhs.ravelList;
+            return lhs.shape_list == rhs.shape_list && lhs.ravel_list == rhs.ravel_list;
         }
 
         Array& operator=(const Array& other) {
-            this->shapeList = other.shapeList;
-            this->ravelList = other.ravelList;
+            this->shape_list = other.shape_list;
+            this->ravel_list = other.ravel_list;
 
             return *this;
         }

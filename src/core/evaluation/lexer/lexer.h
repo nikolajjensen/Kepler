@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,14 +18,27 @@
 //
 
 #pragma once
-#include "datatypes.h"
+#include "core/token.h"
+#include "core/datatypes.h"
 
-namespace kepler {
-    struct DefinedFunction {
-        List<List<Char>> canonical_representation;
-        List<Number> stop_vector;
-        List<Number> trace_vector;
+namespace kepler {/*
+    class Lexer {
+    private:
+        const List<Char>& input;
+        int cursor;
 
-        DefinedFunction();
+        void skip_blanks();
+        void skip_comment();
+        Number real_number();
+        Token number();
+        Token identifier();
+        Token primitive();
+        Token next();
+
+    public:
+        Lexer(const List<Char>& input);
+
+        List<Token> lex();
     };
+    */
 };

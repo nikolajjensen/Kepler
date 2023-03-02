@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,14 +18,11 @@
 //
 
 #pragma once
-#include "datatypes.h"
 
 namespace kepler {
-    struct DefinedFunction {
-        List<List<Char>> canonical_representation;
-        List<Number> stop_vector;
-        List<Number> trace_vector;
-
-        DefinedFunction();
+    enum ArrayType {
+        CharacterType,
+        NumericType,
+        MixedType,
     };
 };

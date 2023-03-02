@@ -138,7 +138,7 @@ namespace kepler::form_table::extensions {
 
         Array operator()(const Array& arr) const override {
             Array result = arr;
-            for(auto& element : result.ravelList) {
+            for(auto& element : result.ravel_list) {
                 element = boost::apply_visitor(*ev, element);
             }
             return result;
@@ -146,8 +146,8 @@ namespace kepler::form_table::extensions {
 
         Array operator()(const Array& lhs, const Array& rhs) const override {
             Array a = lhs;
-            for(int i = 0; i < a.ravelList.size(); ++i) {
-                a.ravelList[i] = boost::apply_visitor(*ev, lhs.ravelList[i], rhs.ravelList[i]);
+            for(int i = 0; i < a.ravel_list.size(); ++i) {
+                a.ravel_list[i] = boost::apply_visitor(*ev, lhs.ravel_list[i], rhs.ravel_list[i]);
             }
             return a;
         }
@@ -237,7 +237,7 @@ namespace kepler::form_table::extensions {
 
         Array operator()(const Array& arr) {
             Array result = arr;
-            for(auto& element : result.ravelList) {
+            for(auto& element : result.ravel_list) {
                 element = boost::apply_visitor(this->evaluator, element);
             }
             return result;
@@ -245,8 +245,8 @@ namespace kepler::form_table::extensions {
 
         Array operator()(const Array& lhs, const Array& rhs) {
             Array a = lhs;
-            for(int i = 0; i < a.ravelList.size(); ++i) {
-                a.ravelList[i] = boost::apply_visitor(this->evaluator, lhs.ravelList[i], rhs.ravelList[i]);
+            for(int i = 0; i < a.ravel_list.size(); ++i) {
+                a.ravel_list[i] = boost::apply_visitor(this->evaluator, lhs.ravel_list[i], rhs.ravel_list[i]);
             }
             return a;
         }

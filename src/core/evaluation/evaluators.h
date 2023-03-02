@@ -27,9 +27,9 @@ namespace kepler::evaluation {
     Token evaluate_statement(Context& context, Session& session);
     Token evaluate_line(Context& context, Session& session);
 
-    void evaluate_function_definition_request(List<Char>& input, Session& session);
+    Token evaluate_editing_request(Token& identifier, Context& context, Session& session);
+    Token evaluate_function_definition_request(List<Char>& input, Session& session);
 
     void bind_token_class(Token& token, Session& session);
     void literal_conversion(Token& token, Session& session);
-    void scalar_conversion(Token& token);
 };

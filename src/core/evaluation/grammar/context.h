@@ -54,9 +54,15 @@ namespace kepler::grammar {
 };
 
 #include "context.tpp"
+#include "core/context.h"
 
 namespace kepler::grammar {
-    class lexer_context : public context<Char> {
+    class generic_char_context : public context<Char> {
+        virtual void backtrack(int amount) override;
+        virtual void apply_semantic_action(rule_type rule, const std::vector<Char>& input, const int& start, const int& end) override;
+    };
+
+    class lexer_context : public generic_char_context {
     public:
         std::vector<Char> content;
         std::vector<Token> output;
@@ -82,10 +88,22 @@ namespace kepler::grammar {
         void apply_semantic_action(rule_type rule, const std::vector<Token>& input, const int& head, const int& end) override;
     };
 
-    class function_context : public context<Char> {
+    class function_context : public generic_char_context {
     public:
         Token identifier;
         std::vector<Char> request;
+
+        void backtrack(int amount) override;
+
+        void apply_semantic_action(rule_type rule, const std::vector<Char>& input, const int& start, const int& end) override;
+    };
+
+    class function_editing_context : public generic_char_context {
+    public:
+        explicit function_editing_context(Token& identifier, Context& context);
+
+        Token& identifier;
+        Context& context;
 
         void backtrack(int amount) override;
 

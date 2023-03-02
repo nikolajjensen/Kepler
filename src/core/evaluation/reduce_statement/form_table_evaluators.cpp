@@ -29,10 +29,10 @@ namespace kepler::form_table::evaluators {
         auto& evaluator = applicator->ar->ex->ev;
 
         Array result = Array::vectorOf(List<Number>{0});
-        auto& accumulator = result.ravelList[0];
-        accumulator = operand.ravelList.back();
+        auto& accumulator = result.ravel_list[0];
+        accumulator = operand.ravel_list.back();
 
-        for(auto i = operand.ravelList.rbegin() + 1; i != operand.ravelList.rend(); ++i) {
+        for(auto i = operand.ravel_list.rbegin() + 1; i != operand.ravel_list.rend(); ++i) {
             accumulator = boost::apply_visitor(*evaluator, *i, accumulator);
         }
 
