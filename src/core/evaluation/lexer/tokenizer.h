@@ -17,25 +17,31 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "lexer.h"
+#pragma once
+#include "core/token.h"
+#include "core/datatypes.h"
 
-namespace kepler {/*
-    Lexer::Lexer(const List<Char> &input_) : input(input_) {}
+namespace kepler {
+    /*
+    class Tokenizer {
+    private:
+        const List<Char>& input;
+        int cursor;
 
-    Token Lexer::next() {
-        //skip_blanks();
-        //skip_comment();
+        bool next_is_in(std::u32string&& elements);
 
+        void skip_blanks();
+        void skip_comment();
+        Number real_number();
+        Token number();
+        Token identifier();
+        Token primitive();
+        Token next();
 
-    }
+    public:
+        Tokenizer(const List<Char>& input);
 
-    List<Token> Lexer::lex() {
-        List<Token> result = {next()};
-
-        while(cursor < input.size()) {
-            result.emplace_back(std::move(next()));
-        }
-
-        return result;
-    }*/
+        List<Token> lex();
+    };
+     */
 };

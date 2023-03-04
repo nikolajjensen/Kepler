@@ -176,4 +176,7 @@ namespace kepler::constants {
     const List<Char> PP = {constants::quad, constants::P, constants::P};
     const List<Char> IO = {constants::quad, constants::I, constants::O};
     const List<Char> LX = {constants::quad, constants::L, constants::X};
+
+    //const StringUTF32 identifier_characters = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
 };
