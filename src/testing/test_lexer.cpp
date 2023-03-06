@@ -26,7 +26,7 @@
 
 TEST_CASE_METHOD(lexer_fixture, "comment", "[tokenizer][comment]") {
     CHECK_NOTHROW(run("⍝This is a comment!"));
-    CHECK_THAT(run("⍝This is a comment!"), Outputs({{kepler::END}}));
+    CHECK_THAT(run("⍝This is a comment!"), Outputs({kepler::Token{kepler::END}}));
 
     CHECK_NOTHROW(run("⍝ This is a comment!"));
     CHECK_THAT(run("⍝ This is a comment!"), Outputs({{kepler::END}}));

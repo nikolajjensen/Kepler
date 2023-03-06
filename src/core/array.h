@@ -19,6 +19,7 @@
 
 #pragma once
 #include "datatypes.h"
+#include <variant>
 
 namespace kepler {
     struct Array {

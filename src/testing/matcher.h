@@ -44,7 +44,7 @@ private:
 };
 
 struct Outputs : Catch::Matchers::MatcherGenericBase {
-    explicit Outputs(kepler::List<kepler::Token> const& output_) : output(output_) {}
+    explicit Outputs(const std::initializer_list<kepler::Token>& output_) : output(output_) {}
 
     bool match(kepler::List<kepler::Token> const & result) const {
         return result == output;
@@ -55,7 +55,7 @@ struct Outputs : Catch::Matchers::MatcherGenericBase {
     }
 
 private:
-    kepler::List<kepler::Token> const& output;
+    kepler::List<kepler::Token> output;
 };
 
 struct Throws : Catch::Matchers::MatcherGenericBase {
