@@ -19,8 +19,14 @@
 
 #pragma once
 #include "core/token.h"
-#include "core/session.h"
 
+namespace kepler::helpers {
+    bool is_function(TokenType type);
+    bool is_monadic_operator(TokenType type);
+    bool is_dyadic_operator(TokenType type);
+    bool is_array_token(TokenType type);
+};
+/*
 namespace kepler::helpers {
     bool is_identifier(const Token& token);
     bool is_literal(const Token& token);
@@ -37,7 +43,8 @@ namespace kepler::helpers {
     bool is_exception(const Token& token);
     bool is_result(const Token& token);
 
-    bool is(const Token& token, TokenClass tokenClass);
+    bool is(const Token& token, TokenType tokenClass);
 
     bool is_scalar(const Token& token);
 };
+ */

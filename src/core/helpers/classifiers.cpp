@@ -20,6 +20,27 @@
 #include "classifiers.h"
 #include "core/session.h"
 
+bool kepler::helpers::is_function(TokenType type) {
+    return type == PLUS || type == MINUS || type == TIMES || type == DIVIDE || type == FLOOR
+           || type == CEILING || type == RIGHT_TACK || type == LEFT_TACK || type == IOTA || type == LESS
+           || type == LESSEQ || type == EQ || type == GREATEREQ || type == GREATER || type == NEQ
+           || type == WITHOUT || type == LSHOE || type == RHO || type == AND || type == OR
+           || type == NAND || type == NOR || type == DECODE || type == ENCODE;
+}
+
+bool kepler::helpers::is_monadic_operator(TokenType type) {
+    return type == COMMUTE || type == DIAERESIS || type == SLASH;
+}
+
+bool kepler::helpers::is_dyadic_operator(TokenType type) {
+    return type == JOT || type == ATOP || type == OVER;
+}
+
+bool kepler::helpers::is_array_token(TokenType type) {
+    return type == NUMBER || type == STRING || type == ID;
+}
+
+/*
 bool kepler::helpers::is_identifier(const Token &token) {
     return token.token_class == SimpleIdentifierToken || token.token_class == DistinguishedIdentifierToken;
 }
@@ -123,7 +144,7 @@ bool kepler::helpers::is_result(const Token &token) {
             || kepler::helpers::is_value(token);
 }
 
-bool kepler::helpers::is(const Token &token, TokenClass tokenClass) {
+bool kepler::helpers::is(const Token &token, TokenType tokenClass) {
     return token.token_class == tokenClass;
 }
 
@@ -134,3 +155,4 @@ bool kepler::helpers::is_scalar(const Token& token) {
 
     return false;
 }
+ */

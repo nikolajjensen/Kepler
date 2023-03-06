@@ -17,24 +17,23 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "symbol_table.h"
+#pragma once
+#include "core/array.h"
+#include "core/evaluation/operations/operation.h"
+#include "core/evaluation/ast.h"
+
 
 namespace kepler {
-    SymbolTable::SymbolTable() : table() {}
-
-    void SymbolTable::set(const std::u32string &id, const Array& value) {
-        table.insert_or_assign(id, value);
-    }
-
-    void SymbolTable::set(const std::u32string &id, const Number& value) {
-        set(id, Array{{}, {value}});
-    }
-
-    bool SymbolTable::contains(const std::u32string &id) const {
-        return table.contains(id);
-    }
-
-    const Array& SymbolTable::get(const std::u32string &id) const {
-        return table.at(id);
-    }
+    struct NodeVisitor {
+        virtual Array visit(Scalar* node) = 0;
+        virtual Array visit(Vector* node) = 0;
+        virtual Operation* visit(MonadicOperator* node) = 0;
+        virtual Operation* visit(DyadicOperator* node) = 0;
+        virtual Operation* visit(Function* node) = 0;
+        virtual Array visit(MonadicFunction* node) = 0;
+        virtual Array visit(DyadicFunction* node) = 0;
+        virtual Array visit(Assignment* node) = 0;
+        virtual Array visit(Variable* node) = 0;
+        virtual Array visit(Statements* node) = 0;
+    };
 };

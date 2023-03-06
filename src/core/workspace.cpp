@@ -24,9 +24,8 @@
 kepler::Workspace::Workspace(
         StringUTF8 workspace_name_)
         : workspace_name(std::move(workspace_name_)),
-          symbol_table(),
-          state_indicator(),
-          existential_property(WorkspacePresence::AbsentWorkspace) {}
+          //symbol_table(),
+          state_indicator() {}
 
 kepler::Context& kepler::Workspace::add_context(kepler::Context &&context) {
     return *state_indicator.emplace(state_indicator.begin(), std::move(context));

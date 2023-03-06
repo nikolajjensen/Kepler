@@ -18,29 +18,26 @@
 //
 
 #pragma once
+#include <string>
 #include "workspace.h"
-#include "core/constants/config.h"
+#include "core/evaluation/parser/parser.h"
+#include "core/evaluation/tokenizer/tokenizer.h"
+#include "core/evaluation/interpreter.h"
 
 namespace kepler {
     class Session {
+    private:
+        Tokenizer tokenizer;
+        Parser parser;
+        Interpreter interpreter;
+
     public:
         Workspace active_workspace;
         std::string session_name;
 
         explicit Session(std::string&& name);
 
-        Token& get_current_referent(const Token& token);
-        void set_current_referent(const Token& token, List<Token> &&content);
-        TokenClass current_class(const Token& token);
-        bool editable(const Token& identifier);
-        bool waiting(const Token& identifier);
-        bool pendent(const Token& identifier);
-        bool suspended(const Token& identifier);
-
-        Array& get_system_parameter(const List<Char>& id);
-
         void immediate_execution_mode();
-        void immediate_execution(std::string&& input, std::ostream& stream = std::cout);
-        void immediate_execution(Token&& input, std::ostream& stream = std::cout);
+        void immediate_execution(std::u32string&& input, std::ostream& stream = std::cout);
     };
 };

@@ -21,22 +21,13 @@
 #include "core/token.h"
 #include "core/constants/literals.h"
 #include "core/constants/config.h"
-#include "core/helpers/printers/error_printer.h"
-#include "core/helpers/printers/token_printer.h"
 #include <catch2/catch_tostring.hpp>
 
 namespace Catch {
     template <>
     struct StringMaker<kepler::Token> {
         static std::string convert(kepler::Token const & token) {
-            std::stringstream ss;
-            ss << "\"";
-
-            kepler::helpers::TokenPrinter p(ss, kepler::constants::initial_print_precision);
-            p(token);
-            ss << "\"";
-
-            return ss.str();
+            return "\"" + token.to_string() + "\"";
         }
     };
 
@@ -44,8 +35,16 @@ namespace Catch {
     struct StringMaker<kepler::List<kepler::Token>> {
         static std::string convert(kepler::List<kepler::Token> const & tokens) {
             std::stringstream ss;
-            kepler::helpers::TokenListDebugPrinter p(ss);
-            p(tokens);
+            ss << "{";
+            for(int i = 0; i < tokens.size(); ++i) {
+                ss << "[";
+                if(i < 10) {
+                    ss << " ";
+                }
+                ss << std::to_string(i) << "]\t\t";
+                ss << tokens[i].to_string() << "\n";
+            }
+            ss << "}\n";
             return ss.str();
         }
     };
@@ -53,14 +52,7 @@ namespace Catch {
     template <>
     struct StringMaker<kepler::error> {
         static std::string convert(kepler::error const & err) {
-            std::stringstream ss;
-            ss << "\"";
-
-            kepler::helpers::ErrorPrinter p(ss);
-            p(err);
-            ss << "\"";
-
-            return ss.str();
+            return "\"" + err.to_string() + "\"";
         }
     };
 };

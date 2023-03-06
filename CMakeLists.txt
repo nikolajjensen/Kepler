@@ -3,11 +3,11 @@ project(Kepler)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
+#set(Boost_USE_STATIC_LIBS OFF)
+#set(Boost_USE_MULTITHREADED ON)
+#set(Boost_USE_STATIC_RUNTIME OFF)
 set(CMAKE_CXX_FLAGS "-O0")
-find_package(Boost 1.74.0 REQUIRED COMPONENTS)
+#find_package(Boost 1.74.0 REQUIRED COMPONENTS)
 
 include(FetchContent)
 
@@ -39,5 +39,6 @@ add_executable(${PROJECT_NAME} ${Kepler_SRC})
 FetchContent_MakeAvailable(uni-algo)
 FetchContent_MakeAvailable(Catch2)
 FetchContent_MakeAvailable(Lyra)
-target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Boost::boost Catch2::Catch2 lyra)
+#target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Boost::boost Catch2::Catch2 lyra)
+target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Catch2::Catch2 lyra)
 target_include_directories(${PROJECT_NAME} PRIVATE src)

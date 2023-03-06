@@ -21,7 +21,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_templated.hpp>
 #include <catch2/matchers/catch_matchers_exception.hpp>
-#include "core/token_class.h"
+#include "core/token_type.h"
 #include "core/token.h"
 #include "core/error.h"
 #include "string_maker.h"

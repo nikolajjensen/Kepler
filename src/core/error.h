@@ -21,11 +21,11 @@
 #include <iostream>
 #include <sstream>
 #include <utility>
-#include <boost/optional.hpp>
 #include "error_type.h"
 #include "datatypes.h"
-#include "core/helpers/printers/token_printer.h"
-
+#include "core/token.h"
+#include <optional>
+#include <variant>
 #include <uni_algo/conv.h>
 
 namespace kepler {
@@ -34,33 +34,45 @@ namespace kepler {
     public:
         ErrorType error_type;
         std::string message;
-        boost::optional<int> position;
-        boost::optional<boost::variant<std::vector<Char>, std::vector<Token>>> input;
+        //std::optional<int> position;
+        //std::optional<std::variant<std::vector<Char>, std::vector<Token>>> input;
 
-        error(ErrorType error_type_,
+        /*error(ErrorType error_type_,
               std::string message_,
-              int position_,
-              boost::variant<std::vector<Char>, std::vector<Token>> input_)
+              //int position_,
+              //std::variant<std::vector<Char>, std::vector<Token>> input_)
               : error_type(error_type_),
-                message(std::move(message_)),
-                position(position_),
-                input(std::move(input_)) {}
+                message(std::move(message_)) {}
+                //position(position_),
+                //input(std::move(input_)) {}
+                */
 
         error(ErrorType error_type_,
               std::string message_)
                 : error_type(error_type_),
-                  message(std::move(message_)),
-                  position(boost::none),
-                  input(boost::none) {}
+                  message(std::move(message_)) {}
 
         std::string type() const {
-            return to_string(error_type);
+            return kepler::to_string(error_type);
         }
 
         std::string why() const {
             return message;
         }
 
+        std::string to_string() const {
+            std::stringstream ss;
+            ss << type() << ": " << why();
+
+            /*std::string details = where();
+            if(!details.empty()) {
+                ss << "\n" << details;
+            }*/
+
+            return ss.str();
+        }
+
+        /*
         struct visitor : boost::static_visitor<> {
             std::ostream& stream;
 
@@ -72,10 +84,10 @@ namespace kepler {
             }
 
             void operator()(const std::vector<Token>& vec) {
-                helpers::TokenPrinter pr(stream);
-                for(auto& token : vec) {
-                    pr(token);
-                }
+                //helpers::TokenPrinter pr(stream);
+                //for(auto& token : vec) {
+                //    pr(token);
+                //}
             }
         };
 
@@ -84,6 +96,9 @@ namespace kepler {
 
             if(input && position) {
                 ss << "   ";
+
+
+
                 visitor v(ss);
                 boost::apply_visitor(v, input.get());
                 ss << "\n";
@@ -97,5 +112,6 @@ namespace kepler {
 
             return ss.str();
         }
+        */
     };
 };

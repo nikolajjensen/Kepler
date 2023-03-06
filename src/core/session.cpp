@@ -19,82 +19,30 @@
 
 #include "session.h"
 #include "error.h"
-#include "core/helpers/printers/error_printer.h"
 #include "core/constants/config.h"
 #include "core/constants/literals.h"
-#include "core/evaluation/evaluators.h"
-#include "core/helpers/classifiers.h"
 
-kepler::Session::Session(std::string&& session_name_)
-    :   active_workspace(constants::clear_workspace_identifier),
-        session_name(session_name_) {
-    constants::set_initial_values(active_workspace.symbol_table);
+kepler::Session::Session(std::string &&name) : session_name(std::move(name)), active_workspace("unnamed"), interpreter(*this) {
+    active_workspace.symbol_table.set(constants::index_origin_id, constants::initial_index_origin);
+    active_workspace.symbol_table.set(constants::print_precision_id, constants::initial_print_precision);
 }
-
-kepler::Token& kepler::Session::get_current_referent(const kepler::Token &token) {
-    auto& char_list = boost::get<List<Char>>(*token.content);
-
-    kepler::Symbol& symbol_named_by_token = active_workspace.symbol_table.lookup(char_list);
-    return symbol_named_by_token.referentList.front();
-}
-
-void kepler::Session::set_current_referent(const kepler::Token &token, List<Token> &&content) {
-    auto& id = token.get_content<List<Char>>();
-    active_workspace.symbol_table.set(id, std::move(content));
-}
-
-kepler::TokenClass kepler::Session::current_class(const kepler::Token &token) {
-    return get_current_referent(token).token_class;
-}
-
-bool kepler::Session::waiting(const Token &identifier) {
-    return true;
-}
-
-bool kepler::Session::pendent(const Token &identifier) {
-    return true;
-}
-
-bool kepler::Session::suspended(const Token &identifier) {
-    return true;
-}
-
-bool kepler::Session::editable(const Token &identifier) {
-    if(get_current_referent(identifier).token_class == NilToken) {
-        return true;
-    }
-
-    TokenClass current_class = Session::current_class(identifier);
-    bool is_defined = current_class == DefinedFunctionToken
-                      || current_class == DefinedDyadicOperatorToken
-                      || current_class == DefinedMonadicOperatorToken
-                      || current_class == NiladicDefinedFunctionToken;
-
-    Symbol& symbol = active_workspace.symbol_table.lookup(identifier.get_content<List<Char>>());
-    bool has_one_in_referent_list = symbol.referentList.size() == 1;
-
-    return is_defined && has_one_in_referent_list && !pendent(identifier) && !waiting(identifier);
-}
-
-
 void display_prompt(std::string& input) {
     std::cout << kepler::constants::indent_prompt << std::flush;
     getline(std::cin, input);
 }
 
-kepler::Token read_input() {
+
+std::u32string read_input() {
     std::string input;
     display_prompt(input);
-
-    std::u32string result = uni::utf8to32u(input);
-    return {kepler::ConstantToken, kepler::List<kepler::Char>(result.begin(), result.end())};
+    return uni::utf8to32u(input);
 }
 
 void kepler::Session::immediate_execution_mode() {
     std::stringstream ss;
 
     while(true) {
-        Token input = read_input();
+        std::u32string input = read_input();
         ss.str("");
         immediate_execution(std::move(input), ss);
         if(!ss.str().empty()) {
@@ -103,83 +51,26 @@ void kepler::Session::immediate_execution_mode() {
     }
 }
 
-void kepler::Session::immediate_execution(std::string &&input, std::ostream &stream) {
-    std::u32string result = uni::utf8to32u(input);
-    immediate_execution({kepler::ConstantToken, kepler::List<kepler::Char>(result.begin(), result.end())}, stream);
-}
-
-void kepler::Session::immediate_execution(Token &&input, std::ostream &stream) {
+void kepler::Session::immediate_execution(std::u32string &&input, std::ostream &stream) {
     try {
-        if(input.token_class == ConstantToken) {
-            auto& content = input.get_content<List<Char>>();
+        Context& new_context = active_workspace.add_context({std::move(input)});
 
-            if(content.front() == kepler::constants::right_parenthesis) {
-                throw kepler::error(InternalError, "System commands are not supported yet.");
-            } else if(content.front() == kepler::constants::del) {
-                evaluation::evaluate_function_definition_request(content, *this);
-            } else {
-                Context& new_context = active_workspace.add_context({kepler::ImmediateExecutionMode, content});
+        List<Token> tokens = tokenizer.tokenize(&new_context.current_line);
 
-                Token result = evaluation::evaluate_line(new_context, *this);
-                active_workspace.pop_context();
+        //for(auto& tok : tokens) {
+        //    std::cout << tok.to_string() << std::endl;
+        //}
 
-                if((result.token_class == BranchToken
-                    || result.token_class == ClearStateIndicatorToken
-                    || result.token_class == EscapeToken) && !active_workspace.state_indicator.empty()) {
-                    throw kepler::error(InternalError, "Unclear result.");
-                } else if(result.token_class == ConstantToken) {
-                    Array& pp = get_system_parameter(constants::PP);
-                    kepler::helpers::TokenPrinter tokenPrinter(stream, pp.get_content<Number>(0).real());
-                    tokenPrinter(result);
-                    stream << std::flush;
-                }
-            }
-        } else {
-            throw kepler::error(InternalError, "Execution of unexpected token class.");
-        }
+        ASTNode<Array>* ast = parser.parse(&tokens);
+
+        //std::cout << "AST: " << ast->to_string() << std::endl;
+
+        Array result = interpreter.interpret(ast);
+
+        active_workspace.pop_context();
+
+        stream << result.to_string() << std::flush;
     } catch(kepler::error& err) {
-        kepler::helpers::ErrorPrinter errorPrinter(stream);
-        errorPrinter(err);
-        stream << std::flush;
+        stream << err.to_string() << std::flush;
     }
-}
-
-/*
-kepler::Token kepler::Session::immediately_execute(List<Char> &&input) {
-    return immediately_execute({kepler::ConstantToken, std::move(input)});
-}
-
-kepler::Token kepler::Session::immediately_execute(std::string &&input) {
-    std::u32string result = uni::utf8to32u(input);
-    return immediately_execute({kepler::ConstantToken, kepler::List<kepler::Char>(result.begin(), result.end())});
-}
-
-
-kepler::Token kepler::Session::immediately_execute(Token &&input) {
-    return immediately_execute(input);
-}
-
-kepler::Token kepler::Session::immediately_execute(Token &input) {
-    if(input.token_class == ConstantToken) {
-        auto& content = input.get_content<List<Char>>();
-
-        if(content.front() == kepler::constants::right_parenthesis) {
-            throw kepler::error(InternalError, "System commands are not supported yet.");
-        } else if(content.front() == kepler::constants::del) {
-            throw kepler::error(InternalError, "User defined functions are not supported yet.");
-        } else {
-            Context& new_context = active_workspace.add_context({kepler::ImmediateExecutionMode, content});
-
-            Token result = evaluation::evaluate_line(new_context, *this);
-            active_workspace.pop_context();
-            return result;
-        }
-    } else {
-        throw kepler::error(InternalError, "Execution of unexpected token class.");
-    }
-}
-*/
-kepler::Array& kepler::Session::get_system_parameter(const List<Char> &id) {
-    Symbol& symbol = active_workspace.symbol_table.lookup(id);
-    return symbol.referentList[0].get_content<Array>();
 }

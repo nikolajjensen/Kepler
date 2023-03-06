@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,20 +18,12 @@
 //
 
 #pragma once
-#include "datatypes.h"
-#include "context.h"
-#include "symbol_table.h"
+#include <string>
+#include "core/datatypes.h"
+#include "core/token_type.h"
 
 namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspace_name;
-        SymbolTable symbol_table;
-        List<Context> state_indicator;
-
-        explicit Workspace(StringUTF8 workspaceName);
-
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
-    };
+    std::string to_string(const Number& num);
+    Number from_string(std::string num_str);
+    std::string to_string(TokenType type);
 };

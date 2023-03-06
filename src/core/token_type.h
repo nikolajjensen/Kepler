@@ -18,20 +18,56 @@
 //
 
 #pragma once
-#include "datatypes.h"
-#include "context.h"
-#include "symbol_table.h"
+
+#include <iostream>
 
 namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspace_name;
-        SymbolTable symbol_table;
-        List<Context> state_indicator;
+    enum TokenType {
+        // Data types
+        NUMBER,
+        STRING,
+        ID,
 
-        explicit Workspace(StringUTF8 workspaceName);
+        // Functions
+        PLUS,
+        MINUS,
+        TIMES,
+        DIVIDE,
+        CEILING,
+        FLOOR,
+        RIGHT_TACK,
+        LEFT_TACK,
+        IOTA,
+        LESS,
+        LESSEQ,
+        EQ,
+        GREATEREQ,
+        GREATER,
+        NEQ,
+        WITHOUT,
+        LSHOE,
+        RHO,
+        AND,
+        OR,
+        NAND,
+        NOR,
+        DECODE,
+        ENCODE,
 
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
+        // Operators
+        COMMUTE,
+        SLASH,
+        DIAERESIS,
+        JOT,
+        ATOP,
+        OVER,
+
+        // Misc
+        DIAMOND,
+        NEGATE,
+        ASSIGNMENT,
+        LPARENS,
+        RPARENS,
+        END,
     };
 };

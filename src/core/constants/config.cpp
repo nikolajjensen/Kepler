@@ -17,46 +17,28 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include "config.h"
-#include "core/symbol_table.h"
 #include "core/constants/literals.h"
 #include "core/array.h"
+#include "core/error.h"
 
 namespace kepler {
-    void constants::set_initial_values(SymbolTable &symbol_table) {
-        symbol_table.set(
-                {constants::quad, constants::C, constants::T},
-                {
-                    {VariableToken, Array::vectorOf(List<Number>{initial_comparison_tolerance})}
-                });
+    void constants::check_valid_system_param_value(const std::u32string &id, const Array &value) {
+        if(value.empty() || !holds_alternative<Number>(value.data[0])) {
+            throw kepler::error(DomainError, "Invalid system parameter value.");
+        }
 
-        symbol_table.set(
-                {constants::quad, constants::R, constants::L},
-                {
-                        {VariableToken, Array::vectorOf(List<Number>{initial_random_link})}
-                });
-
-        symbol_table.set(
-                {constants::quad, constants::P, constants::P},
-                {
-                        {VariableToken, Array::vectorOf(List<Number>{initial_print_precision})}
-                });
-
-
-        symbol_table.set(
-                {constants::quad, constants::I, constants::O},
-                {
-                        {VariableToken, Array::vectorOf(List<Number>{initial_index_origin})}
-                });
-
-        symbol_table.set(
-                {constants::quad, constants::L, constants::X},
-                initial_latent_expression);
+        return check_valid_system_param_value(id, get<Number>(value.data[0]));
     }
 
-    std::string constants::function_definition_prompt(int line_number) {
-        if(line_number >= 10) {
-            return "[" + std::to_string(line_number) + "] > ";
+    void constants::check_valid_system_param_value(const std::u32string &id, const Number &value) {
+        if(id == index_origin_id) {
+            if(value != 1.0 && value != 0.0) {
+                throw kepler::error(LimitError, "Index origin can only be either 0 or 1.");
+            }
+        } else if(id == print_precision_id) {
+            if(value.real() < 1 || value.real() > 30) {
+                throw kepler::error(LimitError, "Print precision must be between 1 and 30.");
+            }
         }
-        return "[" + std::to_string(line_number) + "]  > ";
     }
 };

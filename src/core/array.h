@@ -19,68 +19,28 @@
 
 #pragma once
 #include "datatypes.h"
-#include "array_types.h"
-
-#include <boost/variant.hpp>
 
 namespace kepler {
-    class Array {
+    struct Array {
     public:
-        typedef boost::variant<Char, Number, boost::recursive_wrapper<Array>> element_type;
+        using element_type = std::variant<std::u32string, Number, Array>;
 
-        ArrayType type;
-        List<int> shape_list;
-        List<element_type> ravel_list;
+        std::vector<int> shape;
+        std::vector<element_type> data;
 
-        Array() = default;
-        Array(List<int> shapeList, List<element_type> ravelList);
-        Array(ArrayType type, List<int> shapeList, List<element_type> ravelList);
+        Array(std::vector<int> shape_, std::vector<element_type> data_);
 
-        ArrayType sufficient_type() const;
+        Array major_cells();
+        Array n_cells(int n);
         int rank() const;
-        bool is_simple() const;
+        int size() const;
+        bool empty() const;
         bool is_scalar() const;
         bool is_simple_scalar() const;
-        Array first_thingy() const;
-        Array numeric_scalar_with_value(const Number& num) const;
-        int count() const;
-        bool is_vector() const;
-        bool is_matrix() const;
-        int length() const;
-        element_type typical_element() const;
-        bool is_empty() const;
+        bool is_numeric() const;
+        std::string to_string() const;
 
-
-
-
-        template <typename T>
-        static Array vectorOf(List<T>&& ravelList);
-
-
-        template <typename Variant>
-        bool contains_at(int i) const {
-            return ravel_list[i].type() == typeid(Variant);
-        }
-
-        template <typename Variant>
-        Variant& get_content(int i = 0) {
-            return boost::get<Variant>(ravel_list[i]);
-        }
-
-        template <typename Variant>
-        const Variant& get_content(int i = 0) const {
-            return boost::get<const Variant>(ravel_list[i]);
-        }
-
-        friend bool operator==(const Array& lhs, const Array& rhs) {
-            return lhs.shape_list == rhs.shape_list && lhs.ravel_list == rhs.ravel_list;
-        }
-
-        Array& operator=(const Array& other) {
-            this->shape_list = other.shape_list;
-            this->ravel_list = other.ravel_list;
-
-            return *this;
-        }
+    private:
+        std::string scalar_string(const element_type& element) const;
     };
 };

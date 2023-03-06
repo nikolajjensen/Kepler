@@ -21,121 +21,75 @@
 #include "error.h"
 #include "core/constants/literals.h"
 #include <utility>
+#include <numeric>
+#include "core/helpers/conversion.h"
+#include "core/helpers/array_printer.h"
 
 namespace kepler {
-    Array::Array(List<int> shapeList_, List<element_type> ravelList_)
-            : type(MixedType),
-              shape_list(std::move(shapeList_)),
-              ravel_list(std::move(ravelList_)) {
-        type = sufficient_type();
+
+    Array::Array(std::vector<int> shape_, std::vector<element_type> data_) : shape(std::move(shape_)), data(std::move(data_)) {}
+
+    Array Array::major_cells() {
+        return n_cells(shape.size() - 1);
     }
 
-    Array::Array(ArrayType type, List<int> shapeList_, List<element_type> ravelList_)
-            : type(type),
-              shape_list(std::move(shapeList_)),
-              ravel_list(std::move(ravelList_)) {
-        if(type != sufficient_type()) {
-            throw kepler::error(InternalError, "Sufficient type and given type mismatch.");
+    Array Array::n_cells(int n) {
+        if(n == 0) {
+            return *this;
         }
-    }
 
-    ArrayType Array::sufficient_type() const {
-        if(!ravel_list.empty()) {
-            if(std::all_of(ravel_list.begin(), ravel_list.end(), [&](const element_type& element){ return element.type() == typeid(Char); })) {
-                return CharacterType;
-            } else if(std::all_of(ravel_list.begin(), ravel_list.end(), [&](const element_type& element){ return element.type() == typeid(Number); })) {
-                return NumericType;
-            } else {
-                return MixedType;
-            }
-        } else {
-            element_type element = typical_element();
-            if(element.type() == typeid(Char)) {
-                return CharacterType;
-            } else if(element.type() == typeid(Number)) {
-                return NumericType;
-            } else {
-                return MixedType;
-            }
+        int rank = shape.size();
+
+        if(n > rank) throw std::runtime_error("Array of rank " + std::to_string(rank) + " does not have " +
+                                              std::to_string(n) + "-cells.");
+
+        if(rank == n) {
+            return Array({}, {*this});
         }
+
+        std::vector<int> result_shape = {shape.end() - (rank - n), shape.end()};
+        std::vector<int> cell_shape = {shape.begin(), shape.begin() + (rank - n)};
+
+        int size = std::accumulate(cell_shape.begin(), cell_shape.end(), 1, std::multiplies<>());
+        int result_size = std::accumulate(result_shape.begin(), result_shape.end(), 1, std::multiplies<>());
+
+        std::vector<element_type> result_data;
+        result_shape.reserve(result_size);
+        for(int i = 0; i < result_size; ++i) {
+            result_data.emplace_back(Array{cell_shape, {data.begin() + i * size, data.begin() + (i + 1) * size}});
+        }
+
+        return {result_shape, result_data};
     }
 
     int Array::rank() const {
-        return (int)shape_list.size();
-    }
-
-    bool Array::is_simple() const {
-        return type == CharacterType || type == NumericType;
+        return shape.size();
     }
 
     bool Array::is_scalar() const {
-        return rank() == 0;
+        return shape.empty();
+    }
+
+    int Array::size() const {
+        return data.size();
+    }
+
+    bool Array::empty() const {
+        return data.empty();
     }
 
     bool Array::is_simple_scalar() const {
-        return is_simple() && is_scalar();
+        return is_scalar() && !empty() && !holds_alternative<Array>(data[0]);
     }
 
-    Array Array::first_thingy() const {
-        element_type element;
-        if(is_empty()) {
-            element = typical_element();
-        } else {
-            element = ravel_list[0];
-        }
-
-        if(element.type() == typeid(Number) || element.type() == typeid(Char)) {
-            return Array({}, {element});
-        } else {
-            return boost::get<Array>(element);
-        }
+    bool Array::is_numeric() const {
+        return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
+            return holds_alternative<Number>(element);
+        });
     }
 
-    Array Array::numeric_scalar_with_value(const Number &num) const {
-        return Array(NumericType, {}, {num});
-    }
-
-    int Array::count() const {
-        return (int)ravel_list.size();
-    }
-
-    bool Array::is_vector() const {
-        return rank() == 1;
-    }
-
-    bool Array::is_matrix() const {
-        return rank() == 2;
-    }
-
-    int Array::length() const {
-        return count();
-    }
-
-    Array::element_type Array::typical_element() const {
-        if(type == NumericType) {
-            return Number(0);
-        } else {
-            return constants::blank;
-        }
-    }
-
-    bool Array::is_empty() const {
-        return count() == 0;
-    }
-
-    template <typename T>
-    Array Array::vectorOf(List<T>&& raw_ravel) {
-        List<element_type> ravel;
-        ravel.reserve(raw_ravel.size());
-        for(const auto& input : raw_ravel) {
-            ravel.push_back(input);
-        }
-        if(ravel.size() == 1) {
-            return {{}, ravel};
-        }
-        return Array({(int)ravel.size()}, ravel);
+    std::string Array::to_string() const {
+        ArrayPrinter printer;
+        return printer(*this);
     }
 };
-
-template kepler::Array kepler::Array::vectorOf(List<Char> &&ravel);
-template kepler::Array kepler::Array::vectorOf(List<Number> &&ravel);

@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,20 +18,22 @@
 //
 
 #pragma once
-#include "datatypes.h"
-#include "context.h"
-#include "symbol_table.h"
+#include "operation.h"
+#include "core/array.h"
+#include "core/datatypes.h"
 
 namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspace_name;
-        SymbolTable symbol_table;
-        List<Context> state_indicator;
+    struct Pervade : Operation {
+        using Operation::Operation;
 
-        explicit Workspace(StringUTF8 workspaceName);
+        Array operator()(Array omega) override;
 
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
+        Array operator()(Array alpha, Array omega) override;
+
+    private:
+        Array::element_type apply(Array::element_type& omega);
+
+        // Ugly, but needs to be compile-time deducible.
+        Array::element_type apply(Array::element_type& alpha, Array::element_type& omega);
     };
 };

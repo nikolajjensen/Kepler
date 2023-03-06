@@ -18,21 +18,34 @@
 //
 
 #pragma once
-#include <map>
-#include <string>
-#include "core/array.h"
+#include "core/token.h"
+#include "core/datatypes.h"
 
 namespace kepler {
-    class SymbolTable {
+    class Tokenizer {
     private:
-        std::map<std::u32string, Array> table;
+        const std::vector<Char>* input;
+        int cursor;
+
+        void advance();
+        const char32_t& current();
+        bool at_end();
+        bool current_one_of(std::u32string elements);
+
+        void skip_blanks();
+        void skip_comment();
+        std::u32string get_integer();
+        std::u32string get_exponent();
+        std::u32string get_real_number();
+        Token number_token();
+        Token identifier_token();
+        Token string_token();
+        Token wysiwyg_token();
+        Token next_token();
 
     public:
-        SymbolTable();
+        explicit Tokenizer();
 
-        void set(const std::u32string& id, const Array& value);
-        void set(const std::u32string& id, const Number& value);
-        bool contains(const std::u32string& id) const;
-        const Array& get(const std::u32string& id) const;
+        std::vector<Token> tokenize(std::vector<Char>* input_);
     };
 };

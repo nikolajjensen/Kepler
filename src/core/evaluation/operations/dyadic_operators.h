@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,20 +18,24 @@
 //
 
 #pragma once
-#include "datatypes.h"
-#include "context.h"
-#include "symbol_table.h"
+#include "operation.h"
 
 namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspace_name;
-        SymbolTable symbol_table;
-        List<Context> state_indicator;
+    struct Jot : Operation {
+        Operation* aalpha;
+        Operation* oomega;
 
-        explicit Workspace(StringUTF8 workspaceName);
+        Jot();
+        Jot(Operation* aalpha_, Operation* oomega_);
 
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
+        ~Jot() override;
+
+        bool is_configured() const override;
+
+        void configure(Operation* aalpha_, Operation* oomega_);
+
+        Number operator()(Number alpha, Number omega) override;
+
+        Number operator()(Number omega) override;
     };
 };

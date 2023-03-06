@@ -18,21 +18,37 @@
 //
 
 #pragma once
-#include <map>
-#include <string>
+#include "core/datatypes.h"
 #include "core/array.h"
+//#include "core/session.h"
 
 namespace kepler {
-    class SymbolTable {
-    private:
-        std::map<std::u32string, Array> table;
+    struct Session;
+
+    struct Operation {
+    protected:
+        Operation* op;
+        Session* session;
+
+        virtual bool is_configured() const;
 
     public:
-        SymbolTable();
+        Operation();
+        Operation(Operation* op);
+        Operation(Session* session);
 
-        void set(const std::u32string& id, const Array& value);
-        void set(const std::u32string& id, const Number& value);
-        bool contains(const std::u32string& id) const;
-        const Array& get(const std::u32string& id) const;
+        virtual ~Operation();
+
+        virtual Array operator()(Array omega);
+
+        virtual Array operator()(Array alpha, Array omega);
+
+        virtual Number operator()(Number omega);
+
+        virtual Number operator()(Number alpha, Number omega);
+
+        virtual std::u32string operator()(std::u32string omega);
+
+        virtual std::u32string operator()(std::u32string alpha, std::u32string omega);
     };
 };

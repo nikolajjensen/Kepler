@@ -38,7 +38,7 @@ protected:
         // Clear the output_stream between runs.
         output_stream.str("");
 
-        session->immediate_execution(std::move(input), output_stream);
+        session->immediate_execution(uni::utf8to32u(input), output_stream);
 
         auto stop = std::chrono::high_resolution_clock::now();
         if(timing) {

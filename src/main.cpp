@@ -32,7 +32,6 @@ int main(int argc, char* argv[]) {
         return session.run();
     } else if(kepler::cli::config.commands.empty()) {
         // Run REPL.
-        //repl();
         repl();
     } else if(kepler::cli::config.commands.size() == 1) {
         // Try to run the file.

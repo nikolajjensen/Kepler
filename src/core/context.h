@@ -19,25 +19,20 @@
 
 #pragma once
 
-#include "mode.h"
 #include "token.h"
 #include "datatypes.h"
-#include "defined_function.h"
 #include "error.h"
 
 namespace kepler {
     class Context {
     public:
-        Mode mode;
         List<Token> stack;
         List<Char> current_line;
         List<Token> current_statement;
-        boost::optional<DefinedFunction> current_function;
-        Number current_line_number;
 
-        Context();
-        Context(Mode mode, List<Char> line);
-        Context(Mode mode, List<Char> line, DefinedFunction function, int line_number);
+        Context(std::u32string&& line);
+        //Context(Mode mode, List<Char> line);
+        //Context(Mode mode, List<Char> line, DefinedFunction function, int line_number);
 
         StringUTF8 current_line_string() {
             return uni::utf32to8(std::u32string(current_line.begin(), current_line.end()));

@@ -21,7 +21,7 @@
 #include "core/system.h"
 #include "core/session.h"
 #include "core/datatypes.h"
-#include "core/evaluation/grammar/lexer.h"
+#include "core/evaluation/tokenizer/tokenizer.h"
 #include <chrono>
 
 class lexer_fixture {
@@ -39,8 +39,11 @@ protected:
 
         auto start = std::chrono::high_resolution_clock::now();
 
-        kepler::Lexer lexer(input);
-        kepler::List<kepler::Token> output = lexer.lex();
+        kepler::Tokenizer tokenizer;
+        std::vector<kepler::Token> output = tokenizer.tokenize(&input);
+
+        //kepler::Lexer lexer(input);
+        //kepler::List<kepler::Token> output = lexer.lex();
 
         auto stop = std::chrono::high_resolution_clock::now();
         if(timing) {

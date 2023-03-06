@@ -22,14 +22,12 @@
 #include <utility>
 #include "datatypes.h"
 
-kepler::Context::Context()
-        : mode(Mode::ImmediateExecutionMode),
-          stack(),
-          current_line(),
-          current_statement(),
-          current_function(boost::none),
-          current_line_number(1) {}
+kepler::Context::Context(std::u32string&& input)
+        : stack(),
+          current_line({input.begin(), input.end()}),
+          current_statement() {}
 
+          /*
 kepler::Context::Context(Mode mode_, List<Char> line_)
         : mode(mode_),
           stack(),
@@ -44,4 +42,4 @@ kepler::Context::Context(Mode mode_, List<Char> line_, DefinedFunction function_
           current_line(std::move(line_)),
           current_statement(),
           current_function(std::move(function_)),
-          current_line_number(line_number_) {}
+          current_line_number(line_number_) {}*/
