@@ -52,8 +52,11 @@ void kepler::Session::immediate_execution_mode() {
 }
 
 void kepler::Session::immediate_execution(std::u32string &&input, std::ostream &stream) {
+    List<Char> in = {input.begin(), input.end()};
+
     try {
-        List<Char> in = {input.begin(), input.end()};
+
+        //auto start = std::chrono::high_resolution_clock::now();
 
         Tokenizer tokenizer;
         List<Token> tokens = tokenizer.tokenize(&in);
@@ -65,20 +68,14 @@ void kepler::Session::immediate_execution(std::u32string &&input, std::ostream &
         Interpreter interpreter(*ast, *ast->symbol_table);
         auto result = interpreter.interpret();
 
-        //for(auto& tok : tokens) {
-        //    std::cout << tok.to_string() << std::endl;
-        //}
+        //auto stop = std::chrono::high_resolution_clock::now();
 
-        //ASTNode<Array>* ast = parser.parse(&tokens);
-
-        //std::cout << "AST: " << ast->to_string() << std::endl;
-
-        //Array result = interpreter.interpret(&tokens);
-
-        //active_workspace.pop_context();
+        //auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+        //std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
 
         stream << result.to_string() << std::flush;
     } catch(kepler::error& err) {
+        err.set_input(&in);
         stream << err.to_string() << std::flush;
     }
 }

@@ -30,7 +30,7 @@ namespace kepler {
     }
 
     const Symbol & SymbolTable::lookup(const std::u32string &id) const {
-        if(contains(id)) {
+        if(table.contains(id)) {
             return table.at(id);
         } else if(parent != nullptr) {
             return parent->lookup(id);
@@ -72,9 +72,6 @@ namespace kepler {
     }
 
     void SymbolTable::bind_function(const std::u32string &id) {
-        if(contains(id)) {
-            throw kepler::error(InternalError, "Cannot bind to function, as ID '" + uni::utf32to8(id) + "' is already defined.");
-        }
         table.insert_or_assign(id, std::move(Symbol(FunctionSymbol)));
     }
 };

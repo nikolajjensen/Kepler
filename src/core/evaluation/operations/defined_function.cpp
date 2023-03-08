@@ -29,6 +29,12 @@ namespace kepler {
         delete function;
     }
 
+    bool DefinedFunction::is_configured() const {
+        // Defined functions are always entirely configured,
+        // as they do not rely on any sub-operations.
+        return true;
+    }
+
     Array DefinedFunction::operator()(Array omega) {
         auto symbol_table = function->body->symbol_table;
         symbol_table->set(constants::omega_id, omega);

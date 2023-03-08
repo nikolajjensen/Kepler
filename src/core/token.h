@@ -29,13 +29,31 @@
 
 namespace kepler {
 
-    struct Token {
+    struct position_tagged {
+    private:
+        long position;
+
+    public:
+        position_tagged() : position(-1) {}
+        explicit position_tagged(long position_) : position(position_) {}
+
+        void set_position(unsigned long pos) {
+            position = pos;
+        }
+
+        long get_position() const {
+            return position;
+        }
+    };
+
+    struct Token : position_tagged {
         TokenType type;
         std::optional<std::vector<Char>> content;
 
-        Token(TokenType type_, Char content_) : type(type_), content(std::vector<Char>{content_}) {}
+        Token(long position, TokenType type_, Char content_) : position_tagged(position), type(type_), content(std::vector<Char>{content_}) {}
+        Token(long position, TokenType type_, std::u32string content_) : position_tagged(position), type(type_), content({content_.begin(), content_.end()}) {}
         Token(TokenType type_, std::u32string content_) : type(type_), content({content_.begin(), content_.end()}) {}
-        Token(TokenType type_) : type(type_), content(std::nullopt) {}
+        Token(long position, TokenType type_) : position_tagged(position), type(type_), content(std::nullopt) {}
 
         friend bool operator==(const Token& lhs, const Token& rhs) {
             return lhs.type == rhs.type && lhs.content == rhs.content;
@@ -58,51 +76,4 @@ namespace kepler {
             return os << token.to_string();
         }
     };
-
-    /*
-    struct Token {
-        typedef boost::variant<
-                    Char,
-                    Array,
-                    List<Char>,
-                    List<Number>
-                > content_type;
-
-        typedef boost::optional<content_type> optional_content_type;
-
-        TokenType token_class;
-        optional_content_type content;
-
-        Token(TokenType token_class_, content_type content_) : token_class(token_class_), content(content_) {}
-        Token(TokenType token_class_, std::string content_) : token_class(token_class_), content() {
-            StringUTF32 tmp = uni::utf8to32u(content_);
-            List<Char> raw = {tmp.begin(), tmp.end()};
-            if(raw.size() == 1) {
-                content = raw.front();
-            } else {
-                content = raw;
-            }
-        }
-        explicit Token(TokenType token_class_ = TokenType::NilToken) : token_class(token_class_), content(boost::none) {}
-
-        template <typename Variant>
-        bool contains() const {
-            return content && content->type() == typeid(Variant);
-        }
-
-        template <typename Variant>
-        Variant& get_content() {
-            return boost::get<Variant>(content.get());
-        }
-
-        template <typename Variant>
-        const Variant& get_content() const {
-            return boost::get<const Variant>(content.get());
-        }
-
-        friend bool operator==(const Token& lhs, const Token& rhs) {
-            return lhs.token_class == rhs.token_class && lhs.content == rhs.content;
-        }
-    };
-     */
 };

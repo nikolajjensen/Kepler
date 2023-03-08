@@ -37,7 +37,7 @@ namespace kepler {
 
     void Parser::eat(TokenType type) {
         if(current().type != type) {
-            throw std::runtime_error("Expected token of type: " + kepler::to_string(type) + ", but found token of type: " + kepler::to_string(current().type));
+            throw kepler::error(InternalError, "Expected token of type: " + kepler::to_string(type) + ", but found token of type: " + kepler::to_string(current().type));
         } else {
             advance();
         }
@@ -58,8 +58,10 @@ namespace kepler {
 
     TokenType Parser::peek_beyond_parenthesis() {
         auto peek_at = cursor - 1;
-        while(peek_at >= end && cursor->type == RPARENS) peek_at--;
-        if(peek_at >= end) return cursor->type;
+        while(peek_at >= begin && peek_at->type == RPARENS) {
+            --peek_at;
+        }
+        if(peek_at >= begin) return peek_at->type;
         return END;
     }
 
@@ -80,23 +82,6 @@ namespace kepler {
         }
 
         return it;
-        /*
-
-        auto start_it = input.begin() + current_index + 2;
-
-        if(start_it >= input.end()) {
-            return input.size();
-        }
-
-        auto next = std::find_if(start_it, input.end(), [](const Token& token){
-            return token.type == DIAMOND;
-        });
-
-        if(next != input.end()) {
-            return next - input.begin() - 1;
-        } else {
-            return input.size();
-        }*/
     }
 
     std::vector<Token>::const_iterator Parser::matching_brace(const std::vector<Token>::const_iterator& index) {
@@ -189,47 +174,6 @@ namespace kepler {
         return new AnonymousFunction(body);
     }
 
-    /*
-    ASTNode<Array>* Parser::parse_dfn_body() {
-        std::vector<ASTNode<Array>*> dfn_statements = {parse_dfn_statement()};
-        while(current().type == DIAMOND) {
-            eat(DIAMOND);
-            dfn_statements.emplace_back(parse_dfn_statement());
-        }
-        return new Statements(dfn_statements);
-    }
-
-    ASTNode<Array>* Parser::parse_dfn_statement() {
-        ASTNode<Array>* statement = parse_argument();
-
-        while(helpers::is_function(current().type)
-              || helpers::is_monadic_operator(current().type)
-              || current().type == ASSIGNMENT
-              || current().type == RPARENS
-              || current().type == RBRACE) {
-
-            if(current().type == ASSIGNMENT) {
-                eat(ASSIGNMENT);
-                statement = new Assignment(current(), statement);
-                eat(ID);
-            } else {
-                ASTNode<Operation_ptr>* function = parse_function();
-
-                if(current().type == RPARENS
-                   || helpers::is_array_token(current().type)
-                   || current().type == ALPHA
-                   || current().type == OMEGA) {
-                    statement = new DyadicFunction(function, parse_argument(), statement);
-                } else {
-                    statement = new MonadicFunction(function, statement);
-                }
-            }
-        }
-
-        return statement;
-    }
-     */
-
     ASTNode<Array>* Parser::parse_argument() {
         if(current().type == ALPHA || current().type == OMEGA) {
             Token tok = current();
@@ -281,7 +225,7 @@ namespace kepler {
             eat(STRING);
             return new Scalar(tok, std::u32string{tok.content->begin(), tok.content->end()});
         } else {
-            throw std::runtime_error("Scalar must be either number of ID");
+            throw kepler::error(InternalError, "Parsing scalar failed with internal error.");
         }
     }
 
@@ -311,7 +255,7 @@ namespace kepler {
             eat(tok.type);
             return new MonadicOperator(tok, parse_function());
         } else {
-            throw std::runtime_error(kepler::to_string(current().type) + " is not a valid monadic operator.");
+            throw kepler::error(InternalError, kepler::to_string(current().type) + " is not a valid monadic operator.");
         }
     }
 
@@ -356,16 +300,4 @@ namespace kepler {
         delete symbol_table;
         symbol_table = new_table;
     }
-
-
-/*
-    ASTNode<Array> *Parser::next() {
-        if(last_statement_start == input->size()) {
-            return nullptr;
-        }
-        last_statement_start = next_separator(last_statement_start);
-        cursor = (last_statement_start < input->size()) ? last_statement_start : last_statement_start - 1;
-        return parse_statement();
-    }
-    */
 };

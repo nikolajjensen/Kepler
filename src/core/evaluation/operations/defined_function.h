@@ -27,11 +27,13 @@ namespace kepler {
         AnonymousFunction* function;
         // Some kind of ASTNode<Array> member.
 
+        bool is_configured() const override;
+
     public:
         DefinedFunction(AnonymousFunction* function);
         ~DefinedFunction();
 
-        Array operator()(Array alpha, Array omega);
-        Array operator()(Array omega);
+        Array operator()(Array alpha, Array omega) override;
+        Array operator()(Array omega) override;
     };
 };

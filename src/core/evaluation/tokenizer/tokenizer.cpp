@@ -77,7 +77,7 @@ namespace kepler {
             }
             std::u32string integer = get_integer();
             if(integer.empty()) {
-                throw kepler::error(SyntaxError, "Expected a digit here.");
+                throw kepler::error(SyntaxError, "Expected a digit here.", cursor + 1);
             }
             exponent += integer;
         }
@@ -101,8 +101,12 @@ namespace kepler {
 
         number += get_integer();
 
-        if(number.empty() || number == U"." || number == U"-") {
-            throw kepler::error(SyntaxError, "Expected at least one digit here.");
+        if(number.empty()) {
+            throw kepler::error(SyntaxError, "Expected at least one digit here.", cursor);
+        } else if(number == U".") {
+            throw kepler::error(SyntaxError, "Expected at least one digit on either side.", cursor);
+        } else if(number == U"-") {
+            throw kepler::error(SyntaxError, "Expected at least one digit here.", cursor + 1);
         }
 
         number += get_exponent();
@@ -118,12 +122,12 @@ namespace kepler {
 
             std::u32string real = get_real_number();
             if(real.empty()) {
-                throw kepler::error(SyntaxError, "Expected a number here.");
+                throw kepler::error(SyntaxError, "Expected a number here.", cursor);
             }
             number += real;
         }
 
-        return {NUMBER, number};
+        return {cursor, NUMBER, number};
     }
 
     Token Tokenizer::identifier_token() {
@@ -131,7 +135,7 @@ namespace kepler {
         while(!at_end() && current_one_of(constants::identifier_chars)) {
             advance();
         }
-        return {ID, {input->begin() + start, input->begin() + cursor}};
+        return {cursor, ID, {input->begin() + start, input->begin() + cursor}};
     }
 
     Token Tokenizer::string_token() {
@@ -143,20 +147,20 @@ namespace kepler {
         }
 
         if(at_end() || current() != U'\'') {
-            throw kepler::error(SyntaxError, "Expected a closing quote.");
+            throw kepler::error(SyntaxError, "Expected a matching quote.", cursor + 1);
         }
 
         std::u32string result = {input->begin() + start, input->begin() + cursor};
 
         // Go past quote.
         advance();
-        return {STRING, result};
+        return {cursor, STRING, result};
     }
 
     Token Tokenizer::wysiwyg_token() {
         char32_t character = current();
         advance();
-        return {constants::wysiwyg_mapping.at(character), character};
+        return {cursor, constants::wysiwyg_mapping.at(character), character};
     }
 
     Token Tokenizer::next_token() {
@@ -164,7 +168,7 @@ namespace kepler {
         skip_comment();
 
         if(at_end()) {
-            return {END};
+            return {cursor, END};
         } else if(current_one_of(U"¯.0123456789")) {
             return number_token();
         } else if(current_one_of(constants::identifier_chars)) {
@@ -174,7 +178,7 @@ namespace kepler {
         } else if(current() == U'\'') {
             return string_token();
         } else {
-            throw std::runtime_error("Did not finish, but cannot match");
+            throw kepler::error(SyntaxError, cursor);
         }
     }
 

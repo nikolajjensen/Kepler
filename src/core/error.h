@@ -34,23 +34,39 @@ namespace kepler {
     public:
         ErrorType error_type;
         std::string message;
-        //std::optional<int> position;
-        //std::optional<std::variant<std::vector<Char>, std::vector<Token>>> input;
-
-        /*error(ErrorType error_type_,
-              std::string message_,
-              //int position_,
-              //std::variant<std::vector<Char>, std::vector<Token>> input_)
-              : error_type(error_type_),
-                message(std::move(message_)) {}
-                //position(position_),
-                //input(std::move(input_)) {}
-                */
+        long position;
+        std::vector<Char>* input;
 
         error(ErrorType error_type_,
               std::string message_)
                 : error_type(error_type_),
-                  message(std::move(message_)) {}
+                  message(std::move(message_)),
+                  position(-1),
+                  input(nullptr) {}
+
+        error(ErrorType error_type_,
+              std::string message_,
+              long position_)
+                : error_type(error_type_),
+                  message(std::move(message_)),
+                  position(position_),
+                  input(nullptr) {}
+
+        error(ErrorType error_type_,
+              long position_)
+                : error_type(error_type_),
+                  message(""),
+                  position(position_),
+                  input(nullptr) {}
+
+        error(ErrorType error_type_,
+              std::string message_,
+              long position_,
+              std::vector<Char>* input_)
+                : error_type(error_type_),
+                  message(std::move(message_)),
+                  position(position_),
+                  input(input_) {}
 
         std::string type() const {
             return kepler::to_string(error_type);
@@ -62,14 +78,22 @@ namespace kepler {
 
         std::string to_string() const {
             std::stringstream ss;
-            ss << type() << ": " << why();
+            ss << type();
 
-            /*std::string details = where();
+            if(!why().empty()) {
+                ss << ": " << why();
+            }
+
+            std::string details = where();
             if(!details.empty()) {
                 ss << "\n" << details;
-            }*/
+            }
 
             return ss.str();
+        }
+
+        void set_input(std::vector<Char>* input_) {
+            input = input_;
         }
 
         /*
@@ -90,28 +114,24 @@ namespace kepler {
                 //}
             }
         };
+         */
 
         std::string where() const {
             std::stringstream ss;
 
-            if(input && position) {
+            if(input != nullptr && position != -1) {
                 ss << "   ";
-
-
-
-                visitor v(ss);
-                boost::apply_visitor(v, input.get());
+                ss << uni::utf32to8(std::u32string(input->begin(), input->end()));
                 ss << "\n";
 
-                ss << "   ";
-                for (int i = 0; i < position.get(); ++i) {
+                ss << "  ~";
+                for (int i = 0; i < position - 1; ++i) {
                     ss << "~";
                 }
-                ss << "^";
+                ss << "^";// << "   " << position;
             }
 
             return ss.str();
         }
-        */
     };
 };
