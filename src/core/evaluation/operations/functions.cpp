@@ -22,6 +22,7 @@
 #include <numeric>
 #include "core/session.h"
 #include "core/constants/config.h"
+#include "core/symbol_table.h"
 
 namespace kepler {
     Number Plus::operator()(Number alpha, Number omega) {
@@ -90,7 +91,7 @@ namespace kepler {
             throw kepler::error(DomainError, "Negative numbers cannot be used for index generation.");
         }
 
-        Array io = session->active_workspace.symbol_table.get(constants::index_origin_id);
+        Array io = symbol_table->get<Array>(constants::index_origin_id);
         int origin = (int)(get<Number>(io.data[0]).real());
 
         Array result({final_om}, {});

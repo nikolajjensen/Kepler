@@ -5,12 +5,45 @@
 #include <lyra/lyra.hpp>
 #include "cli.h"
 
+#include "core/evaluation/tokenizer/tokenizer.h"
+#include "core/evaluation/parser/parser.h"
+
 using namespace kepler;
 
 void repl() {
     System env = System();
     Session* session = env.spawn_session();
     session->immediate_execution_mode();
+}
+
+void test() {
+    try {
+        System env = System();
+        Session* session = env.spawn_session();
+
+        //std::u32string one = U"FN←{⍺+⍵} ⋄ FN/⍳10";
+        std::u32string one = U"FN←{⍺+⍵} ⋄ 1 FN 2";
+        //std::u32string one = U"2+5";
+        //std::u32string one = U"FN←{⍺+⍵}◊1 FN 2";
+        //std::u32string one = U"Val←123◊1 Val 2";
+
+        std::cout << "Input: " << uni::utf32to8(one) << "\n" << std::endl;
+        std::vector<Char> input{one.begin(), one.end()};
+
+        Tokenizer tokenizer;
+        auto tokens = tokenizer.tokenize(&input);
+
+        Parser parser(tokens);
+        auto ast = parser.parse();
+
+        Interpreter interpreter(*ast, *ast->symbol_table);
+        auto output = interpreter.interpret();
+
+        std::cout << output.to_string() << std::endl;
+
+    } catch (kepler::error& err) {
+        std::cout << "ERROR: " << err.to_string() << std::endl;
+    }
 }
 
 int main(int argc, char* argv[]) {
@@ -33,6 +66,7 @@ int main(int argc, char* argv[]) {
     } else if(kepler::cli::config.commands.empty()) {
         // Run REPL.
         repl();
+        //test();
     } else if(kepler::cli::config.commands.size() == 1) {
         // Try to run the file.
         std::cout << "Directly executing workspaces is not implemented yet." << std::endl;

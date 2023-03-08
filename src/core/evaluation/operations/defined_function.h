@@ -17,26 +17,21 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "dyadic_operators.h"
+#pragma once
+#include "operation.h"
+#include "core/symbol_table.h"
 
 namespace kepler {
-    Jot::Jot() : aalpha(nullptr), oomega(nullptr) {}
+    struct DefinedFunction : Operation {
+    private:
+        AnonymousFunction* function;
+        // Some kind of ASTNode<Array> member.
 
-    Jot::Jot(Operation_ptr aalpha_, Operation_ptr oomega_) : aalpha(std::move(aalpha_)), oomega(std::move(oomega_)) {}
+    public:
+        DefinedFunction(AnonymousFunction* function);
+        ~DefinedFunction();
 
-    bool Jot::is_configured() const {
-        return aalpha != nullptr && oomega != nullptr;
-    }
-
-    Number Jot::operator()(Number alpha, Number omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
-
-        return (*aalpha)(alpha, (*oomega)(omega));
-    }
-
-    Number Jot::operator()(Number omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
-
-        return (*aalpha)((*oomega)(omega));
-    }
+        Array operator()(Array alpha, Array omega);
+        Array operator()(Array omega);
+    };
 };

@@ -18,11 +18,14 @@
 //
 
 #include "interpreter.h"
+#include <memory>
 #include "core/constants/config.h"
 #include "core/session.h"
+#include "core/evaluation/parser/parser.h"
+#include "core/evaluation/operations/defined_function.h"
 
 namespace kepler {
-    Operation *Interpreter::visit(Function *node) {
+    Operation_ptr Interpreter::visit(Function *node) {
         return build_operation(node->token.type);
     }
 
@@ -47,37 +50,43 @@ namespace kepler {
         return {{(int) scalars.size()}, scalars};
     }
 
-    Operation *Interpreter::visit(MonadicOperator *node) {
-        return build_operation(node->token.type, node->child->accept(*this));;
+    Operation_ptr Interpreter::visit(MonadicOperator *node) {
+        return build_operation(node->token.type, node->child->accept(*this));
     }
 
-    Operation *Interpreter::visit(DyadicOperator *node) {
+    Operation_ptr Interpreter::visit(DyadicOperator *node) {
         return build_operation(node->token.type, node->left->accept(*this), node->right->accept(*this));
     }
 
     Array Interpreter::visit(MonadicFunction *node) {
-        Operation* op = node->function->accept(*this);
-        Array result = (*op)(node->omega->accept(*this));
-        delete op;
-        return result;
+        return (*node->function->accept(*this))(node->omega->accept(*this));
     }
 
     Array Interpreter::visit(DyadicFunction *node) {
-        Operation* op = node->function->accept(*this);
-        Array result = (*op)(node->alpha->accept(*this), node->omega->accept(*this));
-        delete op;
-        return result;
+        return (*node->function->accept(*this))(node->alpha->accept(*this), node->omega->accept(*this));
+    }
+
+    Operation_ptr Interpreter::visit(AnonymousFunction* node) {
+        return std::make_shared<DefinedFunction>(node);
+    }
+
+    Operation_ptr Interpreter::visit(FunctionVariable *node) {
+        auto &content = node->identifier.content.value();
+        std::u32string identifier = {content.begin(), content.end()};
+        return symbol_table.get<Operation_ptr>(identifier);
     }
 
     Array Interpreter::visit(Variable *node) {
         auto &content = node->token.content.value();
         std::u32string identifier = {content.begin(), content.end()};
+        return symbol_table.get<Array>(identifier);
+    }
 
-        if (!session.active_workspace.symbol_table.contains(identifier)) {
-            throw kepler::error(DefinitionError, "Undefined variable.");
-        }
-
-        return session.active_workspace.symbol_table.get(identifier);
+    Array Interpreter::visit(FunctionAssignment *node) {
+        auto &content = node->identifier.content.value();
+        std::u32string identifier = {content.begin(), content.end()};
+        symbol_table.set(identifier, node->function->accept(*this));
+        return {{}, {}};
     }
 
     Array Interpreter::visit(Assignment *node) {
@@ -86,30 +95,43 @@ namespace kepler {
         Array value = node->value->accept(*this);
 
         if (identifier.starts_with(U'⎕')) {
-            if (!session.active_workspace.symbol_table.contains(identifier)) {
+            if (!symbol_table.contains(identifier)) {
                 throw kepler::error(DefinitionError, "Distinguished variables are reserved.");
             }
 
             constants::check_valid_system_param_value(identifier, value);
         }
 
-        session.active_workspace.symbol_table.set(identifier, value);
-        return {{},
-                {}};
+        symbol_table.set(identifier, value);
+        return {{}, {}};
     }
 
     Array Interpreter::visit(Statements *node) {
         std::vector<Array> results;
         results.reserve(node->children.size());
 
-        for (int i = node->children.size() - 1; i >= 0; --i) {
-            results.emplace_back(node->children[i]->accept(*this));
+        for (auto& child : node->children) {
+            results.emplace_back(child->accept(*this));
         }
 
         return results.back();
     }
 
-    Array Interpreter::interpret(ASTNode<Array> *tree) {
-        return tree->accept(*this);
+    Array Interpreter::interpret() {
+        return tree.accept(*this);
     }
+
+
+    /*
+    Array Interpreter::interpret(std::vector<Token> *tokens) {
+        Parser parser(symbol_table, tokens);
+        ASTNode<Array>* statement = parser.next();
+        while(statement != nullptr) {
+            result = statement->accept(*this);
+            delete statement;
+            statement = parser.next();
+        }
+
+        return result;
+    }*/
 };

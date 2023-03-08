@@ -28,44 +28,40 @@
 #include "core/error.h"
 
 namespace kepler {
-    struct Session;
+    struct SymbolTable;
 
     struct Interpreter : NodeVisitor {
-        Session& session;
-
-        explicit Interpreter(Session& session_) : session(session_) {}
-
         template <typename... Args>
-        Operation* build_operation(TokenType type, Args... args) {
+        Operation_ptr build_operation(TokenType type, Args... args) {
             if constexpr (sizeof...(args) == 0) {
                 if(type == PLUS) {
-                    return new Pervade(new Plus(&session));
+                    return std::make_shared<Pervade>(std::make_shared<Plus>(&symbol_table));
                 } else if(type == MINUS) {
-                    return new Pervade(new Minus(&session));
+                    return std::make_shared<Pervade>(std::make_shared<Minus>(&symbol_table));
                 } else if(type == TIMES) {
-                    return new Pervade(new Times(&session));
+                    return std::make_shared<Pervade>(std::make_shared<Times>(&symbol_table));
                 } else if(type == DIVIDE) {
-                    return new Pervade(new Divide(&session));
+                    return std::make_shared<Pervade>(std::make_shared<Divide>(&symbol_table));
                 } else if(type == FLOOR) {
-                    return new Pervade(new Floor(&session));
+                    return std::make_shared<Pervade>(std::make_shared<Floor>(&symbol_table));
                 } else if(type == IOTA) {
-                    return new Iota(&session);
+                    return std::make_shared<Iota>(&symbol_table);
                 } else if(type == RHO) {
-                    return new Rho(&session);
+                    return std::make_shared<Rho>(&symbol_table);
                 }
             }
 
             if constexpr (sizeof...(args) == 1) {
                 if(type == COMMUTE) {
-                    return new Commute(args...);
+                    return std::make_shared<Commute>(args...);
                 } else if(type == SLASH) {
-                    return new Slash(args...);
+                    return std::make_shared<Slash>(args...);
                 }
             }
 
             if constexpr (sizeof...(args) == 2) {
                 if(type == JOT) {
-                    return new Jot(args...);
+                    return std::make_shared<Jot>(args...);
                 }
             }
 
@@ -73,17 +69,26 @@ namespace kepler {
                                      std::to_string(sizeof...(args)) + " operations.");
         }
 
-        Operation* visit(Function *node) override;
+        Operation_ptr visit(Function *node) override;
         Array visit(Scalar *node) override;
         Array visit(Vector *node) override;
-        Operation* visit(MonadicOperator *node) override;
-        Operation* visit(DyadicOperator *node) override;
+        Operation_ptr visit(MonadicOperator *node) override;
+        Operation_ptr visit(DyadicOperator *node) override;
         Array visit(MonadicFunction *node) override;
+        Operation_ptr visit(AnonymousFunction *node) override;
+        Operation_ptr visit(FunctionVariable *node) override;
         Array visit(DyadicFunction *node) override;
+        Array visit(FunctionAssignment *node) override;
         Array visit(Variable *node) override;
         Array visit(Assignment *node) override;
         Array visit(Statements *node) override;
 
-        Array interpret(ASTNode<Array>* tree);
+
+        SymbolTable& symbol_table;
+        ASTNode<Array>& tree;
+
+        explicit Interpreter(ASTNode<Array>& tree_, SymbolTable& symbol_table_) : tree(tree_), symbol_table(symbol_table_) {}
+
+        Array interpret();
     };
 };

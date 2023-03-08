@@ -20,16 +20,12 @@
 #include "operation.h"
 
 namespace kepler {
-    Operation::Operation() : op(nullptr), session(nullptr) {}
-    Operation::Operation(Operation* op_) : op(op_), session(nullptr) {}
-    Operation::Operation(Session* session_) : op(nullptr), session(session_) {}
-
-    Operation::~Operation() {
-        delete op;
-    }
+    Operation::Operation() : op(nullptr), symbol_table(nullptr) {}
+    Operation::Operation(std::shared_ptr<Operation> op_) : op(op_), symbol_table(nullptr) {}
+    Operation::Operation(SymbolTable* symbol_table_) : op(nullptr), symbol_table(symbol_table_) {}
 
     bool Operation::is_configured() const {
-        return op != nullptr;
+        return op != nullptr && op->is_configured();
     }
 
     Array Operation::operator()(Array omega) {

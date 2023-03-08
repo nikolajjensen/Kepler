@@ -23,9 +23,12 @@
 #include "core/array.h"
 #include "core/token.h"
 #include "core/datatypes.h"
+#include <memory>
 #include "core/evaluation/operations/operation.h"
 
 namespace kepler {
+    using Operation_ptr = std::shared_ptr<Operation>;
+
     template <typename T>
     struct ASTNode {
         virtual ~ASTNode() = default;
@@ -58,56 +61,67 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
-    struct MonadicOperator : ASTNode<Operation*> {
+    struct MonadicOperator : ASTNode<Operation_ptr> {
         Token token;
-        ASTNode<Operation*>* child;
+        ASTNode<Operation_ptr>* child;
 
         ~MonadicOperator();
-        explicit MonadicOperator(Token token_, ASTNode<Operation*>* child_);
+        explicit MonadicOperator(Token token_, ASTNode<Operation_ptr>* child_);
 
         std::string to_string() const override;
-        Operation* accept(NodeVisitor &visitor) override;
+        Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
-    struct DyadicOperator : ASTNode<Operation*> {
+    struct DyadicOperator : ASTNode<Operation_ptr> {
         Token token;
-        ASTNode<Operation*>* left;
-        ASTNode<Operation*>* right;
+        ASTNode<Operation_ptr>* left;
+        ASTNode<Operation_ptr>* right;
 
         ~DyadicOperator();
-        explicit DyadicOperator(Token token_, ASTNode<Operation*>* left_, ASTNode<Operation*>* right_);
+        explicit DyadicOperator(Token token_, ASTNode<Operation_ptr>* left_, ASTNode<Operation_ptr>* right_);
 
         std::string to_string() const override;
-        Operation* accept(NodeVisitor &visitor) override;
+        Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
-    struct Function : ASTNode<Operation*> {
+    struct Function : ASTNode<Operation_ptr> {
         Token token;
 
         explicit Function(Token token_);
 
         std::string to_string() const override;
-        Operation* accept(NodeVisitor &visitor) override;
+        Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
     struct MonadicFunction : ASTNode<Array> {
-        ASTNode<Operation*>* function;
+        ASTNode<Operation_ptr>* function;
         ASTNode<Array>* omega;
 
         ~MonadicFunction() override;
-        explicit MonadicFunction(ASTNode<Operation*>* function_, ASTNode<Array>* omega_);
+        explicit MonadicFunction(ASTNode<Operation_ptr>* function_, ASTNode<Array>* omega_);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;
     };
 
     struct DyadicFunction : ASTNode<Array> {
-        ASTNode<Operation*>* function;
+        ASTNode<Operation_ptr>* function;
         ASTNode<Array>* alpha;
         ASTNode<Array>* omega;
 
         ~DyadicFunction() override;
-        explicit DyadicFunction(ASTNode<Operation*>* function_, ASTNode<Array>* alpha_, ASTNode<Array>* omega_);
+        explicit DyadicFunction(ASTNode<Operation_ptr>* function_, ASTNode<Array>* alpha_, ASTNode<Array>* omega_);
+
+        std::string to_string() const override;
+        Array accept(NodeVisitor &visitor) override;
+    };
+
+    struct FunctionAssignment : ASTNode<Array> {
+        Token identifier;
+        ASTNode<Operation_ptr>* function;
+
+        ~FunctionAssignment() override;
+        explicit FunctionAssignment(Token identifier, ASTNode<Operation_ptr>* function);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;
@@ -118,7 +132,7 @@ namespace kepler {
         ASTNode<Array>* value;
 
         ~Assignment() override;
-        explicit Assignment(Token identifier_, ASTNode* value_);
+        explicit Assignment(Token identifier_, ASTNode<Array>* value_);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;
@@ -133,13 +147,33 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    struct FunctionVariable : ASTNode<Operation_ptr> {
+        Token identifier;
+
+        explicit FunctionVariable(Token identifier);
+
+        std::string to_string() const override;
+        Operation_ptr accept(NodeVisitor &visitor) override;
+    };
+
     struct Statements : ASTNode<Array> {
         std::vector<ASTNode<Array>*> children;
+        SymbolTable* symbol_table;
 
         ~Statements() override;
-        explicit Statements(std::vector<ASTNode<Array>*> children_);
+        explicit Statements(std::vector<ASTNode<Array>*> children_, SymbolTable* symbol_table);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;
+    };
+
+    struct AnonymousFunction : ASTNode<Operation_ptr> {
+        Statements* body;
+
+        ~AnonymousFunction() override;
+        explicit AnonymousFunction(Statements* body);
+
+        std::string to_string() const override;
+        Operation_ptr accept(NodeVisitor &visitor) override;
     };
 };

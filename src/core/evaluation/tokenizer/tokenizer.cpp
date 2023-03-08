@@ -190,7 +190,7 @@ namespace kepler {
             result.emplace_back(std::move(next_token()));
         }
 
-        std::rotate(result.rbegin(), result.rbegin() + 1, result.rend());
+        result.pop_back();
 
         return result;
     }

@@ -26,7 +26,6 @@ namespace kepler {
     class Workspace {
     public:
         StringUTF8 workspace_name;
-        SymbolTable symbol_table;
         List<Context> state_indicator;
 
         explicit Workspace(StringUTF8 workspaceName);

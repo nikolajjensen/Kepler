@@ -23,21 +23,19 @@
 //#include "core/session.h"
 
 namespace kepler {
-    struct Session;
+    struct SymbolTable;
 
     struct Operation {
     protected:
-        Operation* op;
-        Session* session;
+        std::shared_ptr<Operation> op;
+        SymbolTable* symbol_table;
 
         virtual bool is_configured() const;
 
     public:
         Operation();
-        Operation(Operation* op);
-        Operation(Session* session);
-
-        virtual ~Operation();
+        Operation(std::shared_ptr<Operation> op);
+        Operation(SymbolTable* symbol_table);
 
         virtual Array operator()(Array omega);
 

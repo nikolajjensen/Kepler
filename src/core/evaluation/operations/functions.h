@@ -28,7 +28,10 @@ namespace kepler {
         // as they are the base step in evaluation.
     private:
         using Operation::op;
-        using Operation::is_configured;
+
+        bool is_configured() const override {
+            return symbol_table != nullptr;
+        }
     };
 
     struct Plus : Func {

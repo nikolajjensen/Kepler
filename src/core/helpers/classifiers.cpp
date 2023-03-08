@@ -37,7 +37,7 @@ bool kepler::helpers::is_dyadic_operator(TokenType type) {
 }
 
 bool kepler::helpers::is_array_token(TokenType type) {
-    return type == NUMBER || type == STRING || type == ID;
+    return type == NUMBER || type == STRING || type == ID || type == ALPHA || type == OMEGA;
 }
 
 /*

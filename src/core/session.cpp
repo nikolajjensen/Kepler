@@ -22,9 +22,9 @@
 #include "core/constants/config.h"
 #include "core/constants/literals.h"
 
-kepler::Session::Session(std::string &&name) : session_name(std::move(name)), active_workspace("unnamed"), interpreter(*this) {
-    active_workspace.symbol_table.set(constants::index_origin_id, constants::initial_index_origin);
-    active_workspace.symbol_table.set(constants::print_precision_id, constants::initial_print_precision);
+kepler::Session::Session(std::string &&name) : session_name(std::move(name)), active_workspace("unnamed"), symbol_table() {
+    symbol_table.set(constants::index_origin_id, constants::initial_index_origin);
+    symbol_table.set(constants::print_precision_id, constants::initial_print_precision);
 }
 void display_prompt(std::string& input) {
     std::cout << kepler::constants::indent_prompt << std::flush;
@@ -53,21 +53,29 @@ void kepler::Session::immediate_execution_mode() {
 
 void kepler::Session::immediate_execution(std::u32string &&input, std::ostream &stream) {
     try {
-        Context& new_context = active_workspace.add_context({std::move(input)});
+        List<Char> in = {input.begin(), input.end()};
 
-        List<Token> tokens = tokenizer.tokenize(&new_context.current_line);
+        Tokenizer tokenizer;
+        List<Token> tokens = tokenizer.tokenize(&in);
+
+        Parser parser(tokens);
+        parser.use_table(&symbol_table);
+        auto ast = parser.parse();
+
+        Interpreter interpreter(*ast, *ast->symbol_table);
+        auto result = interpreter.interpret();
 
         //for(auto& tok : tokens) {
         //    std::cout << tok.to_string() << std::endl;
         //}
 
-        ASTNode<Array>* ast = parser.parse(&tokens);
+        //ASTNode<Array>* ast = parser.parse(&tokens);
 
         //std::cout << "AST: " << ast->to_string() << std::endl;
 
-        Array result = interpreter.interpret(ast);
+        //Array result = interpreter.interpret(&tokens);
 
-        active_workspace.pop_context();
+        //active_workspace.pop_context();
 
         stream << result.to_string() << std::flush;
     } catch(kepler::error& err) {

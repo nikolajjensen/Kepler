@@ -21,18 +21,46 @@
 #include <map>
 #include <string>
 #include "core/array.h"
+#include "core/evaluation/ast.h"
+#include "error.h"
+#include "symbol.h"
 
 namespace kepler {
     class SymbolTable {
     private:
-        std::map<std::u32string, Array> table;
+        std::map<std::u32string, Symbol> table;
+        SymbolTable* parent;
+
+        const Symbol& lookup(const std::u32string& id) const;
 
     public:
         SymbolTable();
+        ~SymbolTable();
+
+        void attach_parent(SymbolTable* parent);
+
+        bool contains(const std::u32string& id) const;
+
+        template <typename T>
+        const T& get(const std::u32string& id) const {
+            const Symbol& symbol = lookup(id);
+
+            if(!symbol.content.has_value()) {
+                throw kepler::error(InternalError, "ID '" + uni::utf32to8(id) + "' is defined, but has no value.");
+            }
+
+            if(!holds_alternative<T>(symbol.content.value())) {
+                throw kepler::error(InternalError, "ID '" + uni::utf32to8(id) + "' has a value, but it is not the one requested.");
+            }
+
+            return std::get<T>(symbol.content.value());
+        }
+
+        SymbolType get_type(const std::u32string& id) const;
 
         void set(const std::u32string& id, const Array& value);
+        void set(const std::u32string& id, Operation_ptr value);
         void set(const std::u32string& id, const Number& value);
-        bool contains(const std::u32string& id) const;
-        const Array& get(const std::u32string& id) const;
+        void bind_function(const std::u32string& id);
     };
 };

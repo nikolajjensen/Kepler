@@ -62,6 +62,10 @@ std::string kepler::to_string(TokenType type) {
             return "STRING";
         case ID:
             return "ID";
+        case ALPHA:
+            return "ALPHA";
+        case OMEGA:
+            return "OMEGA";
         case PLUS:
             return "PLUS";
         case MINUS:
@@ -132,6 +136,10 @@ std::string kepler::to_string(TokenType type) {
             return "LPARENS";
         case RPARENS:
             return "RPARENS";
+        case LBRACE:
+            return "LBRACE";
+        case RBRACE:
+            return "RBRACE";
         case END:
             return "END";
         default:

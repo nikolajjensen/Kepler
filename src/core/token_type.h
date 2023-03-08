@@ -28,6 +28,10 @@ namespace kepler {
         STRING,
         ID,
 
+        // Arguments
+        ALPHA,
+        OMEGA,
+
         // Functions
         PLUS,
         MINUS,
@@ -68,6 +72,8 @@ namespace kepler {
         ASSIGNMENT,
         LPARENS,
         RPARENS,
+        LBRACE,
+        RBRACE,
         END,
     };
 };

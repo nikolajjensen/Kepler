@@ -19,20 +19,17 @@
 
 #pragma once
 #include "operation.h"
+#include "core/evaluation/ast.h"
 
 namespace kepler {
     struct Jot : Operation {
-        Operation* aalpha;
-        Operation* oomega;
+        Operation_ptr aalpha;
+        Operation_ptr oomega;
 
         Jot();
-        Jot(Operation* aalpha_, Operation* oomega_);
-
-        ~Jot() override;
+        Jot(Operation_ptr aalpha_, Operation_ptr oomega_);
 
         bool is_configured() const override;
-
-        void configure(Operation* aalpha_, Operation* oomega_);
 
         Number operator()(Number alpha, Number omega) override;
 

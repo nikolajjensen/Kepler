@@ -24,6 +24,8 @@
 
 namespace kepler::constants {
     const std::map<Char, TokenType> wysiwyg_mapping = {
+            {U'⍺',  ALPHA},
+            {U'⍵',  OMEGA},
             {U'+',  PLUS},
             {U'-',  MINUS},
             {U'×',  TIMES},
@@ -57,7 +59,10 @@ namespace kepler::constants {
             {U'←',  ASSIGNMENT},
             {U'(',  LPARENS},
             {U')',  RPARENS},
+            {U'{',  LBRACE},
+            {U'}',  RBRACE},
             {U'◊',  DIAMOND},
+            {U'⋄',  DIAMOND},
             {U'\n', DIAMOND},
     };
 
@@ -65,7 +70,10 @@ namespace kepler::constants {
     const Char complex_marker = U'J';
     const Char overbar = U'¯';
 
-    const std::u32string primitives = U"+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~⊂⍴∧∨⍲⍱⊥⊤⍨/¨∘⍤⍥←()◊\n";
+    const std::u32string alpha_id = U"⍺";
+    const std::u32string omega_id = U"⍵";
+
+    const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~⊂⍴∧∨⍲⍱⊥⊤⍨/¨∘⍤⍥←(){}◊⋄\n";
     const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕";
     const std::u32string digit = U"0123456789";
 };

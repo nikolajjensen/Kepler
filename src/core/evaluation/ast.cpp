@@ -19,6 +19,7 @@
 
 #include "ast.h"
 #include "core/evaluation/node_visitor.h"
+#include "core/symbol_table.h"
 
 namespace kepler {
     Scalar::Scalar(Token token_, std::variant<Number, std::u32string> content_) : token(std::move(token_)), content(std::move(content_)) {}
@@ -62,14 +63,14 @@ namespace kepler {
         delete child;
     }
 
-    MonadicOperator::MonadicOperator(Token token_, ASTNode<Operation *> *child_) : token(std::move(token_)),
+    MonadicOperator::MonadicOperator(Token token_, ASTNode<Operation_ptr>* child_) : token(std::move(token_)),
                                                                                    child(child_) {}
 
     std::string MonadicOperator::to_string() const {
         return "MonadicOperator(" + token.to_string() + " " + child->to_string() + ")";
     }
 
-    Operation* MonadicOperator::accept(NodeVisitor &visitor) { return visitor.visit(this); }
+    Operation_ptr MonadicOperator::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
 
@@ -79,14 +80,14 @@ namespace kepler {
         delete right;
     }
 
-    DyadicOperator::DyadicOperator(Token token_, ASTNode<Operation *> *left_, ASTNode<Operation *> *right_) : token(
+    DyadicOperator::DyadicOperator(Token token_, ASTNode<Operation_ptr> *left_, ASTNode<Operation_ptr> *right_) : token(
             std::move(token_)), left(left_), right(right_) {}
 
     std::string DyadicOperator::to_string() const {
         return "DyadicOperator(" + left->to_string() + " " + token.to_string() + " " + right->to_string() + ")";
     }
 
-    Operation* DyadicOperator::accept(NodeVisitor &visitor) { return visitor.visit(this); }
+    Operation_ptr DyadicOperator::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
 
@@ -97,7 +98,7 @@ namespace kepler {
         return "Function(" + token.to_string() + ")";
     }
 
-    Operation* Function::accept(NodeVisitor &visitor) { return visitor.visit(this); }
+    Operation_ptr Function::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
 
@@ -107,7 +108,7 @@ namespace kepler {
         delete omega;
     }
 
-    MonadicFunction::MonadicFunction(ASTNode<Operation *> *function_, ASTNode<Array> *omega_) : function(function_),
+    MonadicFunction::MonadicFunction(ASTNode<Operation_ptr> *function_, ASTNode<Array> *omega_) : function(function_),
                                                                                                 omega(omega_) {}
 
     std::string MonadicFunction::to_string() const {
@@ -125,7 +126,7 @@ namespace kepler {
         delete omega;
     }
 
-    DyadicFunction::DyadicFunction(ASTNode<Operation *> *function_, ASTNode<Array> *alpha_, ASTNode<Array> *omega_)
+    DyadicFunction::DyadicFunction(ASTNode<Operation_ptr> *function_, ASTNode<Array> *alpha_, ASTNode<Array> *omega_)
             : function(function_), alpha(alpha_), omega(omega_) {}
 
     std::string DyadicFunction::to_string() const {
@@ -135,6 +136,37 @@ namespace kepler {
     Array DyadicFunction::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
+    AnonymousFunction::~AnonymousFunction() {
+        delete body;
+    }
+
+    AnonymousFunction::AnonymousFunction(Statements *body_) : body(body_) {}
+
+    std::string AnonymousFunction::to_string() const {
+        return "AnonymousFunction(" + body->to_string() + ")";
+    }
+
+    Operation_ptr AnonymousFunction::accept(NodeVisitor &visitor) { return visitor.visit(this); }
+
+
+    FunctionVariable::FunctionVariable(Token identifier_) : identifier(identifier_) {}
+
+    std::string FunctionVariable::to_string() const {
+        return "FunctionVariable(" + identifier.to_string() + ")";
+    }
+
+    Operation_ptr FunctionVariable::accept(NodeVisitor &visitor) { return visitor.visit(this); }
+
+    FunctionAssignment::FunctionAssignment(Token identifier_, ASTNode<Operation_ptr>* function_) : identifier(identifier_), function(function_) {}
+    FunctionAssignment::~FunctionAssignment() {
+
+    }
+
+    std::string FunctionAssignment::to_string() const {
+        return "FunctionAssignment(" + identifier.to_string() + " " + function->to_string() + ")";
+    }
+
+    Array FunctionAssignment::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
     Assignment::~Assignment() {
@@ -167,9 +199,11 @@ namespace kepler {
             delete node;
         }
         children.clear();
+        delete symbol_table;
     }
 
-    Statements::Statements(std::vector<ASTNode<Array> *> children_) : children(children_) {}
+
+    Statements::Statements(std::vector<ASTNode<Array> *> children_, SymbolTable* symbol_table_) : children(children_), symbol_table(symbol_table_) {}
 
     std::string Statements::to_string() const {
         std::stringstream ss;

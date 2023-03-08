@@ -20,24 +20,20 @@
 #pragma once
 #include <string>
 #include "workspace.h"
-#include "core/evaluation/parser/parser.h"
 #include "core/evaluation/tokenizer/tokenizer.h"
 #include "core/evaluation/interpreter.h"
+#include "core/evaluation/parser/parser.h"
 
 namespace kepler {
     class Session {
-    private:
-        Tokenizer tokenizer;
-        Parser parser;
-        Interpreter interpreter;
-
     public:
         Workspace active_workspace;
+        SymbolTable symbol_table;
         std::string session_name;
 
         explicit Session(std::string&& name);
 
         void immediate_execution_mode();
-        void immediate_execution(std::u32string&& input, std::ostream& stream = std::cout);
+        void immediate_execution(std::u32string &&input, std::ostream& stream = std::cout);
     };
 };

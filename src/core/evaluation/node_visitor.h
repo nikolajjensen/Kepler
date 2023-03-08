@@ -27,10 +27,13 @@ namespace kepler {
     struct NodeVisitor {
         virtual Array visit(Scalar* node) = 0;
         virtual Array visit(Vector* node) = 0;
-        virtual Operation* visit(MonadicOperator* node) = 0;
-        virtual Operation* visit(DyadicOperator* node) = 0;
-        virtual Operation* visit(Function* node) = 0;
+        virtual Operation_ptr visit(MonadicOperator* node) = 0;
+        virtual Operation_ptr visit(DyadicOperator* node) = 0;
+        virtual Operation_ptr visit(Function* node) = 0;
+        virtual Operation_ptr visit(AnonymousFunction* node) = 0;
         virtual Array visit(MonadicFunction* node) = 0;
+        virtual Array visit(FunctionAssignment* node) = 0;
+        virtual Operation_ptr visit(FunctionVariable* node) = 0;
         virtual Array visit(DyadicFunction* node) = 0;
         virtual Array visit(Assignment* node) = 0;
         virtual Array visit(Variable* node) = 0;
