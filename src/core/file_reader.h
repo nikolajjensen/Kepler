@@ -18,21 +18,19 @@
 //
 
 #pragma once
-#include "operation.h"
-#include "core/symbol_table.h"
+#include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <uni_algo/conv.h>
+#include "datatypes.h"
 
 namespace kepler {
-    struct DefinedFunction : Operation {
-    private:
-        AnonymousFunction* function;
-
-        bool is_configured() const override;
-
-    public:
-        DefinedFunction(AnonymousFunction* function);
-        ~DefinedFunction();
-
-        Array operator()(Array alpha, Array omega) override;
-        Array operator()(Array omega) override;
-    };
+    std::vector<Char> read_file(const std::string& path) {
+        std::ifstream f(path);
+        std::stringstream ss;
+        ss << f.rdbuf();
+        auto str = uni::utf8to32u(ss.str());
+        return {str.begin(), str.end()};
+    }
 };

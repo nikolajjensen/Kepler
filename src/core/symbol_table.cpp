@@ -74,4 +74,17 @@ namespace kepler {
     void SymbolTable::bind_function(const std::u32string &id) {
         table.insert_or_assign(id, std::move(Symbol(FunctionSymbol)));
     }
+
+    // Removes all keys and destroys all symbols.
+    void SymbolTable::clear() {
+        table.clear();
+    }
+
+    // Removes all values from the symbol table,
+    // but keeps all entries and their bindings.
+    void SymbolTable::strip_values() {
+        for (auto& [key, val] : table) {
+            val.content = std::nullopt;
+        }
+    }
 };

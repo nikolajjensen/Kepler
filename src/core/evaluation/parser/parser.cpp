@@ -74,8 +74,13 @@ namespace kepler {
 
     std::vector<Token>::const_iterator Parser::next_separator(const std::vector<Token>::const_iterator& current) {
         auto it = current;
+        int level = 0;
         while(it != end) {
-            if(it->type == DIAMOND) {
+            if(it->type == LBRACE) {
+                ++level;
+            } else if(it->type == RBRACE) {
+                --level;
+            } else if(it->type == DIAMOND && level == 0) {
                 break;
             }
             ++it;
@@ -90,15 +95,13 @@ namespace kepler {
         while(it >= begin && level != 0) {
             if(it->type == LBRACE) {
                 --level;
-            } else {
-                if(it->type == RBRACE) {
-                    ++level;
-                }
-                --it;
+            } else if(it->type == RBRACE) {
+                ++level;
             }
+            --it;
         }
 
-        return it;
+        return it + 1;
     }
 
 
@@ -165,6 +168,7 @@ namespace kepler {
         eat(RBRACE);
         auto dfn_start = matching_brace(cursor + 1) + 1;
         auto dfn_end = cursor + 1;
+
         Parser dfn_parser(*symbol_table, dfn_start, dfn_end);
         auto body = dfn_parser.parse();
 

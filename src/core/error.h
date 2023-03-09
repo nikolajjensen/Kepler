@@ -96,26 +96,6 @@ namespace kepler {
             input = input_;
         }
 
-        /*
-        struct visitor : boost::static_visitor<> {
-            std::ostream& stream;
-
-            explicit visitor(std::ostream& stream_) : stream(stream_) {}
-
-            void operator()(const std::vector<Char>& vec) {
-                std::string str = uni::utf32to8(std::u32string(vec.begin(), vec.end()));
-                stream << str;
-            }
-
-            void operator()(const std::vector<Token>& vec) {
-                //helpers::TokenPrinter pr(stream);
-                //for(auto& token : vec) {
-                //    pr(token);
-                //}
-            }
-        };
-         */
-
         std::string where() const {
             std::stringstream ss;
 

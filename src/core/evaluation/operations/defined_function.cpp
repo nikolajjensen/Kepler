@@ -26,7 +26,7 @@ namespace kepler {
             : function(function_) {}
 
     DefinedFunction::~DefinedFunction() {
-        delete function;
+        //delete function;
     }
 
     bool DefinedFunction::is_configured() const {
@@ -40,7 +40,9 @@ namespace kepler {
         symbol_table->set(constants::omega_id, omega);
 
         Interpreter interpreter(*function->body, *symbol_table);
-        return interpreter.interpret();
+        auto result = interpreter.interpret();
+        symbol_table->strip_values();
+        return result;
     }
 
     Array DefinedFunction::operator()(Array alpha, Array omega) {
@@ -49,6 +51,8 @@ namespace kepler {
         symbol_table->set(constants::omega_id, omega);
 
         Interpreter interpreter(*function->body, *symbol_table);
-        return interpreter.interpret();
+        auto result = interpreter.interpret();
+        symbol_table->strip_values();
+        return result;
     }
 };

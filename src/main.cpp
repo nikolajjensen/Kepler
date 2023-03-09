@@ -4,6 +4,7 @@
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"
+#include "core/file_reader.h"
 
 #include "core/evaluation/tokenizer/tokenizer.h"
 #include "core/evaluation/parser/parser.h"
@@ -22,7 +23,7 @@ void test() {
         Session* session = env.spawn_session();
 
         //std::u32string one = U"FN←{⍺+⍵} ⋄ FN/⍳10";
-        std::u32string one = U"FN←{⍺+⍵} ⋄ 1 FN 2";
+        std::u32string one = U"fn←{ q←{⍺÷⍵} ⋄ ⍵ q ⍺}";
         //std::u32string one = U"2+5";
         //std::u32string one = U"FN←{⍺+⍵}◊1 FN 2";
         //std::u32string one = U"Val←123◊1 Val 2";
@@ -44,6 +45,29 @@ void test() {
     } catch (kepler::error& err) {
         std::cout << "ERROR: " << err.to_string() << std::endl;
     }
+}
+
+int run_file(const std::string& path) {
+    std::vector<Char> contents = read_file(path);
+
+    try {
+        Tokenizer tokenizer;
+        auto tokens = tokenizer.tokenize(&contents);
+
+        Parser parser(tokens);
+        auto ast = parser.parse();
+
+        Interpreter interpreter(*ast, *ast->symbol_table);
+        auto output = interpreter.interpret();
+
+        std::cout << output.to_string() << std::endl;
+
+    } catch (kepler::error& err) {
+        std::cout << "ERROR: " << err.to_string() << std::endl;
+        return 1;
+    }
+
+    return 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -69,8 +93,9 @@ int main(int argc, char* argv[]) {
         //test();
     } else if(kepler::cli::config.commands.size() == 1) {
         // Try to run the file.
-        std::cout << "Directly executing workspaces is not implemented yet." << std::endl;
-        return 1;
+        return run_file(kepler::cli::config.commands[0]);
+        //std::cout << "Directly executing workspaces is not implemented yet." << std::endl;
+        //return 1;
     } else {
         std::cerr << "Command error: only one file can be specified." << std::endl;
     }

@@ -62,5 +62,8 @@ namespace kepler {
         void set(const std::u32string& id, Operation_ptr value);
         void set(const std::u32string& id, const Number& value);
         void bind_function(const std::u32string& id);
+
+        void clear();
+        void strip_values();
     };
 };
