@@ -28,13 +28,13 @@ namespace kepler {
         return aalpha != nullptr && oomega != nullptr;
     }
 
-    Number Jot::operator()(Number alpha, Number omega) {
+    Number Jot::operator()(const Number& alpha, const Number& omega) {
         if (!is_configured()) throw std::runtime_error("Not configured.");
 
         return (*aalpha)(alpha, (*oomega)(omega));
     }
 
-    Number Jot::operator()(Number omega) {
+    Number Jot::operator()(const Number& omega) {
         if (!is_configured()) throw std::runtime_error("Not configured.");
 
         return (*aalpha)((*oomega)(omega));

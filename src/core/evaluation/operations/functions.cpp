@@ -20,60 +20,59 @@
 #include "functions.h"
 #include "core/error.h"
 #include <numeric>
-#include "core/session.h"
 #include "core/constants/config.h"
 #include "core/symbol_table.h"
 
 namespace kepler {
-    Number Plus::operator()(Number alpha, Number omega) {
+    Number Plus::operator()(const Number& alpha, const Number& omega) {
         return alpha + omega;
     }
 
-    Number Plus::operator()(Number omega) {
+    Number Plus::operator()(const Number& omega) {
         return conj(omega);
     }
 
-    Number Minus::operator()(Number alpha, Number omega) {
+    Number Minus::operator()(const Number& alpha, const Number& omega) {
         return alpha - omega;
     }
 
-    Number Minus::operator()(Number omega) {
+    Number Minus::operator()(const Number& omega) {
         return omega * -1.0;
     }
 
-    Number Times::operator()(Number alpha, Number omega) {
+    Number Times::operator()(const Number& alpha, const Number& omega) {
         return alpha * omega;
     }
 
-    Number Times::operator()(Number omega) {
+    Number Times::operator()(const Number& omega) {
         return (omega == 0.0) ? omega : omega / abs(omega);
     }
 
-    Number Divide::operator()(Number alpha, Number omega) {
+    Number Divide::operator()(const Number& alpha, const Number& omega) {
         if(omega == 0.0) {
             throw kepler::error(DomainError, "Division by 0 is undefined.");
         }
         return alpha / omega;
     }
 
-    Number Divide::operator()(Number omega) {
+    Number Divide::operator()(const Number& omega) {
         if(omega == 0.0) {
             throw kepler::error(DomainError, "Reciprocal of 0 is undefined.");
         }
         return Number(1) / omega;
     }
 
-    Number Floor::operator()(Number alpha, Number omega) {
+    Number Floor::operator()(const Number& alpha, const Number& omega) {
         //return ;
         throw kepler::error(InternalError, "'minimum' not implemented yet.");
     }
 
-    Number Floor::operator()(Number omega) {
+    Number Floor::operator()(const Number& omega) {
         //return (omega == 0.0) ? omega : omega / abs(omega);
         throw kepler::error(InternalError, "'floor' not implemented yet.");
     }
 
-    Array Iota::operator()(Array omega) {
+    Array Iota::operator()(const Array& omega) {
         if(omega.size() != 1 || !holds_alternative<Number>(omega.data[0])) {
             throw kepler::error(SyntaxError, "Expected numeric scalar for index generation.");
         }
@@ -101,7 +100,7 @@ namespace kepler {
         return result;
     }
 
-    Array Rho::operator()(Array omega) {
+    Array Rho::operator()(const Array& omega) {
         Array result{{(int)omega.shape.size()}, {}};
         for(auto& dim : omega.shape) {
             result.data.emplace_back(Array{{}, {dim}});

@@ -21,20 +21,22 @@
 #include "core/error.h"
 
 namespace kepler {
-    Array Pervade::operator()(Array omega) {
+    Array Pervade::operator()(const Array& omega) {
         if (!is_configured()) throw kepler::error(InternalError, "Not configured.");
 
         if (!omega.is_simple_scalar()) {
-            for (auto &element: omega.data) {
+            Array tmp = omega;
+            for (auto &element: tmp.data) {
                 element = apply(element);
             }
+            return tmp;
         } else if (omega.is_simple_scalar()) {
-            omega = Array{{}, {apply(omega.data[0])}};
+            return Array{{}, {apply(omega.data[0])}};
         }
         return omega;
     }
 
-    Array Pervade::operator()(Array alpha, Array omega) {
+    Array Pervade::operator()(const Array& alpha, const Array& omega) {
         if (!is_configured()) throw kepler::error(InternalError, "Not configured.");
 
         Array tmp = alpha;
@@ -75,7 +77,7 @@ namespace kepler {
         return tmp;
     }
 
-    Array::element_type Pervade::apply(Array::element_type& omega) {
+    Array::element_type Pervade::apply(const Array::element_type& omega) {
         if(holds_alternative<Number>(omega)) {
             return (*op)(get<Number>(omega));
         } else if(holds_alternative<std::u32string>(omega)) {
@@ -88,7 +90,7 @@ namespace kepler {
     }
 
     // Ugly, but needs to be compile-time deducible.
-    Array::element_type Pervade::apply(Array::element_type& alpha, Array::element_type& omega) {
+    Array::element_type Pervade::apply(const Array::element_type& alpha, const Array::element_type& omega) {
         if(std::holds_alternative<Number>(alpha)) {
             if(holds_alternative<Number>(omega)) {
                 return (*op)(get<Number>(alpha), get<Number>(omega));

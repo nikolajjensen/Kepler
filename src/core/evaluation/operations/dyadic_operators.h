@@ -31,8 +31,8 @@ namespace kepler {
 
         bool is_configured() const override;
 
-        Number operator()(Number alpha, Number omega) override;
+        Number operator()(const Number& alpha, const Number& omega) override;
 
-        Number operator()(Number omega) override;
+        Number operator()(const Number& omega) override;
     };
 };

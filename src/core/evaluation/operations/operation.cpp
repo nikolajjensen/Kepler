@@ -28,27 +28,27 @@ namespace kepler {
         return op != nullptr && op->is_configured();
     }
 
-    Array Operation::operator()(Array omega) {
+    Array Operation::operator()(const Array& omega) {
         throw std::runtime_error("This operation does not support monadic array as argument.");
     }
 
-    Array Operation::operator()(Array alpha, Array omega) {
+    Array Operation::operator()(const Array& alpha, const Array& omega) {
         throw std::runtime_error("This operation does not support dyadic arrays as arguments.");
     }
 
-    Number Operation::operator()(Number omega) {
+    Number Operation::operator()(const Number& omega) {
         throw std::runtime_error("This operation does not support monadic number as argument.");
     }
 
-    Number Operation::operator()(Number alpha, Number omega) {
+    Number Operation::operator()(const Number& alpha, const Number& omega) {
         throw std::runtime_error("This operation does not support dyadic numbers as arguments.");
     }
 
-    std::u32string Operation::operator()(std::u32string omega) {
+    std::u32string Operation::operator()(const std::u32string& omega) {
         throw std::runtime_error("This operation does not support monadic string as argument.");
     }
 
-    std::u32string Operation::operator()(std::u32string alpha, std::u32string omega) {
+    std::u32string Operation::operator()(const std::u32string& alpha, const std::u32string& omega) {
         throw std::runtime_error("This operation does not support dyadic strings as arguments.");
     }
 };

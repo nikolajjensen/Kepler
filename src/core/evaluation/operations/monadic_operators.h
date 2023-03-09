@@ -26,14 +26,14 @@ namespace kepler {
     struct Commute : Operation {
         using Operation::Operation;
 
-        Array operator()(Array alpha, Array omega) override;
-        Array operator()(Array omega) override;
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
     };
 
     struct Slash : Operation {
         using Operation::Operation;
 
-        Array operator()(Array alpha, Array omega) override;
-        Array operator()(Array omega) override;
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
     };
 };

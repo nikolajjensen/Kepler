@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,20 +17,14 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "datatypes.h"
-#include "context.h"
-#include "symbol_table.h"
+#include "file_reader.h"
+#include <fstream>
+#include <uni_algo/conv.h>
 
-namespace kepler {
-    class Workspace {
-    public:
-        StringUTF8 workspace_name;
-        List<Context> state_indicator;
-
-        explicit Workspace(StringUTF8 workspaceName);
-
-        kepler::Context& add_context(kepler::Context&& context);
-        void pop_context();
-    };
-};
+std::vector<kepler::Char> kepler::read_file(const std::string& path) {
+    std::ifstream f(path);
+    std::stringstream ss;
+    ss << f.rdbuf();
+    auto str = uni::utf8to32u(ss.str());
+    return {str.begin(), str.end()};
+}

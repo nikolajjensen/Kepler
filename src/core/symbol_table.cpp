@@ -19,6 +19,8 @@
 
 #include "symbol_table.h"
 #include "core/error.h"
+#include "core/constants/literals.h"
+#include "core/constants/config.h"
 
 namespace kepler {
     SymbolTable::SymbolTable() : table(), parent(nullptr) {
@@ -86,5 +88,10 @@ namespace kepler {
         for (auto& [key, val] : table) {
             val.content = std::nullopt;
         }
+    }
+
+    void SymbolTable::insert_system_parameters() {
+        set(constants::index_origin_id, constants::initial_index_origin);
+        set(constants::print_precision_id, constants::initial_print_precision);
     }
 };

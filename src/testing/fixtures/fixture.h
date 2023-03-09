@@ -18,18 +18,21 @@
 //
 
 #pragma once
-#include "core/system.h"
-#include "core/session.h"
+#include <sstream>
 #include <chrono>
+#include "core/datatypes.h"
+#include "core/execution.h"
+#include "core/symbol_table.h"
 
 class fixture {
 protected:
-    kepler::System system;
-    kepler::Session* session;
+    kepler::SymbolTable symbol_table;
     std::stringstream output_stream;
 
 public:
-    fixture() : system(), session(system.spawn_session()) {}
+    fixture() {
+        symbol_table.insert_system_parameters();
+    }
 
 protected:
     std::string run(std::string&& input, bool timing = false) {
@@ -38,7 +41,9 @@ protected:
         // Clear the output_stream between runs.
         output_stream.str("");
 
-        session->immediate_execution(uni::utf8to32u(input), output_stream);
+        auto u32str = uni::utf8to32u(input);
+        std::vector<kepler::Char> vec = {u32str.begin(), u32str.end()};
+        kepler::immediate_execution(vec, output_stream, &symbol_table);
 
         auto stop = std::chrono::high_resolution_clock::now();
         if(timing) {

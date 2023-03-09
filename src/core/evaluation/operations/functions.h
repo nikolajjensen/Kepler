@@ -37,47 +37,47 @@ namespace kepler {
     struct Plus : Func {
         using Func::Func;
 
-        Number operator()(Number alpha, Number omega) override;
-        Number operator()(Number omega) override;
+        Number operator()(const Number& alpha, const Number& omega) override;
+        Number operator()(const Number& omega) override;
     };
 
     struct Minus : Func {
         using Func::Func;
 
-        Number operator()(Number alpha, Number omega) override;
-        Number operator()(Number omega) override;
+        Number operator()(const Number& alpha, const Number& omega) override;
+        Number operator()(const Number& omega) override;
     };
 
     struct Times : Func {
         using Func::Func;
 
-        Number operator()(Number alpha, Number omega) override;
-        Number operator()(Number omega) override;
+        Number operator()(const Number& alpha, const Number& omega) override;
+        Number operator()(const Number& omega) override;
     };
 
     struct Divide : Func {
         using Func::Func;
 
-        Number operator()(Number alpha, Number omega) override;
-        Number operator()(Number omega) override;
+        Number operator()(const Number& alpha, const Number& omega) override;
+        Number operator()(const Number& omega) override;
     };
 
     struct Floor : Func {
         using Func::Func;
 
-        Number operator()(Number alpha, Number omega) override;
-        Number operator()(Number omega) override;
+        Number operator()(const Number& alpha, const Number& omega) override;
+        Number operator()(const Number& omega) override;
     };
 
     struct Iota : Func {
         using Func::Func;
 
-        Array operator()(Array omega) override;
+        Array operator()(const Array& omega) override;
     };
 
     struct Rho : Func {
         using Func::Func;
 
-        Array operator()(Array omega) override;
+        Array operator()(const Array& omega) override;
     };
 };

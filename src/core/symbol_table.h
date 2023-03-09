@@ -65,5 +65,7 @@ namespace kepler {
 
         void clear();
         void strip_values();
+
+        void insert_system_parameters();
     };
 };

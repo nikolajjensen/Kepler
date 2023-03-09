@@ -21,23 +21,23 @@
 #include "core/error.h"
 
 namespace kepler {
-    Array Commute::operator()(Array alpha, Array omega) {
+    Array Commute::operator()(const Array& alpha, const Array& omega) {
         if (!is_configured()) throw std::runtime_error("Not configured.");
 
         return (*op)(omega, alpha);
     }
 
-    Array Commute::operator()(Array omega) {
+    Array Commute::operator()(const Array& omega) {
         if (!is_configured()) throw std::runtime_error("Not configured.");
 
         return (*op)(omega, omega);
     }
 
-    Array Slash::operator()(Array alpha, Array omega) {
+    Array Slash::operator()(const Array& alpha, const Array& omega) {
         throw kepler::error(InternalError, "Dyadic SLASH is not implemented.");
     }
 
-    Array Slash::operator()(Array omega) {
+    Array Slash::operator()(const Array& omega) {
         if (!is_configured()) throw std::runtime_error("Not configured.");
 
         if(omega.size() < 2) {

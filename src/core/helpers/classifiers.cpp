@@ -18,7 +18,6 @@
 //
 
 #include "classifiers.h"
-#include "core/session.h"
 
 bool kepler::helpers::is_function(TokenType type) {
     return type == PLUS || type == MINUS || type == TIMES || type == DIVIDE || type == FLOOR

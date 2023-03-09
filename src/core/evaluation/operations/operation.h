@@ -37,16 +37,16 @@ namespace kepler {
         Operation(std::shared_ptr<Operation> op);
         Operation(SymbolTable* symbol_table);
 
-        virtual Array operator()(Array omega);
+        virtual Array operator()(const Array& omega);
 
-        virtual Array operator()(Array alpha, Array omega);
+        virtual Array operator()(const Array& alpha, const Array& omega);
 
-        virtual Number operator()(Number omega);
+        virtual Number operator()(const Number& omega);
 
-        virtual Number operator()(Number alpha, Number omega);
+        virtual Number operator()(const Number& alpha, const Number& omega);
 
-        virtual std::u32string operator()(std::u32string omega);
+        virtual std::u32string operator()(const std::u32string& omega);
 
-        virtual std::u32string operator()(std::u32string alpha, std::u32string omega);
+        virtual std::u32string operator()(const std::u32string& alpha, const std::u32string& omega);
     };
 };

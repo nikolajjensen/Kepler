@@ -1,27 +1,14 @@
 
 #include <iostream>
-#include "core/system.h"
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"
-#include "core/file_reader.h"
-
-#include "core/evaluation/tokenizer/tokenizer.h"
-#include "core/evaluation/parser/parser.h"
+#include "core/execution.h"
 
 using namespace kepler;
-
-void repl() {
-    System env = System();
-    Session* session = env.spawn_session();
-    session->immediate_execution_mode();
-}
-
+/*
 void test() {
     try {
-        System env = System();
-        Session* session = env.spawn_session();
-
         //std::u32string one = U"FN←{⍺+⍵} ⋄ FN/⍳10";
         std::u32string one = U"fn←{ q←{⍺÷⍵} ⋄ ⍵ q ⍺}";
         //std::u32string one = U"2+5";
@@ -46,29 +33,7 @@ void test() {
         std::cout << "ERROR: " << err.to_string() << std::endl;
     }
 }
-
-int run_file(const std::string& path) {
-    std::vector<Char> contents = read_file(path);
-
-    try {
-        Tokenizer tokenizer;
-        auto tokens = tokenizer.tokenize(&contents);
-
-        Parser parser(tokens);
-        auto ast = parser.parse();
-
-        Interpreter interpreter(*ast, *ast->symbol_table);
-        auto output = interpreter.interpret();
-
-        std::cout << output.to_string() << std::endl;
-
-    } catch (kepler::error& err) {
-        std::cout << "ERROR: " << err.to_string() << std::endl;
-        return 1;
-    }
-
-    return 0;
-}
+ */
 
 int main(int argc, char* argv[]) {
     auto result = kepler::cli::cli.parse({argc, argv});
@@ -89,7 +54,7 @@ int main(int argc, char* argv[]) {
         return session.run();
     } else if(kepler::cli::config.commands.empty()) {
         // Run REPL.
-        repl();
+        run_repl();
         //test();
     } else if(kepler::cli::config.commands.size() == 1) {
         // Try to run the file.

@@ -32,7 +32,7 @@ namespace kepler {
         DefinedFunction(AnonymousFunction* function);
         ~DefinedFunction();
 
-        Array operator()(Array alpha, Array omega) override;
-        Array operator()(Array omega) override;
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
     };
 };

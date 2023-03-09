@@ -18,19 +18,14 @@
 //
 
 #pragma once
-#include <vector>
 #include <string>
-#include <iostream>
-#include <fstream>
-#include <uni_algo/conv.h>
 #include "datatypes.h"
+#include "symbol_table.h"
 
 namespace kepler {
-    std::vector<Char> read_file(const std::string& path) {
-        std::ifstream f(path);
-        std::stringstream ss;
-        ss << f.rdbuf();
-        auto str = uni::utf8to32u(ss.str());
-        return {str.begin(), str.end()};
-    }
+    int run_file(const std::string& path);
+
+    int run_repl();
+
+    void immediate_execution(std::vector<Char>& input, std::ostream & stream, SymbolTable* symbol_table = nullptr);
 };

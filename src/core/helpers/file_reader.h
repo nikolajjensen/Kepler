@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -18,24 +18,10 @@
 //
 
 #pragma once
-
-#include "token.h"
-#include "datatypes.h"
-#include "error.h"
+#include <vector>
+#include <string>
+#include "core/datatypes.h"
 
 namespace kepler {
-    class Context {
-    public:
-        List<Token> stack;
-        List<Char> current_line;
-        List<Token> current_statement;
-
-        Context(std::u32string&& line);
-        //Context(Mode mode, List<Char> line);
-        //Context(Mode mode, List<Char> line, DefinedFunction function, int line_number);
-
-        StringUTF8 current_line_string() {
-            return uni::utf32to8(std::u32string(current_line.begin(), current_line.end()));
-        }
-    };
+    std::vector<kepler::Char> read_file(const std::string& path);
 };

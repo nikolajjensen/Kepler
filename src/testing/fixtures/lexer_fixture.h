@@ -18,19 +18,13 @@
 //
 
 #pragma once
-#include "core/system.h"
-#include "core/session.h"
 #include "core/datatypes.h"
 #include "core/evaluation/tokenizer/tokenizer.h"
 #include <chrono>
 
 class lexer_fixture {
-protected:
-    kepler::System system;
-    kepler::Session* session;
-
 public:
-    lexer_fixture() : system(), session(system.spawn_session()) {}
+    lexer_fixture() = default;
 
 protected:
     kepler::List<kepler::Token> run(std::string&& raw, bool timing = false) {

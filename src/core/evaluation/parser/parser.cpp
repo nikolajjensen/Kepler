@@ -19,7 +19,7 @@
 
 #include "parser.h"
 #include "core/error.h"
-#include "core/session.h"
+#include "core/symbol_table.h"
 
 namespace kepler {
 

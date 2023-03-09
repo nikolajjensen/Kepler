@@ -26,14 +26,14 @@ namespace kepler {
     struct Pervade : Operation {
         using Operation::Operation;
 
-        Array operator()(Array omega) override;
+        Array operator()(const Array& omega) override;
 
-        Array operator()(Array alpha, Array omega) override;
+        Array operator()(const Array& alpha, const Array& omega) override;
 
     private:
-        Array::element_type apply(Array::element_type& omega);
+        Array::element_type apply(const Array::element_type& omega);
 
         // Ugly, but needs to be compile-time deducible.
-        Array::element_type apply(Array::element_type& alpha, Array::element_type& omega);
+        Array::element_type apply(const Array::element_type& alpha, const Array::element_type& omega);
     };
 };

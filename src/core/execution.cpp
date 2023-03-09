@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Nikolaj Banke Jensen.
+// Copyright 2023 Nikolaj Banke Jensen.
 //
 // This file is part of Kepler.
 // 
@@ -17,15 +17,40 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "session.h"
-#include "error.h"
-#include "core/constants/config.h"
+#include "execution.h"
 #include "core/constants/literals.h"
+#include "core/constants/config.h"
+#include "core/helpers/file_reader.h"
+#include "core/evaluation/tokenizer/tokenizer.h"
+#include "core/evaluation/parser/parser.h"
+#include "core/evaluation/interpreter.h"
+#include "symbol_table.h"
 
-kepler::Session::Session(std::string &&name) : session_name(std::move(name)), active_workspace("unnamed"), symbol_table() {
-    symbol_table.set(constants::index_origin_id, constants::initial_index_origin);
-    symbol_table.set(constants::print_precision_id, constants::initial_print_precision);
+int kepler::run_file(const std::string &path) {
+    std::vector<Char> contents = read_file(path);
+
+    try {
+        Tokenizer tokenizer;
+        auto tokens = tokenizer.tokenize(&contents);
+
+        Parser parser(tokens);
+        auto ast = parser.parse();
+
+        Interpreter interpreter(*ast, *ast->symbol_table);
+        auto output = interpreter.interpret();
+
+        std::cout << output.to_string() << std::endl;
+
+    } catch (kepler::error& err) {
+        std::cout << "ERROR: " << err.to_string() << std::endl;
+        return 1;
+    }
+
+    return 0;
 }
+
+
+
 void display_prompt(std::string& input) {
     std::cout << kepler::constants::indent_prompt << std::flush;
     getline(std::cin, input);
@@ -38,31 +63,35 @@ std::u32string read_input() {
     return uni::utf8to32u(input);
 }
 
-void kepler::Session::immediate_execution_mode() {
+int kepler::run_repl() {
     std::stringstream ss;
+    SymbolTable symbol_table;
+
+    symbol_table.insert_system_parameters();
 
     while(true) {
         std::u32string input = read_input();
         ss.str("");
-        immediate_execution(std::move(input), ss);
+        List<Char> in = {input.begin(), input.end()};
+        kepler::immediate_execution(in, ss, &symbol_table);
         if(!ss.str().empty()) {
             std::cout << ss.str() << std::endl;
         }
     }
 }
 
-void kepler::Session::immediate_execution(std::u32string &&input, std::ostream &stream) {
-    List<Char> in = {input.begin(), input.end()};
-
+void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable* symbol_table) {
     try {
 
         //auto start = std::chrono::high_resolution_clock::now();
 
         Tokenizer tokenizer;
-        List<Token> tokens = tokenizer.tokenize(&in);
+        List<Token> tokens = tokenizer.tokenize(&input);
 
         Parser parser(tokens);
-        parser.use_table(&symbol_table);
+        if(symbol_table != nullptr) {
+            parser.use_table(symbol_table);
+        }
         auto ast = parser.parse();
 
         Interpreter interpreter(*ast, *ast->symbol_table);
@@ -75,7 +104,7 @@ void kepler::Session::immediate_execution(std::u32string &&input, std::ostream &
 
         stream << result.to_string() << std::flush;
     } catch(kepler::error& err) {
-        err.set_input(&in);
+        err.set_input(&input);
         stream << err.to_string() << std::flush;
     }
 }

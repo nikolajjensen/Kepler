@@ -20,7 +20,6 @@
 #include "interpreter.h"
 #include <memory>
 #include "core/constants/config.h"
-#include "core/session.h"
 #include "core/evaluation/parser/parser.h"
 #include "core/evaluation/operations/defined_function.h"
 

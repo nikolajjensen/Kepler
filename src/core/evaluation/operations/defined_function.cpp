@@ -35,7 +35,7 @@ namespace kepler {
         return true;
     }
 
-    Array DefinedFunction::operator()(Array omega) {
+    Array DefinedFunction::operator()(const Array& omega) {
         auto symbol_table = function->body->symbol_table;
         symbol_table->set(constants::omega_id, omega);
 
@@ -45,7 +45,7 @@ namespace kepler {
         return result;
     }
 
-    Array DefinedFunction::operator()(Array alpha, Array omega) {
+    Array DefinedFunction::operator()(const Array& alpha, const Array& omega) {
         auto symbol_table = function->body->symbol_table;
         symbol_table->set(constants::alpha_id, alpha);
         symbol_table->set(constants::omega_id, omega);
