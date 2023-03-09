@@ -41,6 +41,10 @@ namespace kepler {
         bool is_numeric() const;
         std::string to_string() const;
 
+        friend bool operator==(const Array& lhs, const Array& rhs) {
+            return lhs.shape == rhs.shape && lhs.data == rhs.data;
+        }
+
     private:
         std::string scalar_string(const element_type& element) const;
     };

@@ -44,6 +44,32 @@ namespace kepler {
                     return std::make_shared<Pervade>(std::make_shared<Divide>(&symbol_table));
                 } else if(type == FLOOR) {
                     return std::make_shared<Pervade>(std::make_shared<Floor>(&symbol_table));
+                } else if(type == CEILING) {
+                    return std::make_shared<Pervade>(std::make_shared<Ceiling>(&symbol_table));
+                } else if(type == OR) {
+                    return std::make_shared<Pervade>(std::make_shared<Or>(&symbol_table));
+                } else if(type == AND) {
+                    return std::make_shared<Pervade>(std::make_shared<And>(&symbol_table));
+                } else if(type == NAND) {
+                    return std::make_shared<Pervade>(std::make_shared<Nand>(&symbol_table));
+                } else if(type == NOR) {
+                    return std::make_shared<Pervade>(std::make_shared<Nor>(&symbol_table));
+                } else if(type == RIGHT_TACK) {
+                    return std::make_shared<RightTack>(&symbol_table);
+                } else if(type == LEFT_TACK) {
+                    return std::make_shared<LeftTack>(&symbol_table);
+                } else if(type == LESS) {
+                    return std::make_shared<Pervade>(std::make_shared<Less>(&symbol_table));
+                } else if(type == LESSEQ) {
+                    return std::make_shared<Pervade>(std::make_shared<LessEq>(&symbol_table));
+                } else if(type == EQ) {
+                    return std::make_shared<Pervade>(std::make_shared<Eq>(&symbol_table));
+                } else if(type == GREATEREQ) {
+                    return std::make_shared<Pervade>(std::make_shared<GreaterEq>(&symbol_table));
+                } else if(type == GREATER) {
+                    return std::make_shared<Pervade>(std::make_shared<Greater>(&symbol_table));
+                } else if(type == NEQ) {
+                    return std::make_shared<Neq>(&symbol_table);
                 } else if(type == IOTA) {
                     return std::make_shared<Iota>(&symbol_table);
                 } else if(type == RHO) {
