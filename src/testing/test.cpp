@@ -20,11 +20,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include "testing/fixtures/fixture.h"
 #include "matcher.h"
-#include "core/token_type.h"
-#include "core/datatypes.h"
-#include "string_maker.h"
 #include "core/error_type.h"
-#include "macros.h"
 
 TEST_CASE_METHOD(fixture, "simple", "[simple][scalar][func]") {
     CHECK_THAT(run("+2 "), Prints("2"));
