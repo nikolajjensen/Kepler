@@ -56,5 +56,7 @@ protected:
         } catch (std::exception& exc) {
             std::cout << "Unexpected error: " << exc.what() << std::endl;
         }
+
+        return "";
     }
 };
