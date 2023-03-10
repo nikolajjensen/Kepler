@@ -18,147 +18,154 @@
 //
 
 #pragma once
+#include "pervade.h"
 #include "operation.h"
 
 namespace kepler {
-    struct Func : Operation {
+
+    struct Plus : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+    };
+
+    struct Minus : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+    };
+
+    struct Times : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+    };
+
+    struct Divide : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+    };
+
+    struct Ceiling : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+    };
+
+    struct Floor : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+    };
+
+    struct And : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Nand : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Or : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Nor : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct RightTack : Operation {
         using Operation::Operation;
 
-        // We hide the following from all evaluators,
-        // as they are the base step in evaluation.
-    private:
-        using Operation::op;
-
-        bool is_configured() const override {
-            return symbol_table != nullptr;
-        }
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
     };
 
-    struct Plus : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Number operator()(const Number& omega) override;
-    };
-
-    struct Minus : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Number operator()(const Number& omega) override;
-    };
-
-    struct Times : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Number operator()(const Number& omega) override;
-    };
-
-    struct Divide : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Number operator()(const Number& omega) override;
-    };
-
-    struct Ceiling : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Number operator()(const Number& omega) override;
-    };
-
-    struct Floor : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Number operator()(const Number& omega) override;
-    };
-
-    struct And : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct Nand : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct Or : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct Nor : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct RightTack : Func {
-        using Func::Func;
+    struct LeftTack : Operation {
+        using Operation::Operation;
 
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;
     };
 
-    struct LeftTack : Func {
-        using Func::Func;
+    struct Less : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
 
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct LessEq : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Eq : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Char& alpha, const Char& omega) override;
+    };
+
+    struct GreaterEq : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Greater : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number &alpha, const Number &omega) override;
+    };
+
+    struct Neq : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Char& alpha, const Char& omega) override;
+        Array operator()(const Array& omega) override;
+    };
+
+    struct LeftShoe : Operation {
+        using Operation::Operation;
+
+        Array operator()(const Array& omega) override;
         Array operator()(const Array& alpha, const Array& omega) override;
-        Array operator()(const Array& omega) override;
     };
 
-    struct Less : Func {
-        using Func::Func;
+    struct Not : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+        using PervadeMixin<Operation>::operator();
 
-        Number operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const Number& omega) override;
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
     };
 
-    struct LessEq : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct Eq : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct GreaterEq : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct Greater : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-    };
-
-    struct Neq : Func {
-        using Func::Func;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-        Array operator()(const Array& omega) override;
-    };
-
-    struct Iota : Func {
-        using Func::Func;
+    struct Iota : Operation {
+        using Operation::Operation;
 
         Array operator()(const Array& omega) override;
     };
 
-    struct Rho : Func {
-        using Func::Func;
+    struct Rho : Operation {
+        using Operation::Operation;
 
         Array operator()(const Array& omega) override;
     };

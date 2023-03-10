@@ -26,10 +26,8 @@ namespace kepler {
     private:
         AnonymousFunction* function;
 
-        bool is_configured() const override;
-
     public:
-        DefinedFunction(AnonymousFunction* function);
+        explicit DefinedFunction(AnonymousFunction* function);
         ~DefinedFunction();
 
         Array operator()(const Array& alpha, const Array& omega) override;

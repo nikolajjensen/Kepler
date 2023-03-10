@@ -17,13 +17,12 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "pervade.h"
 #include "core/error.h"
 
 namespace kepler {
-    Array Pervade::operator()(const Array& omega) {
-        if (!is_configured()) throw kepler::error(InternalError, "Not configured.");
 
+    template <typename BASE>
+    Array PervadeMixin<BASE>::operator()(const Array& omega) {
         if (!omega.is_simple_scalar()) {
             Array tmp = omega;
             for (auto &element: tmp.data) {
@@ -31,20 +30,19 @@ namespace kepler {
             }
             return tmp;
         } else if (omega.is_simple_scalar()) {
-            return Array{{}, {apply(omega.data[0])}};
+            return apply(omega.data[0]);
         }
         return omega;
     }
 
-    Array Pervade::operator()(const Array& alpha, const Array& omega) {
-        if (!is_configured()) throw kepler::error(InternalError, "Not configured.");
-
+    template <typename BASE>
+    Array PervadeMixin<BASE>::operator()(const Array& alpha, const Array& omega) {
         Array tmp = alpha;
 
         if (!alpha.is_simple_scalar() && !omega.is_simple_scalar()) {
 
             if (alpha.shape != omega.shape) {
-                throw kepler::error(SyntaxError, "Mismatched left and right shapes.");
+                throw kepler::error(LengthError, "Mismatched left and right shapes.");
             }
 
             tmp.data.resize(alpha.data.size());
@@ -54,8 +52,7 @@ namespace kepler {
             }
 
         } else if (alpha.is_simple_scalar() && omega.is_simple_scalar()) {
-            tmp.shape = alpha.shape;
-            tmp.data = {apply(alpha.data[0], omega.data[0])};
+            tmp = apply(alpha.data[0], omega.data[0]);
 
         } else if (!alpha.is_simple_scalar() && omega.is_simple_scalar()) {
             tmp.shape = alpha.shape;
@@ -77,40 +74,58 @@ namespace kepler {
         return tmp;
     }
 
-    Array::element_type Pervade::apply(const Array::element_type& omega) {
-        if(holds_alternative<Number>(omega)) {
-            return (*op)(get<Number>(omega));
-        } else if(holds_alternative<std::u32string>(omega)) {
-            return (*op)(get<std::u32string>(omega));
-        } else if(holds_alternative<Array>(omega)) {
-            return (*this)(get<Array>(omega));
+    template <typename BASE>
+    Array PervadeMixin<BASE>::operator()(const std::u32string &alpha, const std::u32string &omega) {
+        Array tmp{{}, {}};
+
+        if (alpha.length() != 1 && omega.length() != 1) {
+
+            if (alpha.length() != omega.length()) {
+                throw kepler::error(LengthError, "Mismatched left and right shapes.");
+            }
+
+            tmp.data.resize(alpha.length());
+            tmp.shape.emplace_back(alpha.length());
+            for (int i = 0; i < alpha.length(); ++i) {
+                tmp.data[i] = (*this)(alpha[i], omega[i]);
+            }
+
+        } else if (alpha.length() == 1 && omega.length() == 1) {
+            tmp = apply(alpha[0], omega[0]);
+
+        } else if (alpha.length() != 1 && omega.length() == 1) {
+            tmp.shape.emplace_back(alpha.length());
+            tmp.data.resize(alpha.length());
+
+            for (int i = 0; i < alpha.length(); ++i) {
+                tmp.data[i] = (*this)(alpha[i], omega[0]);
+            }
+
+        } else if (alpha.length() == 1 && omega.length() != 1) {
+            tmp.shape.emplace_back(omega.length());
+            tmp.data.resize(omega.length());
+
+            for (int i = 0; i < omega.length(); ++i) {
+                tmp.data[i] = (*this)(alpha[0], omega[i]);
+            }
+
         }
 
-        throw kepler::error(DomainError, "Unsupported operand types.");
+        return tmp;
     }
 
-    // Ugly, but needs to be compile-time deducible.
-    Array::element_type Pervade::apply(const Array::element_type& alpha, const Array::element_type& omega) {
-        if(std::holds_alternative<Number>(alpha)) {
-            if(holds_alternative<Number>(omega)) {
-                return (*op)(get<Number>(alpha), get<Number>(omega));
-            } else if(holds_alternative<std::u32string>(omega)) {
-                //return (*op)(get<Number>(alpha), get<Char>(omega));
-            } else if(std::holds_alternative<Array>(omega)) {
+    template <typename BASE>
+    Array PervadeMixin<BASE>::apply(const Array::element_type& omega) {
+        return std::visit(*this, omega);
+    }
 
-            }
-        } else if(holds_alternative<std::u32string>(alpha)) {
-            if(holds_alternative<Number>(omega)) {
-                //return (*op)(get<Char>(alpha), get<Number>(omega));
-            } else if(holds_alternative<std::u32string>(omega)) {
-                return (*op)(get<std::u32string>(alpha), get<std::u32string>(omega));
-            }
-        }
-
-        if(std::holds_alternative<Array>(alpha) && std::holds_alternative<Array>(omega)) {
+    template <typename BASE>
+    Array PervadeMixin<BASE>::apply(const Array::element_type& alpha, const Array::element_type& omega) {
+        /*
+        if(holds_alternative<Array>(alpha) && holds_alternative<Array>(omega)) {
             return (*this)(get<Array>(alpha), get<Array>(omega));
         }
-
-        throw kepler::error(DomainError, "Unsupported operand types.");
+        */
+        return std::visit(*this, alpha, omega);
     }
 };

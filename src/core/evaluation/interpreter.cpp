@@ -94,6 +94,12 @@ namespace kepler {
         Array value = node->value->accept(*this);
 
         if (identifier.starts_with(U'⎕')) {
+            if(identifier.length() == 1) {
+                // Print out.
+                std::cout << value.to_string() << std::endl;
+                return {{}, {}};
+            }
+
             if (!symbol_table.contains(identifier)) {
                 throw kepler::error(DefinitionError, "Distinguished variables are reserved.");
             }
@@ -119,18 +125,4 @@ namespace kepler {
     Array Interpreter::interpret() {
         return tree.accept(*this);
     }
-
-
-    /*
-    Array Interpreter::interpret(std::vector<Token> *tokens) {
-        Parser parser(symbol_table, tokens);
-        ASTNode<Array>* statement = parser.next();
-        while(statement != nullptr) {
-            result = statement->accept(*this);
-            delete statement;
-            statement = parser.next();
-        }
-
-        return result;
-    }*/
 };

@@ -23,16 +23,10 @@
 
 namespace kepler {
     DefinedFunction::DefinedFunction(AnonymousFunction* function_)
-            : function(function_) {}
+            : function(function_), Operation(nullptr) {}
 
     DefinedFunction::~DefinedFunction() {
         //delete function;
-    }
-
-    bool DefinedFunction::is_configured() const {
-        // Defined functions are always entirely configured,
-        // as they do not rely on any sub-operations.
-        return true;
     }
 
     Array DefinedFunction::operator()(const Array& omega) {

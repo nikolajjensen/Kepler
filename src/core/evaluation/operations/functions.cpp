@@ -28,102 +28,102 @@
 #include "core/array.h"
 
 namespace kepler {
-    Number Plus::operator()(const Number& alpha, const Number& omega) {
-        return alpha + omega;
+    Array Plus::operator()(const Number& alpha, const Number& omega) {
+        return {alpha + omega};
     }
 
-    Number Plus::operator()(const Number& omega) {
-        return conj(omega);
+    Array Plus::operator()(const Number& omega) {
+        return {conj(omega)};
     }
 
-    Number Minus::operator()(const Number& alpha, const Number& omega) {
-        return alpha - omega;
+    Array Minus::operator()(const Number& alpha, const Number& omega) {
+        return {alpha - omega};
     }
 
-    Number Minus::operator()(const Number& omega) {
-        return omega * -1.0;
+    Array Minus::operator()(const Number& omega) {
+        return {omega * -1.0};
     }
 
-    Number Times::operator()(const Number& alpha, const Number& omega) {
-        return alpha * omega;
+    Array Times::operator()(const Number& alpha, const Number& omega) {
+        return {alpha * omega};
     }
 
-    Number Times::operator()(const Number& omega) {
-        return (omega == 0.0) ? omega : omega / abs(omega);
+    Array Times::operator()(const Number& omega) {
+        return {(omega == 0.0) ? omega : omega / abs(omega)};
     }
 
-    Number Divide::operator()(const Number& alpha, const Number& omega) {
+    Array Divide::operator()(const Number& alpha, const Number& omega) {
         if(omega == 0.0) {
             throw kepler::error(DomainError, "Division by 0 is undefined.");
         }
-        return alpha / omega;
+        return {alpha / omega};
     }
 
-    Number Divide::operator()(const Number& omega) {
+    Array Divide::operator()(const Number& omega) {
         if(omega == 0.0) {
             throw kepler::error(DomainError, "Reciprocal of 0 is undefined.");
         }
-        return Number(1) / omega;
+        return {1.0 / omega};
     }
 
-    Number Ceiling::operator()(const Number& alpha, const Number& omega) {
+    Array Ceiling::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Maximum of complex numbers is undefined.");
         }
 
-        return std::max(alpha.real(), omega.real());
+        return {std::max(alpha.real(), omega.real())};
     }
 
-    Number Ceiling::operator()(const Number& omega) {
-        return -kepler::floor(-omega);
+    Array Ceiling::operator()(const Number& omega) {
+        return {-kepler::floor(-omega)};
     }
 
-    Number Floor::operator()(const Number& alpha, const Number& omega) {
+    Array Floor::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Minimum of complex numbers is undefined.");
         }
 
-        return std::min(alpha.real(), omega.real());
+        return {std::min(alpha.real(), omega.real())};
     }
 
-    Number Floor::operator()(const Number& omega) {
-        return kepler::floor(omega);
+    Array Floor::operator()(const Number& omega) {
+        return {kepler::floor(omega)};
     }
 
-    Number And::operator()(const Number &alpha, const Number &omega) {
+    Array And::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Least common multiple of complex numbers is unsupported.");
         } else if(round(alpha.real()) != alpha.real() || round(omega.real()) != omega.real()) {
             throw kepler::error(DomainError, "Least common multiple of fractional numbers is unsupported.");
         }
-        return std::lcm((int)alpha.real(), (int)omega.real());
+        return {std::lcm((int) alpha.real(), (int) omega.real())};
     }
 
-    Number Nand::operator()(const Number &alpha, const Number &omega) {
+    Array Nand::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Logical NAND of complex numbers is unsupported.");
         } else if((alpha.real() != 1.0 && alpha.real() != 0.0) || (omega.real() != 1.0 && omega.real() != 0.0)) {
             throw kepler::error(DomainError, "Logical NAND of non-boolean numbers is unsupported.");
         }
-        return 1.0 - std::lcm((int)alpha.real(), (int)omega.real());
+        return {1.0 - std::lcm((int) alpha.real(), (int) omega.real())};
     }
 
-    Number Or::operator()(const Number &alpha, const Number &omega) {
+    Array Or::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Greatest common divisor of complex numbers is unsupported.");
         } else if(round(alpha.real()) != alpha.real() || round(omega.real()) != omega.real()) {
             throw kepler::error(DomainError, "Greatest common divisor of fractional numbers is unsupported.");
         }
-        return std::gcd((int)alpha.real(), (int)omega.real());
+        return {std::gcd((int) alpha.real(), (int) omega.real())};
     }
 
-    Number Nor::operator()(const Number &alpha, const Number &omega) {
+    Array Nor::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Logical NOR of complex numbers is unsupported.");
         } else if((alpha.real() != 1.0 && alpha.real() != 0.0) || (omega.real() != 1.0 && omega.real() != 0.0)) {
             throw kepler::error(DomainError, "Logical NOR of non-boolean numbers is unsupported.");
         }
-        return 1.0 - std::gcd((int)alpha.real(), (int)omega.real());
+        return {1.0 - std::gcd((int) alpha.real(), (int) omega.real())};
     }
 
     Array RightTack::operator()(const Array &alpha, const Array &omega) {
@@ -142,48 +142,56 @@ namespace kepler {
         return omega;
     }
 
-    Number Less::operator()(const Number& alpha, const Number& omega) {
+    Array Less::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Less-than of complex numbers is unsupported.");
         }
 
-        return alpha.real() < omega.real();
+        return {alpha.real() < omega.real()};
     }
 
-    Number LessEq::operator()(const Number& alpha, const Number& omega) {
+    Array LessEq::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Less-than-or-equal of complex numbers is unsupported.");
         }
 
-        return alpha.real() <= omega.real();
+        return {alpha.real() <= omega.real()};
     }
 
-    Number Eq::operator()(const Number& alpha, const Number& omega) {
+    Array Eq::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Equality of complex numbers is unsupported.");
         }
 
-        return alpha.real() == omega.real();
+        return {alpha.real() == omega.real()};
     }
 
-    Number GreaterEq::operator()(const Number& alpha, const Number& omega) {
+    Array Eq::operator()(const Char &alpha, const Char &omega) {
+        return {alpha == omega};
+    }
+
+    Array GreaterEq::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Greater-than of complex numbers is unsupported.");
         }
 
-        return alpha.real() >= omega.real();
+        return {alpha.real() >= omega.real()};
     }
 
-    Number Greater::operator()(const Number& alpha, const Number& omega) {
+    Array Greater::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Greater-than of complex numbers is unsupported.");
         }
 
-        return alpha.real() > omega.real();
+        return {alpha.real() > omega.real()};
     }
 
-    Number Neq::operator()(const Number &alpha, const Number &omega) {
-        return alpha != omega;
+    Array Neq::operator()(const Number &alpha, const Number &omega) {
+        return {alpha != omega};
+    }
+
+    Array Neq::operator()(const Char &alpha, const Char &omega) {
+        return {alpha != omega};
     }
 
     Array Neq::operator()(const Array &omega) {
@@ -193,13 +201,63 @@ namespace kepler {
         for(int i = 0; i < omega.size(); ++i) {
             if(std::count(seen.begin(), seen.end(), omega.data[i]) == 0) {
                 seen.push_back(omega.data[i]);
-                result.data[i] = {1};
+                result.data[i] = Array{{}, {1}};
             } else {
-                result.data[i] = {0};
+                result.data[i] = Array{{}, {0}};
             }
         }
 
         return result;
+    }
+
+    Array LeftShoe::operator()(const Array &omega) {
+        if(omega.is_simple_scalar()) {
+            return omega;
+        } else {
+            return {{}, {omega}};
+        }
+    }
+
+    Array LeftShoe::operator()(const Array &alpha, const Array &omega) {
+        if(alpha.size() != omega.size()) {
+            if(omega.size() != 1) {
+                throw kepler::error(LengthError, "Mismatched left and right shapes.");
+            }
+
+            if(!holds_alternative<std::u32string>(omega.data[0])) {
+                throw kepler::error(DomainError, "Expected a string here.");
+            }
+
+            return partitioned_enclose(alpha, get<std::u32string>(omega.data[0]));
+        } else {
+            return partitioned_enclose(alpha, omega);
+        }
+    }
+
+    Array Not::operator()(const Number &omega) {
+        if(omega != 0.0 && omega != 1.0) {
+            throw kepler::error(DomainError, "Expected an array of boolean values.");
+        }
+
+        return {!(bool)omega.real()};
+    }
+
+    Array Not::operator()(const Array &alpha, const Array &omega) {
+        if(alpha.rank() != omega.rank() || alpha.rank() >= 2) {
+            throw kepler::error(RankError, "Incompatible ranks.");
+        }
+
+        if(alpha.rank() == 0) {
+            // Individual element.
+            return std::visit(*this, alpha.data[0], omega.data[0]);
+        } else {
+            // Rank 1.
+            return without(alpha, omega);
+        }
+    }
+
+    Array Not::operator()(const std::u32string &alpha, const std::u32string &omega) {
+        return without(alpha, omega);
     }
 
     Array Iota::operator()(const Array& omega) {

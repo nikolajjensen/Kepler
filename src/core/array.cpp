@@ -29,6 +29,8 @@ namespace kepler {
 
     Array::Array(std::vector<int> shape_, std::vector<element_type> data_) : shape(std::move(shape_)), data(std::move(data_)) {}
 
+    Array::Array(element_type scalar_) : shape(), data({std::move(scalar_)}) {}
+
     Array Array::major_cells() {
         return n_cells(shape.size() - 1);
     }
@@ -85,6 +87,12 @@ namespace kepler {
     bool Array::is_numeric() const {
         return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
             return holds_alternative<Number>(element);
+        });
+    }
+
+    bool Array::is_boolean() const {
+        return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
+            return holds_alternative<Number>(element) && (get<Number>(element) == 0.0 || get<Number>(element) == 1.0);
         });
     }
 

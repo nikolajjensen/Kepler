@@ -19,10 +19,8 @@
 
 #pragma once
 #include "core/evaluation/node_visitor.h"
-#include "core/evaluation/operations/operation.h"
 #include "core/token_type.h"
 #include "core/evaluation/operations/functions.h"
-#include "core/evaluation/operations/pervade.h"
 #include "core/evaluation/operations/monadic_operators.h"
 #include "core/evaluation/operations/dyadic_operators.h"
 #include "core/error.h"
@@ -35,41 +33,45 @@ namespace kepler {
         Operation_ptr build_operation(TokenType type, Args... args) {
             if constexpr (sizeof...(args) == 0) {
                 if(type == PLUS) {
-                    return std::make_shared<Pervade>(std::make_shared<Plus>(&symbol_table));
+                    return std::make_shared<Plus>(&symbol_table);
                 } else if(type == MINUS) {
-                    return std::make_shared<Pervade>(std::make_shared<Minus>(&symbol_table));
+                    return std::make_shared<Minus>(&symbol_table);
                 } else if(type == TIMES) {
-                    return std::make_shared<Pervade>(std::make_shared<Times>(&symbol_table));
+                    return std::make_shared<Times>(&symbol_table);
                 } else if(type == DIVIDE) {
-                    return std::make_shared<Pervade>(std::make_shared<Divide>(&symbol_table));
+                    return std::make_shared<Divide>(&symbol_table);
                 } else if(type == FLOOR) {
-                    return std::make_shared<Pervade>(std::make_shared<Floor>(&symbol_table));
+                    return std::make_shared<Floor>(&symbol_table);
                 } else if(type == CEILING) {
-                    return std::make_shared<Pervade>(std::make_shared<Ceiling>(&symbol_table));
+                    return std::make_shared<Ceiling>(&symbol_table);
                 } else if(type == OR) {
-                    return std::make_shared<Pervade>(std::make_shared<Or>(&symbol_table));
+                    return std::make_shared<Or>(&symbol_table);
                 } else if(type == AND) {
-                    return std::make_shared<Pervade>(std::make_shared<And>(&symbol_table));
+                    return std::make_shared<And>(&symbol_table);
                 } else if(type == NAND) {
-                    return std::make_shared<Pervade>(std::make_shared<Nand>(&symbol_table));
+                    return std::make_shared<Nand>(&symbol_table);
                 } else if(type == NOR) {
-                    return std::make_shared<Pervade>(std::make_shared<Nor>(&symbol_table));
+                    return std::make_shared<Nor>(&symbol_table);
                 } else if(type == RIGHT_TACK) {
                     return std::make_shared<RightTack>(&symbol_table);
                 } else if(type == LEFT_TACK) {
                     return std::make_shared<LeftTack>(&symbol_table);
                 } else if(type == LESS) {
-                    return std::make_shared<Pervade>(std::make_shared<Less>(&symbol_table));
+                    return std::make_shared<Less>(&symbol_table);
                 } else if(type == LESSEQ) {
-                    return std::make_shared<Pervade>(std::make_shared<LessEq>(&symbol_table));
+                    return std::make_shared<LessEq>(&symbol_table);
                 } else if(type == EQ) {
-                    return std::make_shared<Pervade>(std::make_shared<Eq>(&symbol_table));
+                    return std::make_shared<Eq>(&symbol_table);
                 } else if(type == GREATEREQ) {
-                    return std::make_shared<Pervade>(std::make_shared<GreaterEq>(&symbol_table));
+                    return std::make_shared<GreaterEq>(&symbol_table);
                 } else if(type == GREATER) {
-                    return std::make_shared<Pervade>(std::make_shared<Greater>(&symbol_table));
+                    return std::make_shared<Greater>(&symbol_table);
                 } else if(type == NEQ) {
                     return std::make_shared<Neq>(&symbol_table);
+                } else if(type == LSHOE) {
+                    return std::make_shared<LeftShoe>(&symbol_table);
+                } else if(type == WITHOUT) {
+                    return std::make_shared<Not>(&symbol_table);
                 } else if(type == IOTA) {
                     return std::make_shared<Iota>(&symbol_table);
                 } else if(type == RHO) {
@@ -86,12 +88,12 @@ namespace kepler {
             }
 
             if constexpr (sizeof...(args) == 2) {
-                if(type == JOT) {
+                /*if(type == JOT) {
                     return std::make_shared<Jot>(args...);
-                }
+                }*/
             }
 
-            throw std::runtime_error("Could not find operation " + kepler::to_string(type) + " to be configured with " +
+            throw kepler::error(InternalError, "Could not find operation " + kepler::to_string(type) + " to be configured with " +
                                      std::to_string(sizeof...(args)) + " operations.");
         }
 

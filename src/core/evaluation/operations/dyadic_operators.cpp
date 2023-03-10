@@ -20,6 +20,7 @@
 #include "dyadic_operators.h"
 
 namespace kepler {
+    /*
     Jot::Jot() : aalpha(nullptr), oomega(nullptr) {}
 
     Jot::Jot(Operation_ptr aalpha_, Operation_ptr oomega_) : aalpha(std::move(aalpha_)), oomega(std::move(oomega_)) {}
@@ -39,4 +40,5 @@ namespace kepler {
 
         return (*aalpha)((*oomega)(omega));
     }
+     */
 };

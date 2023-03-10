@@ -20,18 +20,28 @@
 #pragma once
 #include "operation.h"
 #include "core/datatypes.h"
+#include "core/evaluation/ast.h"
 
 
 namespace kepler {
-    struct Commute : Operation {
-        using Operation::Operation;
+    struct MonadicOp : Operation {
+    protected:
+        Operation_ptr op;
+
+    public:
+        explicit MonadicOp(Operation_ptr op_);
+        explicit MonadicOp(Operation* op_);
+    };
+
+    struct Commute : MonadicOp {
+        using MonadicOp::MonadicOp;
 
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;
     };
 
-    struct Slash : Operation {
-        using Operation::Operation;
+    struct Slash : MonadicOp {
+        using MonadicOp::MonadicOp;
 
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;

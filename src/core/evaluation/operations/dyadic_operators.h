@@ -22,6 +22,7 @@
 #include "core/evaluation/ast.h"
 
 namespace kepler {
+    /*
     struct Jot : Operation {
         Operation_ptr aalpha;
         Operation_ptr oomega;
@@ -35,4 +36,5 @@ namespace kepler {
 
         Number operator()(const Number& omega) override;
     };
+     */
 };

@@ -18,18 +18,20 @@
 //
 
 #include "monadic_operators.h"
+
+#include <utility>
 #include "core/error.h"
+#include <memory>
 
 namespace kepler {
-    Array Commute::operator()(const Array& alpha, const Array& omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
+    MonadicOp::MonadicOp(Operation_ptr op_) : op(std::move(op_)), Operation(nullptr) {}
+    MonadicOp::MonadicOp(Operation* op_) : op(op_), Operation(nullptr) {}
 
+    Array Commute::operator()(const Array& alpha, const Array& omega) {
         return (*op)(omega, alpha);
     }
 
     Array Commute::operator()(const Array& omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
-
         return (*op)(omega, omega);
     }
 
@@ -38,15 +40,9 @@ namespace kepler {
     }
 
     Array Slash::operator()(const Array& omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
-
         if(omega.size() < 2) {
             return omega;
         }
-
-        //if(!omega.is_numeric()) {
-        //    throw kepler::error(DomainError, "Invalid operation on non-numeric array.");
-        //}
 
         Array acc = get<Array>(omega.data.back());
         for(int i = omega.size() - 2; i >= 0; --i) {

@@ -27,26 +27,27 @@ namespace kepler {
 
     struct Operation {
     protected:
-        std::shared_ptr<Operation> op;
         SymbolTable* symbol_table;
 
-        virtual bool is_configured() const;
-
     public:
-        Operation();
-        Operation(std::shared_ptr<Operation> op);
-        Operation(SymbolTable* symbol_table);
+        explicit Operation(SymbolTable* symbol_table);
 
         virtual Array operator()(const Array& omega);
+        virtual Array operator()(const Number& omega);
+        virtual Array operator()(const std::u32string& omega);
 
         virtual Array operator()(const Array& alpha, const Array& omega);
+        virtual Array operator()(const Array& alpha, const Number& omega);
+        virtual Array operator()(const Array& alpha, const std::u32string& omega);
 
-        virtual Number operator()(const Number& omega);
+        virtual Array operator()(const Number& alpha, const Number& omega);
+        virtual Array operator()(const Number& alpha, const Array& omega);
+        virtual Array operator()(const Number& alpha, const std::u32string& omega);
 
-        virtual Number operator()(const Number& alpha, const Number& omega);
+        virtual Array operator()(const std::u32string& alpha, const std::u32string& omega);
+        virtual Array operator()(const std::u32string& alpha, const Number& omega);
+        virtual Array operator()(const std::u32string& alpha, const Array& omega);
 
-        virtual std::u32string operator()(const std::u32string& omega);
-
-        virtual std::u32string operator()(const std::u32string& alpha, const std::u32string& omega);
+        virtual Array operator()(const Char& alpha, const Char& omega);
     };
 };

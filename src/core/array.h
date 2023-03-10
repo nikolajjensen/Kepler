@@ -30,6 +30,7 @@ namespace kepler {
         std::vector<element_type> data;
 
         Array(std::vector<int> shape_, std::vector<element_type> data_);
+        Array(element_type scalar_);
 
         Array major_cells();
         Array n_cells(int n);
@@ -39,6 +40,7 @@ namespace kepler {
         bool is_scalar() const;
         bool is_simple_scalar() const;
         bool is_numeric() const;
+        bool is_boolean() const;
         std::string to_string() const;
 
         friend bool operator==(const Array& lhs, const Array& rhs) {
