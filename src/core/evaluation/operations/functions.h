@@ -170,4 +170,16 @@ namespace kepler {
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;
     };
+
+    struct Decode : Operation {
+        using Operation::Operation;
+
+        Array operator()(const Array& alpha, const Array& omega) override;
+    };
+
+    struct Encode : Operation {
+        using Operation::Operation;
+
+        Array operator()(const Array& alpha, const Array& omega) override;
+    };
 };

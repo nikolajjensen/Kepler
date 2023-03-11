@@ -174,12 +174,40 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
     return result;
 }
 
-kepler::Array kepler::encode(const Array &alpha, const Array &omega) {
+std::vector<int> kepler::encode(const std::vector<int> &radices, const int &scalar) {
+    auto n = (std::count(radices.begin(), radices.end(), 0) == 0)
+             ? std::accumulate(radices.begin(), radices.end(), 1, std::multiplies<>())
+             : scalar + 1;
+    auto b = 0;
 
+    auto rit = radices.rbegin();
+    std::vector<int> result;
+    while(rit != radices.rend()) {
+        if(*rit != 0) {
+            n = n / *rit;
+            b = n % *rit;
+        } else {
+            b = n;
+            n = 0;
+        }
+        result.emplace_back(b);
+    }
+
+    std::reverse(result.begin(), result.end());
+
+    return result;
 }
 
 kepler::Array kepler::decode(const Array &alpha, const Array &omega) {
+    int acc = 0;
+    int acc_prod = 1;
 
+    for(int i = alpha.size(); i >= 0; --i) {
+        acc += acc_prod * (int)get<Number>(get<Array>(omega.data[i]).data[0]).real();
+        acc_prod *= (int)get<Number>(get<Array>(alpha.data[i]).data[0]).real();
+    }
+
+    return {acc};
 }
 
 kepler::Array kepler::index_generator(const Array &omega) {

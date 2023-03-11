@@ -32,6 +32,6 @@ namespace kepler {
 
     Array index_generator(const Array& omega);
     Array rho(const Array& alpha, const Array& omega);
-    Array encode(const Array& alpha, const Array& omega);
+    std::vector<int> encode(const std::vector<int>& alpha, const int& omega);
     Array decode(const Array& alpha, const Array& omega);
 };

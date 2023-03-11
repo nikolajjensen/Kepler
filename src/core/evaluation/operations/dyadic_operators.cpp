@@ -20,25 +20,30 @@
 #include "dyadic_operators.h"
 
 namespace kepler {
-    /*
-    Jot::Jot() : aalpha(nullptr), oomega(nullptr) {}
+    DyadicOp::DyadicOp(Operation_ptr aalpha_, Operation_ptr oomega_) : aalpha(std::move(aalpha_)), oomega(std::move(oomega_)), Operation(
+            nullptr) {}
 
-    Jot::Jot(Operation_ptr aalpha_, Operation_ptr oomega_) : aalpha(std::move(aalpha_)), oomega(std::move(oomega_)) {}
-
-    bool Jot::is_configured() const {
-        return aalpha != nullptr && oomega != nullptr;
-    }
-
-    Number Jot::operator()(const Number& alpha, const Number& omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
-
+    Array Jot::operator()(const Array &alpha, const Array &omega) {
         return (*aalpha)(alpha, (*oomega)(omega));
     }
 
-    Number Jot::operator()(const Number& omega) {
-        if (!is_configured()) throw std::runtime_error("Not configured.");
-
+    Array Jot::operator()(const Array &omega) {
         return (*aalpha)((*oomega)(omega));
     }
-     */
+
+    Array Atop::operator()(const Array &alpha, const Array &omega) {
+        return (*aalpha)((*oomega)(alpha, omega));
+    }
+
+    Array Atop::operator()(const Array &omega) {
+        return (*aalpha)((*oomega)(omega));
+    }
+
+    Array Over::operator()(const Array &alpha, const Array &omega) {
+        return (*aalpha)((*oomega)(alpha), (*oomega)(omega));
+    }
+
+    Array Over::operator()(const Array &omega) {
+        return (*aalpha)((*oomega)(omega));
+    }
 };

@@ -37,7 +37,7 @@ namespace kepler {
         std::vector<int> result;
 
         for(int i = 0; i < shape.size() - 1; ++i) {
-            result.emplace_back(std::accumulate(shape.rbegin() + i + 1, shape.rend(), 1, std::multiplies<int>()));
+            result.emplace_back(std::accumulate(shape.end() - 1 - i, shape.end(), 1, std::multiplies<>()));
         }
 
         return result;
@@ -47,7 +47,7 @@ namespace kepler {
         std::vector<int> result;
 
         for(int i = 2; i < shape.size() - 2; ++i) {
-            result.emplace_back(std::accumulate(shape.rbegin() + i, shape.rend(), 1, std::multiplies<int>()));
+            result.emplace_back(std::accumulate(shape.rbegin() + i, shape.rend(), 1, std::multiplies<>()));
         }
 
         return result;

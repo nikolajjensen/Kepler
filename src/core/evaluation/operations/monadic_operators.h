@@ -46,4 +46,11 @@ namespace kepler {
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;
     };
+
+    struct Diaeresis : MonadicOp {
+        using MonadicOp::MonadicOp;
+
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
+    };
 };

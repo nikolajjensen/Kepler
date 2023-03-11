@@ -22,19 +22,34 @@
 #include "core/evaluation/ast.h"
 
 namespace kepler {
-    /*
-    struct Jot : Operation {
+    struct DyadicOp : Operation {
+    protected:
         Operation_ptr aalpha;
         Operation_ptr oomega;
 
-        Jot();
-        Jot(Operation_ptr aalpha_, Operation_ptr oomega_);
-
-        bool is_configured() const override;
-
-        Number operator()(const Number& alpha, const Number& omega) override;
-
-        Number operator()(const Number& omega) override;
+    public:
+        explicit DyadicOp(Operation_ptr aalpha_, Operation_ptr oomega_);
     };
-     */
+
+
+    struct Jot : DyadicOp {
+        using DyadicOp::DyadicOp;
+
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
+    };
+
+    struct Atop : DyadicOp {
+        using DyadicOp::DyadicOp;
+
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
+    };
+
+    struct Over : DyadicOp {
+        using DyadicOp::DyadicOp;
+
+        Array operator()(const Array& alpha, const Array& omega) override;
+        Array operator()(const Array& omega) override;
+    };
 };

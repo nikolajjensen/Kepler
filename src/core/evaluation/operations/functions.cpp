@@ -299,4 +299,12 @@ namespace kepler {
     Array Rho::operator()(const Array &alpha, const Array &omega) {
         return rho(alpha, omega);
     }
+
+    Array Decode::operator()(const Array &alpha, const Array &omega) {
+
+    }
+
+    Array Encode::operator()(const Array &alpha, const Array &omega) {
+
+    }
 };

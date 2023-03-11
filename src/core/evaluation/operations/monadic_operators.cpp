@@ -50,4 +50,53 @@ namespace kepler {
         }
         return acc;
     }
+
+    Array Diaeresis::operator()(const Array &alpha, const Array &omega) {
+        Array result{{}, {}};
+
+        if(alpha.is_scalar() && !omega.is_scalar()) {
+            auto al = alpha.data[0];
+
+            result.shape = omega.shape;
+            auto length = result.flattened_shape();
+            for(int i = 0; i < length; ++i) {
+                result.data.emplace_back((*op)(al, get<Array>(omega.data[i])));
+            }
+        } else if(!alpha.is_scalar() && omega.is_scalar()) {
+            auto om = omega.data[0];
+
+            result.shape = alpha.shape;
+            auto length = result.flattened_shape();
+            for(int i = 0; i < length; ++i) {
+                result.data.emplace_back((*op)(get<Array>(alpha.data[i]), om));
+            }
+        } else {
+            if(alpha.rank() != omega.rank()) {
+                throw kepler::error(RankError, "Mismatched ranks of left and right arguments.");
+            }
+
+            if(alpha.shape != omega.shape) {
+                throw kepler::error(ValueError, "Left and right arguments must have the same dimensions.");
+            }
+
+            result.shape = omega.shape;
+
+            auto length = result.flattened_shape();
+            for(int i = 0; i < length; ++i) {
+                result.data.emplace_back((*op)(get<Array>(alpha.data[i]), get<Array>(omega.data[i])));
+            }
+        }
+
+        return result;
+    }
+
+    Array Diaeresis::operator()(const Array &omega) {
+        Array result = omega;
+
+        for(auto& element : result.data) {
+            element = (*op)(get<Array>(element));
+        }
+
+        return result;
+    }
 };

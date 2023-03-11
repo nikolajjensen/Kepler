@@ -84,13 +84,19 @@ namespace kepler {
                     return std::make_shared<Commute>(args...);
                 } else if(type == SLASH) {
                     return std::make_shared<Slash>(args...);
+                } else if(type == DIAERESIS) {
+                    return std::make_shared<Diaeresis>(args...);
                 }
             }
 
             if constexpr (sizeof...(args) == 2) {
-                /*if(type == JOT) {
+                if(type == JOT) {
                     return std::make_shared<Jot>(args...);
-                }*/
+                } else if(type == ATOP) {
+                    return std::make_shared<Atop>(args...);
+                } else if(type == OVER) {
+                    return std::make_shared<Over>(args...);
+                }
             }
 
             throw kepler::error(InternalError, "Could not find operation " + kepler::to_string(type) + " to be configured with " +
