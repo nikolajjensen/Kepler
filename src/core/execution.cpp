@@ -82,7 +82,6 @@ int kepler::run_repl() {
 
 void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable* symbol_table) {
     try {
-
         //auto start = std::chrono::high_resolution_clock::now();
 
         Tokenizer tokenizer;
