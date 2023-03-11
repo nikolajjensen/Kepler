@@ -244,7 +244,7 @@ namespace kepler {
             return new FunctionVariable(tok);
         } else {
             auto function = parse_f();
-            if(helpers::is_dyadic_operator(current().type)) {
+            if(!at_end() && helpers::is_dyadic_operator(current().type)) {
                 Token tok = current();
                 eat(tok.type);
                 return new DyadicOperator(tok, parse_function(), function);

@@ -49,7 +49,7 @@ namespace kepler {
                 throw kepler::error(InternalError, "ID '" + uni::utf32to8(id) + "' is defined, but has no value.");
             }
 
-            if(!holds_alternative<T>(symbol.content.value())) {
+            if(!std::holds_alternative<T>(symbol.content.value())) {
                 throw kepler::error(InternalError, "ID '" + uni::utf32to8(id) + "' has a value, but it is not the one requested.");
             }
 
