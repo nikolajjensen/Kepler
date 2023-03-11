@@ -36,8 +36,8 @@ namespace kepler {
     std::vector<int> dims(const std::vector<int>& shape) {
         std::vector<int> result;
 
-        for(int i = 1; i < shape.size() - 1; ++i) {
-            result.emplace_back(std::accumulate(shape.rbegin() + i, shape.rend(), 1, std::multiplies<int>()));
+        for(int i = 0; i < shape.size() - 1; ++i) {
+            result.emplace_back(std::accumulate(shape.rbegin() + i + 1, shape.rend(), 1, std::multiplies<int>()));
         }
 
         return result;

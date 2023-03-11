@@ -76,6 +76,10 @@ namespace kepler {
         return data.size();
     }
 
+    int Array::flattened_shape() const {
+        return std::accumulate(shape.begin(), shape.end(), 1, std::multiplies<>());
+    }
+
     bool Array::empty() const {
         return data.empty();
     }
@@ -87,6 +91,14 @@ namespace kepler {
     bool Array::is_numeric() const {
         return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
             return holds_alternative<Number>(element);
+        });
+    }
+
+    bool Array::is_integer_numeric() const {
+        return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
+            if(!holds_alternative<Number>(element)) return false;
+            auto n = get<Number>(element).real();
+            return round(n) == n;
         });
     }
 

@@ -36,10 +36,12 @@ namespace kepler {
         Array n_cells(int n);
         int rank() const;
         int size() const;
+        int flattened_shape() const;
         bool empty() const;
         bool is_scalar() const;
         bool is_simple_scalar() const;
         bool is_numeric() const;
+        bool is_integer_numeric() const;
         bool is_boolean() const;
         std::string to_string() const;
 

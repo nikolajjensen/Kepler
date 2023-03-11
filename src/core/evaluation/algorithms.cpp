@@ -135,3 +135,80 @@ kepler::Array kepler::without(const std::u32string &alpha, const std::u32string 
 
     return {{}, {result}};
 }
+
+kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
+    Array result{{}, {}};
+
+    if(alpha.rank() > 1) {
+        throw kepler::error(ValueError, "Left argument of reshape cannot have rank " + std::to_string(alpha.rank()));
+    }
+
+    if(alpha.is_scalar()) {
+        result.shape = {(int)get<Number>(alpha.data[0]).real()};
+    } else {
+        for(auto& element : alpha.data) {
+            auto& num = get<Number>(get<Array>(element).data[0]);
+
+            if(num.real() < 0.0) {
+                throw kepler::error(ValueError, "Expected only positive integers in argument.");
+            }
+
+            result.shape.emplace_back((int)num.real());
+        }
+    }
+
+
+    int omega_length = omega.flattened_shape();
+    int alpha_length = result.flattened_shape();
+
+    result.data.resize(alpha_length);
+    for(int i = 0; i < alpha_length; ++i) {
+        auto index = i % omega_length;
+        if(omega.is_scalar()) {
+            result.data[i] = omega;
+        } else {
+            result.data[i] = omega.data[index];
+        }
+    }
+
+    return result;
+}
+
+kepler::Array kepler::encode(const Array &alpha, const Array &omega) {
+
+}
+
+kepler::Array kepler::decode(const Array &alpha, const Array &omega) {
+
+}
+
+kepler::Array kepler::index_generator(const Array &omega) {
+    Array result = omega;
+
+    if(omega.rank() > 1) {
+        throw kepler::error(RankError, "Index generator did not expect array of rank " + std::to_string(omega.rank()));
+    }
+
+    if(!omega.is_integer_numeric()) {
+        throw kepler::error(ValueError, "Index generator expected only integer array argument.");
+    }
+
+    if(omega.is_scalar()) {
+        result.shape = {(int)get<Number>(omega.data[0]).real()};
+    } else {
+        result.shape = {};
+        for(auto& element : omega.data) {
+            auto& num = get<Number>(get<Array>(element).data[0]);
+
+            if(num.real() < 0.0) {
+                throw kepler::error(ValueError, "Expected only positive integers in argument.");
+            }
+
+            result.shape.emplace_back((int)num.real());
+        }
+    }
+
+
+
+    return result;
+}

@@ -295,4 +295,8 @@ namespace kepler {
         }
         return result;
     }
+
+    Array Rho::operator()(const Array &alpha, const Array &omega) {
+        return rho(alpha, omega);
+    }
 };
