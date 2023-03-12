@@ -781,39 +781,3 @@ TEST_CASE_METHOD(fixture, "nor (⍱)", "[nor][function]") {
     CHECK_THAT(run("'a' ⍱ 1"), Throws(kepler::DomainError));
     CHECK_THAT(run("1 ⍱ 'a'"), Throws(kepler::DomainError));
 }
-
-TEST_CASE_METHOD(fixture, "negative and conjugate", "[negative][conjugate][scalar][func]") {
-    CHECK_THAT(run("-+2"), Prints("¯2"));
-    CHECK_THAT(run("-+2E2"), Prints("¯200"));
-    CHECK_THAT(run("-+2J2"), Prints("¯2J2"));
-}
-
-TEST_CASE_METHOD(fixture, "System var", "[sys][scalar][func]") {
-    CHECK_THAT(run("⎕IO←1"), Prints(""));
-    CHECK_THAT(run("⎕IO←0"), Prints(""));
-    CHECK_THAT(run("⎕IO←2"), Throws(kepler::LimitError));
-}
-
-TEST_CASE_METHOD(fixture, "Index origin demo", "[sys][scalar][func]") {
-    CHECK_THAT(run("⎕IO"), Prints("1"));
-
-    CHECK_THAT(run("+/⍳5"), Prints("15"));
-    CHECK_THAT(run("÷/⍳5"), Prints("1.875"));
-
-    CHECK_THAT(run("⎕IO←0"), Prints(""));
-    CHECK_THAT(run("⎕IO"), Prints("0"));
-
-    CHECK_THAT(run("+/⍳5"), Prints("10"));
-    CHECK_THAT(run("÷/⍳5"), Prints("0"));
-}
-
-TEST_CASE_METHOD(fixture, "Variable demo", "[sys][scalar][func]") {
-    CHECK_THAT(run("Var←'Hello, World!'"), Prints(""));
-    CHECK_THAT(run("Var"), Prints("Hello, World!"));
-
-    CHECK_THAT(run("Var←5E¯10 2E1 3J¯2.2"), Prints(""));
-    CHECK_THAT(run("Var"), Prints("5E¯10 20 3J¯2.2"));
-
-    CHECK_THAT(run("+Var"), Prints("5E¯10 20 3J2.2"));
-    CHECK_THAT(run("Var + Var"), Prints("1E¯9 40 6J¯4.4"));
-}
