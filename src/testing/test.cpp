@@ -146,7 +146,7 @@ TEST_CASE_METHOD(fixture, "minus (-)", "[minus][scalar][func]") {
     CHECK_THAT(run("(1-(2-2)"), Prints("1"));
 }
 
-TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][scalar][func]") {
+TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][function]") {
     CHECK_THAT(run("×2"), Prints("1"));
     CHECK_THAT(run("×0"), Prints("0"));
     CHECK_THAT(run("×2E2"), Prints("1"));
@@ -218,7 +218,7 @@ TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][scalar][func]") {
     CHECK_THAT(run("(1×(2×2)"), Prints("4"));
 }
 
-TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][scalar][func]") {
+TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][function]") {
     CHECK_THAT(run("÷2"), Prints("0.5"));
     CHECK_THAT(run("÷2E2"), Prints("0.005"));
     CHECK_THAT(run("÷3J4"), Prints("0.12J¯0.16"));
@@ -303,9 +303,50 @@ TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][scalar][func]") {
 
 }
 
-TEST_CASE_METHOD(fixture, "floor (⌊)", "[floor][scalar][func]") {
-    //CHECK_THAT(run("⌊¯3.1416 3.1416 .99999999999 5E20 ¯0.5E¯10"), Prints("¯4 3 1 5E20 0"));
-    //CHECK_THAT(run("⌊0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Prints("0 0J1 1 0 1 1", session));
+TEST_CASE_METHOD(fixture, "floor (⌊)", "[floor][function]") {
+    CHECK_THAT(run("⌊1"), Prints("1"));
+    CHECK_THAT(run("⌊0"), Prints("0"));
+    CHECK_THAT(run("⌊¯1"), Prints("¯1"));
+    CHECK_THAT(run("⌊0.12"), Prints("0"));
+    CHECK_THAT(run("⌊¯0.12"), Prints("¯1"));
+    CHECK_THAT(run("⌊2E10"), Prints("2E10"));
+    CHECK_THAT(run("⌊2.0001E10"), Prints("2.0001E10"));
+    CHECK_THAT(run("⌊2.0001E¯10"), Prints("0"));
+    CHECK_THAT(run("⌊2.0001E4"), Prints("20001"));
+
+    CHECK_THAT(run("⌊¯3.1416 3.1416 .99999999999 5E20 ¯0.5E¯10"), Prints("¯4 3 0 5E20 ¯1"));
+    CHECK_THAT(run("⌊0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Prints("0 0J1 1 0 1 1"));
+
+    CHECK_THAT(run("2.001E4⌊2.0001E4"), Prints("20001"));
+    CHECK_THAT(run("2.001E10⌊2.0001E10"), Prints("2.0001E10"));
+    CHECK_THAT(run("0⌊1"), Prints("0"));
+    CHECK_THAT(run("1.2⌊1.23"), Prints("1.2"));
+    CHECK_THAT(run("0⌊0"), Prints("0"));
+    CHECK_THAT(run("¯0.01⌊0"), Prints("¯0.01"));
+    CHECK_THAT(run("¯0.01⌊¯0.011"), Prints("¯0.011"));
+}
+
+TEST_CASE_METHOD(fixture, "ceiling (⌈)", "[floor][function]") {
+    CHECK_THAT(run("⌈1"), Prints("1"));
+    CHECK_THAT(run("⌈0"), Prints("0"));
+    CHECK_THAT(run("⌈¯1"), Prints("¯1"));
+    CHECK_THAT(run("⌈0.12"), Prints("1"));
+    CHECK_THAT(run("⌈¯0.12"), Prints("0"));
+    CHECK_THAT(run("⌈2E10"), Prints("2E10"));
+    CHECK_THAT(run("⌈2.0001E10"), Prints("2.0001E10"));
+    CHECK_THAT(run("⌈2.0001E¯10"), Prints("1"));
+    CHECK_THAT(run("⌈2.0001E4"), Prints("20001"));
+
+    CHECK_THAT(run("⌈¯3.1416 3.1416 .99999999999 5E20 ¯0.5E¯10"), Prints("¯3 4 1 5E20 0"));
+    CHECK_THAT(run("⌈0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Prints("1J1 1J1 1J1 1J1 1J1 1J1"));
+
+    CHECK_THAT(run("2.001E4⌈2.0001E4"), Prints("20010"));
+    CHECK_THAT(run("2.001E10⌈2.0001E10"), Prints("2.001E10"));
+    CHECK_THAT(run("0⌈1"), Prints("1"));
+    CHECK_THAT(run("1.2⌈1.23"), Prints("1.23"));
+    CHECK_THAT(run("0⌈0"), Prints("0"));
+    CHECK_THAT(run("¯0.01⌈0"), Prints("0"));
+    CHECK_THAT(run("¯0.01⌈¯0.011"), Prints("¯0.01"));
 }
 
 TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
