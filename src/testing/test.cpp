@@ -358,6 +358,33 @@ TEST_CASE_METHOD(fixture, "ceiling (⌈)", "[floor][function]") {
     CHECK_THAT(run("¯0.01 0 1 2E¯1 232E100 ⌈ -0.0001 1 0.23 2E¯0 ¯232E100"), Prints("¯0.0001 0 1 0.2 2.32E102"));
 }
 
+TEST_CASE_METHOD(fixture, "left-tack (⊣)", "[left-tack][function]") {
+    CHECK_THAT(run("1 2 3 ⊣ 4 5 6"), Prints("1 2 3"));
+    CHECK_THAT(run("3 ⊣ 4 5 6"), Prints("3"));
+    CHECK_THAT(run("1 2 (3 4) ⊣ 4 5 6"),
+               Prints("┌─┬─┬───┐\n"
+                      "│1│2│3 4│\n"
+                      "└─┴─┴───┘"));
+
+    CHECK_THAT(run("⊣ 4 5 6"), Prints("4 5 6"));
+    CHECK_THAT(run("⊣ 4"), Prints("4"));
+    CHECK_THAT(run("⊣"), Prints(""));
+}
+
+TEST_CASE_METHOD(fixture, "right-tack (⊢)", "[right-tack][function]") {
+    CHECK_THAT(run("1 2 3 ⊢ 4 5 6"), Prints("4 5 6"));
+    CHECK_THAT(run("4 5 6 ⊢ 3"), Prints("3"));
+    CHECK_THAT(run("4 5 6 ⊢ 1 2 (3 4)"),
+               Prints("┌─┬─┬───┐\n"
+                      "│1│2│3 4│\n"
+                      "└─┴─┴───┘"));
+
+    CHECK_THAT(run("⊢ 4 5 6"), Prints("4 5 6"));
+    CHECK_THAT(run("⊢ 4"), Prints("4"));
+    CHECK_THAT(run("1 2 3 ⊢"), Prints(""));
+    CHECK_THAT(run("⊢"), Prints(""));
+}
+
 TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
     CHECK_THAT(run("⍴1 2 3"), Prints("3"));
     CHECK_THAT(run("⍴1 2 3 4"), Prints("4"));
