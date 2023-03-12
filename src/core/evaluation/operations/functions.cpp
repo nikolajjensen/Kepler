@@ -170,11 +170,7 @@ namespace kepler {
     }
 
     Array Eq::operator()(const Number& alpha, const Number& omega) {
-        if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Equality of complex numbers is unsupported.");
-        }
-
-        return {alpha.real() == omega.real()};
+        return {alpha == omega};
     }
 
     Array Eq::operator()(const Char &alpha, const Char &omega) {

@@ -369,6 +369,9 @@ TEST_CASE_METHOD(fixture, "left-tack (⊣)", "[left-tack][function]") {
     CHECK_THAT(run("⊣ 4 5 6"), Prints("4 5 6"));
     CHECK_THAT(run("⊣ 4"), Prints("4"));
     CHECK_THAT(run("⊣"), Prints(""));
+
+    CHECK_THAT(run("'abc' ⊣ 1 2 3"), Prints("abc"));
+    CHECK_THAT(run("⊣ 'columbus'"), Prints("columbus"));
 }
 
 TEST_CASE_METHOD(fixture, "right-tack (⊢)", "[right-tack][function]") {
@@ -383,6 +386,158 @@ TEST_CASE_METHOD(fixture, "right-tack (⊢)", "[right-tack][function]") {
     CHECK_THAT(run("⊢ 4"), Prints("4"));
     CHECK_THAT(run("1 2 3 ⊢"), Prints(""));
     CHECK_THAT(run("⊢"), Prints(""));
+
+    CHECK_THAT(run("1 2 3 ⊢ 'abc'"), Prints("abc"));
+    CHECK_THAT(run("⊢ 'columbus'"), Prints("columbus"));
+}
+
+TEST_CASE_METHOD(fixture, "less (<)", "[less][function]") {
+    CHECK_THAT(run("5 < ¯4 2 0 5 20.21"), Prints("0 0 0 0 1"));
+    CHECK_THAT(run("¯3.3 < ¯4 2 0 5 20.21"), Prints("0 1 1 1 1"));
+    CHECK_THAT(run("(1 2) < (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│1 1│0 0│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) (0 5) < (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│1 1│1 0│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) < (3 4)"), Prints("1 1"));
+    CHECK_THAT(run("1 2 3 1 2 3 < 1 2 0 ¯1 0.2 120"), Prints("0 0 0 0 0 1"));
+
+    CHECK_THAT(run("'a' < 'b'"), Prints("1"));
+    CHECK_THAT(run("'b' < 'b'"), Prints("0"));
+    CHECK_THAT(run("'c' < 'b'"), Prints("0"));
+    CHECK_THAT(run("'aa' < 'bb'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "less-equal (≤)", "[less-equal][function]") {
+    CHECK_THAT(run("5 ≤ ¯4 2 0 5 20.21"), Prints("0 0 0 1 1"));
+    CHECK_THAT(run("¯3.3 ≤ ¯4 2 0 5 20.21"), Prints("0 1 1 1 1"));
+    CHECK_THAT(run("(1 2) ≤ (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│1 1│0 1│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) (0 5) ≤ (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│1 1│1 0│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) ≤ (3 4)"), Prints("1 1"));
+    CHECK_THAT(run("1 2 3 1 2 3 ≤ 1 2 0 ¯1 0.2 120"), Prints("1 1 0 0 0 1"));
+
+    CHECK_THAT(run("'a' ≤ 'b'"), Prints("1"));
+    CHECK_THAT(run("'b' ≤ 'b'"), Prints("1"));
+    CHECK_THAT(run("'c' ≤ 'b'"), Prints("0"));
+    CHECK_THAT(run("'aa' ≤ 'bb'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "equal (=)", "[equal][function]") {
+    CHECK_THAT(run("5 = ¯4 2 0 5 20.21"), Prints("0 0 0 1 0"));
+    CHECK_THAT(run("¯3.3 = ¯4 2 0 5 20.21"), Prints("0 0 0 0 0"));
+    CHECK_THAT(run("(1 2) = (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│0 0│0 1│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) (0 5) = (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│0 0│0 0│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) = (3 4)"), Prints("0 0"));
+    CHECK_THAT(run("1 2 3 1 2 3 = 1 2 0 ¯1 0.2 120"), Prints("1 1 0 0 0 0"));
+
+    CHECK_THAT(run("'a' = 'b'"), Prints("0"));
+    CHECK_THAT(run("'b' = 'b'"), Prints("1"));
+    CHECK_THAT(run("'c' = 'b'"), Prints("0"));
+    CHECK_THAT(run("'aa' = 'bb'"), Prints("0 0"));
+
+    CHECK_THAT(run("1 ¯1.3 9.5J¯0.5 = (1 ¯1.3 9.5J¯0.5) (1 ¯1.3 9.5J¯0.5) (1 ¯1.3 9.5J¯0.5)"),
+               Prints("┌─────┬─────┬─────┐\n"
+                      "│1 0 0│0 1 0│0 0 1│\n"
+                      "└─────┴─────┴─────┘"));
+}
+
+TEST_CASE_METHOD(fixture, "greater-equal (≥)", "[greater-equal][function]") {
+    CHECK_THAT(run("5 ≥ ¯4 2 0 5 20.21"), Prints("1 1 1 1 0"));
+    CHECK_THAT(run("¯3.3 ≥ ¯4 2 0 5 20.21"), Prints("1 0 0 0 0"));
+    CHECK_THAT(run("(1 2) ≥ (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│0 0│1 1│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) (0 5) ≥ (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│0 0│0 1│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) ≥ (3 4)"), Prints("0 0"));
+    CHECK_THAT(run("1 2 3 1 2 3 ≥ 1 2 0 ¯1 0.2 120"), Prints("1 1 1 1 1 0"));
+
+    CHECK_THAT(run("'a' ≥ 'b'"), Prints("0"));
+    CHECK_THAT(run("'b' ≥ 'b'"), Prints("1"));
+    CHECK_THAT(run("'c' ≥ 'b'"), Prints("1"));
+    CHECK_THAT(run("'aa' ≥ 'bb'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "greater (>)", "[greater][function]") {
+    CHECK_THAT(run("5 > ¯4 2 0 5 20.21"), Prints("1 1 1 0 0"));
+    CHECK_THAT(run("¯3.3 > ¯4 2 0 5 20.21"), Prints("1 0 0 0 0"));
+    CHECK_THAT(run("(1 2) > (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│0 0│1 0│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) (0 5) > (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│0 0│0 1│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) > (3 4)"), Prints("0 0"));
+    CHECK_THAT(run("1 2 3 1 2 3 > 1 2 0 ¯1 0.2 120"), Prints("0 0 1 1 1 0"));
+
+    CHECK_THAT(run("'a' > 'b'"), Prints("0"));
+    CHECK_THAT(run("'b' > 'b'"), Prints("0"));
+    CHECK_THAT(run("'c' > 'b'"), Prints("1"));
+    CHECK_THAT(run("'aa' > 'bb'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "not-equal (≠)", "[not-equal][function]") {
+    CHECK_THAT(run("5 ≠ ¯4 2 0 5 20.21"), Prints("1 1 1 0 1"));
+    CHECK_THAT(run("¯3.3 ≠ ¯4 2 0 5 20.21"), Prints("1 1 1 1 1"));
+    CHECK_THAT(run("(1 2) ≠ (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│1 1│1 0│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) (0 5) ≠ (3 4) (1 2)"),
+               Prints("┌───┬───┐\n"
+                      "│1 1│1 1│\n"
+                      "└───┴───┘"));
+
+    CHECK_THAT(run("(1 2) ≠ (3 4)"), Prints("1 1"));
+    CHECK_THAT(run("1 2 3 1 2 3 ≠ 1 2 0 ¯1 0.2 120"), Prints("0 0 1 1 1 1"));
+
+    CHECK_THAT(run("'a' ≠ 'b'"), Prints("1"));
+    CHECK_THAT(run("'b' ≠ 'b'"), Prints("0"));
+    CHECK_THAT(run("'c' ≠ 'b'"), Prints("1"));
+    CHECK_THAT(run("'aa' ≠ 'bb'"), Prints("1 1"));
+
+    CHECK_THAT(run("1 ¯1.3 9.5J¯0.5 ≠ (1 ¯1.3 9.5J¯0.5) (1 ¯1.3 9.5J¯0.5) (1 ¯1.3 9.5J¯0.5)"),
+               Prints("┌─────┬─────┬─────┐\n"
+                      "│0 1 1│1 0 1│1 1 0│\n"
+                      "└─────┴─────┴─────┘"));
+
+    CHECK_THAT(run("≠ 1 2 3 4 5 6"), Prints("1 1 1 1 1 1"));
+    CHECK_THAT(run("≠ 1 2 3 1 2 3"), Prints("1 1 1 0 0 0"));
+    CHECK_THAT(run("≠ 1 2 3 1 2 3 9"), Prints("1 1 1 0 0 0 1"));
+    CHECK_THAT(run("≠ 1 (1 2) (1 2 3) (1 2 3) 1 2 3 (2 2)"), Prints("1 1 1 0 0 1 1 1"));
+    CHECK_THAT(run("≠ 0J23 0J¯23"), Prints("1 1"));
+    CHECK_THAT(run("≠ 0J23 0J¯23 0J23 1J23"), Prints("1 1 0 1"));
 }
 
 TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
