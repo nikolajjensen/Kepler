@@ -69,24 +69,32 @@ namespace kepler {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const Number& omega) override;
     };
 
     struct Nand : PervadeMixin<Operation> {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const Number& omega) override;
     };
 
     struct Or : PervadeMixin<Operation> {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const Number& omega) override;
     };
 
     struct Nor : PervadeMixin<Operation> {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
+        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const Number& omega) override;
     };
 
     struct RightTack : Operation {

@@ -110,6 +110,14 @@ namespace kepler {
         return {std::lcm((int) alpha.real(), (int) omega.real())};
     }
 
+    Array And::operator()(const std::u32string &alpha, const std::u32string &omega) {
+        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+    }
+
+    Array And::operator()(const Number &omega) {
+        throw kepler::error(SyntaxError, "The function requires a left argument.");
+    }
+
     Array Nand::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Logical NAND of complex numbers is unsupported.");
@@ -117,6 +125,14 @@ namespace kepler {
             throw kepler::error(DomainError, "Logical NAND of non-boolean numbers is unsupported.");
         }
         return {1.0 - std::lcm((int) alpha.real(), (int) omega.real())};
+    }
+
+    Array Nand::operator()(const Number &omega) {
+        throw kepler::error(SyntaxError, "The function requires a left argument.");
+    }
+
+    Array Nand::operator()(const std::u32string &alpha, const std::u32string &omega) {
+        throw kepler::error(DomainError, "The function is undefined on string arguments.");
     }
 
     Array Or::operator()(const Number &alpha, const Number &omega) {
@@ -128,6 +144,14 @@ namespace kepler {
         return {std::gcd((int) alpha.real(), (int) omega.real())};
     }
 
+    Array Or::operator()(const Number &omega) {
+        throw kepler::error(SyntaxError, "The function requires a left argument.");
+    }
+
+    Array Or::operator()(const std::u32string &alpha, const std::u32string &omega) {
+        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+    }
+
     Array Nor::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
             throw kepler::error(DomainError, "Logical NOR of complex numbers is unsupported.");
@@ -135,6 +159,14 @@ namespace kepler {
             throw kepler::error(DomainError, "Logical NOR of non-boolean numbers is unsupported.");
         }
         return {1.0 - std::gcd((int) alpha.real(), (int) omega.real())};
+    }
+
+    Array Nor::operator()(const std::u32string &alpha, const std::u32string &omega) {
+        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+    }
+
+    Array Nor::operator()(const Number &omega) {
+        throw kepler::error(SyntaxError, "The function requires a left argument.");
     }
 
     Array RightTack::operator()(const Array &alpha, const Array &omega) {

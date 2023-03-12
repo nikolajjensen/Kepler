@@ -626,9 +626,160 @@ TEST_CASE_METHOD(fixture, "iota (⍳)", "[iota][function]") {
     CHECK_THAT(run("⍳2J2"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
+TEST_CASE_METHOD(fixture, "rho (⍴)", "[rho][function]") {
     CHECK_THAT(run("⍴1 2 3"), Prints("3"));
     CHECK_THAT(run("⍴1 2 3 4"), Prints("4"));
+    CHECK_THAT(run("⍴1"), Prints(""));
+    CHECK_THAT(run("⍴(1 3 2) (0 1 2)"), Prints("2"));
+    CHECK_THAT(run("⍴⍴(1 3 2) (0 1 2)"), Prints("1"));
+
+    CHECK_THAT(run("0⍴1 2 3"), Prints(""));
+    CHECK_THAT(run("10⍴1 2 3"), Prints("1 2 3 1 2 3 1 2 3 1"));
+
+    CHECK_THAT(run("2⍴(1 2 3) (1 2 3)"),
+               Prints("┌─────┬─────┐\n"
+                      "│1 2 3│1 2 3│\n"
+                      "└─────┴─────┘"));
+
+    CHECK_THAT(run("2 2⍴1 2 3"),
+               Prints("1 2 \n"
+                      "3 1"));
+
+    CHECK_THAT(run("2 2⍴1 2 3 4 5 6"),
+               Prints("1 2 \n"
+                      "3 4"));
+
+    CHECK_THAT(run("2 2 2⍴1"),
+               Prints("1 1 \n"
+                      "1 1 \n"
+                      "\n"
+                      "1 1 \n"
+                      "1 1"));
+
+    CHECK_THAT(run("2 2 2 2⍴1"),
+               Prints("1 1 \n"
+                      "1 1 \n"
+                      "\n"
+                      "1 1 \n"
+                      "1 1 \n"
+                      "\n"
+                      "\n"
+                      "1 1 \n"
+                      "1 1 \n"
+                      "\n"
+                      "1 1 \n"
+                      "1 1"));
+
+    CHECK_THAT(run("2 3 4 6⍴1"),
+               Prints("1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "\n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "\n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "\n"
+                      "\n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "\n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "\n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1"));
+
+
+    CHECK_THAT(run("⍴⍴(3 3⍴0)"), Prints("2"));
+}
+
+TEST_CASE_METHOD(fixture, "and (∧)", "[and][function]") {
+    CHECK_THAT(run("1 ∧ 1"), Prints("1"));
+    CHECK_THAT(run("0 ∧ 1"), Prints("0"));
+    CHECK_THAT(run("1 ∧ 0"), Prints("0"));
+    CHECK_THAT(run("0 ∧ 0"), Prints("0"));
+    CHECK_THAT(run("0 ∧ 0 1 0 1 1 1"), Prints("0 0 0 0 0 0"));
+    CHECK_THAT(run("1 ∧ 0 1 0 1 1 1"), Prints("0 1 0 1 1 1"));
+    CHECK_THAT(run("0 1 0 1 1 1 ∧ 1"), Prints("0 1 0 1 1 1"));
+    CHECK_THAT(run("0 1 0 1 1 1 ∧ 0 1 0 1 1 1"), Prints("0 1 0 1 1 1"));
+
+    CHECK_THAT(run("0 1 0 1 1 1 ∧"), Throws(kepler::LengthError));
+    CHECK_THAT(run("∧ 0 1 0 1 1 1"), Throws(kepler::SyntaxError));
+    CHECK_THAT(run("0 1 0 1 1 1 ∧ 0 1 0 1"), Throws(kepler::LengthError));
+    CHECK_THAT(run("'abc' ∧ 'loc'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ∧ 'a'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ∧ 1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1 ∧ 'a'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "or (∨)", "[or][function]") {
+    CHECK_THAT(run("1 ∨ 1"), Prints("1"));
+    CHECK_THAT(run("0 ∨ 1"), Prints("1"));
+    CHECK_THAT(run("1 ∨ 0"), Prints("1"));
+    CHECK_THAT(run("0 ∨ 0"), Prints("0"));
+    CHECK_THAT(run("0 ∨ 0 1 0 1 1 1"), Prints("0 1 0 1 1 1"));
+    CHECK_THAT(run("1 ∨ 0 1 0 1 1 1"), Prints("1 1 1 1 1 1"));
+    CHECK_THAT(run("0 1 0 1 1 1 ∨ 1"), Prints("1 1 1 1 1 1"));
+    CHECK_THAT(run("0 1 0 1 1 1 ∨ 0 1 0 1 1 1"), Prints("0 1 0 1 1 1"));
+
+    CHECK_THAT(run("0 1 0 1 1 1 ∨"), Throws(kepler::LengthError));
+    CHECK_THAT(run("∨ 0 1 0 1 1 1"), Throws(kepler::SyntaxError));
+    CHECK_THAT(run("0 1 0 1 1 1 ∨ 0 1 0 1"), Throws(kepler::LengthError));
+    CHECK_THAT(run("'abc' ∨ 'loc'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ∨ 'a'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ∨ 1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1 ∨ 'a'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "nand (⍲)", "[nand][function]") {
+    CHECK_THAT(run("1 ⍲ 1"), Prints("0"));
+    CHECK_THAT(run("0 ⍲ 1"), Prints("1"));
+    CHECK_THAT(run("1 ⍲ 0"), Prints("1"));
+    CHECK_THAT(run("0 ⍲ 0"), Prints("1"));
+    CHECK_THAT(run("0 ⍲ 0 1 0 1 1 1"), Prints("1 1 1 1 1 1"));
+    CHECK_THAT(run("1 ⍲ 0 1 0 1 1 1"), Prints("1 0 1 0 0 0"));
+    CHECK_THAT(run("0 1 0 1 1 1 ⍲ 1"), Prints("1 0 1 0 0 0"));
+    CHECK_THAT(run("0 1 0 1 1 1 ⍲ 0 1 0 1 1 1"), Prints("1 0 1 0 0 0"));
+
+    CHECK_THAT(run("0 1 0 1 1 1 ⍲"), Throws(kepler::LengthError));
+    CHECK_THAT(run("⍲ 0 1 0 1 1 1"), Throws(kepler::SyntaxError));
+    CHECK_THAT(run("0 1 0 1 1 1 ⍲ 0 1 0 1"), Throws(kepler::LengthError));
+    CHECK_THAT(run("'abc' ⍲ 'loc'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ⍲ 'a'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ⍲ 1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1 ⍲ 'a'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "nor (⍱)", "[nor][function]") {
+    CHECK_THAT(run("1 ⍱ 1"), Prints("0"));
+    CHECK_THAT(run("0 ⍱ 1"), Prints("0"));
+    CHECK_THAT(run("1 ⍱ 0"), Prints("0"));
+    CHECK_THAT(run("0 ⍱ 0"), Prints("1"));
+    CHECK_THAT(run("0 ⍱ 0 1 0 1 1 1"), Prints("1 0 1 0 0 0"));
+    CHECK_THAT(run("1 ⍱ 0 1 0 1 1 1"), Prints("0 0 0 0 0 0"));
+    CHECK_THAT(run("0 1 0 1 1 1 ⍱ 1"), Prints("0 0 0 0 0 0"));
+    CHECK_THAT(run("0 1 0 1 1 1 ⍱ 0 1 0 1 1 1"), Prints("1 0 1 0 0 0"));
+
+    CHECK_THAT(run("0 1 0 1 1 1 ⍱"), Throws(kepler::LengthError));
+    CHECK_THAT(run("⍱ 0 1 0 1 1 1"), Throws(kepler::SyntaxError));
+    CHECK_THAT(run("0 1 0 1 1 1 ⍱ 0 1 0 1"), Throws(kepler::LengthError));
+    CHECK_THAT(run("'abc' ⍱ 'loc'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ⍱ 'a'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'a' ⍱ 1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1 ⍱ 'a'"), Throws(kepler::DomainError));
 }
 
 TEST_CASE_METHOD(fixture, "negative and conjugate", "[negative][conjugate][scalar][func]") {
