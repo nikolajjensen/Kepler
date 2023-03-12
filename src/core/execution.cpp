@@ -27,22 +27,38 @@
 #include "symbol_table.h"
 
 int kepler::run_file(const std::string &path) {
-    std::vector<Char> contents = read_file(path);
-
     try {
-        Tokenizer tokenizer;
-        auto tokens = tokenizer.tokenize(&contents);
+        std::vector<std::vector<kepler::Char>> contents = read_file(path);
+        SymbolTable symbol_table;
+        symbol_table.insert_system_parameters();
 
-        Parser parser(tokens);
-        auto ast = parser.parse();
+        for(int i = 0; i < contents.size(); ++i) {
+            if(contents[i].empty()) {
+                continue;
+            }
 
-        Interpreter interpreter(*ast, *ast->symbol_table);
-        auto output = interpreter.interpret();
+            try {
+                Tokenizer tokenizer;
+                auto tokens = tokenizer.tokenize(&contents[i]);
 
-        std::cout << output.to_string() << std::endl;
+                Parser parser(tokens);
+                parser.use_table(&symbol_table);
+                auto ast = parser.parse();
 
+                Interpreter interpreter(*ast, *ast->symbol_table);
+                auto output = interpreter.interpret();
+
+                if(i == contents.size() - 1) {
+                    std::cout << output.to_string() << std::endl;
+                }
+            } catch (kepler::error& err) {
+                err.set_input(&contents[i]);
+                std::cout << "On line " << i + 1 << ": " << err.to_string() << std::endl;
+                return 1;
+            }
+        }
     } catch (kepler::error& err) {
-        std::cout << "ERROR: " << err.to_string() << std::endl;
+        std::cout << err.to_string() << std::endl;
         return 1;
     }
 

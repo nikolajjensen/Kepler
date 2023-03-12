@@ -50,6 +50,13 @@ namespace Catch {
     };
 
     template <>
+    struct StringMaker<kepler::Array> {
+        static std::string convert(kepler::Array const& arr) {
+            return "\n" + arr.to_string() + "\n";
+        }
+    };
+
+    template <>
     struct StringMaker<kepler::error> {
         static std::string convert(kepler::error const & err) {
             return "\"" + err.to_string() + "\"";

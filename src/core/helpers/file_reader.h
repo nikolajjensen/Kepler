@@ -23,5 +23,5 @@
 #include "core/datatypes.h"
 
 namespace kepler {
-    std::vector<kepler::Char> read_file(const std::string& path);
+    std::vector<std::vector<kepler::Char>> read_file(const std::string& path);
 };

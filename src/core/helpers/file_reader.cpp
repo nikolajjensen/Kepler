@@ -18,13 +18,24 @@
 //
 
 #include "file_reader.h"
+#include "core/error.h"
 #include <fstream>
 #include <uni_algo/conv.h>
 
-std::vector<kepler::Char> kepler::read_file(const std::string& path) {
+std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path) {
+    if(!path.ends_with(".kpl")) {
+        throw kepler::error(FileError, "Only .kpl files are accepted.");
+    }
+
     std::ifstream f(path);
     std::stringstream ss;
-    ss << f.rdbuf();
-    auto str = uni::utf8to32u(ss.str());
-    return {str.begin(), str.end()};
+
+    std::vector<std::vector<kepler::Char>> result;
+
+    for(std::string line; getline(f, line); ) {
+        std::u32string str = uni::utf8to32u(line);
+        result.emplace_back(str.begin(), str.end());
+    }
+
+    return result;
 }
