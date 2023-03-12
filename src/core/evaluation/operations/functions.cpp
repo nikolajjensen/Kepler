@@ -79,6 +79,9 @@ namespace kepler {
     }
 
     Array Ceiling::operator()(const Number& omega) {
+        if(omega.imag() != 0.0) {
+            throw kepler::error(DomainError, "Ceiling of complex numbers is undefined.");
+        }
         return {-kepler::floor(-omega)};
     }
 
@@ -91,6 +94,10 @@ namespace kepler {
     }
 
     Array Floor::operator()(const Number& omega) {
+        if(omega.imag() != 0.0) {
+            throw kepler::error(DomainError, "Floor of complex numbers is undefined.");
+        }
+
         return {kepler::floor(omega)};
     }
 
