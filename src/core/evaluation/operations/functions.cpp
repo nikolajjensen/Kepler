@@ -54,7 +54,11 @@ namespace kepler {
 
     Array Divide::operator()(const Number& alpha, const Number& omega) {
         if(omega == 0.0) {
-            throw kepler::error(DomainError, "Division by 0 is undefined.");
+            if(alpha != 0.0) {
+                throw kepler::error(DomainError, "Division by 0 is undefined.");
+            } else {
+                return {1};
+            }
         }
         return {alpha / omega};
     }
