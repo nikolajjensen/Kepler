@@ -540,6 +540,80 @@ TEST_CASE_METHOD(fixture, "not-equal (≠)", "[not-equal][function]") {
     CHECK_THAT(run("≠ 0J23 0J¯23 0J23 1J23"), Prints("1 1 0 1"));
 }
 
+TEST_CASE_METHOD(fixture, "left shoe (⊂)", "[left-shoe][function]") {
+    CHECK_THAT(run("⊂5"), Prints("5"));
+    CHECK_THAT(run("⊂⊂23J¯12"), Prints("23J¯12"));
+    CHECK_THAT(run("⊂⊂⊂⊂⊂⊂⊂⊂⊂23J¯12"), Prints("23J¯12"));
+    CHECK_THAT(run("⊂1 2"),
+               Prints("┌───┐\n"
+                      "│1 2│\n"
+                      "└───┘"));
+
+    CHECK_THAT(run("⊂1 2 (3 4)"),
+               Prints("┌─────────┐\n"
+                      "│┌─┬─┬───┐│\n"
+                      "││1│2│3 4││\n"
+                      "│└─┴─┴───┘│\n"
+                      "└─────────┘"));
+
+    CHECK_THAT(run("⊂⊂1 2 (3 4)"),
+               Prints("┌───────────┐\n"
+                      "│┌─────────┐│\n"
+                      "││┌─┬─┬───┐││\n"
+                      "│││1│2│3 4│││\n"
+                      "││└─┴─┴───┘││\n"
+                      "│└─────────┘│\n"
+                      "└───────────┘"));
+
+    CHECK_THAT(run("⊂⊂⊂1 2 (3 4)"),
+               Prints("┌─────────────┐\n"
+                      "│┌───────────┐│\n"
+                      "││┌─────────┐││\n"
+                      "│││┌─┬─┬───┐│││\n"
+                      "││││1│2│3 4││││\n"
+                      "│││└─┴─┴───┘│││\n"
+                      "││└─────────┘││\n"
+                      "│└───────────┘│\n"
+                      "└─────────────┘"));
+
+    CHECK_THAT(run("0 1 0 1 ⊂ 1 2 3 4"),
+               Prints("┌───┬─┐\n"
+                      "│2 3│4│\n"
+                      "└───┴─┘"));
+
+    CHECK_THAT(run("0 1 1 1 ⊂ 1 2 3 4"),
+               Prints("┌─┬─┬─┐\n"
+                      "│2│3│4│\n"
+                      "└─┴─┴─┘"));
+
+    CHECK_THAT(run("0 0 0 0 ⊂ 1 2 3 4"), Prints(""));
+    CHECK_THAT(run("0 1 0 1 ⊂ 1 2 3 4 6 7 8"),
+               Prints("┌───┬─┐\n"
+                      "│2 3│4│\n"
+                      "└───┴─┘"));
+    CHECK_THAT(run("0 0 0 0 ⊂ 1 2"), Throws(kepler::LengthError));
+    CHECK_THAT(run("0 0 0 0 0 ⊂ 'Hello'"), Prints(""));
+    CHECK_THAT(run("0 1 0 1 1 ⊂ 'Hello'"), Prints("el l o"));
+    CHECK_THAT(run("1 1 1 1 1 ⊂ 'Hello'"), Prints("H e l l o"));
+    CHECK_THAT(run("1 1 1 1 1 ⊂ ''"), Throws(kepler::LengthError));
+    CHECK_THAT(run("1 1 1 1 1 ⊂ 'Hello, World!'"), Prints("H e l l o"));
+}
+
+TEST_CASE_METHOD(fixture, "without (~)", "[without][function]") {
+    CHECK_THAT(run("~0 1 0 1 0 1 1"), Prints("1 0 1 0 1 0 0"));
+    CHECK_THAT(run("~0 1 0.0 1J0 0J0 1 1"), Prints("1 0 1 0 1 0 0"));
+
+    CHECK_THAT(run("1 2 3 4 5 1.23 ~ 10"), Prints("1 2 3 4 5 1.23"));
+    CHECK_THAT(run("1 2 3 4 5 1.23 ~ 1 10"), Prints("2 3 4 5 1.23"));
+    CHECK_THAT(run("1 2 3 4 5 1.23 ~ 1 2 3"), Prints("4 5 1.23"));
+    CHECK_THAT(run("1 2 3 4 5 1.23 ~ 1 2 3 4 5 1.23"), Prints(""));
+
+    CHECK_THAT(run("'Hello, World!' ~ 'o'"), Prints("Hell, Wrld!"));
+    CHECK_THAT(run("'Hello, World!' ~ 'Hello, World!'"), Prints(""));
+    CHECK_THAT(run("'Hello, World!' ~ 'Quiz'"), Prints("Hello, World!"));
+}
+
+
 TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
     CHECK_THAT(run("⍴1 2 3"), Prints("3"));
     CHECK_THAT(run("⍴1 2 3 4"), Prints("4"));

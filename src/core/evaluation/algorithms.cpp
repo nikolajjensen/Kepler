@@ -44,6 +44,10 @@ kepler::Number kepler::floor(const Number &number) {
 kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega) {
     std::vector<Array::element_type> lists;
 
+    if(alpha.size() > omega.size()) {
+        throw kepler::error(LengthError, "String must be at least the the partitioning.");
+    }
+
     for(int i = 0; i < alpha.data.size(); ++i) {
         auto element = get<Array>(alpha.data[i]);
         if(!holds_alternative<Number>(element.data[0])) {
@@ -67,7 +71,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
     }
 
     int size = (int)lists.size();
-    if(size > 1) {
+    if(size > 1 || size == 0) {
         return {{size}, std::move(lists)};
     }
     return get<Array>(lists[0]);
@@ -75,6 +79,10 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
 
 kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32string &omega) {
     std::vector<Array::element_type> lists;
+
+    if(alpha.size() > omega.length()) {
+        throw kepler::error(LengthError, "String must be at least the the partitioning.");
+    }
 
     for(int i = 0; i < alpha.data.size(); ++i) {
         auto element = get<Array>(alpha.data[i]);
@@ -100,7 +108,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32stri
     }
 
     int size = (int)lists.size();
-    if(size > 1) {
+    if(size > 1 || size == 0) {
         return {{size}, std::move(lists)};
     }
     return get<Array>(lists[0]);
@@ -116,7 +124,7 @@ kepler::Array kepler::without(const Array &alpha, const Array &omega) {
     }
 
     int size = (int)result.data.size();
-    if(size > 0) {
+    if(size > 1 || size == 0) {
         result.shape = {size};
         return result;
     }

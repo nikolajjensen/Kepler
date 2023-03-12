@@ -226,19 +226,16 @@ namespace kepler {
     }
 
     Array LeftShoe::operator()(const Array &alpha, const Array &omega) {
-        if(alpha.size() != omega.size()) {
-            if(omega.size() != 1) {
-                throw kepler::error(LengthError, "Mismatched left and right shapes.");
+        if(alpha.size() > omega.size()) {
+            if(omega.empty()) {
+                throw kepler::error(InternalError, "Omega misshaped (0 size).");
             }
 
-            if(!holds_alternative<std::u32string>(omega.data[0])) {
-                throw kepler::error(DomainError, "Expected a string here.");
+            if(holds_alternative<std::u32string>(omega.data[0])) {
+                return partitioned_enclose(alpha, get<std::u32string>(omega.data[0]));
             }
-
-            return partitioned_enclose(alpha, get<std::u32string>(omega.data[0]));
-        } else {
-            return partitioned_enclose(alpha, omega);
         }
+        return partitioned_enclose(alpha, omega);
     }
 
     Array Not::operator()(const Number &omega) {
@@ -250,7 +247,7 @@ namespace kepler {
     }
 
     Array Not::operator()(const Array &alpha, const Array &omega) {
-        if(alpha.rank() != omega.rank() || alpha.rank() >= 2) {
+        if((alpha.rank() != omega.rank() && omega.rank() != 0) || alpha.rank() >= 2) {
             throw kepler::error(RankError, "Incompatible ranks.");
         }
 
