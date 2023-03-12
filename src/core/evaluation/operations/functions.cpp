@@ -266,7 +266,7 @@ namespace kepler {
 
     Array Iota::operator()(const Array& omega) {
         if(omega.size() != 1 || !holds_alternative<Number>(omega.data[0])) {
-            throw kepler::error(SyntaxError, "Expected numeric scalar for index generation.");
+            throw kepler::error(RankError, "Expected numeric scalar for index generation.");
         }
 
         Number om = get<Number>(omega.data[0]);

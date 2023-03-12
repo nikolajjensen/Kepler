@@ -613,6 +613,18 @@ TEST_CASE_METHOD(fixture, "without (~)", "[without][function]") {
     CHECK_THAT(run("'Hello, World!' ~ 'Quiz'"), Prints("Hello, World!"));
 }
 
+TEST_CASE_METHOD(fixture, "iota (⍳)", "[iota][function]") {
+    CHECK_THAT(run("⍳0"), Prints(""));
+    CHECK_THAT(run("⍳¯0"), Prints(""));
+    CHECK_THAT(run("⍳1"), Prints("1"));
+    CHECK_THAT(run("⍳5"), Prints("1 2 3 4 5"));
+
+    CHECK_THAT(run("⍳5.2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("⍳⍳5"), Throws(kepler::RankError));
+    CHECK_THAT(run("⍳2 3⍴0"), Throws(kepler::RankError));
+    CHECK_THAT(run("⍳¯2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("⍳2J2"), Throws(kepler::DomainError));
+}
 
 TEST_CASE_METHOD(fixture, "shape (⍴)", "[shape][scalar][func]") {
     CHECK_THAT(run("⍴1 2 3"), Prints("3"));
