@@ -36,7 +36,7 @@ public:
 
 protected:
     std::string run(std::string&& input, bool timing = false) {
-        auto start = std::chrono::high_resolution_clock::now();
+        //auto start = std::chrono::high_resolution_clock::now();
 
         // Clear the output_stream between runs.
         output_stream.str("");
@@ -45,11 +45,11 @@ protected:
         std::vector<kepler::Char> vec = {u32str.begin(), u32str.end()};
         kepler::immediate_execution(vec, output_stream, &symbol_table);
 
-        auto stop = std::chrono::high_resolution_clock::now();
-        if(timing) {
-            auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-            std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
-        }
+        //auto stop = std::chrono::high_resolution_clock::now();
+        //if(timing) {
+        //    auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+        //    std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
+        //}
 
         return output_stream.str();
     }

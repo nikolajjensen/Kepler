@@ -24,61 +24,61 @@ namespace kepler {
     Operation::Operation(SymbolTable* symbol_table_) : symbol_table(symbol_table_) {}
 
     Array Operation::operator()(const Array& omega) {
-        throw kepler::error(DomainError, "This operation does not support array application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const Number& omega) {
-        throw kepler::error(DomainError, "This operation does not support number application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const std::u32string& omega) {
-        throw kepler::error(DomainError, "This operation does not support string application.");
+        throw kepler::error(DomainError);
     }
 
 
 
     Array Operation::operator()(const Array& alpha, const Array& omega) {
-        throw kepler::error(DomainError, "This operation does not support array/array application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const Array& alpha, const Number& omega) {
-        throw kepler::error(DomainError, "This operation does not support array/number application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const Array& alpha, const std::u32string& omega) {
-        throw kepler::error(DomainError, "This operation does not support array/string application.");
+        throw kepler::error(DomainError);
     }
 
 
 
     Array Operation::operator()(const Number& alpha, const Number& omega) {
-        throw kepler::error(DomainError, "This operation does not support number/number application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const Number& alpha, const Array& omega) {
-        throw kepler::error(DomainError, "This operation does not support number/array application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const Number& alpha, const std::u32string& omega) {
-        throw kepler::error(DomainError, "This operation does not support number/string application.");
+        throw kepler::error(DomainError);
     }
 
 
 
     Array Operation::operator()(const std::u32string& alpha, const std::u32string& omega) {
-        throw kepler::error(DomainError, "This operation does not support string/string application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const std::u32string& alpha, const Number& omega) {
-        throw kepler::error(DomainError, "This operation does not support string/number application.");
+        throw kepler::error(DomainError);
     }
 
     Array Operation::operator()(const std::u32string& alpha, const Array& omega) {
-        throw kepler::error(DomainError, "This operation does not support string/array application.");
+        throw kepler::error(DomainError);
     }
 
 
     Array Operation::operator()(const Char &alpha, const Char &omega) {
-        throw kepler::error(DomainError, "This operation does not support char/char application.");
+        throw kepler::error(DomainError);
     }
 };

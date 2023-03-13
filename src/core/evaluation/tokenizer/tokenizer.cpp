@@ -28,8 +28,6 @@ namespace kepler {
     }
 
     const char32_t& Tokenizer::current() {
-        if(cursor < 0 || cursor >= input->size())
-            throw std::runtime_error("Outside");
         return (*input)[cursor];
     }
 
@@ -121,9 +119,6 @@ namespace kepler {
             number += constants::complex_marker;
 
             std::u32string real = get_real_number();
-            if(real.empty()) {
-                throw kepler::error(SyntaxError, "Expected a number here.", cursor);
-            }
             number += real;
         }
 

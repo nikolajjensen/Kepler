@@ -20,6 +20,7 @@
 #include "parser.h"
 #include "core/error.h"
 #include "core/symbol_table.h"
+#include "core/constants/literals.h"
 
 namespace kepler {
 
@@ -35,9 +36,17 @@ namespace kepler {
         return cursor < begin;
     }
 
+    long Parser::position(const std::vector<Token>::const_iterator& it) {
+        return it->get_position();
+    }
+
+    long Parser::position() {
+        return cursor->get_position();
+    }
+
     void Parser::eat(TokenType type) {
         if(current().type != type) {
-            throw kepler::error(InternalError, "Expected token of type: " + kepler::to_string(type) + ", but found token of type: " + kepler::to_string(current().type));
+            throw kepler::error(InternalError, "Expected token of type: " + kepler::to_string(type) + ", but found token of type: " + kepler::to_string(current().type), position());
         } else {
             advance();
         }
@@ -50,12 +59,6 @@ namespace kepler {
         return symbol_table->contains(id) && symbol_table->get_type(id) == FunctionSymbol;
     }
 
-    TokenType Parser::peek() {
-        auto peek_at = cursor - 1;
-        if(peek_at >= end) return cursor->type;
-        return END;
-    }
-
     TokenType Parser::peek_beyond_parenthesis() {
         auto peek_at = cursor - 1;
         while(peek_at >= begin && peek_at->type == RPARENS) {
@@ -65,11 +68,34 @@ namespace kepler {
         return END;
     }
 
+    void Parser::assert_matching(const TokenType& left, const TokenType& right, const Char& right_char) {
+        auto it = begin;
+        int level = 0;
+
+        while(it != end) {
+            if(it->type == left) {
+                ++level;
+            } else if(it->type == right){
+                --level;
+            }
+
+            if(level < 0) {
+                throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it));
+            }
+
+            ++it;
+        }
+
+        if(level != 0) {
+            throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it) + 1);
+        }
+    }
+
 
     Statements* Parser::parse_program() {
-        auto statement_list = parse_statement_list();
-        //eat(END);
-        return statement_list;
+        assert_matching(LBRACE, RBRACE, U'}');
+        assert_matching(LPARENS, RPARENS, U')');
+        return parse_statement_list();
     }
 
     std::vector<Token>::const_iterator Parser::next_separator(const std::vector<Token>::const_iterator& current) {
@@ -115,7 +141,6 @@ namespace kepler {
             statements.emplace_back(parse_statement());
         }
 
-        // Transfer ownership of the symbol table to the Statements ASTNode.
         return new Statements(statements, symbol_table);
     }
 
@@ -123,9 +148,12 @@ namespace kepler {
         if(current().type == RBRACE) {
             ASTNode<Operation_ptr>* function = parse_function();
             if(current().type != ASSIGNMENT) {
-                throw kepler::error(SyntaxError, "Expected an assignment here.");
+                throw kepler::error(SyntaxError, "Expected an assignment here.", position());
             }
             eat(ASSIGNMENT);
+            if(at_end() || current().type != ID) {
+                throw kepler::error(SyntaxError, "Expected an identifier here.", position());
+            }
             Token identifier = current();
             auto statement = new FunctionAssignment(identifier, function);
             eat(ID);
@@ -144,10 +172,17 @@ namespace kepler {
 
                 if(current().type == ASSIGNMENT) {
                     eat(ASSIGNMENT);
+
+                    if(current().type != ID) {
+                        throw kepler::error(SyntaxError, "Expected an identifier here.", position());
+                    }
+
                     statement = new Assignment(current(), statement);
                     eat(ID);
                 } else {
+                    long func_pos = position();
                     ASTNode<Operation_ptr>* function = parse_function();
+                    function->set_position(func_pos);
 
                     if(!at_end() && (current().type == RPARENS || helpers::is_array_token(current().type))) {
                         statement = new DyadicFunction(function, parse_argument(), statement);
@@ -163,7 +198,7 @@ namespace kepler {
 
     ASTNode<Operation_ptr>* Parser::parse_dfn() {
         if(current().type != RBRACE) {
-            throw kepler::error(InternalError, "Expected '}' here.");
+            throw kepler::error(SyntaxError, "Expected '}' here.", position());
         }
         eat(RBRACE);
         auto dfn_start = matching_brace(cursor + 1) + 1;
@@ -173,6 +208,10 @@ namespace kepler {
         auto body = dfn_parser.parse();
 
         cursor -= dfn_end - dfn_start;
+
+        if(at_end() || current().type != LBRACE) {
+            throw kepler::error(SyntaxError, "Expected '{' here.", position());
+        }
 
         eat(LBRACE);
         return new AnonymousFunction(body);
@@ -225,11 +264,10 @@ namespace kepler {
         } else if(tok.type == NUMBER) {
             eat(NUMBER);
             return new Scalar(tok, kepler::from_string({tok.content->begin(), tok.content->end()}));
-        } else if(tok.type == STRING) {
+        } else {
+            // Must be string.
             eat(STRING);
             return new Scalar(tok, std::u32string{tok.content->begin(), tok.content->end()});
-        } else {
-            throw kepler::error(InternalError, "Parsing scalar failed with internal error.");
         }
     }
 
@@ -254,13 +292,9 @@ namespace kepler {
     }
 
     ASTNode<Operation_ptr>* Parser::parse_mop() {
-        if(helpers::is_monadic_operator(current().type)) {
-            Token tok = current();
-            eat(tok.type);
-            return new MonadicOperator(tok, parse_function());
-        } else {
-            throw kepler::error(InternalError, kepler::to_string(current().type) + " is not a valid monadic operator.");
-        }
+        Token tok = current();
+        eat(tok.type);
+        return new MonadicOperator(tok, parse_function());
     }
 
     ASTNode<Operation_ptr>* Parser::parse_f() {
@@ -269,16 +303,19 @@ namespace kepler {
             eat(tok.type);
             return new Function(tok);
         } else {
+            if(at_end() || current().type != RPARENS) {
+                throw kepler::error(SyntaxError, "Expected a ')' here.", position());
+            }
             eat(RPARENS);
             auto func = parse_function();
+
+            if(at_end() || current().type != LPARENS) {
+                throw kepler::error(SyntaxError, "Expected a '(' here.", position());
+            }
             eat(LPARENS);
             return func;
         }
     }
-
-    Parser::Parser(SymbolTable& parent_table,
-                   const std::vector<Token>& input_)
-                   : Parser(parent_table, input_.begin(), input_.end()) {}
 
     Parser::Parser(const std::vector<Token> &input_)
                    : symbol_table(new SymbolTable()),

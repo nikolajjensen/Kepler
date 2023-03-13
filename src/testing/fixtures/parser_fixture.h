@@ -18,30 +18,35 @@
 //
 
 #pragma once
-#include "core/system.h"
-#include "core/session.h"
 #include "core/datatypes.h"
-#include "core/evaluation/evaluate_statement/parser.h"
+#include "core/symbol_table.h"
+#include "core/evaluation/tokenizer/tokenizer.h"
+#include "core/evaluation/parser/parser.h"
 #include <chrono>
 
 class parser_fixture {
 protected:
-    kepler::System system;
-    kepler::Session* session;
+    kepler::SymbolTable symbol_table;
 
 public:
-    parser_fixture() : system(), session(system.spawn_session()) {}
+    parser_fixture() {
+        symbol_table.insert_system_parameters();
+    }
 
 protected:
-    kepler::List<kepler::Token> run(kepler::List<kepler::Token>&& input, bool timing = false) {
-        auto start = std::chrono::high_resolution_clock::now();
-        kepler::evaluation::Parser parser(&input);
-        parser.parse();
-        auto stop = std::chrono::high_resolution_clock::now();
-        if(timing) {
-            auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-            std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
+    std::string run(std::string&& raw) {
+        try {
+            kepler::StringUTF32 converted = uni::utf8to32u(raw);
+            std::vector<kepler::Char> input(converted.begin(), converted.end());
+
+            kepler::Tokenizer tokenizer;
+            auto tokens = tokenizer.tokenize(&input);
+
+            kepler::Parser parser(tokens);
+            parser.use_table(&symbol_table);
+            return parser.parse()->to_string();
+        } catch(kepler::error& err) {
+            return err.to_string();
         }
-        return input;
     }
 };

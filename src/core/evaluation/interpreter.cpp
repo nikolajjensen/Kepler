@@ -58,11 +58,21 @@ namespace kepler {
     }
 
     Array Interpreter::visit(MonadicFunction *node) {
-        return (*node->function->accept(*this))(node->omega->accept(*this));
+        try {
+            return (*node->function->accept(*this))(node->omega->accept(*this));
+        } catch (kepler::error& err) {
+            err.position = node->function->get_position();
+            throw err;
+        }
     }
 
     Array Interpreter::visit(DyadicFunction *node) {
-        return (*node->function->accept(*this))(node->alpha->accept(*this), node->omega->accept(*this));
+        try {
+            return (*node->function->accept(*this))(node->alpha->accept(*this), node->omega->accept(*this));
+        } catch (kepler::error& err) {
+            err.position = node->function->get_position();
+            throw err;
+        }
     }
 
     Operation_ptr Interpreter::visit(AnonymousFunction* node) {

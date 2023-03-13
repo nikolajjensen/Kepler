@@ -26,77 +26,8 @@
 #include "core/helpers/classifiers.h"
 
 namespace kepler {
-    /*
-    class StatementList {
-    private:
-        // https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp
-        struct StatementIterator {
-            using iterator_category = std::forward_iterator_tag;
-            using difference_type   = std::ptrdiff_t;
-            using value_type        = Token;
-            using pointer           = Token*;  // or also value_type*
-            using reference         = Token&;  // or also value_type&
-
-            StatementIterator(pointer ptr) : m_ptr(ptr) {}
-
-            reference operator*() const { return *m_ptr; }
-            pointer operator->() const { return m_ptr; }
-
-            // Prefix
-            StatementIterator& operator++() { m_ptr++; return *this; }
-
-            // Postfix
-            StatementIterator operator++(int) { StatementIterator tmp = *this; ++(*this); return tmp; }
-
-
-            friend bool operator==(const StatementIterator& a, const StatementIterator& b) { return a.m_ptr == b.m_ptr; }
-            friend bool operator!=(const StatementIterator& a, const StatementIterator& b) { return a.m_ptr != b.m_ptr; }
-
-
-        private:
-            pointer m_ptr;
-        };
-
-        std::vector<Token>* list;
-
-    public:
-        StatementList(std::vector<Token>* list_) : list(list_) {}
-
-        StatementIterator begin() { return StatementIterator(&(*list)[0]); }
-        StatementIterator end() { return StatementIterator(&(*list)[list->size()]); }
-    };
-    */
-
     class Parser {
     private:
-        // https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp
-        struct StatementIterator {
-            using iterator_category = std::forward_iterator_tag;
-            using difference_type   = std::ptrdiff_t;
-            using value_type        = Token;
-            using pointer           = ASTNode<Array>**;  // or also value_type*
-            using reference         = ASTNode<Array>*&;  // or also value_type&
-
-            StatementIterator(pointer ptr) : m_ptr(ptr) {}
-
-            reference operator*() const { return *m_ptr; }
-            pointer operator->() const { return m_ptr; }
-
-            // Prefix
-            StatementIterator& operator++() { m_ptr++; return *this; }
-
-            // Postfix
-            StatementIterator operator++(int) { StatementIterator tmp = *this; ++(*this); return tmp; }
-
-
-            friend bool operator==(const StatementIterator& a, const StatementIterator& b) { return a.m_ptr == b.m_ptr; }
-            friend bool operator!=(const StatementIterator& a, const StatementIterator& b) { return a.m_ptr != b.m_ptr; }
-
-
-        private:
-            pointer m_ptr;
-        };
-
         SymbolTable* symbol_table;
         std::vector<Token>::const_iterator cursor;
         std::vector<Token>::const_iterator begin;
@@ -105,9 +36,12 @@ namespace kepler {
         void advance();
         const Token& current();
         bool at_end();
+        long position(const std::vector<Token>::const_iterator& it);
+        long position();
         void eat(TokenType type);
-        TokenType peek();
         TokenType peek_beyond_parenthesis();
+
+        void assert_matching(const TokenType& left, const TokenType& right, const Char& right_char);
 
         bool identifies_function(Token token);
         std::vector<Token>::const_iterator next_separator(const std::vector<Token>::const_iterator& current);
@@ -126,7 +60,6 @@ namespace kepler {
         ASTNode<Operation_ptr>* parse_f();
 
     public:
-        explicit Parser(SymbolTable& parent_table, const std::vector<Token>& input_);
         explicit Parser(SymbolTable& parent_table, std::vector<Token>::const_iterator begin, std::vector<Token>::const_iterator end);
         explicit Parser(const std::vector<Token>& input_);
 

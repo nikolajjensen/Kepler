@@ -18,24 +18,17 @@
 //
 
 #pragma once
-#include "core/array.h"
-#include "core/datatypes.h"
 
 namespace kepler {
-
-    template <typename BASE>
-    struct PervadeMixin : BASE {
-        using BASE::BASE;
-        using BASE::operator();
-
-        virtual Array operator()(const Array& omega);
-        virtual Array operator()(const Array& alpha, const Array& omega);
-        virtual Array operator()(const std::u32string& alpha, const std::u32string& omega);
-
+    struct position {
     private:
-        Array apply(const Array::element_type& omega);
-        Array apply(const Array::element_type& alpha, const Array::element_type& omega);
+        long pos;
+
+    public:
+        position();
+        explicit position(long pos_);
+
+        void set_position(unsigned long new_pos);
+        long get_position() const;
     };
 };
-
-#include "pervade.tpp"

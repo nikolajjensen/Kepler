@@ -17,25 +17,15 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
-#include "core/array.h"
-#include "core/datatypes.h"
+#include "position.h"
 
-namespace kepler {
+kepler::position::position() : pos(-1) {}
+kepler::position::position(long pos_) : pos(pos_) {}
 
-    template <typename BASE>
-    struct PervadeMixin : BASE {
-        using BASE::BASE;
-        using BASE::operator();
+void kepler::position::set_position(unsigned long new_pos) {
+    pos = new_pos;
+}
 
-        virtual Array operator()(const Array& omega);
-        virtual Array operator()(const Array& alpha, const Array& omega);
-        virtual Array operator()(const std::u32string& alpha, const std::u32string& omega);
-
-    private:
-        Array apply(const Array::element_type& omega);
-        Array apply(const Array::element_type& alpha, const Array::element_type& omega);
-    };
-};
-
-#include "pervade.tpp"
+long kepler::position::get_position() const {
+    return pos;
+}

@@ -20,11 +20,9 @@
 #include "macros.h"
 #include "testing/matcher.h"
 #include "core/token_type.h"
-#include "core/token.h"
 #include "testing/fixtures/lexer_fixture.h"
-#include "string_maker.h"
 
-TEST_CASE_METHOD(lexer_fixture, "comment", "[tokenizer][comment]") {
+TEST_CASE_METHOD(lexer_fixture, "comment", "[comment][lexer]") {
     CHECK_NOTHROW(run("⍝This is a comment!"));
     CHECK_THAT(run("⍝This is a comment!"), Outputs({}));
 
@@ -44,7 +42,7 @@ TEST_CASE_METHOD(lexer_fixture, "comment", "[tokenizer][comment]") {
     CHECK_THAT(run("⍝◊"), Outputs({}));
 }
 
-TEST_CASE_METHOD(lexer_fixture, "character-literal", "[tokenizer][character-literal]") {
+TEST_CASE_METHOD(lexer_fixture, "character-literal", "[character-literal][lexer]") {
 
     CHECK_NOTHROW(run("'ABC'"));
     CHECK_THAT(run("'ABC'"), Outputs({{kepler::STRING, U"ABC"}}));
@@ -244,7 +242,7 @@ TEST_CASE_METHOD(lexer_fixture, "real-scalar-literal", "[tokenizer][real-scalar-
     CHECK_THAT(run("1.2.2"), Outputs({{kepler::NUMBER, U"1.2"}, {kepler::NUMBER, U".2"}}));
 }
 
-TEST_CASE_METHOD(lexer_fixture, "numeric-scalar-literal", "[tokenizer][numeric-scalar-literal]") {
+TEST_CASE_METHOD(lexer_fixture, "numeric-scalar-literal", "[numeric-scalar-literal][lexer]") {
     CHECK_NOTHROW(run("1.5J12"));
     CHECK_THAT(run("1.5J12"), Outputs({{kepler::NUMBER, U"1.5J12"}}));
 
@@ -294,7 +292,7 @@ TEST_CASE_METHOD(lexer_fixture, "numeric-scalar-literal", "[tokenizer][numeric-s
     CHECK_THAT_THROWS(run("¯.567J¯"), Throws(kepler::SyntaxError));
 }
 
-TEST_CASE_METHOD(lexer_fixture, "numeric-literal", "[tokenizer][numeric-literal]") {
+TEST_CASE_METHOD(lexer_fixture, "numeric-literal", "[numeric-literal][lexer]") {
     CHECK_NOTHROW(run("1.5J12 1.5J12"));
     CHECK_THAT(run("1.5J12 1.5J12"),
                Outputs({
@@ -342,7 +340,7 @@ TEST_CASE_METHOD(lexer_fixture, "numeric-literal", "[tokenizer][numeric-literal]
 }
 
 
-TEST_CASE_METHOD(lexer_fixture, "literal-identifier", "[tokenizer][literal-identifier]") {
+TEST_CASE_METHOD(lexer_fixture, "literal-identifier", "[literal-identifier][lexer]") {
     CHECK_NOTHROW(run("a"));
     CHECK_THAT(run("a"), Outputs({{kepler::ID, U"a"}}));
 
@@ -368,7 +366,7 @@ TEST_CASE_METHOD(lexer_fixture, "literal-identifier", "[tokenizer][literal-ident
     CHECK_THAT(run("a1a"), Outputs({{kepler::ID, U"a1a"}}));
 }
 
-TEST_CASE_METHOD(lexer_fixture, "line", "[tokenizer][line]") {
+TEST_CASE_METHOD(lexer_fixture, "line", "[line][lexer]") {
     CHECK_NOTHROW(run("a"));
     CHECK_THAT(run("a"), Outputs({{kepler::ID, U"a"}}));
 
@@ -489,4 +487,9 @@ TEST_CASE_METHOD(lexer_fixture, "line", "[tokenizer][line]") {
                    {kepler::NUMBER, U"2"},
                    {kepler::NUMBER, U"3.5"},
                }));
+}
+
+TEST_CASE_METHOD(lexer_fixture, "corner-cases", "[corner-cases][lexer]") {
+    CHECK_THAT_THROWS(run("∂∂"), Throws(kepler::SyntaxError));
+    CHECK_THAT(run(""), Outputs({}));
 }

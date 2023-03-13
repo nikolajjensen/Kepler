@@ -31,7 +31,7 @@ protected:
         kepler::StringUTF32 converted = uni::utf8to32u(raw);
         std::vector<kepler::Char> input(converted.begin(), converted.end());
 
-        auto start = std::chrono::high_resolution_clock::now();
+        //auto start = std::chrono::high_resolution_clock::now();
 
         kepler::Tokenizer tokenizer;
         std::vector<kepler::Token> output = tokenizer.tokenize(&input);
@@ -39,11 +39,11 @@ protected:
         //kepler::Lexer lexer(input);
         //kepler::List<kepler::Token> output = lexer.lex();
 
-        auto stop = std::chrono::high_resolution_clock::now();
-        if(timing) {
-            auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-            std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
-        }
+        //auto stop = std::chrono::high_resolution_clock::now();
+        //if(timing) {
+        //    auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+        //    std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
+        //}
         return output;
     }
 };

@@ -130,7 +130,7 @@ namespace kepler {
             : function(function_), alpha(alpha_), omega(omega_) {}
 
     std::string DyadicFunction::to_string() const {
-        return "DyadicFunction(" + function->to_string() + " " + alpha->to_string() + " " + omega->to_string() + ")";
+        return "DyadicFunction(" + alpha->to_string() + " " + function->to_string() + " " + omega->to_string() + ")";
     }
 
     Array DyadicFunction::accept(NodeVisitor &visitor) { return visitor.visit(this); }
@@ -163,7 +163,7 @@ namespace kepler {
     }
 
     std::string FunctionAssignment::to_string() const {
-        return "FunctionAssignment(" + identifier.to_string() + " " + function->to_string() + ")";
+        return "FunctionAssignment(" + identifier.to_string() + " ← " + function->to_string() + ")";
     }
 
     Array FunctionAssignment::accept(NodeVisitor &visitor) { return visitor.visit(this); }
@@ -176,7 +176,7 @@ namespace kepler {
     Assignment::Assignment(Token identifier_, ASTNode *value_) : identifier(identifier_), value(value_) {}
 
     std::string Assignment::to_string() const {
-        return "Assignment(" + identifier.to_string() + "←" + value->to_string() + ")";
+        return "Assignment(" + identifier.to_string() + " ← " + value->to_string() + ")";
     }
 
     Array Assignment::accept(NodeVisitor &visitor) { return visitor.visit(this); }
@@ -203,7 +203,9 @@ namespace kepler {
     }
 
 
-    Statements::Statements(std::vector<ASTNode<Array> *> children_, SymbolTable* symbol_table_) : children(children_), symbol_table(symbol_table_) {}
+    Statements::Statements(std::vector<ASTNode<Array> *> children_, SymbolTable* symbol_table_) : children(std::move(children_)), symbol_table(symbol_table_) {}
+
+    Statements::Statements(std::vector<ASTNode<Array> *> children_) : children(std::move(children_)), symbol_table(nullptr) {}
 
     std::string Statements::to_string() const {
         std::stringstream ss;

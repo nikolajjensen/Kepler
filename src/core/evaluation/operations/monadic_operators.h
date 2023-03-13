@@ -30,7 +30,6 @@ namespace kepler {
 
     public:
         explicit MonadicOp(Operation_ptr op_);
-        explicit MonadicOp(Operation* op_);
     };
 
     struct Commute : MonadicOp {

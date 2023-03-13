@@ -45,7 +45,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
     std::vector<Array::element_type> lists;
 
     if(alpha.size() > omega.size()) {
-        throw kepler::error(LengthError, "String must be at least the the partitioning.");
+        throw kepler::error(LengthError, "String must be at least as long as the partitioning.");
     }
 
     for(int i = 0; i < alpha.data.size(); ++i) {

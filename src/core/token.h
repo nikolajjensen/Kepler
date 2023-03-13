@@ -26,34 +26,17 @@
 #include "core/helpers/conversion.h"
 #include <utility>
 #include <optional>
+#include "position.h"
 
 namespace kepler {
-
-    struct position_tagged {
-    private:
-        long position;
-
-    public:
-        position_tagged() : position(-1) {}
-        explicit position_tagged(long position_) : position(position_) {}
-
-        void set_position(unsigned long pos) {
-            position = pos;
-        }
-
-        long get_position() const {
-            return position;
-        }
-    };
-
-    struct Token : position_tagged {
+    struct Token : position {
         TokenType type;
         std::optional<std::vector<Char>> content;
 
-        Token(long position, TokenType type_, Char content_) : position_tagged(position), type(type_), content(std::vector<Char>{content_}) {}
-        Token(long position, TokenType type_, std::u32string content_) : position_tagged(position), type(type_), content({content_.begin(), content_.end()}) {}
+        Token(long pos, TokenType type_, Char content_) : position(pos), type(type_), content(std::vector<Char>{content_}) {}
+        Token(long pos, TokenType type_, std::u32string content_) : position(pos), type(type_), content({content_.begin(), content_.end()}) {}
         Token(TokenType type_, std::u32string content_) : type(type_), content({content_.begin(), content_.end()}) {}
-        Token(long position, TokenType type_) : position_tagged(position), type(type_), content(std::nullopt) {}
+        Token(long pos, TokenType type_) : position(pos), type(type_), content(std::nullopt) {}
 
         friend bool operator==(const Token& lhs, const Token& rhs) {
             return lhs.type == rhs.type && lhs.content == rhs.content;

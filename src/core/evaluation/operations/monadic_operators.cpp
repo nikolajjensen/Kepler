@@ -25,7 +25,6 @@
 
 namespace kepler {
     MonadicOp::MonadicOp(Operation_ptr op_) : op(std::move(op_)), Operation(nullptr) {}
-    MonadicOp::MonadicOp(Operation* op_) : op(op_), Operation(nullptr) {}
 
     Array Commute::operator()(const Array& alpha, const Array& omega) {
         return (*op)(omega, alpha);
@@ -36,7 +35,7 @@ namespace kepler {
     }
 
     Array Slash::operator()(const Array& alpha, const Array& omega) {
-        throw kepler::error(InternalError, "Dyadic SLASH is not implemented.");
+        throw kepler::error(NotImplemented, "Dyadic SLASH is not implemented.");
     }
 
     Array Slash::operator()(const Array& omega) {
@@ -76,7 +75,7 @@ namespace kepler {
             }
 
             if(alpha.shape != omega.shape) {
-                throw kepler::error(ValueError, "Left and right arguments must have the same dimensions.");
+                throw kepler::error(LengthError, "Left and right arguments must have the same dimensions.");
             }
 
             result.shape = omega.shape;

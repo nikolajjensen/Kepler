@@ -26,7 +26,6 @@
 #include <uni_algo/conv.h>
 
 namespace kepler {
-
     class error : public std::exception {
     public:
         ErrorType error_type;
@@ -35,10 +34,10 @@ namespace kepler {
         std::vector<Char>* input;
 
         error(ErrorType error_type_,
-              std::string message_)
+              std::string message_ = "")
                 : error_type(error_type_),
                   message(std::move(message_)),
-                  position(-1),
+                  position(-2),
                   input(nullptr) {}
 
         error(ErrorType error_type_,
@@ -73,7 +72,7 @@ namespace kepler {
             return message;
         }
 
-        std::string to_string() const {
+       std::string to_string() const {
             std::stringstream ss;
             ss << type();
 
@@ -96,13 +95,13 @@ namespace kepler {
         std::string where() const {
             std::stringstream ss;
 
-            if(input != nullptr && position != -1) {
+            if(input != nullptr && position != -2) {
                 ss << "   ";
                 ss << uni::utf32to8(std::u32string(input->begin(), input->end()));
                 ss << "\n";
 
-                ss << "  ~";
-                for (int i = 0; i < position - 1; ++i) {
+                ss << "  ";
+                for (long i = -1; i < position - 1; ++i) {
                     ss << "~";
                 }
                 ss << "^";// << "   " << position;

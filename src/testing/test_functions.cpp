@@ -81,7 +81,7 @@ TEST_CASE_METHOD(fixture, "plus (+)", "[plus][function]") {
 
     CHECK_THAT(run("1+2+2"), Prints("5"));
     CHECK_THAT(run("(1+2)+2"), Prints("5"));
-    CHECK_THAT(run("(1+(2+2)"), Prints("5"));
+    CHECK_THAT(run("(1+(2+2))"), Prints("5"));
 }
 
 TEST_CASE_METHOD(fixture, "minus (-)", "[minus][scalar][func]") {
@@ -143,7 +143,7 @@ TEST_CASE_METHOD(fixture, "minus (-)", "[minus][scalar][func]") {
 
     CHECK_THAT(run("1-2-2"), Prints("1"));
     CHECK_THAT(run("(1-2)-2"), Prints("¯3"));
-    CHECK_THAT(run("(1-(2-2)"), Prints("1"));
+    CHECK_THAT(run("(1-(2-2))"), Prints("1"));
 }
 
 TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][function]") {
@@ -215,7 +215,7 @@ TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][function]") {
 
     CHECK_THAT(run("1×2×2"), Prints("4"));
     CHECK_THAT(run("(1×2)×2"), Prints("4"));
-    CHECK_THAT(run("(1×(2×2)"), Prints("4"));
+    CHECK_THAT(run("(1×(2×2))"), Prints("4"));
 }
 
 TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][function]") {

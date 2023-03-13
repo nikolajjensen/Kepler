@@ -25,12 +25,13 @@
 #include "core/datatypes.h"
 #include <memory>
 #include "core/evaluation/operations/operation.h"
+#include "core/position.h"
 
 namespace kepler {
     using Operation_ptr = std::shared_ptr<Operation>;
 
     template <typename T>
-    struct ASTNode {
+    struct ASTNode : position {
         virtual ~ASTNode() = default;
 
         virtual T accept(class NodeVisitor &visitor) = 0;
@@ -162,6 +163,8 @@ namespace kepler {
 
         ~Statements() override;
         explicit Statements(std::vector<ASTNode<Array>*> children_, SymbolTable* symbol_table);
+        // Used only in testing.
+        explicit Statements(std::vector<ASTNode<Array>*> children_);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;
