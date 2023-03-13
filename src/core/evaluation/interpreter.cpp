@@ -129,7 +129,11 @@ namespace kepler {
             results.emplace_back(child->accept(*this));
         }
 
-        return results.back();
+        if(!results.empty()) {
+            return results.back();
+        } else {
+            return {{}, {}};
+        }
     }
 
     Array Interpreter::interpret() {

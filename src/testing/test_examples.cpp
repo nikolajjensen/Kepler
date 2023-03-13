@@ -21,6 +21,11 @@
 #include "matcher.h"
 #include "core/error_type.h"
 
+TEST_CASE_METHOD(fixture, "corner-cases-input", "[corner-cases]") {
+    CHECK_THAT(run(""), Prints(""));
+    CHECK_THAT(run("      "), Prints(""));
+}
+
 TEST_CASE_METHOD(fixture, "negative and conjugate", "[negative][conjugate][scalar][func]") {
     CHECK_THAT(run("-+2"), Prints("¯2"));
     CHECK_THAT(run("-+2E2"), Prints("¯200"));
