@@ -20,26 +20,6 @@
 #include "conversion.h"
 #include <uni_algo/conv.h>
 
-std::string kepler::to_string(const Number& num) {
-    std::string result;
-
-    if(num.real() < 0.0) {
-        result += "¯";
-    }
-    result += std::to_string(abs(num.real()));
-
-    if(num.imag() != 0) {
-        result += "J";
-
-        if(num.imag() < 0.0) {
-            result += "¯";
-        }
-        result += std::to_string(abs(num.imag()));
-    }
-
-    return result;
-}
-
 kepler::Number kepler::from_string(std::string num_str) {
     std::u32string str = uni::utf8to32u(num_str);
     std::replace(str.begin(), str.end(), U'¯', U'-');

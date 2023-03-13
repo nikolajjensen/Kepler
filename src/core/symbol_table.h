@@ -35,6 +35,7 @@ namespace kepler {
 
     public:
         SymbolTable();
+        SymbolTable(SymbolTable* parent);
         ~SymbolTable();
 
         void attach_parent(SymbolTable* parent);

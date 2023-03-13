@@ -26,7 +26,7 @@
 #include "core/evaluation/interpreter.h"
 #include "symbol_table.h"
 
-int kepler::run_file(const std::string &path) {
+int kepler::run_file(const std::string &path, std::ostream & stream) {
     try {
         std::vector<std::vector<kepler::Char>> contents = read_file(path);
         SymbolTable symbol_table;
@@ -38,27 +38,18 @@ int kepler::run_file(const std::string &path) {
             }
 
             try {
-                Tokenizer tokenizer;
-                auto tokens = tokenizer.tokenize(&contents[i]);
-
-                Parser parser(tokens);
-                parser.use_table(&symbol_table);
-                auto ast = parser.parse();
-
-                Interpreter interpreter(*ast, *ast->symbol_table);
-                auto output = interpreter.interpret();
-
-                if(i == contents.size() - 1) {
-                    std::cout << output.to_string() << std::endl;
-                }
+                kepler::immediate_execution(contents[i], stream, &symbol_table);
             } catch (kepler::error& err) {
                 err.set_input(&contents[i]);
-                std::cout << "On line " << i + 1 << ": " << err.to_string() << std::endl;
-                return 1;
+                err.set_file(path);
+                err.set_line(i + 1);
+                stream << err.to_string() << "\n" << std::endl;
             }
         }
+
+        symbol_table.clear();
     } catch (kepler::error& err) {
-        std::cout << err.to_string() << std::endl;
+        stream << err.to_string() << std::endl;
         return 1;
     }
 
@@ -89,37 +80,43 @@ int kepler::run_repl() {
         std::u32string input = read_input();
         ss.str("");
         List<Char> in = {input.begin(), input.end()};
-        kepler::immediate_execution(in, ss, &symbol_table);
+        kepler::safe_execution(in, ss, &symbol_table);
         if(!ss.str().empty()) {
             std::cout << ss.str() << std::endl;
         }
     }
 }
 
-void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable* symbol_table) {
+void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable *symbol_table) {
     try {
-        //auto start = std::chrono::high_resolution_clock::now();
-
-        Tokenizer tokenizer;
-        List<Token> tokens = tokenizer.tokenize(&input);
-
-        Parser parser(tokens);
-        if(symbol_table != nullptr) {
-            parser.use_table(symbol_table);
-        }
-        auto ast = parser.parse();
-
-        Interpreter interpreter(*ast, *ast->symbol_table);
-        auto result = interpreter.interpret();
-
-        //auto stop = std::chrono::high_resolution_clock::now();
-
-        //auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-        //std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
-
-        stream << result.to_string() << std::flush;
+        return kepler::immediate_execution(input, stream, symbol_table);
     } catch(kepler::error& err) {
         err.set_input(&input);
         stream << err.to_string() << std::flush;
     }
+}
+
+void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable* symbol_table) {
+    //auto start = std::chrono::high_resolution_clock::now();
+
+    Tokenizer tokenizer;
+    List<Token> tokens = tokenizer.tokenize(&input);
+
+    Parser parser(tokens);
+    if(symbol_table != nullptr) {
+        parser.use_table(symbol_table);
+    }
+    auto ast = parser.parse();
+
+    Interpreter interpreter(*ast, *ast->symbol_table, stream);
+    auto result = interpreter.interpret();
+
+
+    //auto stop = std::chrono::high_resolution_clock::now();
+
+    //auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+    //std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
+
+    stream << result.to_string(ast->symbol_table) << std::flush;
+    delete ast;
 }

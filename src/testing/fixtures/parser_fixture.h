@@ -33,6 +33,10 @@ public:
         symbol_table.insert_system_parameters();
     }
 
+    ~parser_fixture() {
+        symbol_table.clear();
+    }
+
 protected:
     std::string run(std::string&& raw) {
         try {

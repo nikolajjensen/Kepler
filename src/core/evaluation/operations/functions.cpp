@@ -259,10 +259,6 @@ namespace kepler {
 
     Array LeftShoe::operator()(const Array &alpha, const Array &omega) {
         if(alpha.size() > omega.size()) {
-            if(omega.empty()) {
-                throw kepler::error(InternalError, "Omega misshaped (0 size).");
-            }
-
             if(holds_alternative<std::u32string>(omega.data[0])) {
                 return partitioned_enclose(alpha, get<std::u32string>(omega.data[0]));
             }
@@ -283,7 +279,7 @@ namespace kepler {
             throw kepler::error(RankError, "Incompatible ranks.");
         }
 
-        if(alpha.rank() == 0) {
+        if((alpha.rank() == 0 && !alpha.is_numeric()) || (omega.rank() == 0 && !omega.is_numeric())) {
             // Individual element.
             return std::visit(*this, alpha.data[0], omega.data[0]);
         } else {

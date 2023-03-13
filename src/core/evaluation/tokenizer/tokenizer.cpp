@@ -173,7 +173,7 @@ namespace kepler {
         } else if(current() == U'\'') {
             return string_token();
         } else {
-            throw kepler::error(SyntaxError, cursor);
+            throw kepler::error(SyntaxError, "Unexpected symbol.", cursor + 1);
         }
     }
 

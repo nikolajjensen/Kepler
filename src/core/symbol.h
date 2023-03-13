@@ -24,6 +24,7 @@
 #include "core/evaluation/ast.h"
 
 namespace kepler {
+
     enum SymbolType {
         FunctionSymbol,
         VariableSymbol

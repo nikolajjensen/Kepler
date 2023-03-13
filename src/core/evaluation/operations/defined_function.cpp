@@ -22,8 +22,8 @@
 #include "core/evaluation/interpreter.h"
 
 namespace kepler {
-    DefinedFunction::DefinedFunction(AnonymousFunction* function_)
-            : function(function_), Operation(nullptr) {}
+    DefinedFunction::DefinedFunction(AnonymousFunction* function_, std::ostream& output_stream_)
+            : function(function_), Operation(nullptr), output_stream(output_stream_) {}
 
     DefinedFunction::~DefinedFunction() {
         //delete function;
@@ -33,7 +33,7 @@ namespace kepler {
         auto symbol_table = function->body->symbol_table;
         symbol_table->set(constants::omega_id, omega);
 
-        Interpreter interpreter(*function->body, *symbol_table);
+        Interpreter interpreter(*function->body, *symbol_table, output_stream);
         auto result = interpreter.interpret();
         symbol_table->strip_values();
         return result;
@@ -44,7 +44,7 @@ namespace kepler {
         symbol_table->set(constants::alpha_id, alpha);
         symbol_table->set(constants::omega_id, omega);
 
-        Interpreter interpreter(*function->body, *symbol_table);
+        Interpreter interpreter(*function->body, *symbol_table, output_stream);
         auto result = interpreter.interpret();
         symbol_table->strip_values();
         return result;

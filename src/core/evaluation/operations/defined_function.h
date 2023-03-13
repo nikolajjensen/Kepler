@@ -25,9 +25,10 @@ namespace kepler {
     struct DefinedFunction : Operation {
     private:
         AnonymousFunction* function;
+        std::ostream& output_stream;
 
     public:
-        explicit DefinedFunction(AnonymousFunction* function);
+        explicit DefinedFunction(AnonymousFunction* function, std::ostream& output_stream_);
         ~DefinedFunction();
 
         Array operator()(const Array& alpha, const Array& omega) override;

@@ -20,49 +20,19 @@
 #include "array.h"
 #include "error.h"
 #include "core/constants/literals.h"
+#include "core/constants/config.h"
 #include <utility>
 #include <numeric>
+#include <variant>
 #include "core/helpers/conversion.h"
 #include "core/helpers/array_printer.h"
+#include "symbol_table.h"
 
 namespace kepler {
 
     Array::Array(std::vector<int> shape_, std::vector<element_type> data_) : shape(std::move(shape_)), data(std::move(data_)) {}
 
-    Array::Array(element_type scalar_) : shape(), data({std::move(scalar_)}) {}
-
-    Array Array::major_cells() {
-        return n_cells(shape.size() - 1);
-    }
-
-    Array Array::n_cells(int n) {
-        if(n == 0) {
-            return *this;
-        }
-
-        int rank = shape.size();
-
-        if(n > rank) throw std::runtime_error("Array of rank " + std::to_string(rank) + " does not have " +
-                                              std::to_string(n) + "-cells.");
-
-        if(rank == n) {
-            return Array({}, {*this});
-        }
-
-        std::vector<int> result_shape = {shape.end() - (rank - n), shape.end()};
-        std::vector<int> cell_shape = {shape.begin(), shape.begin() + (rank - n)};
-
-        int size = std::accumulate(cell_shape.begin(), cell_shape.end(), 1, std::multiplies<>());
-        int result_size = std::accumulate(result_shape.begin(), result_shape.end(), 1, std::multiplies<>());
-
-        std::vector<element_type> result_data;
-        result_shape.reserve(result_size);
-        for(int i = 0; i < result_size; ++i) {
-            result_data.emplace_back(Array{cell_shape, {data.begin() + i * size, data.begin() + (i + 1) * size}});
-        }
-
-        return {result_shape, result_data};
-    }
+    Array::Array(element_type scalar_) : shape(), data({scalar_}) {}
 
     int Array::rank() const {
         return shape.size();
@@ -94,22 +64,9 @@ namespace kepler {
         });
     }
 
-    bool Array::is_integer_numeric() const {
-        return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
-            if(!holds_alternative<Number>(element)) return false;
-            auto n = get<Number>(element).real();
-            return round(n) == n;
-        });
-    }
-
-    bool Array::is_boolean() const {
-        return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
-            return holds_alternative<Number>(element) && (get<Number>(element) == 0.0 || get<Number>(element) == 1.0);
-        });
-    }
-
-    std::string Array::to_string() const {
-        ArrayPrinter printer;
+    std::string Array::to_string(const SymbolTable* symbol_table) const {
+        auto& arr = symbol_table->get<Array>(constants::print_precision_id);
+        ArrayPrinter printer((int)std::get<Number>(arr.data[0]).real());
         return printer(*this);
     }
 };

@@ -136,11 +136,12 @@ namespace kepler {
     Array DyadicFunction::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
+    AnonymousFunction::AnonymousFunction(Statements *body_) : body(body_) {}
+
     AnonymousFunction::~AnonymousFunction() {
+        delete body->symbol_table;
         delete body;
     }
-
-    AnonymousFunction::AnonymousFunction(Statements *body_) : body(body_) {}
 
     std::string AnonymousFunction::to_string() const {
         return "AnonymousFunction(" + body->to_string() + ")";
@@ -199,13 +200,15 @@ namespace kepler {
             delete node;
         }
         children.clear();
-        delete symbol_table;
+
+        // Do not delete symbol table here.
+        // It is the owner of the "Statements" responsibility to
+        // delete the symbol table once ready. (We might need to
+        // access variables after evaluation of AST).
     }
 
 
     Statements::Statements(std::vector<ASTNode<Array> *> children_, SymbolTable* symbol_table_) : children(std::move(children_)), symbol_table(symbol_table_) {}
-
-    Statements::Statements(std::vector<ASTNode<Array> *> children_) : children(std::move(children_)), symbol_table(nullptr) {}
 
     std::string Statements::to_string() const {
         std::stringstream ss;

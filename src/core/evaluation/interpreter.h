@@ -120,8 +120,9 @@ namespace kepler {
 
         SymbolTable& symbol_table;
         ASTNode<Array>& tree;
+        std::ostream& output_stream;
 
-        explicit Interpreter(ASTNode<Array>& tree_, SymbolTable& symbol_table_) : tree(tree_), symbol_table(symbol_table_) {}
+        explicit Interpreter(ASTNode<Array>& tree_, SymbolTable& symbol_table_, std::ostream& output_stream_) : tree(tree_), symbol_table(symbol_table_), output_stream(output_stream_) {}
 
         Array interpret();
     };

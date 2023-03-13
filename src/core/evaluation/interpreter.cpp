@@ -76,7 +76,7 @@ namespace kepler {
     }
 
     Operation_ptr Interpreter::visit(AnonymousFunction* node) {
-        return std::make_shared<DefinedFunction>(node);
+        return std::make_shared<DefinedFunction>(node, output_stream);
     }
 
     Operation_ptr Interpreter::visit(FunctionVariable *node) {
@@ -106,7 +106,7 @@ namespace kepler {
         if (identifier.starts_with(U'⎕')) {
             if(identifier.length() == 1) {
                 // Print out.
-                std::cout << value.to_string() << std::endl;
+                output_stream << value.to_string(&symbol_table) << std::flush;
                 return {{}, {}};
             }
 

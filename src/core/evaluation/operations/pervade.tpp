@@ -29,10 +29,9 @@ namespace kepler {
                 element = apply(element);
             }
             return tmp;
-        } else if (omega.is_simple_scalar()) {
-            return apply(omega.data[0]);
         }
-        return omega;
+
+        return apply(omega.data[0]);
     }
 
     template <typename BASE>

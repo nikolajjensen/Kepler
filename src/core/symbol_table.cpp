@@ -27,6 +27,8 @@ namespace kepler {
 
     }
 
+    SymbolTable::SymbolTable(SymbolTable* parent_) : table(), parent(parent_) {}
+
     SymbolTable::~SymbolTable() {
 
     }

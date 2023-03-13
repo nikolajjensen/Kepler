@@ -28,6 +28,12 @@ std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path
     }
 
     std::ifstream f(path);
+
+    if(!f.is_open()) {
+        throw kepler::error(FileError, "Could not open the file.");
+    }
+
+
     std::stringstream ss;
 
     std::vector<std::vector<kepler::Char>> result;
@@ -36,6 +42,8 @@ std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path
         std::u32string str = uni::utf8to32u(line);
         result.emplace_back(str.begin(), str.end());
     }
+
+    f.close();
 
     return result;
 }

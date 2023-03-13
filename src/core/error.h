@@ -32,13 +32,17 @@ namespace kepler {
         std::string message;
         long position;
         std::vector<Char>* input;
+        int line;
+        std::string file;
 
         error(ErrorType error_type_,
               std::string message_ = "")
                 : error_type(error_type_),
                   message(std::move(message_)),
                   position(-2),
-                  input(nullptr) {}
+                  input(nullptr),
+                  line(-1),
+                  file("") {}
 
         error(ErrorType error_type_,
               std::string message_,
@@ -46,14 +50,18 @@ namespace kepler {
                 : error_type(error_type_),
                   message(std::move(message_)),
                   position(position_),
-                  input(nullptr) {}
+                  input(nullptr),
+                  line(-1),
+                  file("") {}
 
         error(ErrorType error_type_,
               long position_)
                 : error_type(error_type_),
                   message(""),
                   position(position_),
-                  input(nullptr) {}
+                  input(nullptr),
+                  line(-1),
+                  file("") {}
 
         error(ErrorType error_type_,
               std::string message_,
@@ -62,7 +70,9 @@ namespace kepler {
                 : error_type(error_type_),
                   message(std::move(message_)),
                   position(position_),
-                  input(input_) {}
+                  input(input_),
+                  line(-1),
+                  file("") {}
 
         std::string type() const {
             return kepler::to_string(error_type);
@@ -74,6 +84,16 @@ namespace kepler {
 
        std::string to_string() const {
             std::stringstream ss;
+            if(!file.empty()) {
+                ss << file;
+
+                if(line != -1) {
+                    ss << ":" << std::to_string(line);
+                }
+
+                ss << ": ";
+            }
+
             ss << type();
 
             if(!why().empty()) {
@@ -90,6 +110,14 @@ namespace kepler {
 
         void set_input(std::vector<Char>* input_) {
             input = input_;
+        }
+
+        void set_file(const std::string& new_file) {
+            file = new_file;
+        }
+
+        void set_line(int new_line) {
+            line = new_line;
         }
 
         std::string where() const {

@@ -27,6 +27,8 @@
 #include <numeric>
 
 namespace kepler {
+    ArrayPrinter::ArrayPrinter(int precision_) : precision(precision_) {}
+
     bool all_elements_are_scalars(const Array& arr) {
         return std::all_of(arr.data.begin(), arr.data.end(), [&](const Array::element_type& element){
             return holds_alternative<Array>(element) && get<Array>(element).is_simple_scalar();
@@ -54,16 +56,6 @@ namespace kepler {
     }
 
     // https://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
-    std::vector<std::string> split(const std::string& text, char delim) {
-        std::string line;
-        std::vector<std::string> vec;
-        std::stringstream ss(text);
-        while(std::getline(ss, line, delim)) {
-            vec.push_back(line);
-        }
-        return vec;
-    }
-
     std::vector<std::u32string> split(const std::u32string& text, char32_t delim) {
         std::vector<std::u32string> vec;
 
@@ -75,7 +67,6 @@ namespace kepler {
         int cursor = start;
 
         while(cursor <= text.size() - 1) {
-            auto s = text.size() - 1;
             if(text[cursor] == delim) {
                 vec.emplace_back(text.substr(start, cursor - start));
                 start = cursor + 1;
@@ -227,7 +218,7 @@ namespace kepler {
     }
 
     std::string ArrayPrinter::operator()(const Number& element) {
-        return number_to_string(element);
+        return number_to_string(element, precision);
     }
 
     std::string ArrayPrinter::operator()(const Array& array) {

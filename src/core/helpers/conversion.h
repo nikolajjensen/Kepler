@@ -23,7 +23,6 @@
 #include "core/token_type.h"
 
 namespace kepler {
-    std::string to_string(const Number& num);
     Number from_string(std::string num_str);
     std::string to_string(TokenType type);
 };

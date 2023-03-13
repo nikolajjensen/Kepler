@@ -26,6 +26,7 @@
 #include <iomanip>
 #include "uni_algo/conv.h"
 
+/*
 kepler::Number kepler::numeric_limit_max() {
     return std::numeric_limits<double>::max();
 }
@@ -79,6 +80,7 @@ kepler::Number kepler::number_from_characters(const kepler::List<kepler::Char>& 
 
     return {real_scalar, imaginary_scalar};
 }
+*/
 
 kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
     std::stringstream ss;
@@ -87,59 +89,36 @@ kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
 
     std::string raw = ss.str();
 
-    bool negative = raw[0] == '-';
-    if(negative) {
+    if(!raw.empty() && raw.front() == '-') {
         raw.erase(0, 1);
+        if(raw != "0") {
+            raw.insert(0, "¯");
+        }
     }
-
-    int mantissa = 0;
 
     auto e_index = raw.find_first_of('e');
     if(e_index != std::string::npos) {
-        // Scientific notation.
         auto mantissa_string = raw.substr(e_index + 1);
         raw.erase(e_index);
-        mantissa = std::stoi(mantissa_string);
-    } else {
-        auto dot_index = raw.find_first_of('.');
-        auto last_after_dot = raw.find_last_not_of('0');
-        auto first_after_dot = raw.find_first_not_of('0', dot_index + 1);
-        auto last_before_dot = raw.find_last_not_of('0', dot_index - 1);
 
-        auto erase_from = std::max(dot_index, last_after_dot) + 1;
-        if(dot_index != std::string::npos && erase_from < raw.length()) {
-            raw.erase();
+        int mantissa = std::stoi(mantissa_string);
 
-            if(dot_index < last_after_dot) {
-                mantissa = dot_index - last_after_dot;
-            } else {
-                mantissa = dot_index - last_before_dot - 1;
+        if(mantissa > 0 && mantissa < precision) {
+            raw += std::string(mantissa, '0');
+        } else if(mantissa < 0 && -mantissa < precision - 3) {
+            raw = "0." + std::string(abs(mantissa) - 1, '0') + raw;
+        } else {
+            bool negative_mantissa = mantissa_string.front() == '-';
+            mantissa_string.erase(0, 1);
+
+            mantissa_string.erase(0, std::min(mantissa_string.find_first_not_of('0'), mantissa_string.size()-1));
+
+            if(negative_mantissa && mantissa_string != "0") {
+                mantissa_string.insert(0, "¯");
             }
+
+            raw += "E" + mantissa_string;
         }
-
-        if(mantissa > 0) {
-            raw.erase(last_before_dot + 1);
-        } else if(mantissa < 0) {
-            raw.erase(0, first_after_dot);
-        }
-    }
-
-    if(mantissa > 0 && mantissa >= precision) {
-        raw += "E" + std::to_string(mantissa);
-    } else if(mantissa < 0 && abs(mantissa) + 3 >= precision) {
-        raw += "E¯" + std::to_string(abs(mantissa));
-    } else if(mantissa > 0) {
-        raw += std::string(mantissa, '0');
-    } else if(mantissa < 0) {
-        raw = "0." + std::string(abs(mantissa) - 1, '0') + raw;
-    }
-
-    if(raw.back() == '.') {
-        raw.pop_back();
-    }
-
-    if(negative && raw != "0") {
-        raw.insert(0, "¯");
     }
 
     return raw;
@@ -147,23 +126,10 @@ kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
 
 kepler::StringUTF8 kepler::number_to_string(const kepler::Number& num, int precision) {
     StringUTF32 result = uni::utf8to32u(kepler::double_to_string(num.real(), precision));
-    if(result.front() == U'-') {
-        result.front() = constants::overbar;
-    }
-
 
     if(num.imag() != 0) {
-        StringUTF32 str = uni::utf8to32u(kepler::double_to_string(num.imag(), precision));
-        if(str.front() == U'-') {
-            str.front() = constants::overbar;
-        }
-        result = result + StringUTF32(1, constants::complex_marker) + str;
+        result = result + StringUTF32(1, constants::complex_marker) + uni::utf8to32u(kepler::double_to_string(num.imag(), precision));
     }
 
     return uni::utf32to8(result);
-}
-
-kepler::Number kepler::integer_nearest_to(const Number &num) {
-    if(num.imag() != 0) throw kepler::error(DomainError, "Integer closest to complex number is undefined.");
-    return round(num.real());
 }

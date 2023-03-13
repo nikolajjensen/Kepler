@@ -22,6 +22,8 @@
 #include <variant>
 
 namespace kepler {
+    struct SymbolTable;
+
     struct Array {
     public:
         using element_type = std::variant<std::u32string, Number, Array>;
@@ -32,8 +34,6 @@ namespace kepler {
         Array(std::vector<int> shape_, std::vector<element_type> data_);
         Array(element_type scalar_);
 
-        Array major_cells();
-        Array n_cells(int n);
         int rank() const;
         int size() const;
         int flattened_shape() const;
@@ -41,15 +41,10 @@ namespace kepler {
         bool is_scalar() const;
         bool is_simple_scalar() const;
         bool is_numeric() const;
-        bool is_integer_numeric() const;
-        bool is_boolean() const;
-        std::string to_string() const;
+        std::string to_string(const SymbolTable* symbol_table) const;
 
         friend bool operator==(const Array& lhs, const Array& rhs) {
             return lhs.shape == rhs.shape && lhs.data == rhs.data;
         }
-
-    private:
-        std::string scalar_string(const element_type& element) const;
     };
 };

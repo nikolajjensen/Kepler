@@ -54,9 +54,5 @@ namespace kepler {
             ss << ")";
             return ss.str();
         }
-
-        friend std::ostream& operator<<(std::ostream& os, const Token& token) {
-            return os << token.to_string();
-        }
     };
 };

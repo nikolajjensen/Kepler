@@ -18,20 +18,17 @@
 //
 
 #pragma once
-#include "core/datatypes.h"
-#include "core/array.h"
+#include <string>
+#include "core/execution.h"
 
-namespace kepler {
-    Number floor(const Number& number);
+class file_fixture {
+public:
+    file_fixture() {}
 
-    Array partitioned_enclose(const Array& partitioning, const Array& subject);
-    Array partitioned_enclose(const Array& partitioning, const std::u32string& subject);
-
-    Array without(const Array& alpha, const Array& omega);
-    Array without(const std::u32string& alpha, const std::u32string& omega);
-
-    //Array index_generator(const Array& omega);
-    Array rho(const Array& alpha, const Array& omega);
-    //std::vector<int> encode(const std::vector<int>& alpha, const int& omega);
-    //Array decode(const Array& alpha, const Array& omega);
+protected:
+    std::string run(std::string&& path) {
+        std::stringstream ss;
+        kepler::run_file(path, ss);
+        return ss.str();
+    }
 };

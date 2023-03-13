@@ -163,8 +163,6 @@ namespace kepler {
 
         ~Statements() override;
         explicit Statements(std::vector<ASTNode<Array>*> children_, SymbolTable* symbol_table);
-        // Used only in testing.
-        explicit Statements(std::vector<ASTNode<Array>*> children_);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;

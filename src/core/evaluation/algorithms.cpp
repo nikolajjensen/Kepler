@@ -22,6 +22,7 @@
 #include <cmath>
 #include <numeric>
 
+
 //https://www.jsoftware.com/papers/eem/complexfloor1.htm#0
 kepler::Number kepler::floor(const Number &number) {
     Number raw = {std::floor(number.real()), std::floor(number.imag())};
@@ -148,7 +149,7 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
     Array result{{}, {}};
 
     if(alpha.rank() > 1) {
-        throw kepler::error(ValueError, "Left argument of reshape cannot have rank " + std::to_string(alpha.rank()));
+        throw kepler::error(RankError, "Left argument of reshape cannot have rank " + std::to_string(alpha.rank()));
     }
 
     if(alpha.is_scalar()) {
@@ -174,6 +175,8 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
         auto index = i % omega_length;
         if(omega.is_scalar()) {
             result.data[i] = omega;
+        } else if(omega_length == 0) {
+            result.data[i] = Array{0};
         } else {
             result.data[i] = omega.data[index];
         }
@@ -182,6 +185,7 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
     return result;
 }
 
+/*
 std::vector<int> kepler::encode(const std::vector<int> &radices, const int &scalar) {
     auto n = (std::count(radices.begin(), radices.end(), 0) == 0)
              ? std::accumulate(radices.begin(), radices.end(), 1, std::multiplies<>())
@@ -248,3 +252,4 @@ kepler::Array kepler::index_generator(const Array &omega) {
 
     return result;
 }
+*/

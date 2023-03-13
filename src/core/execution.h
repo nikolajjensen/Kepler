@@ -23,9 +23,10 @@
 #include "symbol_table.h"
 
 namespace kepler {
-    int run_file(const std::string& path);
+    int run_file(const std::string& path, std::ostream & stream = std::cout);
 
     int run_repl();
 
+    void safe_execution(std::vector<Char>& input, std::ostream & stream, SymbolTable* symbol_table = nullptr);
     void immediate_execution(std::vector<Char>& input, std::ostream & stream, SymbolTable* symbol_table = nullptr);
 };
