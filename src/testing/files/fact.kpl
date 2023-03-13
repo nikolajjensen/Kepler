@@ -1,0 +1,2 @@
+⍝ Stack-recursive factorial.
+fact←{⍵≤1: 1 ⋄ ⍵×∇ ⍵-1}

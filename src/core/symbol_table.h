@@ -28,7 +28,7 @@
 namespace kepler {
     class SymbolTable {
     private:
-        std::map<std::u32string, Symbol> table;
+        std::map<std::u32string, Symbol*> table;
         SymbolTable* parent;
 
         const Symbol& lookup(const std::u32string& id) const;
@@ -60,7 +60,7 @@ namespace kepler {
         SymbolType get_type(const std::u32string& id) const;
 
         void set(const std::u32string& id, const Array& value);
-        void set(const std::u32string& id, Operation_ptr value);
+        void set(const std::u32string& id, const Operation_ptr& value);
         void set(const std::u32string& id, const Number& value);
         void bind_function(const std::u32string& id);
 

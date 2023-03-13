@@ -1,0 +1,18 @@
+⍝ Game of Life!
+⍝ Life function first...
+Life←{↑∨/1 ⍵∧3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}
+
+⍝ Define the "organism"
+glider←3 3⍴1 1 1 1 0 0 0 1 0
+⍝ 1 1 1
+⍝ 1 0 0
+⍝ 0 1 0
+
+⍝ Define the grid in which the organism lives
+grid←¯10 ¯10↑glider
+
+⍝ Run functions for consequtively applying the game.
+run ← {{grid ← Life grid ◊ ⎕ ← grid}¨⍳⍵}
+
+⍝ Run for 10 iterations.
+run 10

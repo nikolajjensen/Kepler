@@ -20,6 +20,8 @@
 #include "defined_function.h"
 #include "core/constants/literals.h"
 #include "core/evaluation/interpreter.h"
+#include "core/constants/config.h"
+#include "core/symbol_table.h"
 
 namespace kepler {
     DefinedFunction::DefinedFunction(AnonymousFunction* function_, std::ostream& output_stream_)
@@ -32,6 +34,7 @@ namespace kepler {
     Array DefinedFunction::operator()(const Array& omega) {
         auto symbol_table = function->body->symbol_table;
         symbol_table->set(constants::omega_id, omega);
+        //symbol_table->set(constants::recursive_call_id, function);
 
         Interpreter interpreter(*function->body, *symbol_table, output_stream);
         auto result = interpreter.interpret();

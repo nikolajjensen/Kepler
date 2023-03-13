@@ -30,12 +30,15 @@ namespace kepler {
     SymbolTable::SymbolTable(SymbolTable* parent_) : table(), parent(parent_) {}
 
     SymbolTable::~SymbolTable() {
-
+        for (auto& [key, val] : table) {
+            delete val;
+        }
+        table.clear();
     }
 
     const Symbol & SymbolTable::lookup(const std::u32string &id) const {
         if(table.contains(id)) {
-            return table.at(id);
+            return *table.at(id);
         } else if(parent != nullptr) {
             return parent->lookup(id);
         } else {
@@ -51,15 +54,18 @@ namespace kepler {
         if(parent != nullptr && parent->contains(id)) {
             parent->set(id, value);
         } else {
-            table.insert_or_assign(id, std::move(Symbol(VariableSymbol, value)));
+            table.insert_or_assign(id, new Symbol(VariableSymbol, value));
         }
     }
 
-    void SymbolTable::set(const std::u32string &id, Operation_ptr value) {
+    void SymbolTable::set(const std::u32string &id, const Operation_ptr& value) {
         if(parent != nullptr && parent->contains(id)) {
             parent->set(id, value);
         } else {
-            table.insert_or_assign(id, std::move(Symbol(FunctionSymbol, value)));
+            table.insert_or_assign(id, new Symbol(FunctionSymbol, value));
+
+            // Set the recursive symbol to the same symbol.
+            table.insert_or_assign(constants::recursive_call_id, table.at(id));
         }
     }
 
@@ -76,7 +82,7 @@ namespace kepler {
     }
 
     void SymbolTable::bind_function(const std::u32string &id) {
-        table.insert_or_assign(id, std::move(Symbol(FunctionSymbol)));
+        table.insert_or_assign(id, new Symbol(FunctionSymbol));
     }
 
     // Removes all keys and destroys all symbols.
@@ -88,12 +94,13 @@ namespace kepler {
     // but keeps all entries and their bindings.
     void SymbolTable::strip_values() {
         for (auto& [key, val] : table) {
-            val.content = std::nullopt;
+            val->content = std::nullopt;
         }
     }
 
     void SymbolTable::insert_system_parameters() {
         set(constants::index_origin_id, constants::initial_index_origin);
         set(constants::print_precision_id, constants::initial_print_precision);
+        bind_function(constants::recursive_call_id);
     }
 };

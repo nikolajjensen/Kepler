@@ -26,6 +26,9 @@ TEST_CASE_METHOD(file_fixture, "files", "[files]") {
     CHECK_THAT(run("../src/testing/files/degrees.kpl"), Prints("20"));
     CHECK_THAT(run("../src/testing/files/error_degrees.kpl"), Throws(kepler::SyntaxError));
     CHECK_THAT(run("../src/testing/files/non_existent_file.kpl"), Throws(kepler::FileError));
+
+    //CHECK_THAT(run("../src/testing/files/fib.kpl"), Prints(""));
+    //CHECK_THAT(run("../src/testing/files/life.kpl"), Prints(""));
 }
 
 TEST_CASE_METHOD(fixture, "corner-cases-input", "[corner-cases]") {

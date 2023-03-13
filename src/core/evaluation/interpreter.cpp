@@ -20,6 +20,7 @@
 #include "interpreter.h"
 #include <memory>
 #include "core/constants/config.h"
+#include "core/symbol_table.h"
 #include "core/evaluation/parser/parser.h"
 #include "core/evaluation/operations/defined_function.h"
 
@@ -59,7 +60,8 @@ namespace kepler {
 
     Array Interpreter::visit(MonadicFunction *node) {
         try {
-            return (*node->function->accept(*this))(node->omega->accept(*this));
+            auto f = node->function->accept(*this);
+            return (*f)(node->omega->accept(*this));
         } catch (kepler::error& err) {
             err.position = node->function->get_position();
             throw err;
@@ -94,7 +96,11 @@ namespace kepler {
     Array Interpreter::visit(FunctionAssignment *node) {
         auto &content = node->identifier.content.value();
         std::u32string identifier = {content.begin(), content.end()};
-        symbol_table.set(identifier, node->function->accept(*this));
+        if(identifier.starts_with(constants::recursive_call_id)) {
+            throw kepler::error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
+        }
+        auto s = node->function->accept(*this);
+        symbol_table.set(identifier, s);
         return {{}, {}};
     }
 
@@ -111,10 +117,12 @@ namespace kepler {
             }
 
             if (!symbol_table.contains(identifier)) {
-                throw kepler::error(DefinitionError, "Distinguished variables are reserved.");
+                throw kepler::error(DefinitionError, "Distinguished variables are reserved.", node->identifier.get_position());
             }
 
             constants::check_valid_system_param_value(identifier, value);
+        } if(identifier.starts_with(constants::recursive_call_id)) {
+            throw kepler::error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
         }
 
         symbol_table.set(identifier, value);

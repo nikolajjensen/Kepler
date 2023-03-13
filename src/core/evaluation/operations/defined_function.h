@@ -19,7 +19,7 @@
 
 #pragma once
 #include "operation.h"
-#include "core/symbol_table.h"
+#include "core/evaluation/ast.h"
 
 namespace kepler {
     struct DefinedFunction : Operation {

@@ -1,0 +1,3 @@
+⍝ Stack-recursive Fibonnacci.
+⍝ https://dfns.dyalog.com/n_fibonacci.htm
+fib←{⍵≤1:⍵ ◊ (∇ ⍵-1)+∇ ⍵-2}

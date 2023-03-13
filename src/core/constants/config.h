@@ -31,6 +31,8 @@ namespace kepler::constants {
     const std::u32string print_precision_id = U"⎕PP";
     const Number initial_print_precision = 10;
 
+    const std::u32string recursive_call_id = U"∇";
+
     void check_valid_system_param_value(const std::u32string& id, const Array& value);
     void check_valid_system_param_value(const std::u32string& id, const Number& value);
 };

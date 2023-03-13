@@ -74,6 +74,6 @@ namespace kepler::constants {
     const std::u32string omega_id = U"⍵";
 
     const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~⊂⍴∧∨⍲⍱⊥⊤⍨/¨∘⍤⍥←(){}◊⋄\n";
-    const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕";
+    const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕∇";
     const std::u32string digit = U"0123456789";
 };
