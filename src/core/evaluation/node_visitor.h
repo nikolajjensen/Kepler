@@ -38,5 +38,6 @@ namespace kepler {
         virtual Array visit(Assignment* node) = 0;
         virtual Array visit(Variable* node) = 0;
         virtual Array visit(Statements* node) = 0;
+        virtual Array visit(Conditional* node) = 0;
     };
 };

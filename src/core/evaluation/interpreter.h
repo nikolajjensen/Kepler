@@ -116,6 +116,7 @@ namespace kepler {
         Array visit(Variable *node) override;
         Array visit(Assignment *node) override;
         Array visit(Statements *node) override;
+        Array visit(Conditional *node) override;
 
 
         SymbolTable& symbol_table;

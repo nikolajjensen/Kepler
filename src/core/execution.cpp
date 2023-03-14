@@ -18,6 +18,7 @@
 //
 
 #include "execution.h"
+#include <numeric>
 #include "core/constants/literals.h"
 #include "core/constants/config.h"
 #include "core/helpers/file_reader.h"
@@ -26,25 +27,56 @@
 #include "core/evaluation/interpreter.h"
 #include "symbol_table.h"
 
+std::vector<kepler::Char> concat_lines(const std::vector<std::vector<kepler::Char>>& lines) {
+    std::vector<kepler::Char> result;
+    for(auto& line : lines) {
+        std::copy(line.begin(), line.end(), std::back_inserter(result));
+        result.emplace_back(U'\n');
+    }
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+struct error_loc {
+    long line_number;
+    long pos;
+    const std::vector<kepler::Char>& line;
+
+    error_loc(long line_number_, long pos_, const std::vector<kepler::Char>& line_) : line_number(line_number_), pos(pos_), line(line_) {}
+};
+
+error_loc find_line(const std::vector<std::vector<kepler::Char>>& lines, long position) {
+    long line_index = 0;
+    while(position > lines[line_index].size() + 1 && line_index < lines.size()) {
+        position -= lines[line_index].size() + 1;
+        ++line_index;
+    }
+
+    if(line_index >= lines.size()) {
+        return {line_index + 1, position, lines.back()};
+    } else {
+        return {line_index + 1, position, lines[line_index]};
+    }
+}
+
 int kepler::run_file(const std::string &path, std::ostream & stream) {
     try {
-        std::vector<std::vector<kepler::Char>> contents = read_file(path);
         SymbolTable symbol_table;
         symbol_table.insert_system_parameters();
 
-        for(int i = 0; i < contents.size(); ++i) {
-            if(contents[i].empty()) {
-                continue;
-            }
-
-            try {
-                kepler::immediate_execution(contents[i], stream, &symbol_table);
-            } catch (kepler::error& err) {
-                err.set_input(&contents[i]);
-                err.set_file(path);
-                err.set_line(i + 1);
-                stream << err.to_string() << "\n" << std::endl;
-            }
+        std::vector<std::vector<Char>> lines = kepler::read_file(path);
+        std::vector<Char> all_lines = concat_lines(lines);
+        try {
+            kepler::immediate_execution(all_lines, stream, false, &symbol_table);
+        } catch (kepler::error& err) {
+            auto loc = find_line(lines, err.position);
+            err.set_input(&loc.line);
+            err.position = loc.pos;
+            err.set_file(path);
+            err.set_line(loc.line_number);
+            stream << err.to_string() << "\n" << std::endl;
         }
 
         symbol_table.clear();
@@ -80,23 +112,23 @@ int kepler::run_repl() {
         std::u32string input = read_input();
         ss.str("");
         List<Char> in = {input.begin(), input.end()};
-        kepler::safe_execution(in, ss, &symbol_table);
+        kepler::safe_execution(in, ss, true, &symbol_table);
         if(!ss.str().empty()) {
             std::cout << ss.str() << std::endl;
         }
     }
 }
 
-void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable *symbol_table) {
+void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable *symbol_table) {
     try {
-        return kepler::immediate_execution(input, stream, symbol_table);
+        return kepler::immediate_execution(input, stream, print_last, symbol_table);
     } catch(kepler::error& err) {
         err.set_input(&input);
         stream << err.to_string() << std::flush;
     }
 }
 
-void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, SymbolTable* symbol_table) {
+void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable* symbol_table) {
     //auto start = std::chrono::high_resolution_clock::now();
 
     Tokenizer tokenizer;
@@ -117,6 +149,8 @@ void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream,
     //auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
     //std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
 
-    stream << result.to_string(ast->symbol_table) << std::flush;
+    if(print_last) {
+        stream << result.to_string(ast->symbol_table) << std::flush;
+    }
     delete ast;
 }

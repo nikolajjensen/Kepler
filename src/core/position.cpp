@@ -22,7 +22,7 @@
 kepler::position::position() : pos(-1) {}
 kepler::position::position(long pos_) : pos(pos_) {}
 
-void kepler::position::set_position(unsigned long new_pos) {
+void kepler::position::set_position(long new_pos) {
     pos = new_pos;
 }
 

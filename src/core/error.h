@@ -31,7 +31,7 @@ namespace kepler {
         ErrorType error_type;
         std::string message;
         long position;
-        std::vector<Char>* input;
+        const std::vector<Char>* input;
         int line;
         std::string file;
 
@@ -66,7 +66,7 @@ namespace kepler {
         error(ErrorType error_type_,
               std::string message_,
               long position_,
-              std::vector<Char>* input_)
+              const std::vector<Char>* input_)
                 : error_type(error_type_),
                   message(std::move(message_)),
                   position(position_),
@@ -108,7 +108,7 @@ namespace kepler {
             return ss.str();
         }
 
-        void set_input(std::vector<Char>* input_) {
+        void set_input(const std::vector<Char>* input_) {
             input = input_;
         }
 

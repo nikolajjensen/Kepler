@@ -32,24 +32,21 @@ namespace kepler {
     }
 
     Array DefinedFunction::operator()(const Array& omega) {
-        auto symbol_table = function->body->symbol_table;
-        symbol_table->set(constants::omega_id, omega);
-        //symbol_table->set(constants::recursive_call_id, function);
+        SymbolTable symbol_table;
 
-        Interpreter interpreter(*function->body, *symbol_table, output_stream);
-        auto result = interpreter.interpret();
-        symbol_table->strip_values();
-        return result;
+        symbol_table.attach_parent(function->body->symbol_table);
+        symbol_table.set(constants::omega_id, omega, true);
+
+        Interpreter interpreter(*function->body, symbol_table, output_stream);
+        return interpreter.interpret();
     }
 
     Array DefinedFunction::operator()(const Array& alpha, const Array& omega) {
         auto symbol_table = function->body->symbol_table;
-        symbol_table->set(constants::alpha_id, alpha);
-        symbol_table->set(constants::omega_id, omega);
+        symbol_table->set(constants::alpha_id, alpha, true);
+        symbol_table->set(constants::omega_id, omega, true);
 
         Interpreter interpreter(*function->body, *symbol_table, output_stream);
-        auto result = interpreter.interpret();
-        symbol_table->strip_values();
-        return result;
+        return interpreter.interpret();
     }
 };

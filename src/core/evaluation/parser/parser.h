@@ -30,6 +30,7 @@ namespace kepler {
     private:
         SymbolTable* symbol_table;
         std::vector<Token>::const_iterator cursor;
+        std::vector<Token>::const_iterator flag;
         std::vector<Token>::const_iterator begin;
         std::vector<Token>::const_iterator end;
 

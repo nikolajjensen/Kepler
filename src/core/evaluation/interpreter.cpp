@@ -78,7 +78,9 @@ namespace kepler {
     }
 
     Operation_ptr Interpreter::visit(AnonymousFunction* node) {
-        return std::make_shared<DefinedFunction>(node, output_stream);
+        auto dfn = std::make_shared<DefinedFunction>(node, output_stream);
+        node->body->symbol_table->set(constants::recursive_call_id, dfn);
+        return dfn;
     }
 
     Operation_ptr Interpreter::visit(FunctionVariable *node) {
@@ -142,6 +144,21 @@ namespace kepler {
         } else {
             return {{}, {}};
         }
+    }
+
+    Array Interpreter::visit(Conditional *node) {
+        auto condition = node->condition->accept(*this);
+        if(condition.empty()) {
+            throw kepler::error(SyntaxError, "Condition did not evaluate to a value.", node->condition->get_position());
+        }
+
+        if(holds_alternative<Number>(condition.data[0])) {
+            if(get<Number>(condition.data[0]).real() != 0) {
+                return node->true_case->accept(*this);
+            }
+        }
+
+        return node->false_case->accept(*this);
     }
 
     Array Interpreter::interpret() {

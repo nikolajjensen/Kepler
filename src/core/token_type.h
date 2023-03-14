@@ -67,6 +67,7 @@ namespace kepler {
         OVER,
 
         // Misc
+        COLON,
         DIAMOND,
         NEGATE,
         ASSIGNMENT,

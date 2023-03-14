@@ -28,7 +28,7 @@ namespace kepler {
         position();
         explicit position(long pos_);
 
-        void set_position(unsigned long new_pos);
+        void set_position(long new_pos);
         long get_position() const;
     };
 };

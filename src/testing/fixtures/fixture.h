@@ -47,7 +47,7 @@ protected:
 
         auto u32str = uni::utf8to32u(input);
         std::vector<kepler::Char> vec = {u32str.begin(), u32str.end()};
-        kepler::safe_execution(vec, output_stream, &symbol_table);
+        kepler::safe_execution(vec, output_stream, true, &symbol_table);
 
         //auto stop = std::chrono::high_resolution_clock::now();
         //if(timing) {

@@ -24,10 +24,12 @@
 
 TEST_CASE_METHOD(file_fixture, "files", "[files]") {
     CHECK_THAT(run("../src/testing/files/degrees.kpl"), Prints("20"));
+    CHECK_THAT(run("../src/testing/files/degrees_multiline.kpl"), Prints("20"));
     CHECK_THAT(run("../src/testing/files/error_degrees.kpl"), Throws(kepler::SyntaxError));
     CHECK_THAT(run("../src/testing/files/non_existent_file.kpl"), Throws(kepler::FileError));
 
-    //CHECK_THAT(run("../src/testing/files/fib.kpl"), Prints(""));
+    CHECK_THAT(run("../src/testing/files/fib.kpl"), Prints("34"));
+    CHECK_THAT(run("../src/testing/files/fact.kpl"), Prints("Factorial of 8:\n40320"));
     //CHECK_THAT(run("../src/testing/files/life.kpl"), Prints(""));
 }
 

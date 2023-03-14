@@ -67,16 +67,16 @@ TEST_CASE_METHOD(parser_fixture, "statement-separation", "[statement-separation]
                Prints("Statements(DyadicFunction(Scalar(Token(NUMBER, 1)) Function(Token(PLUS, +)) Vector(Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 4)))), Scalar(Token(NUMBER, 1111)))"));
 
     CHECK_THAT(run("2 3 4+1◊"),
-               Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 4))) Function(Token(PLUS, +)) Scalar(Token(NUMBER, 1))), Vector())"));
+               Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 4))) Function(Token(PLUS, +)) Scalar(Token(NUMBER, 1))))"));
 
     CHECK_THAT(run("1 2 3 - 4 3 2 ◊ 12 - 13"),
                Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3))) Function(Token(MINUS, -)) Vector(Scalar(Token(NUMBER, 4)), Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 2)))), DyadicFunction(Scalar(Token(NUMBER, 12)) Function(Token(MINUS, -)) Scalar(Token(NUMBER, 13))))"));
 
     CHECK_THAT(run("1 2 - 4 3 2 ◊ ◊ ◊"),
-               Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2))) Function(Token(MINUS, -)) Vector(Scalar(Token(NUMBER, 4)), Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 2)))), Vector(), Vector(), Vector())"));
+               Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2))) Function(Token(MINUS, -)) Vector(Scalar(Token(NUMBER, 4)), Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 2)))))"));
 
     CHECK_THAT(run("◊ ◊ ◊"),
-               Prints("Statements(Vector(), Vector(), Vector())"));
+               Prints("Statements()"));
 
 }
 

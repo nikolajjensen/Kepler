@@ -47,11 +47,11 @@ namespace kepler {
             const Symbol& symbol = lookup(id);
 
             if(!symbol.content.has_value()) {
-                throw kepler::error(InternalError, "ID '" + uni::utf32to8(id) + "' is defined, but has no value.");
+                throw kepler::error(DefinitionError, "ID '" + uni::utf32to8(id) + "' is defined, but has no value.");
             }
 
             if(!std::holds_alternative<T>(symbol.content.value())) {
-                throw kepler::error(InternalError, "ID '" + uni::utf32to8(id) + "' has a value, but it is not the one requested.");
+                throw kepler::error(DefinitionError, "ID '" + uni::utf32to8(id) + "' has a value, but it is not the one requested.");
             }
 
             return std::get<T>(symbol.content.value());
@@ -59,9 +59,12 @@ namespace kepler {
 
         SymbolType get_type(const std::u32string& id) const;
 
-        void set(const std::u32string& id, const Array& value);
-        void set(const std::u32string& id, const Operation_ptr& value);
-        void set(const std::u32string& id, const Number& value);
+        void set(const std::u32string& id, const Array& value, bool locally_only = false);
+        void set(const std::u32string& id, const Operation_ptr& value, bool locally_only = false);
+        void set(const std::u32string& id, const Number& value, bool locally_only = false);
+
+        void remove(const std::u32string& id, bool locally_only = false);
+
         void bind_function(const std::u32string& id);
 
         void clear();

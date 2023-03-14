@@ -27,6 +27,6 @@ namespace kepler {
 
     int run_repl();
 
-    void safe_execution(std::vector<Char>& input, std::ostream & stream, SymbolTable* symbol_table = nullptr);
-    void immediate_execution(std::vector<Char>& input, std::ostream & stream, SymbolTable* symbol_table = nullptr);
+    void safe_execution(std::vector<Char>& input, std::ostream & stream, bool print_last = true, SymbolTable* symbol_table = nullptr);
+    void immediate_execution(std::vector<Char>& input, std::ostream & stream, bool print_last = true, SymbolTable* symbol_table = nullptr);
 };

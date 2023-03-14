@@ -193,7 +193,25 @@ namespace kepler {
     Array Variable::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
 
+    Conditional::~Conditional() {
+        delete true_case;
+        delete false_case;
+        delete condition;
+    }
 
+    Conditional::Conditional(
+            ASTNode<Array>* condition_,
+            ASTNode<Array>* true_case_,
+            ASTNode<Array>* false_case_)
+            : condition(condition_),
+              true_case(true_case_),
+              false_case(false_case_) {}
+
+    std::string Conditional::to_string() const {
+        return "Conditional(" + condition->to_string() + " ? " + true_case->to_string() + " : " + false_case->to_string() + ")";
+    }
+
+    Array Conditional::accept(NodeVisitor &visitor) { return visitor.visit(this); }
 
     Statements::~Statements() {
         for (auto &node: children) {

@@ -177,4 +177,16 @@ namespace kepler {
         std::string to_string() const override;
         Operation_ptr accept(NodeVisitor &visitor) override;
     };
+
+    struct Conditional : ASTNode<Array> {
+        ASTNode<Array>* condition;
+        ASTNode<Array>* true_case;
+        ASTNode<Array>* false_case;
+
+        ~Conditional();
+        explicit Conditional(ASTNode<Array>* condition, ASTNode<Array>* true_case, ASTNode<Array>* false_case);
+
+        std::string to_string() const override;
+        Array accept(NodeVisitor &visitor) override;
+    };
 };

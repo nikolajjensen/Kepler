@@ -214,7 +214,18 @@ namespace kepler {
     }
 
     std::string ArrayPrinter::operator()(const std::u32string &element) {
-        return uni::utf32to8(element);
+        auto result = element;
+
+        // https://stackoverflow.com/questions/4643512/replace-substring-with-another-substring-c
+        size_t index = 0;
+        while(true) {
+            index = result.find(U"\\n", index);
+            if(index == std::string::npos) break;
+            result.replace(index, 2, U"\n");
+            index += 2;
+        }
+
+        return uni::utf32to8(result);
     }
 
     std::string ArrayPrinter::operator()(const Number& element) {

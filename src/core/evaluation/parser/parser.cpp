@@ -56,6 +56,7 @@ namespace kepler {
     bool Parser::identifies_function(Token token) {
         if(!token.content.has_value()) return false;
         std::u32string id = {token.content->begin(), token.content->end()};
+        if(id == U"∇") return true;
         return symbol_table->contains(id) && symbol_table->get_type(id) == FunctionSymbol;
     }
 
@@ -70,24 +71,22 @@ namespace kepler {
 
     void Parser::assert_matching(const TokenType& left, const TokenType& right, const Char& right_char) {
         auto it = begin;
-        int level = 0;
+        std::vector<std::vector<Token>::const_iterator> stack;
 
         while(it != end) {
             if(it->type == left) {
-                ++level;
+                stack.emplace_back(it);
             } else if(it->type == right){
-                --level;
+                if(stack.empty()) {
+                    throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it));
+                }
+                stack.pop_back();
             }
-
-            if(level < 0) {
-                throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it));
-            }
-
             ++it;
         }
 
-        if(level != 0) {
-            throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it) + 1);
+        if(!stack.empty()) {
+            throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(stack.back()));
         }
     }
 
@@ -95,6 +94,7 @@ namespace kepler {
     Statements* Parser::parse_program() {
         assert_matching(LBRACE, RBRACE, U'}');
         assert_matching(LPARENS, RPARENS, U')');
+        cursor = begin;
         return parse_statement_list();
     }
 
@@ -134,11 +134,20 @@ namespace kepler {
     Statements* Parser::parse_statement_list() {
         std::vector<ASTNode<Array>*> statements{};
 
-        auto last_start = begin;
-        while(last_start != end) {
-            last_start = next_separator(last_start + 1);
-            cursor = last_start - 1;
-            statements.emplace_back(parse_statement());
+        while(flag != end) {
+            auto tmp = next_separator(flag + 1);
+
+            // If the next separator is immediately the next one
+            // then skip this statement, as there is nothing useful
+            // in '◊◊'.
+            if(flag->type == DIAMOND && tmp == flag + 1) {
+                flag = tmp;
+                continue;
+            } else {
+                flag = tmp;
+                cursor = flag - 1;
+                statements.emplace_back(parse_statement());
+            }
         }
 
         return new Statements(statements, symbol_table);
@@ -168,7 +177,8 @@ namespace kepler {
                   || current().type == ASSIGNMENT
                   || current().type == RPARENS
                   || current().type == RBRACE
-                  || identifies_function(current()))) {
+                  || identifies_function(current()))
+                  || current().type == COLON) {
 
                 if(current().type == ASSIGNMENT) {
                     eat(ASSIGNMENT);
@@ -179,6 +189,10 @@ namespace kepler {
 
                     statement = new Assignment(current(), statement);
                     eat(ID);
+                } else if(current().type == COLON) {
+                    eat(COLON);
+                    ASTNode<Array>* condition = parse_statement();
+                    statement = new Conditional(condition, statement, parse_statement_list());
                 } else {
                     long func_pos = position();
                     ASTNode<Operation_ptr>* function = parse_function();
@@ -320,6 +334,7 @@ namespace kepler {
     Parser::Parser(const std::vector<Token> &input_)
                    : symbol_table(new SymbolTable()),
                      cursor(input_.begin()),
+                     flag(input_.begin()),
                      begin(input_.begin()),
                      end(input_.end()) {}
 
@@ -328,6 +343,7 @@ namespace kepler {
                    std::vector<Token>::const_iterator end_)
                    : symbol_table(new SymbolTable()),
                      cursor(begin_),
+                     flag(begin_),
                      begin(begin_),
                      end(end_) {
         symbol_table->attach_parent(&parent_table);

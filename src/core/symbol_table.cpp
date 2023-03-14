@@ -50,27 +50,36 @@ namespace kepler {
         parent = parent_;
     }
 
-    void SymbolTable::set(const std::u32string &id, const Array& value) {
-        if(parent != nullptr && parent->contains(id)) {
+    void SymbolTable::set(const std::u32string &id, const Array& value, bool locally_only) {
+        if(!locally_only && parent != nullptr && parent->contains(id)) {
             parent->set(id, value);
         } else {
             table.insert_or_assign(id, new Symbol(VariableSymbol, value));
         }
     }
 
-    void SymbolTable::set(const std::u32string &id, const Operation_ptr& value) {
-        if(parent != nullptr && parent->contains(id)) {
+    void SymbolTable::set(const std::u32string &id, const Operation_ptr& value, bool locally_only) {
+        if(!locally_only && parent != nullptr && parent->contains(id)) {
             parent->set(id, value);
         } else {
             table.insert_or_assign(id, new Symbol(FunctionSymbol, value));
 
             // Set the recursive symbol to the same symbol.
-            table.insert_or_assign(constants::recursive_call_id, table.at(id));
+            //table.insert_or_assign(constants::recursive_call_id, table.at(id));
         }
     }
 
-    void SymbolTable::set(const std::u32string &id, const Number& value) {
-        set(id, Array{{}, {value}});
+    void SymbolTable::set(const std::u32string &id, const Number& value, bool locally_only) {
+        set(id, Array{{}, {value}}, locally_only);
+    }
+
+    void SymbolTable::remove(const std::u32string &id, bool locally_only) {
+        if(table.contains(id)) {
+            delete table.at(id);
+            table.erase(id);
+        } else if (!locally_only && parent != nullptr && parent->contains(id)) {
+            parent->remove(id);
+        }
     }
 
     bool SymbolTable::contains(const std::u32string &id) const {
@@ -101,6 +110,5 @@ namespace kepler {
     void SymbolTable::insert_system_parameters() {
         set(constants::index_origin_id, constants::initial_index_origin);
         set(constants::print_precision_id, constants::initial_print_precision);
-        bind_function(constants::recursive_call_id);
     }
 };
