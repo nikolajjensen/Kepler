@@ -35,6 +35,8 @@ namespace kepler::constants {
             {U'⊢',  RIGHT_TACK},
             {U'⊣',  LEFT_TACK},
             {U'⍳',  IOTA},
+            {U'⊖',  CIRCLE_BAR},
+            {U'⌽',  CIRCLE_STILE},
             {U'<',  LESS},
             {U'≤',  LESSEQ},
             {U'=',  EQ},
@@ -74,7 +76,7 @@ namespace kepler::constants {
     const std::u32string alpha_id = U"⍺";
     const std::u32string omega_id = U"⍵";
 
-    const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~⊂⍴∧∨⍲⍱⊥⊤⍨/¨∘⍤⍥←(){}◊⋄\n:";
+    const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~⊂⍴∧∨⍲⍱⊖⌽⊥⊤⍨/¨∘⍤⍥←(){}◊⋄\n:";
     const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕∇";
     const std::u32string digit = U"0123456789";
 };

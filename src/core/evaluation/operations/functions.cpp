@@ -331,4 +331,45 @@ namespace kepler {
     Array Rho::operator()(const Array &alpha, const Array &omega) {
         return rho(alpha, omega);
     }
+
+    Array CircleBar::operator()(const Array &alpha, const Array &omega) {
+
+    }
+
+    Array CircleBar::operator()(const Number &omega) {
+        return {omega};
+    }
+
+    Array CircleBar::operator()(const std::u32string &omega) {
+        return {std::u32string{omega.rbegin(), omega.rend()}};
+    }
+
+    Array CircleBar::operator()(const Array &omega) {
+        // Get flattened_shape - size of left dimension. This is size of each chunk.
+        // Reverse iterate omega by chunk size, and insert chunk into result, which is then returned.
+
+        if(omega.is_simple_scalar()) {
+            return std::visit(*this, omega.data[0]);
+        }
+
+        Array result{omega.shape, {}};
+
+        int length = omega.flattened_shape();
+        length /= omega.shape[0];
+        for(int i = omega.data.size() - length; i >= 0; i -= length) {
+            for(int j = i; j < i + length; ++j) {
+                result.data.emplace_back(omega.data[j]);
+            }
+        }
+
+        return result;
+    }
+
+    Array CircleStile::operator()(const Array &alpha, const Array &omega) {
+
+    }
+
+    Array CircleStile::operator()(const Array &omega) {
+
+    }
 };

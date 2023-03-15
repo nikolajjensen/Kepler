@@ -42,6 +42,8 @@ namespace kepler {
         RIGHT_TACK,
         LEFT_TACK,
         IOTA,
+        CIRCLE_BAR,
+        CIRCLE_STILE,
         LESS,
         LESSEQ,
         EQ,
