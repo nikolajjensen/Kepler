@@ -80,6 +80,8 @@ namespace kepler {
                     return std::make_shared<CircleBar>(&symbol_table);
                 } else if(type == CIRCLE_STILE) {
                     return std::make_shared<CircleStile>(&symbol_table);
+                } else if(type == ROLL) {
+                    return std::make_shared<Roll>(&symbol_table);
                 }
             }
 

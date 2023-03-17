@@ -23,6 +23,7 @@
 namespace kepler::helpers {
     bool is_function(TokenType type);
     bool is_monadic_operator(TokenType type);
+    bool is_monadic_function(TokenType type);
     bool is_dyadic_operator(TokenType type);
     bool is_array_token(TokenType type);
 };

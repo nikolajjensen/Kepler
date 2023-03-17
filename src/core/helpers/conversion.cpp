@@ -90,10 +90,8 @@ std::string kepler::to_string(TokenType type) {
             return "NAND";
         case NOR:
             return "NOR";
-        case DECODE:
-            return "DECODE";
-        case ENCODE:
-            return "ENCODE";
+        case ROLL:
+            return "ROLL";
         case COMMUTE:
             return "COMMUTE";
         case SLASH:

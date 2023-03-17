@@ -44,14 +44,13 @@ namespace kepler::constants {
             {U'>',  GREATER},
             {U'≠',  NEQ},
             {U'~',  WITHOUT},
+            {U'?',  ROLL},
             {U'⊂',  LSHOE},
             {U'⍴',  RHO},
             {U'∧',  AND},
             {U'∨',  OR},
             {U'⍲',  NAND},
             {U'⍱',  NOR},
-            {U'⊥',  DECODE},
-            {U'⊤',  ENCODE},
             {U'⍨',  COMMUTE},
             {U'/',  SLASH},
             {U'¨',  DIAERESIS},
@@ -76,7 +75,7 @@ namespace kepler::constants {
     const std::u32string alpha_id = U"⍺";
     const std::u32string omega_id = U"⍵";
 
-    const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~⊂⍴∧∨⍲⍱⊖⌽⊥⊤⍨/¨∘⍤⍥←(){}◊⋄\n:";
+    const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~?⊂⍴∧∨⍲⍱⊖⌽⍨/¨∘⍤⍥←(){}◊⋄\n:";
     const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕∇";
     const std::u32string digit = U"0123456789";
 };

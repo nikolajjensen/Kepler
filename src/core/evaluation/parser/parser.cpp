@@ -195,10 +195,12 @@ namespace kepler {
                     statement = new Conditional(condition, statement, parse_statement_list());
                 } else {
                     long func_pos = position();
+                    bool is_monadic = helpers::is_monadic_function(current().type);
+
                     ASTNode<Operation_ptr>* function = parse_function();
                     function->set_position(func_pos);
 
-                    if(!at_end() && (current().type == RPARENS || helpers::is_array_token(current().type))) {
+                    if(!at_end() && !is_monadic && (current().type == RPARENS || helpers::is_array_token(current().type))) {
                         statement = new DyadicFunction(function, parse_argument(), statement);
                     } else {
                         statement = new MonadicFunction(function, statement);

@@ -57,8 +57,7 @@ namespace kepler {
         OR,
         NAND,
         NOR,
-        DECODE,
-        ENCODE,
+        ROLL,
 
         // Operators
         COMMUTE,

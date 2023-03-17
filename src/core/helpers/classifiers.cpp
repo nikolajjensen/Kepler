@@ -24,8 +24,11 @@ bool kepler::helpers::is_function(TokenType type) {
            || type == CEILING || type == RIGHT_TACK || type == LEFT_TACK || type == IOTA || type == LESS
            || type == LESSEQ || type == EQ || type == GREATEREQ || type == GREATER || type == NEQ
            || type == WITHOUT || type == LSHOE || type == RHO || type == AND || type == OR
-           || type == NAND || type == NOR || type == DECODE || type == ENCODE || type == CIRCLE_BAR
-           || type == CIRCLE_STILE;
+           || type == NAND || type == NOR || type == CIRCLE_BAR || type == CIRCLE_STILE || type == ROLL;
+}
+
+bool kepler::helpers::is_monadic_function(TokenType type) {
+    return type == ROLL;
 }
 
 bool kepler::helpers::is_monadic_operator(TokenType type) {

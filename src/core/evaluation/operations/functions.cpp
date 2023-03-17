@@ -22,6 +22,7 @@
 #include <numeric>
 #include <set>
 #include <algorithm>
+#include <random>
 #include "core/constants/config.h"
 #include "core/symbol_table.h"
 #include "core/evaluation/algorithms.h"
@@ -520,5 +521,34 @@ namespace kepler {
 
     Array CircleStile::operator()(const Number &shift, const Number &omega) {
         return {omega};
+    }
+
+    Array Roll::operator()(const Array &alpha, const Array &omega) {
+        throw kepler::error(DomainError);
+    }
+
+    //https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
+    Array Roll::operator()(const Number &omega) {
+        if(omega.imag() != 0.0) {
+            throw kepler::error(DomainError, "Random complex numbers are not supported.");
+        }
+
+        std::random_device random_device;
+        std::mt19937 generator(random_device());
+
+        if(omega.real() == 0.0) {
+            // Generate number between 0 and 1.
+            std::uniform_real_distribution<> distribution(0.0, 1.0);
+            return {distribution(generator)};
+        } else if(omega.real() == round(omega.real())) {
+            // Generate number between ⎕IO and omega.
+            Array io = symbol_table->get<Array>(constants::index_origin_id);
+            int origin = (int)(get<Number>(io.data[0]).real());
+
+            std::uniform_int_distribution<> distribution(origin, static_cast<int>(omega.real()));
+            return {distribution(generator)};
+        } else {
+            throw kepler::error(DomainError, "Expected integer numbers only.");
+        }
     }
 };
