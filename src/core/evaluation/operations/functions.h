@@ -181,9 +181,12 @@ namespace kepler {
 
     struct CircleBar : Operation {
         using Operation::Operation;
+        using Operation::operator();
 
         Array operator()(const Number& omega) override;
         Array operator()(const std::u32string& omega) override;
+        Array operator()(const Number& shift, const std::u32string& omega) override;
+        Array operator()(const Number& shift, const Number& omega) override;
 
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;
@@ -191,6 +194,12 @@ namespace kepler {
 
     struct CircleStile : Operation {
         using Operation::Operation;
+        using Operation::operator();
+
+        Array operator()(const Number& omega) override;
+        Array operator()(const std::u32string& omega) override;
+        Array operator()(const Number& shift, const std::u32string& omega) override;
+        Array operator()(const Number& shift, const Number& omega) override;
 
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Array& omega) override;

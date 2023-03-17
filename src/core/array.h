@@ -41,6 +41,7 @@ namespace kepler {
         bool is_scalar() const;
         bool is_simple_scalar() const;
         bool is_numeric() const;
+        bool is_integer_numeric() const;
         std::string to_string(const SymbolTable* symbol_table) const;
 
         friend bool operator==(const Array& lhs, const Array& rhs) {

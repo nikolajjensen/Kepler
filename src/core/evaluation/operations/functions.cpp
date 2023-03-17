@@ -332,8 +332,85 @@ namespace kepler {
         return rho(alpha, omega);
     }
 
-    Array CircleBar::operator()(const Array &alpha, const Array &omega) {
+    int vec_size(const std::vector<int>& shape, int dim) {
+        if(dim == shape.size() - 1) {
+            return shape.back();
+        } else {
+            return std::accumulate(shape.begin() + dim, shape.end() - 1, 1, std::multiplies<>());
+        }
+    }
 
+    int get_step_size(const std::vector<int>& shape, int dim) {
+        return std::accumulate(shape.begin() + dim + 1, shape.end(), 1, std::multiplies<>());
+    }
+
+    int get_block_size(const std::vector<int>& shape, int axis) {
+        int length = vec_size(shape, axis);
+        if(axis == shape.size() - 1) {
+            return length;
+        }
+
+        return length * shape.back();
+    }
+
+    int get_shift(int element, int axis, int step_size, const Array& alpha, const Array& omega) {
+        if(alpha.is_simple_scalar()) {
+            return (int)get<Number>(alpha.data[0]).real();
+        }
+
+        int scalar_dim_size = omega.shape.back();
+
+        int index;
+        if(axis == omega.shape.size() - 1) {
+            index = std::floor((double)element / scalar_dim_size);
+        } else {
+            index = (int)((element % scalar_dim_size) + (std::floor((double)element / step_size) * scalar_dim_size));
+        }
+
+        return (int)get<Number>(get<Array>(alpha.data[index]).data[0]).real();
+    }
+
+    Array rotate(int axis, const Array& alpha, const Array& omega) {
+        int step_size = get_step_size(omega.shape, axis);
+        int block_size = get_block_size(omega.shape, axis);
+
+        Array result = omega;
+        for(int i = 0; i < omega.size(); ++i) {
+            int shift = get_shift(i, axis, step_size, alpha, omega);
+
+            int index = (int)(std::floor((double)i / block_size) * block_size) + ((step_size * shift + i) % (block_size));
+            result.data[i] = omega.data[index];
+        }
+        return result;
+    }
+
+    //⌽(2 2 3 4⍴⍳100)
+    Array reverse(int axis, const Array& omega) {
+        int step_size = get_step_size(omega.shape, axis);
+        int block_size = get_block_size(omega.shape, axis);
+
+        Array result = omega;
+        for(int i = 0; i < omega.size(); ++i) {
+            int width = omega.shape[axis];
+            double shift = (width - 1) - 2 * ((int)std::floor((double)i / step_size) % width);//std::floor((double)i / step_size) + (int)(std::floor((double)i / block_size) * step_size);// + (int)(std::floor((double)i / block_size) * block_size);
+            int index = (int)(std::floor((double)i / block_size) * block_size) + ((step_size * (int)shift + i) % (block_size));
+            result.data[i] = omega.data[index];
+        }
+        return result;
+
+        /*
+        Array result{omega.shape, {}};
+
+        int length = omega.flattened_shape();
+        length /= omega.shape[axis];
+        for(int i = omega.data.size() - length; i >= 0; i -= length) {
+            for(int j = i; j < i + length; ++j) {
+                result.data.emplace_back(omega.data[j]);
+            }
+        }
+
+        return result;
+         */
     }
 
     Array CircleBar::operator()(const Number &omega) {
@@ -344,7 +421,43 @@ namespace kepler {
         return {std::u32string{omega.rbegin(), omega.rend()}};
     }
 
+    Array CircleBar::operator()(const Number &shift, const std::u32string &omega) {
+        std::u32string result = omega;
+        std::rotate(result.begin(), result.begin() + (int)shift.real(), result.end());
+        return {result};
+    }
+
+    Array CircleBar::operator()(const Number &shift, const Number &omega) {
+        return {omega};
+    }
+
+    // Rotate along first axis by alpha.
+    Array CircleBar::operator()(const Array &alpha, const Array &omega) {
+        if(!alpha.is_integer_numeric()) {
+            throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
+        } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
+            return std::visit(*this, alpha.data[0], omega.data[0]);
+        } else if(alpha.rank() != omega.rank() - 1) {
+            throw kepler::error(RankError, "Left argument must be one less than rank of right argument.");
+        }
+
+        int required_size = omega.size() / omega.shape[0];
+        if(alpha.size() != required_size) {
+            throw kepler::error(LengthError, "Left argument must have same shape as right argument, excluding the first axis.");
+        }
+
+        return rotate(0, alpha, omega);
+    }
+
+    // Reverse
     Array CircleBar::operator()(const Array &omega) {
+        if(omega.is_simple_scalar()) {
+            return std::visit(*this, omega.data[0]);
+        }
+
+        return reverse(0, omega);
+
+        /*
         // Get flattened_shape - size of left dimension. This is size of each chunk.
         // Reverse iterate omega by chunk size, and insert chunk into result, which is then returned.
 
@@ -363,13 +476,49 @@ namespace kepler {
         }
 
         return result;
+         */
     }
 
     Array CircleStile::operator()(const Array &alpha, const Array &omega) {
+        if(!alpha.is_integer_numeric()) {
+            throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
+        } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
+            return std::visit(*this, alpha.data[0], omega.data[0]);
+        } else if(alpha.rank() != omega.rank() - 1) {
+            throw kepler::error(RankError, "Left argument must be one less than rank of right argument.");
+        }
 
+        int required_size = omega.size() / omega.shape.back();
+        if(alpha.size() != required_size) {
+            throw kepler::error(LengthError, "Left argument must have same shape as right argument, excluding the last axis.");
+        }
+
+        return rotate(omega.shape.size() - 1, alpha, omega);
     }
 
     Array CircleStile::operator()(const Array &omega) {
+        if(omega.is_simple_scalar()) {
+            return std::visit(*this, omega.data[0]);
+        }
 
+        return reverse(omega.shape.size() - 1, omega);
+    }
+
+    Array CircleStile::operator()(const Number &omega) {
+        return {omega};
+    }
+
+    Array CircleStile::operator()(const std::u32string &omega) {
+        return {std::u32string{omega.rbegin(), omega.rend()}};
+    }
+
+    Array CircleStile::operator()(const Number &shift, const std::u32string &omega) {
+        std::u32string result = omega;
+        std::rotate(result.begin(), result.begin() + (int)shift.real(), result.end());
+        return {result};
+    }
+
+    Array CircleStile::operator()(const Number &shift, const Number &omega) {
+        return {omega};
     }
 };

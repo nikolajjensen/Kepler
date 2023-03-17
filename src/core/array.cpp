@@ -64,6 +64,18 @@ namespace kepler {
         });
     }
 
+    bool Array::is_integer_numeric() const {
+        return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
+            if(holds_alternative<Number>(element)) {
+                auto n = std::get<Number>(element).real();
+                return round(n) == n;
+            } else if(std::holds_alternative<Array>(element)) {
+                return get<Array>(element).is_integer_numeric();
+            }
+            return false;
+        });
+    }
+
     std::string Array::to_string(const SymbolTable* symbol_table) const {
         auto& arr = symbol_table->get<Array>(constants::print_precision_id);
         ArrayPrinter printer((int)std::get<Number>(arr.data[0]).real());
