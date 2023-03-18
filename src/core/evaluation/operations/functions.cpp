@@ -387,25 +387,11 @@ namespace kepler {
         Array result = omega;
         for(int i = 0; i < omega.size(); ++i) {
             int width = omega.shape[axis];
-            double shift = (width - 1) - 2 * ((int)std::floor((double)i / step_size) % width);//std::floor((double)i / step_size) + (int)(std::floor((double)i / block_size) * step_size);// + (int)(std::floor((double)i / block_size) * block_size);
+            double shift = (width - 1) - 2 * ((int)std::floor((double)i / step_size) % width);
             int index = (int)(std::floor((double)i / block_size) * block_size) + ((step_size * (int)shift + i) % (block_size));
             result.data[i] = omega.data[index];
         }
         return result;
-
-        /*
-        Array result{omega.shape, {}};
-
-        int length = omega.flattened_shape();
-        length /= omega.shape[axis];
-        for(int i = omega.data.size() - length; i >= 0; i -= length) {
-            for(int j = i; j < i + length; ++j) {
-                result.data.emplace_back(omega.data[j]);
-            }
-        }
-
-        return result;
-         */
     }
 
     Array CircleBar::operator()(const Number &omega) {
@@ -451,27 +437,6 @@ namespace kepler {
         }
 
         return reverse(0, omega);
-
-        /*
-        // Get flattened_shape - size of left dimension. This is size of each chunk.
-        // Reverse iterate omega by chunk size, and insert chunk into result, which is then returned.
-
-        if(omega.is_simple_scalar()) {
-            return std::visit(*this, omega.data[0]);
-        }
-
-        Array result{omega.shape, {}};
-
-        int length = omega.flattened_shape();
-        length /= omega.shape[0];
-        for(int i = omega.data.size() - length; i >= 0; i -= length) {
-            for(int j = i; j < i + length; ++j) {
-                result.data.emplace_back(omega.data[j]);
-            }
-        }
-
-        return result;
-         */
     }
 
     Array CircleStile::operator()(const Array &alpha, const Array &omega) {
@@ -517,15 +482,17 @@ namespace kepler {
         return {omega};
     }
 
-    void pad(Array& arr, int dim, const std::vector<int>& new_shape, const Array::element_type& padding) {
+    void pad(Array& arr, int dim, const std::vector<int>& new_shape, const Array::element_type& padding, const std::vector<int>& ordering) {
         int orig_size = std::accumulate(arr.shape.begin() + dim, arr.shape.end(), 1, std::multiplies<>());
         int new_size = std::accumulate(new_shape.begin() + dim, new_shape.end(), 1, std::multiplies<>());
 
         int padding_per_step = new_size - orig_size;
         int steps = std::accumulate(arr.shape.begin(), arr.shape.begin() + dim, 1, std::multiplies<>());
 
+        int base_padding = ordering[dim] >= 0 ? orig_size : 0;
+
         for(int step = 0; step < steps; ++step) {
-            int index = step * (orig_size + padding_per_step) + orig_size;
+            int index = step * (orig_size + padding_per_step) + base_padding;
 
             if(padding_per_step < 0) {
                 arr.data.erase(arr.data.begin() + index + padding_per_step, arr.data.begin() + index);
@@ -535,9 +502,9 @@ namespace kepler {
         }
     }
 
-    // x←(2 2 2⍴⍳100) (2 2 2⍴⍳100) ◊ ↑x
+    // x←(2 2 2⍴⍳100) (2 2 3⍴⍳100) ◊ ↑x
     // x←(2⍴⍳100) (3⍴⍳100) ◊ ↑x
-    Array reshape(const Array& original, const Array::element_type& padding, const std::vector<int>& new_shape) {
+    Array reshape(const Array& original, const Array::element_type& padding, const std::vector<int>& new_shape, const std::vector<int>& ordering) {
         Array result = original;
 
         int additional_dims = new_shape.size() - original.shape.size();
@@ -545,18 +512,55 @@ namespace kepler {
             int deleted_data = result.data.size() - std::accumulate(result.shape.begin() + abs(additional_dims), result.shape.end(), 1, std::multiplies<>());
             result.data.erase(result.data.end() - deleted_data, result.data.end());
             result.shape.erase(result.shape.begin(), result.shape.begin() + abs(additional_dims));
-
-
         } else {
             result.shape.insert(result.shape.begin(), additional_dims, 1);
         }
 
         for(int i = new_shape.size() - 1; i >= 0; --i) {
-            pad(result, i, new_shape, padding);
+            pad(result, i, new_shape, padding, ordering);
             result.shape[i] = new_shape[i];
         }
 
         return result;
+    }
+
+    // ¯10 10↑(2 2 2⍴⍳100)
+    // ¯10↑(2 2 2⍴⍳100)
+    Array ArrowUp::operator()(const Array &alpha, const Array &omega) {
+        if(!alpha.is_integer_numeric()) {
+            throw kepler::error(DomainError, "Expected an integer-based left argument.");
+        } else if(alpha.rank() > 1) {
+            throw kepler::error(DomainError, "Left argument must be a scalar or vector.");
+        } else if(alpha.size() > omega.rank()) {
+            throw kepler::error(LengthError, "Length of left argument must be equal to or less than the rank of the right argument.");
+        }
+
+        auto shape = omega.shape;
+        std::vector<int> ordering = shape;
+
+        if(alpha.is_scalar()) {
+            auto& num = get<Number>(alpha.data[0]);
+            int num_int = static_cast<int>(num.real());
+
+            if(num_int < 0) {
+                ordering[0] = num_int;
+            }
+
+            shape[0] = abs(num_int);
+        } else {
+            for(int i = 0; i < alpha.data.size(); ++i) {
+                auto& num = get<Number>(get<Array>(alpha.data[i]).data[0]);
+                int num_int = static_cast<int>(num.real());
+
+                if(num_int < 0) {
+                    ordering[i] = num_int;
+                }
+
+                shape[i] = abs(num_int);
+            }
+        }
+
+        return reshape(omega, Array{0}, shape, ordering);
     }
 
     Array ArrowUp::operator()(const Array &omega) {
@@ -582,7 +586,7 @@ namespace kepler {
 
         for(auto& element : omega.data) {
             const auto& arr = get<Array>(element);
-            auto tmp = reshape(arr, Array{0}, largest_shape);
+            auto tmp = reshape(arr, Array{0}, largest_shape, largest_shape);
             result.data.reserve(result.size() + tmp.data.size());
             std::copy(tmp.data.begin(), tmp.data.end(), std::back_inserter(result.data));
         }

@@ -215,6 +215,7 @@ namespace kepler {
         using Operation::Operation;
 
         Array operator()(const Array& omega) override;
+        Array operator()(const Array& alpha, const Array& omega) override;
     };
 
     struct Roll : PervadeMixin<Operation> {
