@@ -235,8 +235,8 @@ TEST_CASE_METHOD(lexer_fixture, "real-scalar-literal", "[tokenizer][real-scalar-
     CHECK_THAT_THROWS(run("¯.567E¯"), Throws(kepler::SyntaxError));
 
     CHECK_THAT_THROWS(run("1.."), Throws(kepler::SyntaxError));
-    CHECK_THAT_THROWS(run("..1"), Throws(kepler::SyntaxError));
-    CHECK_THAT_THROWS(run("..1"), Throws(kepler::SyntaxError));
+    // Not a lexer error, because first dot is Product. Parser should catch SyntaxError.
+    CHECK_NOTHROW(run("..1"));
 
     CHECK_NOTHROW(run("1.2.2"));
     CHECK_THAT(run("1.2.2"), Outputs({{kepler::NUMBER, U"1.2"}, {kepler::NUMBER, U".2"}}));

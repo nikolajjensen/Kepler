@@ -75,12 +75,11 @@ namespace kepler {
 
     struct DyadicOperator : ASTNode<Operation_ptr> {
         Token token;
-        Token left_operation_token;
         ASTNode<Operation_ptr>* left;
         ASTNode<Operation_ptr>* right;
 
         ~DyadicOperator();
-        explicit DyadicOperator(Token token_, Token left_operation_token, ASTNode<Operation_ptr>* left_, ASTNode<Operation_ptr>* right_);
+        explicit DyadicOperator(Token token_, ASTNode<Operation_ptr>* left_, ASTNode<Operation_ptr>* right_);
 
         std::string to_string() const override;
         Operation_ptr accept(NodeVisitor &visitor) override;

@@ -168,7 +168,7 @@ namespace kepler {
 
         if(at_end()) {
             return {cursor, END};
-        } else if(one_of(current(), U"¯0123456789") || ( current() == U'.' && !one_of(peek(), constants::primitives))) {
+        } else if(one_of(current(), U"¯0123456789") || (current() == U'.' && !one_of(peek(), constants::primitives))) {
             return number_token();
         } else if(one_of(current(), constants::identifier_chars)) {
             return identifier_token();

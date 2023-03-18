@@ -311,7 +311,7 @@ namespace kepler {
             } else if(!at_end() && helpers::is_dyadic_operator(current().type)) {
                 Token tok = current();
                 eat(tok.type);
-                return new DyadicOperator(tok, current(), parse_function(), function);
+                return new DyadicOperator(tok, parse_function(), function);
             }
             return function;
         }
@@ -328,10 +328,7 @@ namespace kepler {
         if(helpers::is_function(tok.type)) {
             eat(tok.type);
             return new Function(tok);
-        } else {
-            if(at_end() || current().type != RPARENS) {
-                throw kepler::error(SyntaxError, "Expected a ')' here.", position());
-            }
+        } else if(!at_end() && current().type == RPARENS) {
             eat(RPARENS);
             auto func = parse_function();
 
@@ -340,6 +337,8 @@ namespace kepler {
             }
             eat(LPARENS);
             return func;
+        } else {
+            throw kepler::error(SyntaxError, "Invalid primitive.", position() + 1);
         }
     }
 
