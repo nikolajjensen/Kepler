@@ -32,6 +32,10 @@ namespace kepler {
         return *cursor;
     }
 
+    const Token& Parser::peek() {
+        return *(cursor - 1);
+    }
+
     bool Parser::at_end() {
         return cursor < begin;
     }
@@ -298,10 +302,16 @@ namespace kepler {
             return new FunctionVariable(tok);
         } else {
             auto function = parse_f();
-            if(!at_end() && helpers::is_dyadic_operator(current().type)) {
+
+            if(!at_end() && current().type == PRODUCT && peek().type == JOT) {
+                Token tok = current();
+                eat(PRODUCT);
+                eat(JOT);
+                return new MonadicOperator(tok, function);
+            } else if(!at_end() && helpers::is_dyadic_operator(current().type)) {
                 Token tok = current();
                 eat(tok.type);
-                return new DyadicOperator(tok, parse_function(), function);
+                return new DyadicOperator(tok, current(), parse_function(), function);
             }
             return function;
         }

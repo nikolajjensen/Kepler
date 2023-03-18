@@ -29,8 +29,9 @@ namespace kepler {
 
         void advance();
         const char32_t& current();
+        const char32_t& peek();
         bool at_end();
-        bool current_one_of(std::u32string elements);
+        bool one_of(const char32_t& ch, std::u32string elements);
 
         void skip_blanks();
         void skip_comment();

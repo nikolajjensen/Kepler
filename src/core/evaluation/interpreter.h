@@ -106,6 +106,8 @@ namespace kepler {
                     return std::make_shared<Slash>(args...);
                 } else if(type == DIAERESIS) {
                     return std::make_shared<Diaeresis>(args...);
+                } else if(type == PRODUCT) {
+                    return std::make_shared<OuterProduct>(args...);
                 }
             }
 
@@ -116,6 +118,8 @@ namespace kepler {
                     return std::make_shared<Atop>(args...);
                 } else if(type == OVER) {
                     return std::make_shared<Over>(args...);
+                } else if(type == PRODUCT) {
+                    return std::make_shared<InnerProduct>(args...);
                 }
             }
 

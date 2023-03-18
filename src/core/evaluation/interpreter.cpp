@@ -55,7 +55,7 @@ namespace kepler {
     }
 
     Operation_ptr Interpreter::visit(DyadicOperator *node) {
-        return build_operation(node->token.type, node->left->accept(*this), node->right->accept(*this));
+        return build_operation(node->token.type, node->left_operation_token.type, node->left->accept(*this), node->right->accept(*this));
     }
 
     Array Interpreter::visit(MonadicFunction *node) {

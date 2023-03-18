@@ -31,13 +31,17 @@ namespace kepler {
         return (*input)[cursor];
     }
 
+    const char32_t& Tokenizer::peek() {
+        return (*input)[cursor + 1];
+    }
+
     bool Tokenizer::at_end() {
         return cursor >= input->size();
     }
 
 
-    bool Tokenizer::current_one_of(std::u32string elements) {
-        return std::any_of(elements.begin(), elements.end(), [&](const Char& element) { return current() == element; });
+    bool Tokenizer::one_of(const char32_t& ch, std::u32string elements) {
+        return std::any_of(elements.begin(), elements.end(), [&](const Char& element) { return ch == element; });
     }
 
 
@@ -57,7 +61,7 @@ namespace kepler {
 
     std::u32string Tokenizer::get_integer() {
         int start = cursor;
-        while(!at_end() && current_one_of(constants::digit)) {
+        while(!at_end() && one_of(current(), constants::digit)) {
             advance();
         }
         return {input->begin() + start, input->begin() + cursor};
@@ -127,7 +131,7 @@ namespace kepler {
 
     Token Tokenizer::identifier_token() {
         int start = cursor;
-        while(!at_end() && current_one_of(constants::identifier_chars)) {
+        while(!at_end() && one_of(current(), constants::identifier_chars)) {
             advance();
         }
         return {cursor, ID, {input->begin() + start, input->begin() + cursor}};
@@ -164,11 +168,11 @@ namespace kepler {
 
         if(at_end()) {
             return {cursor, END};
-        } else if(current_one_of(U"¯.0123456789")) {
+        } else if(one_of(current(), U"¯0123456789") || ( current() == U'.' && !one_of(peek(), constants::primitives))) {
             return number_token();
-        } else if(current_one_of(constants::identifier_chars)) {
+        } else if(one_of(current(), constants::identifier_chars)) {
             return identifier_token();
-        } else if(current_one_of(constants::primitives)) {
+        } else if(one_of(current(), constants::primitives)) {
             return wysiwyg_token();
         } else if(current() == U'\'') {
             return string_token();

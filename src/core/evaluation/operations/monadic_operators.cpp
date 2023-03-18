@@ -98,4 +98,23 @@ namespace kepler {
 
         return result;
     }
+
+    // 1 2 3∘.×10 20 30 40
+    Array OuterProduct::operator()(const Array &alpha, const Array &omega) {
+        int elements = alpha.flattened_shape();
+        std::vector<int> shape_of_element = omega.shape;
+
+        std::vector<int> result_shape = shape_of_element;
+        result_shape.insert(result_shape.begin(), elements);
+        Array result{result_shape, {}};
+        result.data.reserve(result.flattened_shape());
+
+        for(int i = 0; i < elements; ++i) {
+            auto& s = get<Array>(alpha.data[i]);
+            auto res = (*op)(s, omega);
+            std::copy(res.data.begin(), res.data.end(), std::back_inserter(result.data));
+        }
+
+        return result;
+    }
 };

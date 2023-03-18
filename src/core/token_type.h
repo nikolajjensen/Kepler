@@ -65,6 +65,7 @@ namespace kepler {
         EXCLAMATION_MARK,
         COMMA,
         ARROW_UP,
+        PRODUCT,
 
         // Operators
         COMMUTE,

@@ -80,11 +80,11 @@ namespace kepler {
         delete right;
     }
 
-    DyadicOperator::DyadicOperator(Token token_, ASTNode<Operation_ptr> *left_, ASTNode<Operation_ptr> *right_) : token(
-            std::move(token_)), left(left_), right(right_) {}
+    DyadicOperator::DyadicOperator(Token token_, Token left_operation_token_, ASTNode<Operation_ptr> *left_, ASTNode<Operation_ptr> *right_) : token(
+            std::move(token_)), left_operation_token(std::move(left_operation_token_)), left(left_), right(right_) {}
 
     std::string DyadicOperator::to_string() const {
-        return "DyadicOperator(" + left->to_string() + " " + token.to_string() + " " + right->to_string() + ")";
+        return "DyadicOperator(" + left->to_string() + " " + left_operation_token.to_string() + " " + token.to_string() + " " + right->to_string() + ")";
     }
 
     Operation_ptr DyadicOperator::accept(NodeVisitor &visitor) { return visitor.visit(this); }

@@ -20,6 +20,7 @@
 #pragma once
 #include "core/datatypes.h"
 #include "core/array.h"
+#include "core/token.h"
 #include <memory>
 
 namespace kepler {

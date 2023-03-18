@@ -46,4 +46,8 @@ namespace kepler {
     Array Over::operator()(const Array &omega) {
         return (*aalpha)((*oomega)(omega));
     }
+
+    Array InnerProduct::operator()(const Array &alpha, const Array &omega) {
+
+    }
 };

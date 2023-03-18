@@ -34,11 +34,11 @@ bool kepler::helpers::is_monadic_function(TokenType type) {
 }
 
 bool kepler::helpers::is_monadic_operator(TokenType type) {
-    return type == COMMUTE || type == DIAERESIS || type == SLASH;
+    return type == COMMUTE || type == DIAERESIS || type == SLASH || type == PRODUCT;
 }
 
 bool kepler::helpers::is_dyadic_operator(TokenType type) {
-    return type == JOT || type == ATOP || type == OVER;
+    return type == JOT || type == ATOP || type == OVER || type == PRODUCT;
 }
 
 bool kepler::helpers::is_array_token(TokenType type) {
