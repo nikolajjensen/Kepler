@@ -18,6 +18,7 @@
 //
 
 #include "dyadic_operators.h"
+#include "monadic_operators.h"
 
 namespace kepler {
     DyadicOp::DyadicOp(Operation_ptr aalpha_, Operation_ptr oomega_) : aalpha(std::move(aalpha_)), oomega(std::move(oomega_)), Operation(
@@ -48,6 +49,9 @@ namespace kepler {
     }
 
     Array InnerProduct::operator()(const Array &alpha, const Array &omega) {
+        Diaeresis diaeresis(oomega);
+        Slash slash(aalpha);
 
+        return slash(diaeresis(alpha, omega));
     }
 };
