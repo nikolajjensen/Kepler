@@ -49,10 +49,10 @@ TEST_CASE_METHOD(fixture, "diaeresis (¨)", "[diaeresis][operators]") {
     CHECK_THAT(run("1 2 3{0.5+⍵}¨2 3 4"), Prints("2.5 3.5 4.5"));
     CHECK_THAT(run("1 3 +¨ 1 2 3"), Throws(kepler::LengthError));
 
-    CHECK_THAT(run("2 3⍴1 +¨ 1 2 3"), Prints("2 3 4 \n"
+    CHECK_THAT(run("2 3⍴1 +¨ 1 2 3"), Prints("2 3 4\n"
                                              "2 3 4"));
 
-    CHECK_THAT(run("2 3⍴1 +¨ 5 2 3⍴1"), Prints("2 2 2 \n"
+    CHECK_THAT(run("2 3⍴1 +¨ 5 2 3⍴1"), Prints("2 2 2\n"
                                                "2 2 2"));
 
     CHECK_THAT(run("3 4 2+¨5 2 3⍴1"), Throws(kepler::RankError));

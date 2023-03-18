@@ -315,7 +315,7 @@ TEST_CASE_METHOD(fixture, "floor (⌊)", "[floor][function]") {
     CHECK_THAT(run("⌊2.0001E4"), Prints("20001"));
 
     CHECK_THAT(run("⌊¯3.1416 3.1416 .99999999999 5E20 ¯0.5E¯10"), Prints("¯4 3 0 5E20 ¯1"));
-    CHECK_THAT(run("⌊0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Throws(kepler::DomainError));
+    CHECK_THAT(run("⌊0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Prints("0 0J1 1 0 1 0J1"));
 
     CHECK_THAT(run("2.001E4⌊2.0001E4"), Prints("20001"));
     CHECK_THAT(run("2.001E10⌊2.0001E10"), Prints("2.0001E10"));
@@ -345,7 +345,7 @@ TEST_CASE_METHOD(fixture, "ceiling (⌈)", "[floor][function]") {
     CHECK_THAT(run("⌈2.0001E4"), Prints("20001"));
 
     CHECK_THAT(run("⌈¯3.1416 3.1416 .99999999999 5E20 ¯0.5E¯10"), Prints("¯3 4 1 5E20 0"));
-    CHECK_THAT(run("⌈0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Throws(kepler::DomainError));
+    CHECK_THAT(run("⌈0.3J0.6 0.6J0.8 0.8J0.6 0.6J0.3 0.8J0.2 0.5J0.5"), Prints("0J1 1J1 1J1 1 1 1"));
 
     CHECK_THAT(run("2.001E4⌈2.0001E4"), Prints("20010"));
     CHECK_THAT(run("2.001E10⌈2.0001E10"), Prints("2.001E10"));
@@ -629,16 +629,16 @@ TEST_CASE_METHOD(fixture, "without (~)", "[without][function]") {
 
     CHECK_THAT(run("(3 3 3⍴1) ~ 1"), Throws(kepler::RankError));
     CHECK_THAT(run("3 3 3⍴1 ~ 1"),
-               Prints("0 0 0 \n"
-                      "0 0 0 \n"
-                      "0 0 0 \n"
+               Prints("0 0 0\n"
+                      "0 0 0\n"
+                      "0 0 0\n"
                       "\n"
-                      "0 0 0 \n"
-                      "0 0 0 \n"
-                      "0 0 0 \n"
+                      "0 0 0\n"
+                      "0 0 0\n"
+                      "0 0 0\n"
                       "\n"
-                      "0 0 0 \n"
-                      "0 0 0 \n"
+                      "0 0 0\n"
+                      "0 0 0\n"
                       "0 0 0"));
 
     CHECK_THAT(run("'Hello, World!' ~ 'o'"), Prints("Hell, Wrld!"));
@@ -673,8 +673,8 @@ TEST_CASE_METHOD(fixture, "rho (⍴)", "[rho][function]") {
     CHECK_THAT(run("¯10 ¯10⍴1 2 3"), Throws(kepler::ValueError));
 
     CHECK_THAT(run("3 3⍴(3 3⍴1)"),
-               Prints("1 1 1 \n"
-                      "1 1 1 \n"
+               Prints("1 1 1\n"
+                      "1 1 1\n"
                       "1 1 1"));
 
     CHECK_THAT(run("2⍴(1 2 3) (1 2 3)"),
@@ -683,64 +683,64 @@ TEST_CASE_METHOD(fixture, "rho (⍴)", "[rho][function]") {
                       "└─────┴─────┘"));
 
     CHECK_THAT(run("2 2⍴1 2 3"),
-               Prints("1 2 \n"
+               Prints("1 2\n"
                       "3 1"));
 
     CHECK_THAT(run("2 2⍴1 2 3 4 5 6"),
-               Prints("1 2 \n"
+               Prints("1 2\n"
                       "3 4"));
 
     CHECK_THAT(run("2 2 2⍴1"),
-               Prints("1 1 \n"
-                      "1 1 \n"
+               Prints("1 1\n"
+                      "1 1\n"
                       "\n"
-                      "1 1 \n"
+                      "1 1\n"
                       "1 1"));
 
     CHECK_THAT(run("2 2 2 2⍴1"),
-               Prints("1 1 \n"
-                      "1 1 \n"
+               Prints("1 1\n"
+                      "1 1\n"
                       "\n"
-                      "1 1 \n"
-                      "1 1 \n"
+                      "1 1\n"
+                      "1 1\n"
                       "\n"
                       "\n"
-                      "1 1 \n"
-                      "1 1 \n"
+                      "1 1\n"
+                      "1 1\n"
                       "\n"
-                      "1 1 \n"
+                      "1 1\n"
                       "1 1"));
 
     CHECK_THAT(run("2 3 4 6⍴1"),
-               Prints("1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
+               Prints("1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
                       "\n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
                       "\n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
                       "\n"
                       "\n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
                       "\n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
                       "\n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
-                      "1 1 1 1 1 1 \n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
+                      "1 1 1 1 1 1\n"
                       "1 1 1 1 1 1"));
 
 

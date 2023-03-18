@@ -137,7 +137,7 @@ namespace kepler {
     std::u32string box(const std::u32string& str, int width, int height) {
         std::vector<std::u32string> lines = split(str, U'\n');
         for(auto& line : lines) {
-            line.insert(0, std::u32string(width - line.size(), U' '));
+            line += std::u32string(width - line.size(), U' ');
         }
         for(int i = lines.size(); i < height; ++i) {
             lines.emplace_back(std::u32string(width, U' '));
@@ -266,18 +266,17 @@ namespace kepler {
             }
 
             std::vector<int> cumulative_dims = dims(array.shape);
-            std::string result;
+            std::string result;// = " ";
             for(int i = 0; i < strings.size(); ++i) {
                 for(auto& d : cumulative_dims) {
                     if(i != 0 && i % d == 0) {
                         result += "\n";
                     }
                 }
-                result += strings[i];
-
-                if(i < strings.size() - 1) {
+                if(i != 0 && result.back() != '\n') {
                     result += " ";
                 }
+                result += strings[i];
             }
             return result;
         }

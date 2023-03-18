@@ -58,6 +58,13 @@ namespace kepler {
         NAND,
         NOR,
         ROLL,
+        CIRCLE,
+        STAR,
+        LOG,
+        BAR,
+        EXCLAMATION_MARK,
+        COMMA,
+        ARROW_UP,
 
         // Operators
         COMMUTE,

@@ -23,6 +23,7 @@
 
 namespace kepler {
     Number floor(const Number& number);
+    Number binomial(const Number& alpha, const Number& omega);
 
     Array partitioned_enclose(const Array& partitioning, const Array& subject);
     Array partitioned_enclose(const Array& partitioning, const std::u32string& subject);

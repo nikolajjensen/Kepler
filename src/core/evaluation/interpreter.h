@@ -82,6 +82,20 @@ namespace kepler {
                     return std::make_shared<CircleStile>(&symbol_table);
                 } else if(type == ROLL) {
                     return std::make_shared<Roll>(&symbol_table);
+                } else if(type == CIRCLE) {
+                    return std::make_shared<Circle>(&symbol_table);
+                } else if(type == STAR) {
+                    return std::make_shared<Star>(&symbol_table);
+                } else if(type == LOG) {
+                    return std::make_shared<Log>(&symbol_table);
+                } else if(type == BAR) {
+                    return std::make_shared<Bar>(&symbol_table);
+                } else if(type == EXCLAMATION_MARK) {
+                    return std::make_shared<ExclamationMark>(&symbol_table);
+                } else if(type == COMMA) {
+                    return std::make_shared<Comma>(&symbol_table);
+                } else if(type == ARROW_UP) {
+                    return std::make_shared<ArrowUp>(&symbol_table);
                 }
             }
 

@@ -23,6 +23,7 @@
 #include <set>
 #include <algorithm>
 #include <random>
+#include <cmath>
 #include "core/constants/config.h"
 #include "core/symbol_table.h"
 #include "core/evaluation/algorithms.h"
@@ -80,10 +81,7 @@ namespace kepler {
     }
 
     Array Ceiling::operator()(const Number& omega) {
-        if(omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Ceiling of complex numbers is undefined.");
-        }
-        return {-kepler::floor(-omega)};
+        return {-1.0 * kepler::floor(-1.0 * omega)};
     }
 
     Array Floor::operator()(const Number& alpha, const Number& omega) {
@@ -95,11 +93,7 @@ namespace kepler {
     }
 
     Array Floor::operator()(const Number& omega) {
-        if(omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Floor of complex numbers is undefined.");
-        }
-
-        return {kepler::floor(omega)};
+       return {kepler::floor(omega)};
     }
 
     Array And::operator()(const Number &alpha, const Number &omega) {
@@ -523,6 +517,83 @@ namespace kepler {
         return {omega};
     }
 
+    void pad(Array& arr, int dim, const std::vector<int>& new_shape, const Array::element_type& padding) {
+        int orig_size = std::accumulate(arr.shape.begin() + dim, arr.shape.end(), 1, std::multiplies<>());
+        int new_size = std::accumulate(new_shape.begin() + dim, new_shape.end(), 1, std::multiplies<>());
+
+        int padding_per_step = new_size - orig_size;
+        int steps = std::accumulate(arr.shape.begin(), arr.shape.begin() + dim, 1, std::multiplies<>());
+
+        for(int step = 0; step < steps; ++step) {
+            int index = step * (orig_size + padding_per_step) + orig_size;
+
+            if(padding_per_step < 0) {
+                arr.data.erase(arr.data.begin() + index + padding_per_step, arr.data.begin() + index);
+            } else {
+                arr.data.insert(arr.data.begin() + index, padding_per_step, padding);
+            }
+        }
+    }
+
+    // x←(2 2 2⍴⍳100) (2 2 2⍴⍳100) ◊ ↑x
+    // x←(2⍴⍳100) (3⍴⍳100) ◊ ↑x
+    Array reshape(const Array& original, const Array::element_type& padding, const std::vector<int>& new_shape) {
+        Array result = original;
+
+        int additional_dims = new_shape.size() - original.shape.size();
+        if(additional_dims < 0) {
+            int deleted_data = result.data.size() - std::accumulate(result.shape.begin() + abs(additional_dims), result.shape.end(), 1, std::multiplies<>());
+            result.data.erase(result.data.end() - deleted_data, result.data.end());
+            result.shape.erase(result.shape.begin(), result.shape.begin() + abs(additional_dims));
+
+
+        } else {
+            result.shape.insert(result.shape.begin(), additional_dims, 1);
+        }
+
+        for(int i = new_shape.size() - 1; i >= 0; --i) {
+            pad(result, i, new_shape, padding);
+            result.shape[i] = new_shape[i];
+        }
+
+        return result;
+    }
+
+    Array ArrowUp::operator()(const Array &omega) {
+        // Find the largest shape of elements in omega.
+
+        std::vector<int> largest_shape = {};
+
+        for(auto& element : omega.data) {
+            auto& shape = get<Array>(element).shape;
+
+            for(int d = 0; d < shape.size(); ++d) {
+                if(largest_shape.size() <= d) {
+                    largest_shape.emplace_back(shape[d]);
+                } else if(largest_shape[d] < shape[d]) {
+                    largest_shape[d] = shape[d];
+                }
+            }
+        }
+
+
+        Array result{largest_shape, {}};
+        result.shape.insert(result.shape.begin(), omega.size());
+
+        for(auto& element : omega.data) {
+            const auto& arr = get<Array>(element);
+            auto tmp = reshape(arr, Array{0}, largest_shape);
+            result.data.reserve(result.size() + tmp.data.size());
+            std::copy(tmp.data.begin(), tmp.data.end(), std::back_inserter(result.data));
+        }
+
+        return result;
+    }
+
+    Array Comma::operator()(const Array &omega) {
+        return {{omega.size()}, omega.data};
+    }
+
     Array Roll::operator()(const Array &alpha, const Array &omega) {
         throw kepler::error(DomainError);
     }
@@ -549,6 +620,159 @@ namespace kepler {
             return {distribution(generator)};
         } else {
             throw kepler::error(DomainError, "Expected integer numbers only.");
+        }
+    }
+
+    Array Star::operator()(const Number &omega) {
+        return {exp(omega)};
+    }
+
+    Array Star::operator()(const Number &alpha, const Number &omega) {
+        if(alpha == 0.0 && omega == 0.0) {
+            return {1};
+        } else if(alpha == 0.0) {
+            if(omega.real() > 0.0) {
+                return {0};
+            } else {
+                throw kepler::error(DomainError, "0 to the power of a negative number is undefined.");
+            }
+        }
+
+        return {std::pow(alpha, omega)};
+    }
+
+    Array Log::operator()(const Number &omega) {
+        if(omega == 0.0) {
+            throw kepler::error(DomainError, "Natural logarithm of 0 is undefined.");
+        }
+
+        return {log(omega)};
+    }
+
+    Array Log::operator()(const Number &alpha, const Number &omega) {
+        if(alpha == omega) {
+            return {1};
+        } else if(alpha == 1.0) {
+            throw kepler::error(DomainError, "Logarithm of base 1 is undefined.");
+        }
+
+        return { log(omega) / log(alpha) };
+    }
+
+    Array Bar::operator()(const Number &omega) {
+        return {abs(omega)};
+    }
+
+    Array Bar::operator()(const Number &alpha, const Number &omega) {
+        if(alpha == 0.0) {
+            throw kepler::error(DomainError, "Expected a non-zero left argument.");
+        }
+
+        return {omega - alpha * kepler::floor(omega / (alpha + (double)(0.0 == omega)))};
+    }
+
+    Array ExclamationMark::operator()(const Number &omega) {
+        if(omega.imag() != 0.0) {
+            throw kepler::error(DomainError, "Factorial of complex numbers is undefined.");
+        } if(omega.real() < 0.0 && omega.real() == round(omega.real())) {
+            throw kepler::error(DomainError, "Factorial of negative integers is undefined.");
+        }
+
+        return {tgamma(omega.real() + 1)};
+    }
+
+    Array ExclamationMark::operator()(const Number &alpha, const Number &omega) {
+        return {kepler::binomial(alpha, omega)};
+    }
+
+    Array Circle::operator()(const Number &omega) {
+        return {M_PI * omega};
+    }
+
+    Array Circle::operator()(const Number &alpha, const Number &omega) {
+        if(alpha.imag() != 0.0) {
+            throw kepler::error(DomainError, "Left argument cannot be complex.");
+        } else if(alpha.real() != round(alpha.real())) {
+            throw kepler::error(DomainError, "Expected an integer left argument.");
+        }
+
+        int designator = static_cast<int>(alpha.real());
+        if(designator < -12 || designator > 12) {
+            throw kepler::error(DomainError, "Expected left argument to be between -12 and 12.");
+        }
+
+        switch (designator) {
+            case -12:
+                return {std::exp(omega * Number(0, 1))};
+            case -11:
+                return {Number(0, 1) * omega};
+            case -10:
+                return {std::conj(omega)};
+            case -9:
+                return {omega};
+            case -8:
+                return {pow((-1.0 + std::pow(omega, 2)), 0.5)};
+            case -7:
+                if(omega == -1.0 || omega == 1.0) {
+                    throw kepler::error(DomainError, "Inverse hyperbolic tangent undefined for " +
+                            number_to_string(omega, 2));
+                }
+
+                return {atanh(omega)};
+            case -6:
+                return {acosh(omega)};
+            case -5:
+                return {asinh(omega)};
+            case -4:
+                if(omega == -1.0) {
+                    return {0};
+                } else {
+                    return {pow(((omega + 1.0) / (omega - 1.0)), 0.5) * (omega + 1.0)};
+                }
+            case -3:
+                return {atan(omega)};
+            case -2:
+                return {acos(omega)};
+            case -1:
+                return {asin(omega)};
+            case 0:
+                if(omega.imag() != 0.0) {
+                    throw kepler::error(DomainError, "Expected non-complex argument.");
+                } else if(omega.real() < -1.0 || omega.real() > 1.0) {
+                    throw kepler::error(DomainError, "Expected argument between -1 and 1.");
+                } else {
+                    return {pow((1.0 - pow(omega, 2)), 0.5)};
+                }
+            case 1:
+                return {sin(omega)};
+            case 2:
+                return {cos(omega)};
+            case 3:
+                if(omega.imag() == 0.0
+                   && static_cast<int>(std::round(omega.real() / M_PI_2)) % 2 != 0) {
+                    throw kepler::error(DomainError, "Tangent is undefined for odd multiples of π/2.");
+                }
+                return {tan(omega)};
+            case 4:
+                return {pow((1.0 + pow(omega, 2)), 0.5)};
+            case 5:
+                return {sinh(omega)};
+            case 6:
+                return {cosh(omega)};
+            case 7:
+                return {tanh(omega)};
+            case 8:
+                return {pow(-1.0 - pow(omega, 2), 0.5)};
+            case 9:
+                return {omega.real()};
+            case 10:
+                return {abs(omega)};
+            case 11:
+                return {omega.imag()};
+            case 12:
+                return {std::arg(omega)};
+            default:
+                throw kepler::error(InternalError, "Could not match designator.");
         }
     }
 };

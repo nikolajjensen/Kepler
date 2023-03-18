@@ -27,18 +27,47 @@
 kepler::Number kepler::floor(const Number &number) {
     Number raw = {std::floor(number.real()), std::floor(number.imag())};
 
-    double integral;
-    double fractional_real = std::modf(number.real(), &integral);
-    double fractional_imag = std::modf(number.imag(), &integral);
+    double fractional_real = number.real() - std::floor(number.real() / (1 + (double)(0.0 == number.real())));
+    double fractional_imag = number.imag() - std::floor(number.imag() / (1 + (double)(0.0 == number.imag())));
 
     if (1.0 > (fractional_imag + fractional_real)) {
         return raw;
-    } else if ((1.0 <= (fractional_imag + fractional_real)) && fractional_real >= fractional_imag) {
+    } else if ((1.0 <= (fractional_imag + fractional_real)) && fractional_real > fractional_imag) {
         return raw + 1.0;
-    } else if ((1.0 <= (fractional_imag + fractional_real)) && fractional_real < fractional_imag) {
+    } else if ((1.0 <= (fractional_imag + fractional_real)) && fractional_real <= fractional_imag) {
         return raw + Number(0, 1);
     } else {
         throw kepler::error(InternalError, "Unexpected case reached in floor of number.");
+    }
+}
+
+kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
+    Number oa = omega - alpha;
+
+    bool a_neg_int = alpha.imag() == 0.0 && alpha.real() == round(alpha.real()) && alpha.real() < 0.0;
+    bool o_neg_int = omega.imag() == 0.0 && omega.real() == round(omega.real()) && omega.real() < 0.0;
+    bool oa_neg_int = oa.imag() == 0.0 && oa.real() == round(oa.real()) && oa.real() < 0.0;
+
+    int a_int = static_cast<int>(alpha.real());
+    int o_int = static_cast<int>(omega.real());
+    int oa_int = static_cast<int>(oa.real());
+
+    // Algorithm mentioned in ISO
+    if(!a_neg_int && !o_neg_int && !oa_neg_int) {
+        return {tgamma(1 + o_int) / tgamma(1 + a_int) * tgamma(1 + oa_int)};
+    }else if(
+            (!a_neg_int && !o_neg_int && oa_neg_int)
+            || (a_neg_int && !o_neg_int && !oa_neg_int)
+            || (a_neg_int && o_neg_int && oa_neg_int)) {
+        return 0;
+    } else if(!a_neg_int && o_neg_int && !oa_neg_int) {
+        throw kepler::error(DomainError);
+    } else if(!a_neg_int && o_neg_int && oa_neg_int) {
+        return (pow(-1, alpha)) * binomial(alpha, alpha - omega + 1.0);
+    } else if (a_neg_int && o_neg_int && !oa_neg_int) {
+        return (pow(-1, oa)) * binomial(abs(omega + 1.0), abs(alpha + 1.0));
+    } else {
+        throw kepler::error(InternalError, "Unexpected case reached in binomial calculation.");
     }
 }
 

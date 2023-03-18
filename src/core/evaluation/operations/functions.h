@@ -205,10 +205,57 @@ namespace kepler {
         Array operator()(const Array& omega) override;
     };
 
+    struct Comma : Operation {
+        using Operation::Operation;
+
+        Array operator()(const Array& omega) override;
+    };
+
+    struct ArrowUp : Operation {
+        using Operation::Operation;
+
+        Array operator()(const Array& omega) override;
+    };
+
     struct Roll : PervadeMixin<Operation> {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Number& omega) override;
+    };
+
+    struct Star : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& omega) override;
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Log : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& omega) override;
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Bar : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& omega) override;
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct ExclamationMark : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& omega) override;
+        Array operator()(const Number& alpha, const Number& omega) override;
+    };
+
+    struct Circle : PervadeMixin<Operation> {
+        using PervadeMixin<Operation>::PervadeMixin;
+
+        Array operator()(const Number& omega) override;
+        Array operator()(const Number& alpha, const Number& omega) override;
     };
 };
