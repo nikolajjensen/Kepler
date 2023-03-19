@@ -19,6 +19,7 @@
 
 #include "dyadic_operators.h"
 #include "monadic_operators.h"
+#include "core/error.h"
 
 namespace kepler {
     DyadicOp::DyadicOp(Operation_ptr aalpha_, Operation_ptr oomega_) : aalpha(std::move(aalpha_)), oomega(std::move(oomega_)), Operation(
@@ -53,5 +54,25 @@ namespace kepler {
         Slash slash(aalpha);
 
         return slash(diaeresis(alpha, omega));
+    }
+
+    Power::Power(Operation_ptr aalpha_, Array oomega_) : aalpha(aalpha_), oomega(oomega_), Operation(nullptr) {}
+
+    Array Power::operator()(const Array &omega) {
+        if(!oomega.is_simple_scalar()) {
+            throw kepler::error(LengthError, "Expected a scalar right argument.");
+        } else if(!oomega.is_integer_numeric()) {
+            throw kepler::error(DomainError, "Expected an integer numeric right argument.");
+        }
+
+        auto& num = get<Number>(oomega.data[0]);
+        int num_as_int = static_cast<int>(num.real());
+
+        Array tmp = omega;
+        for(int i = 0; i < num_as_int; ++i) {
+            tmp = (*aalpha)(tmp);
+        }
+
+        return tmp;
     }
 };

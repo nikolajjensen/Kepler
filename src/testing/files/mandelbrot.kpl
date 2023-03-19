@@ -1,0 +1,18 @@
+⍝ f←{c+⍵*2} ⍝ define the function
+⍝ c←1J1     ⍝ c is 1+i (above and to the right of the set)
+
+⍝ ⎕ ← (f 0)(f f 0)(f f f 0)(f f f f 0) (f f f f f 0)
+
+⍝⎕IO←0
+⎕PP←4
+
+⍝ unitstep ← {(⍳⍵+1)÷⍵}
+⍝ ⎕ ← unitstep 6
+
+⍝ c ← ¯3 × 0.7J0.5 - (0J1×unitstep 6)∘.+(unitstep 6)
+⍝ ⎕ ← ⍴c
+
+f←{c+⍵*2}
+c←1J1
+
+⎕ ← (|(f⍣6) 0) (|(f⍣7) 0)

@@ -30,7 +30,7 @@ namespace kepler {
             }
             return tmp;
         }
-
+        
         return apply(omega.data[0]);
     }
 
@@ -38,7 +38,7 @@ namespace kepler {
     Array PervadeMixin<BASE>::operator()(const Array& alpha, const Array& omega) {
         Array tmp = alpha;
 
-        if (!alpha.is_simple_scalar() && !omega.is_simple_scalar()) {
+        if (!alpha.is_scalar() && !omega.is_scalar()) {
 
             if (alpha.shape != omega.shape) {
                 throw kepler::error(LengthError, "Mismatched left and right shapes.");
@@ -50,23 +50,31 @@ namespace kepler {
                 tmp.data[i] = apply(alpha.data[i], omega.data[i]);
             }
 
-        } else if (alpha.is_simple_scalar() && omega.is_simple_scalar()) {
+        } else if (alpha.is_scalar() && omega.is_scalar()) {
             tmp = apply(alpha.data[0], omega.data[0]);
 
-        } else if (!alpha.is_simple_scalar() && omega.is_simple_scalar()) {
+        } else if (!alpha.is_scalar() && omega.is_scalar()) {
             tmp.shape = alpha.shape;
             tmp.data.resize(alpha.data.size());
 
             for (int i = 0; i < alpha.data.size(); ++i) {
-                tmp.data[i] = (*this)(get<Array>(alpha.data[i]), omega);
+                if(holds_alternative<Array>(omega.data[0])) {
+                    tmp.data[i] = (*this)(get<Array>(alpha.data[i]), get<Array>(omega.data[0]));
+                } else {
+                    tmp.data[i] = (*this)(get<Array>(alpha.data[i]), omega);
+                }
             }
 
-        } else if (alpha.is_simple_scalar() && !omega.is_simple_scalar()) {
+        } else if (alpha.is_scalar() && !omega.is_scalar()) {
             tmp.shape = omega.shape;
             tmp.data.resize(omega.data.size());
 
             for (int i = 0; i < omega.data.size(); ++i) {
-                tmp.data[i] = (*this)(alpha, get<Array>(omega.data[i]));
+                if(holds_alternative<Array>(alpha.data[0])) {
+                    tmp.data[i] = (*this)(get<Array>(alpha.data[0]), get<Array>(omega.data[i]));
+                } else {
+                    tmp.data[i] = (*this)(alpha, get<Array>(omega.data[i]));
+                }
             }
         }
 

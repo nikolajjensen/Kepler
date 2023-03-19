@@ -32,8 +32,8 @@ namespace kepler {
         return *cursor;
     }
 
-    const Token& Parser::peek() {
-        return *(cursor - 1);
+    const Token& Parser::peek(int amount) {
+        return *(cursor - amount);
     }
 
     bool Parser::at_end() {
@@ -238,13 +238,7 @@ namespace kepler {
     }
 
     ASTNode<Array>* Parser::parse_argument() {
-        if(current().type == ALPHA || current().type == OMEGA) {
-            Token tok = current();
-            eat(tok.type);
-            return new Variable(tok);
-        } else {
-            return parse_vector();
-        }
+        return parse_vector();
     }
 
     ASTNode<Array>* Parser::parse_vector() {
@@ -252,7 +246,7 @@ namespace kepler {
 
         while(!at_end() && (current().type == RPARENS || helpers::is_array_token(current().type))) {
             if(current().type == RPARENS) {
-                if(helpers::is_array_token(peek_beyond_parenthesis())) {
+                if(helpers::is_array_token(peek_beyond_parenthesis()) && peek(2).type != POWER) {
                     eat(RPARENS);
                     nodes.emplace_back(parse_statement());
                     eat(LPARENS);
@@ -281,6 +275,9 @@ namespace kepler {
         if (tok.type == ID) {
             eat(ID);
             return new Variable(tok);
+        } else if(tok.type == ALPHA || tok.type == OMEGA) {
+            eat(tok.type);
+            return new Variable(tok);
         } else if(tok.type == NUMBER) {
             eat(NUMBER);
             return new Scalar(tok, kepler::from_string({tok.content->begin(), tok.content->end()}));
@@ -300,6 +297,13 @@ namespace kepler {
             Token tok = current();
             eat(ID);
             return new FunctionVariable(tok);
+        } else if(peek().type == POWER) {
+            // Power operator with non-function right argument.
+            auto scalar = parse_scalar();
+            Token tok = current();
+            eat(POWER);
+            return new DyadicOperator(tok, parse_function(), scalar);
+
         } else {
             auto function = parse_f();
 

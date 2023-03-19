@@ -77,14 +77,25 @@ namespace kepler {
 
     DyadicOperator::~DyadicOperator() {
         delete left;
-        delete right;
+
+        if(std::holds_alternative<ASTNode<Operation_ptr>*>(right)) {
+            delete get<ASTNode<Operation_ptr>*>(right);
+        } else {
+            delete get<ASTNode<Array>*>(right);
+        }
     }
 
-    DyadicOperator::DyadicOperator(Token token_, ASTNode<Operation_ptr> *left_, ASTNode<Operation_ptr> *right_) : token(
+    DyadicOperator::DyadicOperator(Token token_, ASTNode<Operation_ptr> *left_, std::variant<ASTNode<Operation_ptr>*, ASTNode<Array>*> right_) : token(
             std::move(token_)), left(left_), right(right_) {}
 
     std::string DyadicOperator::to_string() const {
-        return "DyadicOperator(" + left->to_string() + " " + token.to_string() + " " + right->to_string() + ")";
+        std::string right_str;
+        if(std::holds_alternative<ASTNode<Operation_ptr>*>(right)) {
+            right_str = get<ASTNode<Operation_ptr>*>(right)->to_string();
+        } else {
+            right_str = get<ASTNode<Array>*>(right)->to_string();
+        }
+        return "DyadicOperator(" + left->to_string() + " " + token.to_string() + " " + right_str + ")";
     }
 
     Operation_ptr DyadicOperator::accept(NodeVisitor &visitor) { return visitor.visit(this); }

@@ -66,6 +66,7 @@ namespace kepler {
         COMMA,
         ARROW_UP,
         PRODUCT,
+        POWER,
 
         // Operators
         COMMUTE,

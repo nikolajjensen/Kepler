@@ -373,7 +373,7 @@ namespace kepler {
         for(int i = 0; i < omega.size(); ++i) {
             int shift = get_shift(i, axis, step_size, alpha, omega);
 
-            int index = (int)(std::floor((double)i / block_size) * block_size) + ((step_size * shift + i) % (block_size));
+            int index = (int)(std::floor((double)i / block_size) * block_size) + (((step_size * shift + i) % block_size + block_size) % block_size);//((step_size * shift + i) % (block_size));
             result.data[i] = omega.data[index];
         }
         return result;
@@ -418,12 +418,12 @@ namespace kepler {
             throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
         } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
             return std::visit(*this, alpha.data[0], omega.data[0]);
-        } else if(alpha.rank() != omega.rank() - 1) {
-            throw kepler::error(RankError, "Left argument must be one less than rank of right argument.");
+        } else if(omega.is_scalar()) {
+            return (*this)(alpha, get<Array>(omega.data[0]));
         }
 
         int required_size = omega.size() / omega.shape[0];
-        if(alpha.size() != required_size) {
+        if(!alpha.is_simple_scalar() && alpha.size() != required_size) {
             throw kepler::error(LengthError, "Left argument must have same shape as right argument, excluding the first axis.");
         }
 
@@ -439,17 +439,19 @@ namespace kepler {
         return reverse(0, omega);
     }
 
+    // x←3 3⍴⍳100
+    // 1⌽x
     Array CircleStile::operator()(const Array &alpha, const Array &omega) {
         if(!alpha.is_integer_numeric()) {
             throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
         } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
             return std::visit(*this, alpha.data[0], omega.data[0]);
-        } else if(alpha.rank() != omega.rank() - 1) {
-            throw kepler::error(RankError, "Left argument must be one less than rank of right argument.");
+        } else if(omega.is_scalar()) {
+            return (*this)(alpha, get<Array>(omega.data[0]));
         }
 
         int required_size = omega.size() / omega.shape.back();
-        if(alpha.size() != required_size) {
+        if(!alpha.is_simple_scalar() && alpha.size() != required_size) {
             throw kepler::error(LengthError, "Left argument must have same shape as right argument, excluding the last axis.");
         }
 

@@ -55,7 +55,11 @@ namespace kepler {
     }
 
     Operation_ptr Interpreter::visit(DyadicOperator *node) {
-        return build_operation(node->token.type, node->left->accept(*this), node->right->accept(*this));
+        if(std::holds_alternative<ASTNode<Operation_ptr>*>(node->right)) {
+            return build_operation(node->token.type, node->left->accept(*this), get<ASTNode<Operation_ptr>*>(node->right)->accept(*this));
+        } else if(node->token.type == POWER) {
+            return std::make_shared<Power>(node->left->accept(*this), get<ASTNode<Array>*>(node->right)->accept(*this));
+        }
     }
 
     Array Interpreter::visit(MonadicFunction *node) {

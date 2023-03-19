@@ -36,7 +36,7 @@ namespace kepler {
 
         void advance();
         const Token& current();
-        const Token& peek();
+        const Token& peek(int amount = 1);
         bool at_end();
         long position(const std::vector<Token>::const_iterator& it);
         long position();

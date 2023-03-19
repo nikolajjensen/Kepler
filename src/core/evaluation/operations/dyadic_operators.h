@@ -58,4 +58,15 @@ namespace kepler {
 
         Array operator()(const Array& alpha, const Array& omega) override;
     };
+
+    struct Power : Operation {
+    protected:
+        Operation_ptr aalpha;
+        Array oomega;
+
+    public:
+        explicit Power(Operation_ptr aalpha_, Array oomega_);
+
+        Array operator()(const Array& omega) override;
+    };
 };

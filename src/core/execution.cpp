@@ -76,7 +76,7 @@ int kepler::run_file(const std::string &path, std::ostream & stream) {
             err.position = loc.pos;
             err.set_file(path);
             err.set_line(loc.line_number);
-            stream << err.to_string() << "\n" << std::endl;
+            stream  << "\n"  << err.to_string() << "\n" << std::endl;
         }
 
         symbol_table.clear();
