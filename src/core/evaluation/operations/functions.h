@@ -221,7 +221,6 @@ namespace kepler {
     struct Roll : PervadeMixin<Operation> {
         using PervadeMixin<Operation>::PervadeMixin;
 
-        Array operator()(const Array& alpha, const Array& omega) override;
         Array operator()(const Number& omega) override;
     };
 

@@ -600,10 +600,6 @@ namespace kepler {
         return {{omega.size()}, omega.data};
     }
 
-    Array Roll::operator()(const Array &alpha, const Array &omega) {
-        throw kepler::error(DomainError);
-    }
-
     //https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
     Array Roll::operator()(const Number &omega) {
         if(omega.imag() != 0.0) {

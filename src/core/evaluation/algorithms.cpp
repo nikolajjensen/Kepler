@@ -41,6 +41,8 @@ kepler::Number kepler::floor(const Number &number) {
     }
 }
 
+//¯4 ¯3 ¯2 ¯1 0 1 2 3 4 ∘.! ¯4 ¯3 ¯2 ¯1 0 1 2 3 4
+//¯4 ! ¯3
 kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
     Number oa = omega - alpha;
 
@@ -54,7 +56,7 @@ kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
 
     // Algorithm mentioned in ISO
     if(!a_neg_int && !o_neg_int && !oa_neg_int) {
-        return {tgamma(1 + o_int) / tgamma(1 + a_int) * tgamma(1 + oa_int)};
+        return {tgamma(1.0 + (double)o_int) / (tgamma(1.0 + (double)a_int) * tgamma(1.0 + (double)oa_int))};
     }else if(
             (!a_neg_int && !o_neg_int && oa_neg_int)
             || (a_neg_int && !o_neg_int && !oa_neg_int)
@@ -63,9 +65,9 @@ kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
     } else if(!a_neg_int && o_neg_int && !oa_neg_int) {
         throw kepler::error(DomainError);
     } else if(!a_neg_int && o_neg_int && oa_neg_int) {
-        return (pow(-1, alpha)) * binomial(alpha, alpha - omega + 1.0);
+        return pow(-1, alpha.real()) * binomial(alpha, alpha - (omega + 1.0));
     } else if (a_neg_int && o_neg_int && !oa_neg_int) {
-        return (pow(-1, oa)) * binomial(abs(omega + 1.0), abs(alpha + 1.0));
+        return pow(-1, oa.real()) * binomial(abs(o_int + 1.0), abs(a_int + 1.0));
     } else {
         throw kepler::error(InternalError, "Unexpected case reached in binomial calculation.");
     }
