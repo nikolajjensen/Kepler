@@ -28,23 +28,23 @@ namespace kepler {
         if(!at_end()) cursor--;
     }
 
-    const Token& Parser::current() {
+    const Token& Parser::current() const {
         return *cursor;
     }
 
-    const Token& Parser::peek(int amount) {
+    const Token& Parser::peek(int amount) const {
         return *(cursor - amount);
     }
 
-    bool Parser::at_end() {
+    bool Parser::at_end() const {
         return cursor < begin;
     }
 
-    long Parser::position(const std::vector<Token>::const_iterator& it) {
+    long Parser::position(const std::vector<Token>::const_iterator& it) const {
         return it->get_position();
     }
 
-    long Parser::position() {
+    long Parser::position() const {
         return cursor->get_position();
     }
 
@@ -57,14 +57,14 @@ namespace kepler {
     }
 
 
-    bool Parser::identifies_function(Token token) {
+    bool Parser::identifies_function(const Token& token) const {
         if(!token.content.has_value()) return false;
         std::u32string id = {token.content->begin(), token.content->end()};
         if(id == U"∇") return true;
         return symbol_table->contains(id) && symbol_table->get_type(id) == FunctionSymbol;
     }
 
-    TokenType Parser::peek_beyond_parenthesis() {
+    TokenType Parser::peek_beyond_parenthesis() const {
         auto peek_at = cursor - 1;
         while(peek_at >= begin && peek_at->type == RPARENS) {
             --peek_at;
@@ -73,7 +73,7 @@ namespace kepler {
         return END;
     }
 
-    void Parser::assert_matching(const TokenType& left, const TokenType& right, const Char& right_char) {
+    void Parser::assert_matching(const TokenType& left, const TokenType& right, const Char& right_char) const {
         auto it = begin;
         std::vector<std::vector<Token>::const_iterator> stack;
 
@@ -102,7 +102,7 @@ namespace kepler {
         return parse_statement_list();
     }
 
-    std::vector<Token>::const_iterator Parser::next_separator(const std::vector<Token>::const_iterator& current) {
+    std::vector<Token>::const_iterator Parser::next_separator(std::vector<Token>::const_iterator current) const {
         auto it = current;
         int level = 0;
         while(it != end) {
@@ -119,7 +119,7 @@ namespace kepler {
         return it;
     }
 
-    std::vector<Token>::const_iterator Parser::matching_brace(const std::vector<Token>::const_iterator& index) {
+    std::vector<Token>::const_iterator Parser::matching_brace(std::vector<Token>::const_iterator index) const {
         int level = 1;
         auto it = index - 1;
         while(it >= begin && level != 0) {
@@ -224,8 +224,8 @@ namespace kepler {
         auto dfn_start = matching_brace(cursor + 1) + 1;
         auto dfn_end = cursor + 1;
 
-        Parser dfn_parser(*symbol_table, dfn_start, dfn_end);
-        auto body = dfn_parser.parse();
+        Parser dfn_parser;
+        auto body = dfn_parser.parse(symbol_table, dfn_start, dfn_end);
 
         cursor -= dfn_end - dfn_start;
 
@@ -346,6 +346,7 @@ namespace kepler {
         }
     }
 
+    /*
     Parser::Parser(const std::vector<Token> &input_)
                    : symbol_table(new SymbolTable()),
                      cursor(input_.begin()),
@@ -368,8 +369,28 @@ namespace kepler {
         return parse_program();
     }
 
+     */
     void Parser::use_table(SymbolTable *new_table) {
         delete symbol_table;
         symbol_table = new_table;
+    }
+
+    Parser::Parser() : symbol_table(new SymbolTable()), cursor(), flag(), begin(), end() {}
+
+    Statements* Parser::parse(const std::vector<Token>& input_) {
+        cursor = input_.begin();
+        flag = input_.begin();
+        begin = input_.begin();
+        end = input_.end();
+        return parse_program();
+    }
+
+    Statements* Parser::parse(SymbolTable* parent_table, std::vector<Token>::const_iterator begin_, std::vector<Token>::const_iterator end_) {
+        symbol_table->attach_parent(parent_table);
+        cursor = begin_;
+        flag = begin_;
+        begin = begin_;
+        end = end_;
+        return parse_program();
     }
 };

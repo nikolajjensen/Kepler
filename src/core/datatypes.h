@@ -29,7 +29,7 @@ namespace kepler {
     using Char = char32_t;
     using Number = std::complex<double>;
     using StringUTF8 = std::string;
-    using StringUTF32 = std::u32string;
+    using String = std::u32string;
 
 
     Number numeric_limit_max();

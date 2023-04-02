@@ -144,6 +144,9 @@ TEST_CASE_METHOD(fixture, "minus (-)", "[minus][scalar][func]") {
     CHECK_THAT(run("1-2-2"), Prints("1"));
     CHECK_THAT(run("(1-2)-2"), Prints("¯3"));
     CHECK_THAT(run("(1-(2-2))"), Prints("1"));
+
+    CHECK_THAT(run("'abc' - 'xyz'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("'abc' - ('xyz' 2)"), Throws(kepler::DomainError));
 }
 
 TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][function]") {
@@ -833,4 +836,286 @@ TEST_CASE_METHOD(fixture, "nor (⍱)", "[nor][function]") {
     CHECK_THAT(run("'a' ⍱ 'a'"), Throws(kepler::DomainError));
     CHECK_THAT(run("'a' ⍱ 1"), Throws(kepler::DomainError));
     CHECK_THAT(run("1 ⍱ 'a'"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "Circle bar (⊖)", "[circle-bar][function]") {
+    CHECK_THAT(run("⊖123"), Prints("123"));
+    CHECK_THAT(run("2⊖123"), Prints("123"));
+    CHECK_THAT(run("⊖'123'"), Prints("321"));
+    CHECK_THAT(run("2⊖'123'"), Prints("312"));
+
+    CHECK_THAT(run("⊖3 3⍴⍳10"), Prints("7 8 9\n"
+                                       "4 5 6\n"
+                                       "1 2 3"));
+
+    CHECK_THAT(run("'a'⊖'123'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1 2⊖'123'"), Throws(kepler::LengthError));
+
+    CHECK_THAT(run("1 2 3⊖(3 3⍴⍳9)"), Prints("4 8 3\n"
+                                             "7 2 6\n"
+                                             "1 5 9"));
+
+    CHECK_THAT(run("(3 3⍴1 2 3)⊖(2 3 3⍴⍳100)"), Prints("10  2 12\n"
+                                                       "13  5 15\n"
+                                                       "16  8 18\n"
+                                                       "\n"
+                                                       " 1 11  3\n"
+                                                       " 4 14  6\n"
+                                                       " 7 17  9"));
+
+    CHECK_THAT(run("(3 3 2⍴1 2 3)⊖(2 3 3 2⍴⍳100)"), Prints("19  2\n"
+                                                           "21 22\n"
+                                                           " 5 24\n"
+                                                           "\n"
+                                                           "25  8\n"
+                                                           "27 28\n"
+                                                           "11 30\n"
+                                                           "\n"
+                                                           "31 14\n"
+                                                           "33 34\n"
+                                                           "17 36\n"
+                                                           "\n"
+                                                           "\n"
+                                                           " 1 20\n"
+                                                           " 3  4\n"
+                                                           "23  6\n"
+                                                           "\n"
+                                                           " 7 26\n"
+                                                           " 9 10\n"
+                                                           "29 12\n"
+                                                           "\n"
+                                                           "13 32\n"
+                                                           "15 16\n"
+                                                           "35 18"));
+
+    CHECK_THAT(run("(3 3 3⍴1 2 3)⊖(2 3 3 2⍴⍳100)"), Throws(kepler::LengthError));
+}
+
+TEST_CASE_METHOD(fixture, "Circle stile (⌽)", "[circle-stile][function]") {
+    CHECK_THAT(run("⌽123"), Prints("123"));
+    CHECK_THAT(run("2⌽123"), Prints("123"));
+    CHECK_THAT(run("⌽'123'"), Prints("321"));
+    CHECK_THAT(run("2⌽'123'"), Prints("312"));
+
+    CHECK_THAT(run("⌽3 3⍴⍳10"), Prints("3 2 1\n"
+                                       "6 5 4\n"
+                                       "9 8 7"));
+
+    CHECK_THAT(run("'a'⌽'123'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1 2⌽'123'"), Throws(kepler::LengthError));
+
+    CHECK_THAT(run("1 2 3⌽(3 3⍴⍳9)"), Prints("2 3 1\n"
+                                             "6 4 5\n"
+                                             "7 8 9"));
+
+    CHECK_THAT(run("(2 3⍴1 2 3)⌽(2 3 3⍴⍳100)"), Prints(" 2  3  1\n"
+                                                       " 6  4  5\n"
+                                                       " 7  8  9\n"
+                                                       "\n"
+                                                       "11 12 10\n"
+                                                       "15 13 14\n"
+                                                       "16 17 18"));
+
+    CHECK_THAT(run("(2 3 3⍴1 2 3)⌽(2 3 3 2⍴⍳100)"), Prints(" 2  1\n"
+                                                           " 3  4\n"
+                                                           " 6  5\n"
+                                                           "\n"
+                                                           " 8  7\n"
+                                                           " 9 10\n"
+                                                           "12 11\n"
+                                                           "\n"
+                                                           "14 13\n"
+                                                           "15 16\n"
+                                                           "18 17\n"
+                                                           "\n"
+                                                           "\n"
+                                                           "20 19\n"
+                                                           "21 22\n"
+                                                           "24 23\n"
+                                                           "\n"
+                                                           "26 25\n"
+                                                           "27 28\n"
+                                                           "30 29\n"
+                                                           "\n"
+                                                           "32 31\n"
+                                                           "33 34\n"
+                                                           "36 35"));
+
+    CHECK_THAT(run("(3 3 3⍴1 2 3)⌽(2 3 3 2⍴⍳100)"), Throws(kepler::LengthError));
+}
+
+TEST_CASE_METHOD(fixture, "Arrow Up (↑)", "[arrow-up][function]") {
+    CHECK_THAT(run("¯10 'a'↑(2 2⍴⍳100)"), Throws(kepler::DomainError));
+    CHECK_THAT(run("(3 3⍴1)↑(2 2⍴⍳100)"), Throws(kepler::DomainError));
+    CHECK_THAT(run("3 3 3↑(2 2⍴⍳100)"), Throws(kepler::LengthError));
+
+    CHECK_THAT(run("¯10 10↑(2 2⍴⍳100)"), Prints("0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "0 0 0 0 0 0 0 0 0 0\n"
+                                                "1 2 0 0 0 0 0 0 0 0\n"
+                                                "3 4 0 0 0 0 0 0 0 0"));
+
+    CHECK_THAT(run("10↑(2 2⍴⍳100)"), Prints("1 2\n"
+                                            "3 4\n"
+                                            "0 0\n"
+                                            "0 0\n"
+                                            "0 0\n"
+                                            "0 0\n"
+                                            "0 0\n"
+                                            "0 0\n"
+                                            "0 0\n"
+                                            "0 0"));
+
+    CHECK_THAT(run("¯10↑(2 2⍴⍳100)"), Prints("0 0\n"
+                                             "0 0\n"
+                                             "0 0\n"
+                                             "0 0\n"
+                                             "0 0\n"
+                                             "0 0\n"
+                                             "0 0\n"
+                                             "0 0\n"
+                                             "1 2\n"
+                                             "3 4"));
+
+    CHECK_THAT(run("↑((2 2⍴⍳100) (3 3⍴⍳100))"), Prints("1 2 0\n"
+                                                       "3 4 0\n"
+                                                       "0 0 0\n"
+                                                       "\n"
+                                                       "1 2 3\n"
+                                                       "4 5 6\n"
+                                                       "7 8 9"));
+}
+
+TEST_CASE_METHOD(fixture, "Comma (,)", "[comma][function]") {
+    CHECK_THAT(run(",↑((2 2⍴⍳100) (3 3⍴⍳100))"), Prints("1 2 0 3 4 0 0 0 0 1 2 3 4 5 6 7 8 9"));
+    CHECK_THAT(run(",((2 2⍴⍳100) (3 3⍴⍳100))"), Prints("┌───┬─────┐\n"
+                                                       "│1 2│1 2 3│\n"
+                                                       "│3 4│4 5 6│\n"
+                                                       "│   │7 8 9│\n"
+                                                       "└───┴─────┘"));
+}
+
+TEST_CASE_METHOD(fixture, "Roll (?)", "[roll][function]") {
+    CHECK_NOTHROW(run("?(0 3 1900 20)"));
+    CHECK_THAT(run("?0.1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("?1J2"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "Star (*)", "[star][function]") {
+    CHECK_THAT(run("*(0 3 10 20)"), Prints("1 20.08553692 22026.46579 485165195.4"));
+    CHECK_THAT(run("*1J2"), Prints("¯1.131204384J2.471726672"));
+    CHECK_THAT(run("*'abc'"), Throws(kepler::DomainError));
+
+    CHECK_THAT(run("23*(0 3 10 20)"), Prints("1 12167 4.142651121E13 1.716155831E27"));
+    CHECK_THAT(run("4*1J2"), Prints("¯3.730748307J1.442746363"));
+    CHECK_THAT(run("'xyz'*2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0*0"), Prints("1"));
+    CHECK_THAT(run("0*100"), Prints("0"));
+    CHECK_THAT(run("0*¯100"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "Log (⍟)", "[log][function]") {
+    CHECK_THAT(run("⍟(1 3 10 20)"), Prints("0 1.098612289 2.302585093 2.995732274"));
+    CHECK_THAT(run("⍟1J2"), Prints("0.8047189562J1.107148718"));
+    CHECK_THAT(run("⍟'abc'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("⍟0"), Throws(kepler::DomainError));
+
+    CHECK_THAT(run("23⍟(2 3 10 20)"), Prints("0.2210647295 0.3503793064 0.7343611356 0.955425865"));
+    CHECK_THAT(run("4⍟1J2"), Prints("0.5804820237J0.7986389823"));
+    CHECK_THAT(run("'xyz'⍟2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0⍟0"), Prints("1"));
+    CHECK_THAT(run("0⍟100"), Prints("0"));
+    CHECK_THAT(run("1⍟¯100"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0⍟¯100"), Prints("0"));
+}
+
+TEST_CASE_METHOD(fixture, "Bar (|)", "[bar][function]") {
+    CHECK_THAT(run("|(1 ¯3 10J10 20J¯1023)"), Prints("1 3 14.14213562 1023.195485"));
+    CHECK_THAT(run("|1J2"), Prints("2.236067977"));
+    CHECK_THAT(run("|'abc'"), Throws(kepler::DomainError));
+    CHECK_THAT(run("|0"), Prints("0"));
+
+    CHECK_THAT(run("23|(2 3 10 20 201)"), Prints("2 3 10 20 17"));
+    CHECK_THAT(run("1.2|1J2"), Prints("¯0.2J0.8"));
+    CHECK_THAT(run("'xyz'|2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0|0"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0|100"), Throws(kepler::DomainError));
+    CHECK_THAT(run("1|¯100"), Prints("0"));
+    CHECK_THAT(run("0|¯100"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "Exclamation Mark (!)", "[exclamation-mark][function]") {
+    CHECK_THAT(run("!0"), Prints("1"));
+    CHECK_THAT(run("!¯10"), Throws(kepler::DomainError));
+    CHECK_THAT(run("!¯0.1"), Prints("1.068628702"));
+    CHECK_THAT(run("!0.1"), Prints("0.9513507699"));
+    CHECK_THAT(run("!2"), Prints("2"));
+    CHECK_THAT(run("!13.2"), Prints("1.049559019E10"));
+
+    CHECK_THAT(run("!¯12"), Throws(kepler::DomainError));
+    CHECK_THAT(run("!¯1000"), Throws(kepler::DomainError));
+    CHECK_THAT(run("!¯1"), Throws(kepler::DomainError));
+
+    CHECK_THAT(run("'a'!1.3"), Throws(kepler::DomainError));
+    CHECK_THAT(run("(1 2 3)!1.3"), Prints("1.3 0.195 ¯0.0455"));
+
+    CHECK_THAT(run("1!1.3"), Prints("1.3"));
+    CHECK_THAT(run("2!2"), Prints("1"));
+    CHECK_THAT(run("2!2J1"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "Circle (○)", "[circle][function]") {
+    CHECK_THAT(run("○(2 3 10 20 201 ¯1.2 ¯1.3J22)"), Prints("6.283185307 9.424777961 31.41592654 62.83185307 631.4601234 ¯3.769911184 ¯4.08407045J69.11503838"));
+    CHECK_THAT(run("○'abc'"), Throws(kepler::DomainError));
+
+    CHECK_THAT(run("0J1.2○1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0.1○1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("¯13○1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("13○1"), Throws(kepler::DomainError));
+    for(int i = -12; i <= 12; ++i) {
+        std::string str = std::to_string(i);
+        if(str.front() == '-') {
+            str.erase(str.begin());
+            str.insert(0, "¯");
+        }
+        CHECK_NOTHROW(run(std::to_string(i) + "○1"));
+    }
+
+    CHECK_THAT(run("¯12○3"), Prints("¯0.9899924966J0.1411200081"));
+    CHECK_THAT(run("¯11○3"), Prints("0J3"));
+    CHECK_THAT(run("¯10○3J¯123"), Prints("3J123"));
+    CHECK_THAT(run("¯9○3J¯123"), Prints("3J¯123"));
+    CHECK_THAT(run("¯8○3J¯123"), Prints("¯122.9959373J¯3.000099093"));
+    CHECK_THAT(run("¯7○3J¯123"), Prints("0.0001981636936J¯1.562671258"));
+    CHECK_THAT(run("¯7○¯1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("¯7○1"), Throws(kepler::DomainError));
+    CHECK_THAT(run("¯6○3J¯123"), Prints("5.505645384J¯1.546411723"));
+    CHECK_THAT(run("¯5○3J¯123"), Prints("5.505612394J¯1.546410112"));
+    CHECK_THAT(run("¯4○3J¯123"), Prints("2.999900917J¯123.0040626"));
+    CHECK_THAT(run("¯4○¯1"), Prints("0"));
+    CHECK_THAT(run("¯3○3J¯123"), Prints("1.570598137J¯0.008125426218"));
+    CHECK_THAT(run("¯2○3J¯123"), Prints("1.546411723J5.505645384"));
+    CHECK_THAT(run("¯1○3J¯123"), Prints("0.02438460409J¯5.505645384"));
+    CHECK_THAT(run("0○3J¯123"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0○¯1.2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0○¯0.9"), Prints("0.4358898944"));
+    CHECK_THAT(run("0○1.2"), Throws(kepler::DomainError));
+    CHECK_THAT(run("0○0.9"), Prints("0.4358898944"));
+    CHECK_THAT(run("1○3J¯123"), Prints("1.848331526E52J1.296651245E53"));
+    CHECK_THAT(run("2○3J¯123"), Prints("¯1.296651245E53J1.848331526E52"));
+    CHECK_THAT(run("3○3J¯12"), Prints("¯2.109662199E¯11J¯0.9999999999"));
+    CHECK_THAT(run("4○3J¯123"), Prints("3.000099093J¯122.9959373"));
+    CHECK_THAT(run("5○3J¯123"), Prints("¯8.895561447J4.630152895"));
+    CHECK_THAT(run("6○3J¯123"), Prints("¯8.939770815J4.607255648"));
+    CHECK_THAT(run("7○3J¯123"), Prints("0.9971355538J¯0.004037517657"));
+    CHECK_THAT(run("8○3J¯123"), Prints("122.9959373J3.000099093"));
+    CHECK_THAT(run("9○3J¯123"), Prints("3"));
+    CHECK_THAT(run("10○3J¯123"), Prints("123.0365799"));
+    CHECK_THAT(run("11○3J¯123"), Prints("¯123"));
+    CHECK_THAT(run("12○3J¯123"), Prints("¯1.546410918"));
 }

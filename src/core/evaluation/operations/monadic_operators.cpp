@@ -109,7 +109,7 @@ namespace kepler {
 
         if(alpha.is_scalar()) {
             for(int i = 0; i < omega.flattened_shape(); ++i) {
-                result.data.emplace_back((*op)(alpha, omega.data[i]));
+                result.data.emplace_back((*op)(alpha, get<Array>(omega.data[i])));
             }
         } else {
             for(int a = 0; a < alpha.flattened_shape(); ++a) {
@@ -125,49 +125,5 @@ namespace kepler {
         }
 
         return result;
-
-        /*
-
-        if(alpha.is_simple_scalar()) {
-            Array result{omega.shape, {}};
-            result.data.reserve(result.flattened_shape());
-
-            for(int i = 0; i < result.shape[0]; ++i) {
-                result.data.emplace_back((*op)(alpha, omega));
-            }
-
-            return result;
-        } else {
-            int elements = alpha.flattened_shape();
-            std::vector<int> shape_of_element = omega.shape;
-
-            std::vector<int> result_shape = shape_of_element;
-            result_shape.insert(result_shape.begin(), elements);
-            Array result{result_shape, {}};
-            result.data.reserve(result.flattened_shape());
-
-            for(int i = 0; i < elements; ++i) {
-                if(alpha.is_simple_scalar()) {
-                    auto res = (*op)(alpha, omega);
-
-                    if(omega.is_scalar()) {
-                        result.data.emplace_back(res);
-                    } else {
-                        std::copy(res.data.begin(), res.data.end(), std::back_inserter(result.data));
-                    }
-                } else {
-                    auto res = (*op)(get<Array>(alpha.data[i]), omega);
-
-                    if(omega.is_scalar()) {
-                        result.data.emplace_back(res);
-                    } else {
-                        std::copy(res.data.begin(), res.data.end(), std::back_inserter(result.data));
-                    }
-                }
-            }
-
-            return result;
-        }
-         */
     }
 };

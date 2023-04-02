@@ -359,8 +359,10 @@ namespace kepler {
         if(axis == omega.shape.size() - 1) {
             index = std::floor((double)element / scalar_dim_size);
         } else {
-            index = (int)((element % scalar_dim_size) + (std::floor((double)element / step_size) * scalar_dim_size));
+            index = (int)((element % alpha.size()) + std::floor((double)element / step_size) * step_size);
         }
+
+        index = index % alpha.size();
 
         return (int)get<Number>(get<Array>(alpha.data[index]).data[0]).real();
     }
@@ -418,6 +420,8 @@ namespace kepler {
             throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
         } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
             return std::visit(*this, alpha.data[0], omega.data[0]);
+        } else if(!alpha.is_simple_scalar() && omega.is_simple_scalar()) {
+            throw kepler::error(LengthError, "Left argument must be a scalar.");
         } else if(omega.is_scalar()) {
             return (*this)(alpha, get<Array>(omega.data[0]));
         }
@@ -446,6 +450,8 @@ namespace kepler {
             throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
         } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
             return std::visit(*this, alpha.data[0], omega.data[0]);
+        } else if(!alpha.is_simple_scalar() && omega.is_simple_scalar()) {
+            throw kepler::error(LengthError, "Left argument must be a scalar.");
         } else if(omega.is_scalar()) {
             return (*this)(alpha, get<Array>(omega.data[0]));
         }
@@ -713,7 +719,7 @@ namespace kepler {
             case -9:
                 return {omega};
             case -8:
-                return {pow((-1.0 + std::pow(omega, 2)), 0.5)};
+                return {-1.0 * pow(-1.0 - pow(omega, 2), 0.5)};
             case -7:
                 if(omega == -1.0 || omega == 1.0) {
                     throw kepler::error(DomainError, "Inverse hyperbolic tangent undefined for " +
@@ -729,7 +735,7 @@ namespace kepler {
                 if(omega == -1.0) {
                     return {0};
                 } else {
-                    return {pow(((omega + 1.0) / (omega - 1.0)), 0.5) * (omega + 1.0)};
+                    return {pow(((omega - 1.0) / (omega + 1.0)), 0.5) * (omega + 1.0)};
                 }
             case -3:
                 return {atan(omega)};
@@ -743,7 +749,7 @@ namespace kepler {
                 } else if(omega.real() < -1.0 || omega.real() > 1.0) {
                     throw kepler::error(DomainError, "Expected argument between -1 and 1.");
                 } else {
-                    return {pow((1.0 - pow(omega, 2)), 0.5)};
+                    return {pow((1.0 - pow(omega.real(), 2.0)), 0.5)};
                 }
             case 1:
                 return {sin(omega)};

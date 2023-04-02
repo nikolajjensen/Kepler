@@ -28,10 +28,10 @@ namespace kepler {
         int cursor;
 
         void advance();
-        const char32_t& current();
-        const char32_t& peek();
-        bool at_end();
-        bool one_of(const char32_t& ch, std::u32string elements);
+        const char32_t& current() const;
+        const char32_t& peek() const;
+        bool at_end() const;
+        bool one_of(const char32_t& ch, const std::u32string& elements) const;
 
         void skip_blanks();
         void skip_comment();
@@ -47,6 +47,6 @@ namespace kepler {
     public:
         explicit Tokenizer();
 
-        std::vector<Token> tokenize(std::vector<Char>* input_);
+        std::vector<Token> tokenize(const std::vector<Char>* input_);
     };
 };

@@ -125,10 +125,10 @@ kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
 }
 
 kepler::StringUTF8 kepler::number_to_string(const kepler::Number& num, int precision) {
-    StringUTF32 result = uni::utf8to32u(kepler::double_to_string(num.real(), precision));
+    String result = uni::utf8to32u(kepler::double_to_string(num.real(), precision));
 
     if(num.imag() != 0) {
-        result = result + StringUTF32(1, constants::complex_marker) + uni::utf8to32u(kepler::double_to_string(num.imag(), precision));
+        result = result + String(1, constants::complex_marker) + uni::utf8to32u(kepler::double_to_string(num.imag(), precision));
     }
 
     return uni::utf32to8(result);

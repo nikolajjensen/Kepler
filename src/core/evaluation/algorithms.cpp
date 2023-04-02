@@ -44,15 +44,20 @@ kepler::Number kepler::floor(const Number &number) {
 //¯4 ¯3 ¯2 ¯1 0 1 2 3 4 ∘.! ¯4 ¯3 ¯2 ¯1 0 1 2 3 4
 //¯4 ! ¯3
 kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
-    Number oa = omega - alpha;
+    if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
+        throw kepler::error(DomainError, "Complex arguments are not supported.");
+    }
+
+    return (tgamma(omega.real() + 1.0) / (tgamma(alpha.real() + 1.0) * tgamma(1.0 + omega.real() - alpha.real())));
+    /*Number oa = omega - alpha;
 
     bool a_neg_int = alpha.imag() == 0.0 && alpha.real() == round(alpha.real()) && alpha.real() < 0.0;
     bool o_neg_int = omega.imag() == 0.0 && omega.real() == round(omega.real()) && omega.real() < 0.0;
     bool oa_neg_int = oa.imag() == 0.0 && oa.real() == round(oa.real()) && oa.real() < 0.0;
 
-    int a_int = static_cast<int>(alpha.real());
-    int o_int = static_cast<int>(omega.real());
-    int oa_int = static_cast<int>(oa.real());
+    int a_int = alpha.real();//static_cast<int>(alpha.real());
+    int o_int = omega.real();//static_cast<int>(omega.real());
+    int oa_int = oa.real();//static_cast<int>(oa.real());
 
     // Algorithm mentioned in ISO
     if(!a_neg_int && !o_neg_int && !oa_neg_int) {
@@ -70,7 +75,7 @@ kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
         return pow(-1, oa.real()) * binomial(abs(o_int + 1.0), abs(a_int + 1.0));
     } else {
         throw kepler::error(InternalError, "Unexpected case reached in binomial calculation.");
-    }
+    }*/
 }
 
 kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega) {

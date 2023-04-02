@@ -84,3 +84,68 @@ TEST_CASE_METHOD(fixture, "over (⍥)", "[over][operators]") {
     CHECK_THAT(run("-⍥×2"), Prints("¯1"));
     CHECK_THAT(run("-⍥×2J12"), Prints("¯0.1643989873J¯0.9863939238"));
 }
+
+TEST_CASE_METHOD(fixture, "Inner product (.)", "[inner-product][operators]") {
+    CHECK_THAT(run("4 2 1 +.× 1 0 1"), Prints("5"));
+    CHECK_THAT(run("1 2 3 +.× 4 5 6"), Prints("32"));
+    CHECK_THAT(run("3 3 ∧.= 3 3 3 3"), Throws(kepler::LengthError));
+}
+
+TEST_CASE_METHOD(fixture, "Power (⍣)", "[power][operators]") {
+    run("f←{⍵+1}");
+
+    CHECK_THAT(run("(f⍣3)0"), Prints("3"));
+    CHECK_THAT(run("(f⍣0)0"), Prints("0"));
+    CHECK_THAT(run("(f⍣0)102301"), Prints("102301"));
+    CHECK_THAT(run("(f⍣0)102301"), Prints("102301"));
+    CHECK_THAT(run("(f⍣102301)0"), Prints("102301"));
+    CHECK_THAT(run("(f⍣'abc')4"), Throws(kepler::DomainError));
+}
+
+TEST_CASE_METHOD(fixture, "Outer product (.)", "[outer-product][operators]") {
+    CHECK_THAT(run("4 2 1 ∘.× 1 0 1"), Prints("4 0 4\n"
+                                              "2 0 2\n"
+                                              "1 0 1"));
+    CHECK_THAT(run("1 2 3 ∘.× 4 5 6"), Prints(" 4  5  6\n"
+                                              " 8 10 12\n"
+                                              "12 15 18"));
+    CHECK_THAT(run("3 ∘.× 3 3 3 3"), Prints("9 9 9 9"));
+    CHECK_THAT(run("3 3 3 3 ∘.× 3"), Prints("9 9 9 9"));
+    CHECK_THAT(run("(3 3⍴⍳10) ∘.× (3 3⍴⍳10)"), Prints(" 1  2  3\n"
+                                                      " 4  5  6\n"
+                                                      " 7  8  9\n"
+                                                      "\n"
+                                                      " 2  4  6\n"
+                                                      " 8 10 12\n"
+                                                      "14 16 18\n"
+                                                      "\n"
+                                                      " 3  6  9\n"
+                                                      "12 15 18\n"
+                                                      "21 24 27\n"
+                                                      "\n"
+                                                      "\n"
+                                                      " 4  8 12\n"
+                                                      "16 20 24\n"
+                                                      "28 32 36\n"
+                                                      "\n"
+                                                      " 5 10 15\n"
+                                                      "20 25 30\n"
+                                                      "35 40 45\n"
+                                                      "\n"
+                                                      " 6 12 18\n"
+                                                      "24 30 36\n"
+                                                      "42 48 54\n"
+                                                      "\n"
+                                                      "\n"
+                                                      " 7 14 21\n"
+                                                      "28 35 42\n"
+                                                      "49 56 63\n"
+                                                      "\n"
+                                                      " 8 16 24\n"
+                                                      "32 40 48\n"
+                                                      "56 64 72\n"
+                                                      "\n"
+                                                      " 9 18 27\n"
+                                                      "36 45 54\n"
+                                                      "63 72 81"));
+}

@@ -134,11 +134,11 @@ void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream,
     Tokenizer tokenizer;
     List<Token> tokens = tokenizer.tokenize(&input);
 
-    Parser parser(tokens);
+    Parser parser;
     if(symbol_table != nullptr) {
         parser.use_table(symbol_table);
     }
-    auto ast = parser.parse();
+    auto ast = parser.parse(tokens);
 
     Interpreter interpreter(*ast, *ast->symbol_table, stream);
     auto result = interpreter.interpret();

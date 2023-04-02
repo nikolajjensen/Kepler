@@ -64,7 +64,7 @@ namespace kepler {
 
     Array Interpreter::visit(MonadicFunction *node) {
         try {
-            auto f = node->function->accept(*this);
+            Operation_ptr f = node->function->accept(*this);
             return (*f)(node->omega->accept(*this));
         } catch (kepler::error& err) {
             err.position = node->function->get_position();
@@ -89,8 +89,7 @@ namespace kepler {
 
     Operation_ptr Interpreter::visit(FunctionVariable *node) {
         auto &content = node->identifier.content.value();
-        std::u32string identifier = {content.begin(), content.end()};
-        return symbol_table.get<Operation_ptr>(identifier);
+        return symbol_table.get<Operation_ptr>({content.begin(), content.end()});
     }
 
     Array Interpreter::visit(Variable *node) {

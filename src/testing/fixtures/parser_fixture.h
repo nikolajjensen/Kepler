@@ -40,15 +40,15 @@ public:
 protected:
     std::string run(std::string&& raw) {
         try {
-            kepler::StringUTF32 converted = uni::utf8to32u(raw);
+            kepler::String converted = uni::utf8to32u(raw);
             std::vector<kepler::Char> input(converted.begin(), converted.end());
 
             kepler::Tokenizer tokenizer;
             auto tokens = tokenizer.tokenize(&input);
 
-            kepler::Parser parser(tokens);
+            kepler::Parser parser;
             parser.use_table(&symbol_table);
-            return parser.parse()->to_string();
+            return parser.parse(tokens)->to_string();
         } catch(kepler::error& err) {
             return err.to_string();
         }

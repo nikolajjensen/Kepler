@@ -31,7 +31,6 @@ namespace kepler {
         explicit DyadicOp(Operation_ptr aalpha_, Operation_ptr oomega_);
     };
 
-
     struct Jot : DyadicOp {
         using DyadicOp::DyadicOp;
 

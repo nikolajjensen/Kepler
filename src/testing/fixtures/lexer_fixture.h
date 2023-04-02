@@ -28,7 +28,7 @@ public:
 
 protected:
     kepler::List<kepler::Token> run(std::string&& raw, bool timing = false) {
-        kepler::StringUTF32 converted = uni::utf8to32u(raw);
+        kepler::String converted = uni::utf8to32u(raw);
         std::vector<kepler::Char> input(converted.begin(), converted.end());
 
         //auto start = std::chrono::high_resolution_clock::now();

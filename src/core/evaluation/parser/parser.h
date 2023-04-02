@@ -35,23 +35,21 @@ namespace kepler {
         std::vector<Token>::const_iterator end;
 
         void advance();
-        const Token& current();
-        const Token& peek(int amount = 1);
-        bool at_end();
-        long position(const std::vector<Token>::const_iterator& it);
-        long position();
+        const Token& current() const;
+        const Token& peek(int amount = 1) const;
+        TokenType peek_beyond_parenthesis() const;
+        bool at_end() const;
+        long position(const std::vector<Token>::const_iterator& it) const;
+        long position() const;
+        bool identifies_function(const Token& token) const;
+
         void eat(TokenType type);
-        TokenType peek_beyond_parenthesis();
-
-        void assert_matching(const TokenType& left, const TokenType& right, const Char& right_char);
-
-        bool identifies_function(Token token);
-        std::vector<Token>::const_iterator next_separator(const std::vector<Token>::const_iterator& current);
-        std::vector<Token>::const_iterator matching_brace(const std::vector<Token>::const_iterator& begin);
+        std::vector<Token>::const_iterator next_separator(std::vector<Token>::const_iterator current) const;
+        std::vector<Token>::const_iterator matching_brace(std::vector<Token>::const_iterator begin) const;
+        void assert_matching(const TokenType& left, const TokenType& right, const Char& right_char) const;
 
         ASTNode<Operation_ptr>* parse_dfn();
         ASTNode<Array>* parse_argument();
-
         Statements* parse_program();
         Statements* parse_statement_list();
         ASTNode<Array>* parse_statement();
@@ -62,11 +60,10 @@ namespace kepler {
         ASTNode<Operation_ptr>* parse_f();
 
     public:
-        explicit Parser(SymbolTable& parent_table, std::vector<Token>::const_iterator begin, std::vector<Token>::const_iterator end);
-        explicit Parser(const std::vector<Token>& input_);
-
+        explicit Parser();
         void use_table(SymbolTable* new_table);
 
-        Statements* parse();
+        Statements* parse(const std::vector<Token>& input_);
+        Statements* parse(SymbolTable* parent_table, std::vector<Token>::const_iterator begin, std::vector<Token>::const_iterator end);
     };
 };

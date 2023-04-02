@@ -27,20 +27,20 @@ namespace kepler {
         if(!at_end()) cursor++;
     }
 
-    const char32_t& Tokenizer::current() {
+    const char32_t& Tokenizer::current() const {
         return (*input)[cursor];
     }
 
-    const char32_t& Tokenizer::peek() {
+    const char32_t& Tokenizer::peek() const {
         return (*input)[cursor + 1];
     }
 
-    bool Tokenizer::at_end() {
+    bool Tokenizer::at_end() const {
         return cursor >= input->size();
     }
 
 
-    bool Tokenizer::one_of(const char32_t& ch, std::u32string elements) {
+    bool Tokenizer::one_of(const char32_t& ch, const std::u32string& elements) const {
         return std::any_of(elements.begin(), elements.end(), [&](const Char& element) { return ch == element; });
     }
 
@@ -183,7 +183,7 @@ namespace kepler {
 
     Tokenizer::Tokenizer() : input(), cursor(0) {}
 
-    std::vector<Token> Tokenizer::tokenize(std::vector<Char>* input_) {
+    std::vector<Token> Tokenizer::tokenize(const std::vector<Char>* input_) {
         cursor = 0;
         input = input_;
 

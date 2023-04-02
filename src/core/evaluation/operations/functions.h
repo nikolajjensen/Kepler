@@ -22,7 +22,6 @@
 #include "operation.h"
 
 namespace kepler {
-
     struct Plus : PervadeMixin<Operation> {
         using PervadeMixin<Operation>::PervadeMixin;
 

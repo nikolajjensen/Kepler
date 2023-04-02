@@ -25,7 +25,6 @@ namespace kepler {
     struct SymbolTable;
 
     struct Array {
-    public:
         using element_type = std::variant<std::u32string, Number, Array>;
 
         std::vector<int> shape;
