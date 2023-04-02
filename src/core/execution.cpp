@@ -27,17 +27,7 @@
 #include "core/evaluation/interpreter.h"
 #include "symbol_table.h"
 
-std::vector<kepler::Char> concat_lines(const std::vector<std::vector<kepler::Char>>& lines) {
-    std::vector<kepler::Char> result;
-    for(auto& line : lines) {
-        std::copy(line.begin(), line.end(), std::back_inserter(result));
-        result.emplace_back(U'\n');
-    }
-    if(!result.empty()) {
-        result.pop_back();
-    }
-    return result;
-}
+
 
 struct error_loc {
     long line_number;
@@ -67,7 +57,7 @@ int kepler::run_file(const std::string &path, std::ostream & stream) {
         symbol_table.insert_system_parameters();
 
         std::vector<std::vector<Char>> lines = kepler::read_file(path);
-        std::vector<Char> all_lines = concat_lines(lines);
+        std::vector<Char> all_lines = kepler::concat_lines(lines);
         try {
             kepler::immediate_execution(all_lines, stream, false, &symbol_table);
         } catch (kepler::error& err) {

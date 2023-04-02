@@ -60,6 +60,8 @@ namespace kepler {
         } else if(node->token.type == POWER) {
             return std::make_shared<Power>(node->left->accept(*this), get<ASTNode<Array>*>(node->right)->accept(*this));
         }
+
+        throw kepler::error(InternalError, "Unexpected case reached when evaluating DyadicOperator.");
     }
 
     Array Interpreter::visit(MonadicFunction *node) {

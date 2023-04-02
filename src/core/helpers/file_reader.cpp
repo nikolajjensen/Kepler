@@ -48,19 +48,14 @@ std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path
     return result;
 }
 
-std::vector<kepler::Char> kepler::read_file_whole(const std::string &path) {
-    if(!path.ends_with(".kpl")) {
-        throw kepler::error(FileError, "Only .kpl files are accepted.");
+std::vector<kepler::Char> kepler::concat_lines(const std::vector<std::vector<kepler::Char>>& lines) {
+    std::vector<kepler::Char> result;
+    for(auto& line : lines) {
+        std::copy(line.begin(), line.end(), std::back_inserter(result));
+        result.emplace_back(U'\n');
     }
-
-    std::ifstream f(path);
-
-    if(!f.is_open()) {
-        throw kepler::error(FileError, "Could not open the file.");
+    if(!result.empty()) {
+        result.pop_back();
     }
-
-    std::stringstream ss;
-    ss << f.rdbuf();
-    auto str = uni::utf8to32(ss.str());
-    return {str.begin(), str.end()};
+    return result;
 }

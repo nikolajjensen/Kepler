@@ -2,11 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(Kepler)
 
 set(CMAKE_CXX_STANDARD 20)
-
-#set(Boost_USE_STATIC_LIBS OFF)
-#set(Boost_USE_MULTITHREADED ON)
-#set(Boost_USE_STATIC_RUNTIME OFF)
-#find_package(Boost 1.74.0 REQUIRED COMPONENTS)
+set(CMAKE_BUILD_TYPE Release)
 
 include(FetchContent)
 
@@ -27,17 +23,39 @@ FetchContent_Declare(
         GIT_TAG        1.6.1 # or a later release
 )
 
-file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
-        "src/*.h"
-        "src/*.cpp"
-        "src/*.tpp"
-)
+FetchContent_Declare(googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG v1.13.x)
 
-add_executable(${PROJECT_NAME} ${Kepler_SRC})
+FetchContent_Declare(googlebenchmark
+        GIT_REPOSITORY https://github.com/google/benchmark.git
+        GIT_TAG main)
+
+IF(DEFINED ENV{BENCH})
+   file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
+           "benchmarking/*.h"
+           "benchmarking/*.cpp"
+           "src/core/*.h"
+           "src/core/*.cpp"
+           "src/testing/*.h"
+           "src/testing/*.cpp"
+   )
+   add_executable(${PROJECT_NAME} ${Kepler_SRC})
+   target_include_directories(${PROJECT_NAME} PRIVATE src)
+ELSE()
+   file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
+           "src/*.h"
+           "src/*.cpp"
+   )
+   add_executable(${PROJECT_NAME} ${Kepler_SRC})
+   target_include_directories(${PROJECT_NAME} PRIVATE src)
+ENDIF()
+
+
 
 FetchContent_MakeAvailable(uni-algo)
 FetchContent_MakeAvailable(Catch2)
 FetchContent_MakeAvailable(Lyra)
+FetchContent_MakeAvailable(googletest googlebenchmark)
 #target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Boost::boost Catch2::Catch2 lyra)
-target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Catch2::Catch2 lyra)
-target_include_directories(${PROJECT_NAME} PRIVATE src)
+target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo Catch2::Catch2 lyra benchmark::benchmark)

@@ -24,5 +24,5 @@
 
 namespace kepler {
     std::vector<std::vector<kepler::Char>> read_file(const std::string& path);
-    std::vector<kepler::Char> read_file_whole(const std::string& path);
+    std::vector<kepler::Char> concat_lines(const std::vector<std::vector<kepler::Char>>& lines);
 };
