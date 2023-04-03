@@ -1,4 +1,5 @@
-#!/usr/local/bin/dyalogscript
+#!/usr/bin/dyalogscript
+⍝#!/usr/local/bin/dyalogscript
 ⎕CY'dfns'
 
 ⍝ Degrees
