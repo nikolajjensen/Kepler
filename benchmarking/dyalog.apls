@@ -1,0 +1,76 @@
+#!/usr/local/bin/dyalogscript
+⎕CY'dfns'
+
+⍝ Degrees
+fa←{32+⍵×9÷5}
+ce←{(5÷9)×⍵-32}
+deg_work←{fa ce ⍵}
+
+⎕ ← 'Degrees:'
+⎕ ← cmpx 'deg_work¨(⍳1)' 'deg_work¨(⍳10)' 'deg_work¨(⍳100)' 'deg_work¨(⍳1000)' 'deg_work¨(⍳10000)' 'deg_work¨(⍳100000)'
+
+
+
+
+
+⍝ Factorial
+fact←{⍵≤1:1 ⋄ ⍵×∇ ⍵-1}
+
+⎕ ← 'Fact:'
+⎕ ← cmpx 'fact 1' 'fact 2' 'fact 4' 'fact 8' 'fact 16' 'fact 32'
+
+
+
+
+
+⍝ Fibonacci
+fib←{⍵≤1:⍵ ⋄ (∇ ⍵-1)+∇ ⍵-2}
+
+⎕ ← 'Fib:'
+⎕ ← cmpx 'fib 1' 'fib 2' 'fib 4' 'fib 8' 'fib 16' 'fib 32'
+
+
+
+
+
+⎕ ← 'Iota:'
+⎕ ← cmpx '⍳10' '⍳100' '⍳1000' '⍳10000' '⍳100000' '⍳1000000'
+
+
+
+
+⍝ Life
+glider ← 3 3⍴1 1 1 1 0 0 0 1 0
+currentGeneration ← ¯5 ¯5↑glider
+Life ← {1 ⍵∨.∧3 4=⊂+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}
+work ← {currentGeneration ← Life currentGeneration}
+
+⎕ ← 'Life 5:'
+currentGeneration ← ¯5 ¯5↑glider
+⎕ ← cmpx 'work¨⍳5'
+⎕ ← 'Life 10:'
+currentGeneration ← ¯10 ¯10↑glider
+⎕ ← cmpx 'work¨⍳5'
+⎕ ← 'Life 100:'
+currentGeneration ← ¯100 ¯100↑glider
+⎕ ← cmpx 'work¨⍳5'
+
+
+
+⍝ Mandelbrot
+⎕IO←0
+⎕PP←4
+f←{c+⍵*2}
+unitstep ← {(⍳⍵+1)÷⍵}
+
+c ← ¯3 × 0.7J0.5 - (0J1×unitstep 10)∘.+(unitstep 10)
+⎕ ← 'Mandelbrot 10:'
+⎕ ← cmpx '9<|(f⍣8) 0'
+
+c ← ¯3 × 0.7J0.5 - (0J1×unitstep 100)∘.+(unitstep 100)
+⎕ ← 'Mandelbrot 100:'
+⎕ ← cmpx '9<|(f⍣8) 0'
+
+c ← ¯3 × 0.7J0.5 - (0J1×unitstep 500)∘.+(unitstep 500)
+⎕ ← 'Mandelbrot 500:'
+⎕ ← cmpx '9<|(f⍣8) 0'
