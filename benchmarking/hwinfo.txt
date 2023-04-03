@@ -1,0 +1,69 @@
+cpu:                                                            
+                       Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz, 4494 MHz
+                       Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz, 4500 MHz
+                       Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz, 4500 MHz
+                       Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz, 4500 MHz
+                       Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz, 4300 MHz
+                       Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz, 4300 MHz
+keyboard:
+  /dev/input/event7    Apple Magic Keyboard with Touch ID and Numeric Keypad
+  /dev/input/event6    Razer DeathAdder Chroma
+                       Integrated Technology Express ITE Device(8595)
+mouse:
+  /dev/input/mice      Razer DeathAdder Chroma
+monitor:
+                       PHILIPS PHL 275E1
+graphics card:
+                       ATI VGA compatible controller
+sound:
+                       ATI Audio device
+                       Intel Cannon Lake PCH cAVS
+storage:
+                       Intel Cannon Lake PCH SATA AHCI Controller
+network:
+  wlo1                 Intel Wireless-AC 9560 [Jefferson Peak]
+  eno2                 Intel Ethernet Connection (7) I219-V
+network interface:
+  eno2                 Ethernet network interface
+  lo                   Loopback network interface
+  wlo1                 Ethernet network interface
+disk:
+  /dev/sda             Crucial_CT750MX3
+partition:
+  /dev/sda1            Partition
+  /dev/sda2            Partition
+  /dev/sda3            Partition
+  /dev/sda4            Partition
+  /dev/sda5            Partition
+usb controller:
+                       Intel Cannon Lake PCH USB 3.1 xHCI Host Controller
+bios:
+                       BIOS
+bridge:
+                       Intel Cannon Lake PCH PCI Express Root Port #1
+                       Intel Z390 Chipset LPC/eSPI Controller
+                       ATI Navi 10 XL Downstream Port of PCI Express Switch
+                       Intel Xeon E3-1200 v5/E3-1500 v5/6th Gen Core Processor PCIe Controller (x16)
+                       ATI Navi 10 XL Upstream Port of PCI Express Switch
+                       Intel Cannon Lake PCH PCI Express Root Port #17
+                       Intel 8th Gen Core Processor Host Bridge/DRAM Registers
+                       Intel Cannon Lake PCH PCI Express Root Port #9
+hub:
+                       Linux Foundation 2.0 root hub
+                       Linux Foundation 3.0 root hub
+memory:
+                       Main Memory
+bluetooth:
+                       Intel Bluetooth Device
+unknown:
+                       FPU
+                       DMA controller
+                       PIC
+                       Keyboard controller
+                       Intel Cannon Lake PCH HECI Controller
+                       Intel Cannon Lake PCH SPI Controller
+                       Intel Cannon Lake PCH Thermal Controller
+                       Intel Cannon Lake PCH Shared SRAM
+                       Intel Cannon Lake PCH SMBus Controller
+                       Apple Magic Keyboard with Touch ID and Numeric Keypad
+  /dev/input/event5    Razer DeathAdder Chroma

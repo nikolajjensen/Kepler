@@ -1,0 +1,24 @@
+nikolaj@nikolaj-ubuntu:~/Desktop/Kepler/benchmarking$ neofetch
+            .-/+oossssoo+/-.               nikolaj@nikolaj-ubuntu 
+        `:+ssssssssssssssssss+:`           ---------------------- 
+      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 22.04.2 LTS x86_64 
+    .ossssssssssssssssssdMMMNysssso.       Host: Z390 I AORUS PRO WIFI 
+   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 5.19.0-38-generic 
+  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 4 mins 
+ /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 1714 (dpkg), 10 (snap) 
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: bash 5.1.16 
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   Resolution: 2560x1440 
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   DE: GNOME 42.5 
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter 
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   WM Theme: Adwaita 
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Theme: Yaru [GTK2/3] 
+ /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Icons: Yaru [GTK2/3] 
+  +sssssssssdmydMMMMMMMMddddyssssssss+     Terminal: gnome-terminal 
+   /ssssssssssshdmNNNNmyNMMMMhssssss/      CPU: Intel i5-9600K (6) @ 4.600GHz 
+    .ossssssssssssssssssdMMMNysssso.       GPU: AMD ATI Radeon RX 6700/6700 XT / 6800M 
+      -+sssssssssssssssssyyyssss+-         Memory: 1798MiB / 32037MiB 
+        `:+ssssssssssssssssss+:`
+            .-/+oossssoo+/-.                                       
+                                                                   
+
+
