@@ -21,6 +21,7 @@
 #include "core/error.h"
 #include <cmath>
 #include <numeric>
+#include <algorithm>
 
 
 //https://www.jsoftware.com/papers/eem/complexfloor1.htm#0
@@ -86,12 +87,12 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
     }
 
     for(int i = 0; i < alpha.data.size(); ++i) {
-        auto element = get<Array>(alpha.data[i]);
-        if(!holds_alternative<Number>(element.data[0])) {
+        auto element = std::get<Array>(alpha.data[i]);
+        if(!std::holds_alternative<Number>(element.data[0])) {
             throw kepler::error(DomainError, "Expected numbers only.");
         }
 
-        auto& ctrl_bool = get<Number>(element.data[0]);
+        auto& ctrl_bool = std::get<Number>(element.data[0]);
 
         if((ctrl_bool.imag() != 0.0) || (ctrl_bool != 0.0 && ctrl_bool != 1.0)) {
             throw kepler::error(DomainError, "Expected boolean values only.");
@@ -102,8 +103,8 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
         }
 
         if(!lists.empty()) {
-            get<Array>(lists.back()).data.emplace_back(omega.data[i]);
-            get<Array>(lists.back()).shape[0]++;
+            std::get<Array>(lists.back()).data.emplace_back(omega.data[i]);
+            std::get<Array>(lists.back()).shape[0]++;
         }
     }
 
@@ -111,7 +112,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
     if(size > 1 || size == 0) {
         return {{size}, std::move(lists)};
     }
-    return get<Array>(lists[0]);
+    return std::get<Array>(lists[0]);
 }
 
 kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32string &omega) {
@@ -122,12 +123,12 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32stri
     }
 
     for(int i = 0; i < alpha.data.size(); ++i) {
-        auto element = get<Array>(alpha.data[i]);
-        if(!holds_alternative<Number>(element.data[0])) {
+        auto element = std::get<Array>(alpha.data[i]);
+        if(!std::holds_alternative<Number>(element.data[0])) {
             throw kepler::error(DomainError, "Expected numbers only.");
         }
 
-        auto& ctrl_bool = get<Number>(element.data[0]);
+        auto& ctrl_bool = std::get<Number>(element.data[0]);
 
         if((ctrl_bool.imag() != 0.0) || (ctrl_bool != 0.0 && ctrl_bool != 1.0)) {
             throw kepler::error(DomainError, "Expected boolean values only.");
@@ -138,8 +139,8 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32stri
         }
 
         if(!lists.empty()) {
-            auto& arr = get<Array>(lists.back());
-            auto& str = get<std::u32string>(arr.data[0]);
+            auto& arr = std::get<Array>(lists.back());
+            auto& str = std::get<std::u32string>(arr.data[0]);
             str += omega[i];
         }
     }
@@ -148,7 +149,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32stri
     if(size > 1 || size == 0) {
         return {{size}, std::move(lists)};
     }
-    return get<Array>(lists[0]);
+    return std::get<Array>(lists[0]);
 }
 
 kepler::Array kepler::without(const Array &alpha, const Array &omega) {
@@ -189,10 +190,10 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
     }
 
     if(alpha.is_scalar()) {
-        result.shape = {(int)get<Number>(alpha.data[0]).real()};
+        result.shape = {(int)std::get<Number>(alpha.data[0]).real()};
     } else {
         for(auto& element : alpha.data) {
-            auto& num = get<Number>(get<Array>(element).data[0]);
+            auto& num = std::get<Number>(std::get<Array>(element).data[0]);
 
             if(num.real() < 0.0) {
                 throw kepler::error(ValueError, "Expected only positive integers in argument.");

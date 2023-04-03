@@ -1,0 +1,9 @@
+cmake -B ./build -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles"
+
+cmake --build ./build --config Release
+
+
+MingGW-w64: https://winlibs.com/
+Extract, get path
+Set environment var "Path" to /bin.
+Restart CMD, then use.

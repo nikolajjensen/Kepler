@@ -17,6 +17,7 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include <algorithm>
 #include "tokenizer.h"
 #include "core/constants/literals.h"
 #include "core/error.h"

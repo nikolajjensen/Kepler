@@ -17,6 +17,7 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include <string>
 #include "interpreter.h"
 #include <memory>
 #include "core/constants/config.h"
@@ -30,12 +31,12 @@ namespace kepler {
     }
 
     Array Interpreter::visit(Scalar *node) {
-        if (holds_alternative<std::u32string>(node->content)) {
+        if (std::holds_alternative<std::u32string>(node->content)) {
             return {{},
-                    {get<std::u32string>(node->content)}};
-        } else if (holds_alternative<Number>(node->content)) {
+                    {std::get<std::u32string>(node->content)}};
+        } else if (std::holds_alternative<Number>(node->content)) {
             return {{},
-                    {get<Number>(node->content)}};
+                    {std::get<Number>(node->content)}};
         } else {
             throw kepler::error(InternalError, "Expected either a string or number as Scalar.");
         }
@@ -56,9 +57,9 @@ namespace kepler {
 
     Operation_ptr Interpreter::visit(DyadicOperator *node) {
         if(std::holds_alternative<ASTNode<Operation_ptr>*>(node->right)) {
-            return build_operation(node->token.type, node->left->accept(*this), get<ASTNode<Operation_ptr>*>(node->right)->accept(*this));
+            return build_operation(node->token.type, node->left->accept(*this), std::get<ASTNode<Operation_ptr>*>(node->right)->accept(*this));
         } else if(node->token.type == POWER) {
-            return std::make_shared<Power>(node->left->accept(*this), get<ASTNode<Array>*>(node->right)->accept(*this));
+            return std::make_shared<Power>(node->left->accept(*this), std::get<ASTNode<Array>*>(node->right)->accept(*this));
         }
 
         throw kepler::error(InternalError, "Unexpected case reached when evaluating DyadicOperator.");
@@ -157,8 +158,8 @@ namespace kepler {
             throw kepler::error(SyntaxError, "Condition did not evaluate to a value.", node->condition->get_position());
         }
 
-        if(holds_alternative<Number>(condition.data[0])) {
-            if(get<Number>(condition.data[0]).real() != 0) {
+        if(std::holds_alternative<Number>(condition.data[0])) {
+            if(std::get<Number>(condition.data[0]).real() != 0) {
                 return node->true_case->accept(*this);
             }
         }

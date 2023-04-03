@@ -18,6 +18,7 @@
 //
 
 #include "parser.h"
+#include <algorithm>
 #include "core/error.h"
 #include "core/symbol_table.h"
 #include "core/constants/literals.h"

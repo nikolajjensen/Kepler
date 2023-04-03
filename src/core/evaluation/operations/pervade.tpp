@@ -58,10 +58,10 @@ namespace kepler {
             tmp.data.resize(alpha.data.size());
 
             for (int i = 0; i < alpha.data.size(); ++i) {
-                if(holds_alternative<Array>(omega.data[0])) {
-                    tmp.data[i] = (*this)(get<Array>(alpha.data[i]), get<Array>(omega.data[0]));
+                if(std::holds_alternative<Array>(omega.data[0])) {
+                    tmp.data[i] = (*this)(std::get<Array>(alpha.data[i]), std::get<Array>(omega.data[0]));
                 } else {
-                    tmp.data[i] = (*this)(get<Array>(alpha.data[i]), omega);
+                    tmp.data[i] = (*this)(std::get<Array>(alpha.data[i]), omega);
                 }
             }
 
@@ -70,10 +70,10 @@ namespace kepler {
             tmp.data.resize(omega.data.size());
 
             for (int i = 0; i < omega.data.size(); ++i) {
-                if(holds_alternative<Array>(alpha.data[0])) {
-                    tmp.data[i] = (*this)(get<Array>(alpha.data[0]), get<Array>(omega.data[i]));
+                if(std::holds_alternative<Array>(alpha.data[0])) {
+                    tmp.data[i] = (*this)(std::get<Array>(alpha.data[0]), std::get<Array>(omega.data[i]));
                 } else {
-                    tmp.data[i] = (*this)(alpha, get<Array>(omega.data[i]));
+                    tmp.data[i] = (*this)(alpha, std::get<Array>(omega.data[i]));
                 }
             }
         }

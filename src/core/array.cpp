@@ -24,6 +24,7 @@
 #include <utility>
 #include <numeric>
 #include <variant>
+#include <algorithm>
 #include "core/helpers/conversion.h"
 #include "core/helpers/array_printer.h"
 #include "symbol_table.h"
@@ -55,22 +56,22 @@ namespace kepler {
     }
 
     bool Array::is_simple_scalar() const {
-        return is_scalar() && !empty() && !holds_alternative<Array>(data[0]);
+        return is_scalar() && !empty() && !std::holds_alternative<Array>(data[0]);
     }
 
     bool Array::is_numeric() const {
         return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
-            return holds_alternative<Number>(element);
+            return std::holds_alternative<Number>(element);
         });
     }
 
     bool Array::is_integer_numeric() const {
         return std::all_of(data.begin(), data.end(), [](const Array::element_type& element){
-            if(holds_alternative<Number>(element)) {
+            if(std::holds_alternative<Number>(element)) {
                 auto n = std::get<Number>(element).real();
                 return round(n) == n;
             } else if(std::holds_alternative<Array>(element)) {
-                return get<Array>(element).is_integer_numeric();
+                return std::get<Array>(element).is_integer_numeric();
             }
             return false;
         });

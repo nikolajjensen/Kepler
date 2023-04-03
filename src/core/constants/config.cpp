@@ -23,11 +23,11 @@
 
 namespace kepler {
     void constants::check_valid_system_param_value(const std::u32string &id, const Array &value) {
-        if(value.empty() || !holds_alternative<Number>(value.data[0])) {
+        if(value.empty() || !std::holds_alternative<Number>(value.data[0])) {
             throw kepler::error(DomainError, "Invalid system parameter value.");
         }
 
-        return check_valid_system_param_value(id, get<Number>(value.data[0]));
+        return check_valid_system_param_value(id, std::get<Number>(value.data[0]));
     }
 
     void constants::check_valid_system_param_value(const std::u32string &id, const Number &value) {

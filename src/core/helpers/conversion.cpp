@@ -18,6 +18,7 @@
 //
 
 #include "conversion.h"
+#include <algorithm>
 #include <uni_algo/conv.h>
 
 kepler::Number kepler::from_string(std::string num_str) {

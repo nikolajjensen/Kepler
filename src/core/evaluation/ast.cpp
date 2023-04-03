@@ -79,9 +79,9 @@ namespace kepler {
         delete left;
 
         if(std::holds_alternative<ASTNode<Operation_ptr>*>(right)) {
-            delete get<ASTNode<Operation_ptr>*>(right);
+            delete std::get<ASTNode<Operation_ptr>*>(right);
         } else {
-            delete get<ASTNode<Array>*>(right);
+            delete std::get<ASTNode<Array>*>(right);
         }
     }
 
@@ -91,9 +91,9 @@ namespace kepler {
     std::string DyadicOperator::to_string() const {
         std::string right_str;
         if(std::holds_alternative<ASTNode<Operation_ptr>*>(right)) {
-            right_str = get<ASTNode<Operation_ptr>*>(right)->to_string();
+            right_str = std::get<ASTNode<Operation_ptr>*>(right)->to_string();
         } else {
-            right_str = get<ASTNode<Array>*>(right)->to_string();
+            right_str = std::get<ASTNode<Array>*>(right)->to_string();
         }
         return "DyadicOperator(" + left->to_string() + " " + token.to_string() + " " + right_str + ")";
     }

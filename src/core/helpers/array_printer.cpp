@@ -21,6 +21,7 @@
 #include "array_printer.h"
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "conversion.h"
 #include <uni_algo/conv.h>
