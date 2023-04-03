@@ -122,15 +122,15 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerMandelbrot)(benchmark::State& state) {
 }
 
 BENCHMARK(CppDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
-BENCHMARK(CppFact)->RangeMultiplier(10)->Range(1, 10000)->Repetitions(30);
-BENCHMARK(CppFib)->RangeMultiplier(10)->Range(1, 10000)->Repetitions(30);
-BENCHMARK(CppIota)->RangeMultiplier(10)->Range(100000, 100000000)->Repetitions(30);
+BENCHMARK(CppFact)->RangeMultiplier(10)->Range(1, 1000)->Repetitions(30);
+BENCHMARK(CppFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(1);
+BENCHMARK(CppIota)->RangeMultiplier(10)->Range(10, 1000000)->Repetitions(30);
 
 BENCHMARK_REGISTER_F(KeplerFixture, KeplerDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
-BENCHMARK_REGISTER_F(KeplerFixture, KeplerFact)->RangeMultiplier(10)->Range(1, 10000)->Repetitions(30);
-BENCHMARK_REGISTER_F(KeplerFixture, KeplerFib)->RangeMultiplier(10)->Range(1, 10000)->Repetitions(30);
-BENCHMARK_REGISTER_F(KeplerFixture, KeplerIota)->RangeMultiplier(10)->Range(100000, 100000000)->Repetitions(30);
-BENCHMARK_REGISTER_F(KeplerFixture, KeplerLife)->RangeMultiplier(10)->Range(10, 1000)->Repetitions(30);
-BENCHMARK_REGISTER_F(KeplerFixture, KeplerMandelbrot)->RangeMultiplier(10)->Range(10, 1000)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerFact)->RangeMultiplier(10)->Range(1, 1000)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerIota)->RangeMultiplier(10)->Range(10, 1000000)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerLife)->Arg(5)->Arg(10)->Arg(100)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerMandelbrot)->Arg(10)->Arg(100)->Arg(500)->Repetitions(30);
 
 BENCHMARK_MAIN();

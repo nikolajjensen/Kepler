@@ -1,0 +1,11 @@
+To compile with O0:
+
+Set BENCH=1 env variable:
+export BENCH=1
+
+Build:
+cmake -B ./build -DCMAKE_BUILD_TYPE=Release
+cmake --build ./build --config Release
+
+Run:
+./Kepler --benchmark_out=result.json --benchmark_out_format=json
