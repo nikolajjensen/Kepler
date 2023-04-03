@@ -190,13 +190,16 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
     }
 
     if(alpha.is_scalar()) {
+        if(!alpha.is_integer_numeric()) {
+            throw kepler::error(DomainError, "Expected only positive integers in left argument.");
+        }
         result.shape = {(int)std::get<Number>(alpha.data[0]).real()};
     } else {
         for(auto& element : alpha.data) {
             auto& num = std::get<Number>(std::get<Array>(element).data[0]);
 
             if(num.real() < 0.0) {
-                throw kepler::error(ValueError, "Expected only positive integers in argument.");
+                throw kepler::error(ValueError, "Expected only positive integers in right argument.");
             }
 
             result.shape.emplace_back((int)num.real());
