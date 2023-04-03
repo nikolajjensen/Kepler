@@ -123,7 +123,7 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerMandelbrot)(benchmark::State& state) {
 
 BENCHMARK(CppDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
 BENCHMARK(CppFact)->RangeMultiplier(10)->Range(1, 1000)->Repetitions(30);
-BENCHMARK(CppFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(1);
+BENCHMARK(CppFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
 BENCHMARK(CppIota)->RangeMultiplier(10)->Range(10, 1000000)->Repetitions(30);
 
 BENCHMARK_REGISTER_F(KeplerFixture, KeplerDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
