@@ -1,0 +1,38 @@
+\hypertarget{execution_8h_source}{}\doxysection{execution.\+h}
+\label{execution_8h_source}\index{src/core/execution.h@{src/core/execution.h}}
+\mbox{\hyperlink{execution_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Copyright\ 2023\ Nikolaj\ Banke\ Jensen.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ This\ file\ is\ part\ of\ Kepler.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Kepler\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Kepler\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ See\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ along\ with\ Kepler.\ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{datatypes_8h}{datatypes.h}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{symbol__table_8h}{symbol\_table.h}}"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacekepler_ae45e010aed51dc28b896694f75dc2ca7}{run\_file}}(\textcolor{keyword}{const}\ std::string\&\ path,\ std::ostream\ \&\ stream\ =\ std::cout);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacekepler_a2eea97746f0ae5fd054d304271c171f5}{run\_repl}}();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacekepler_a49b7372a95bc6035f77f37023923e171}{safe\_execution}}(std::vector<Char>\&\ input,\ std::ostream\ \&\ stream,\ \textcolor{keywordtype}{bool}\ print\_last\ =\ \textcolor{keyword}{true},\ SymbolTable*\ symbol\_table\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacekepler_a914686a7f5a60684440d93ed33a3a959}{immediate\_execution}}(std::vector<Char>\&\ input,\ std::ostream\ \&\ stream,\ \textcolor{keywordtype}{bool}\ print\_last\ =\ \textcolor{keyword}{true},\ SymbolTable*\ symbol\_table\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00032\ \};}
+
+\end{DoxyCode}

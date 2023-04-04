@@ -1,14 +1,19 @@
+⍝ By https://www.dyalog.com/blog/2017/03/beauty-and-the-beast/
+⍝ Setting IndexOrigin and PrintPrecision.
 ⎕IO←0
-⎕PP←4
+⍝⎕PP←4
 
-⍝ define the function
+⍝ Defining the Mandelbrot function.
 f←{c+⍵*2}
 
-⍝ Helper to generate a field of complex numbers.
+⍝ Helper to generate a list of numbers between
+⍝ 0 and 1, with the desired number of steps.
 unitstep ← {(⍳⍵+1)÷⍵}
 
-⍝ Generate field of complex numbers.
-c ← ¯3 × 0.7J0.5 - (0J1×unitstep 100)∘.+(unitstep 100)
+⍝ Generate a 7x7 matrix of complex numbers.
+c ← ¯3 × 0.7J0.5 - (0J1×unitstep 6)∘.+(unitstep 6)
 
-⍝⎕ ← 9<|f 0
+⍝ Apply the Mandelbrot function 8 times.
+⍝ Set all elements to 0 if they converge
+⍝ and 1 otherwise.
 ⎕ ← 9<|(f⍣8) 0

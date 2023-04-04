@@ -1,0 +1,145 @@
+\hypertarget{structkepler_1_1_dyadic_function}{}\doxysection{kepler\+::Dyadic\+Function Struct Reference}
+\label{structkepler_1_1_dyadic_function}\index{kepler::DyadicFunction@{kepler::DyadicFunction}}
+
+
+{\ttfamily \#include $<$ast.\+h$>$}
+
+
+
+Inheritance diagram for kepler\+::Dyadic\+Function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_dyadic_function__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kepler\+::Dyadic\+Function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_dyadic_function__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_dyadic_function_a97d20f9af487ab429f5e410ab5eeae3c}{$\sim$\+Dyadic\+Function}} () override
+\item 
+\mbox{\hyperlink{structkepler_1_1_dyadic_function_ac00e3d0c18969c4bb46385032c654799}{Dyadic\+Function}} (\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} $>$ $\ast$function\+\_\+, \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$alpha\+\_\+, \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$omega\+\_\+)
+\item 
+std\+::string \mbox{\hyperlink{structkepler_1_1_dyadic_function_adb551d9a0293432748c7e5081ff9a1c0}{to\+\_\+string}} () const override
+\item 
+\mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_dyadic_function_acd6f510075f7ecc84a2846153208a3c2}{accept}} (\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode$<$ Array $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}{$\sim$\+ASTNode}} ()=default
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{accept}} (class \mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor)=0
+\item 
+virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\item 
+\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\item 
+void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+\item 
+long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} $>$ $\ast$ \mbox{\hyperlink{structkepler_1_1_dyadic_function_a85e3e60d24c4c91ad9c1352a60b87e13}{function}}
+\item 
+\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$ \mbox{\hyperlink{structkepler_1_1_dyadic_function_ae6e27d5ce0a2f7c53a90084ae8561524}{alpha}}
+\item 
+\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$ \mbox{\hyperlink{structkepler_1_1_dyadic_function_a4e0cb69fbc9809d17060388e0dcd675b}{omega}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_a97d20f9af487ab429f5e410ab5eeae3c}\label{structkepler_1_1_dyadic_function_a97d20f9af487ab429f5e410ab5eeae3c}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!````~DyadicFunction@{$\sim$DyadicFunction}}
+\index{````~DyadicFunction@{$\sim$DyadicFunction}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{$\sim$DyadicFunction()}{~DyadicFunction()}}
+{\footnotesize\ttfamily kepler\+::\+Dyadic\+Function\+::$\sim$\+Dyadic\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_ac00e3d0c18969c4bb46385032c654799}\label{structkepler_1_1_dyadic_function_ac00e3d0c18969c4bb46385032c654799}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!DyadicFunction@{DyadicFunction}}
+\index{DyadicFunction@{DyadicFunction}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{DyadicFunction()}{DyadicFunction()}}
+{\footnotesize\ttfamily kepler\+::\+Dyadic\+Function\+::\+Dyadic\+Function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} $>$ $\ast$}]{function\+\_\+,  }\item[{\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$}]{alpha\+\_\+,  }\item[{\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$}]{omega\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_acd6f510075f7ecc84a2846153208a3c2}\label{structkepler_1_1_dyadic_function_acd6f510075f7ecc84a2846153208a3c2}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!accept@{accept}}
+\index{accept@{accept}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Dyadic\+Function\+::accept (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{kepler\+::\+ASTNode$<$ Array $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{structkepler_1_1_dyadic_function_acd6f510075f7ecc84a2846153208a3c2_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_adb551d9a0293432748c7e5081ff9a1c0}\label{structkepler_1_1_dyadic_function_adb551d9a0293432748c7e5081ff9a1c0}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Dyadic\+Function\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{kepler\+::\+ASTNode$<$ Array $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{structkepler_1_1_dyadic_function_adb551d9a0293432748c7e5081ff9a1c0_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_ae6e27d5ce0a2f7c53a90084ae8561524}\label{structkepler_1_1_dyadic_function_ae6e27d5ce0a2f7c53a90084ae8561524}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!alpha@{alpha}}
+\index{alpha@{alpha}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{alpha}{alpha}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$\mbox{\hyperlink{structkepler_1_1_array}{Array}}$>$$\ast$ kepler\+::\+Dyadic\+Function\+::alpha}
+
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_a85e3e60d24c4c91ad9c1352a60b87e13}\label{structkepler_1_1_dyadic_function_a85e3e60d24c4c91ad9c1352a60b87e13}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!function@{function}}
+\index{function@{function}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{function}{function}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$\mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}}$>$$\ast$ kepler\+::\+Dyadic\+Function\+::function}
+
+\mbox{\Hypertarget{structkepler_1_1_dyadic_function_a4e0cb69fbc9809d17060388e0dcd675b}\label{structkepler_1_1_dyadic_function_a4e0cb69fbc9809d17060388e0dcd675b}} 
+\index{kepler::DyadicFunction@{kepler::DyadicFunction}!omega@{omega}}
+\index{omega@{omega}!kepler::DyadicFunction@{kepler::DyadicFunction}}
+\doxysubsubsection{\texorpdfstring{omega}{omega}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$\mbox{\hyperlink{structkepler_1_1_array}{Array}}$>$$\ast$ kepler\+::\+Dyadic\+Function\+::omega}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}

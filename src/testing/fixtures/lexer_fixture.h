@@ -19,7 +19,7 @@
 
 #pragma once
 #include "core/datatypes.h"
-#include "core/evaluation/tokenizer/tokenizer.h"
+#include "core/evaluation/tokenizer.h"
 #include <chrono>
 
 class lexer_fixture {

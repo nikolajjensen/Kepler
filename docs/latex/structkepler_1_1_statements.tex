@@ -1,0 +1,137 @@
+\hypertarget{structkepler_1_1_statements}{}\doxysection{kepler\+::Statements Struct Reference}
+\label{structkepler_1_1_statements}\index{kepler::Statements@{kepler::Statements}}
+
+
+{\ttfamily \#include $<$ast.\+h$>$}
+
+
+
+Inheritance diagram for kepler\+::Statements\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_statements__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kepler\+::Statements\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_statements__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_statements_ab630b0e38f80b29a44349b550e003d2c}{$\sim$\+Statements}} () override
+\item 
+\mbox{\hyperlink{structkepler_1_1_statements_a79f70836ad8fa8cd21c7782a151d7ca4}{Statements}} (std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$ $>$ children\+\_\+, \mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$\mbox{\hyperlink{structkepler_1_1_statements_a975745017c2b582469fdbd5e671d4fce}{symbol\+\_\+table}})
+\item 
+std\+::string \mbox{\hyperlink{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a}{to\+\_\+string}} () const override
+\item 
+\mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_statements_a02660b661bda943d4e09cf4347e1828e}{accept}} (\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode$<$ Array $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}{$\sim$\+ASTNode}} ()=default
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{accept}} (class \mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor)=0
+\item 
+virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\item 
+\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\item 
+void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+\item 
+long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$ $>$ \mbox{\hyperlink{structkepler_1_1_statements_a81dafd9cac20cefa19db7c6635bad678}{children}}
+\item 
+\mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$ \mbox{\hyperlink{structkepler_1_1_statements_a975745017c2b582469fdbd5e671d4fce}{symbol\+\_\+table}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structkepler_1_1_statements_ab630b0e38f80b29a44349b550e003d2c}\label{structkepler_1_1_statements_ab630b0e38f80b29a44349b550e003d2c}} 
+\index{kepler::Statements@{kepler::Statements}!````~Statements@{$\sim$Statements}}
+\index{````~Statements@{$\sim$Statements}!kepler::Statements@{kepler::Statements}}
+\doxysubsubsection{\texorpdfstring{$\sim$Statements()}{~Statements()}}
+{\footnotesize\ttfamily kepler\+::\+Statements\+::$\sim$\+Statements (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{structkepler_1_1_statements_a79f70836ad8fa8cd21c7782a151d7ca4}\label{structkepler_1_1_statements_a79f70836ad8fa8cd21c7782a151d7ca4}} 
+\index{kepler::Statements@{kepler::Statements}!Statements@{Statements}}
+\index{Statements@{Statements}!kepler::Statements@{kepler::Statements}}
+\doxysubsubsection{\texorpdfstring{Statements()}{Statements()}}
+{\footnotesize\ttfamily kepler\+::\+Statements\+::\+Statements (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$ $>$}]{children\+\_\+,  }\item[{\mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$}]{symbol\+\_\+table }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_statements_a02660b661bda943d4e09cf4347e1828e}\label{structkepler_1_1_statements_a02660b661bda943d4e09cf4347e1828e}} 
+\index{kepler::Statements@{kepler::Statements}!accept@{accept}}
+\index{accept@{accept}!kepler::Statements@{kepler::Statements}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Statements\+::accept (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{kepler\+::\+ASTNode$<$ Array $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{structkepler_1_1_statements_a02660b661bda943d4e09cf4347e1828e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a}\label{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a}} 
+\index{kepler::Statements@{kepler::Statements}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!kepler::Statements@{kepler::Statements}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Statements\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{kepler\+::\+ASTNode$<$ Array $>$}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structkepler_1_1_statements_a81dafd9cac20cefa19db7c6635bad678}\label{structkepler_1_1_statements_a81dafd9cac20cefa19db7c6635bad678}} 
+\index{kepler::Statements@{kepler::Statements}!children@{children}}
+\index{children@{children}!kepler::Statements@{kepler::Statements}}
+\doxysubsubsection{\texorpdfstring{children}{children}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$\mbox{\hyperlink{structkepler_1_1_array}{Array}}$>$$\ast$$>$ kepler\+::\+Statements\+::children}
+
+\mbox{\Hypertarget{structkepler_1_1_statements_a975745017c2b582469fdbd5e671d4fce}\label{structkepler_1_1_statements_a975745017c2b582469fdbd5e671d4fce}} 
+\index{kepler::Statements@{kepler::Statements}!symbol\_table@{symbol\_table}}
+\index{symbol\_table@{symbol\_table}!kepler::Statements@{kepler::Statements}}
+\doxysubsubsection{\texorpdfstring{symbol\_table}{symbol\_table}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}}$\ast$ kepler\+::\+Statements\+::symbol\+\_\+table}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}

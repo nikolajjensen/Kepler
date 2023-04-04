@@ -1,0 +1,195 @@
+\hypertarget{test__functions_8cpp}{}\doxysection{src/testing/test\+\_\+functions.cpp File Reference}
+\label{test__functions_8cpp}\index{src/testing/test\_functions.cpp@{src/testing/test\_functions.cpp}}
+{\ttfamily \#include $<$catch2/catch\+\_\+test\+\_\+macros.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}testing/fixtures/fixture.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}matcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}core/error\+\_\+type.\+h\char`\"{}}\newline
+Include dependency graph for test\+\_\+functions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__functions_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test__functions_8cpp_aba1a4446d3d2e8e34a25f9602f89eaa2}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}plus (+)\char`\"{}, \char`\"{}\mbox{[}plus\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a123ec2e2f44f441b84033df36599ac47}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}minus (-\/)\char`\"{}, \char`\"{}\mbox{[}minus\mbox{]}\mbox{[}scalar\mbox{]}\mbox{[}func\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_aaebdd802253239b07774ca9e63a64d4d}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}multiply (×)\char`\"{}, \char`\"{}\mbox{[}multiply\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a273f99697d30d9bb4d55d0d8ed1c1f2d}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}divide (÷)\char`\"{}, \char`\"{}\mbox{[}divide\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_aa0a1dd30c88ef91e870e40982c00bcd3}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}floor (⌊)\char`\"{}, \char`\"{}\mbox{[}floor\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_af094f6cd14d7039bffa866aefaed2167}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}ceiling (⌈)\char`\"{}, \char`\"{}\mbox{[}floor\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a525500cbf7e6c615a34084d2725d31ec}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}left-\/tack (⊣)\char`\"{}, \char`\"{}\mbox{[}left-\/tack\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a6efb26e8c83c643792872cfe24dd32ca}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}right-\/tack (⊢)\char`\"{}, \char`\"{}\mbox{[}right-\/tack\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a9f9b32c28e7f6f1b53bdf73452730ca2}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}less ($<$)\char`\"{}, \char`\"{}\mbox{[}less\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_ad74f97850977db99b972e23ed3709f05}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}less-\/equal (≤)\char`\"{}, \char`\"{}\mbox{[}less-\/equal\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a93613f3c4fde673a0d8f72bb062ec74f}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}equal (=)\char`\"{}, \char`\"{}\mbox{[}equal\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_af9c20d3c43d542fc8aa180b2516b3779}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}greater-\/equal (≥)\char`\"{}, \char`\"{}\mbox{[}greater-\/equal\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_ae5db05e9f45b7a2a2fcf5b893e917757}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}greater ($>$)\char`\"{}, \char`\"{}\mbox{[}greater\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a70a96ed39fa0b04510319352149b64af}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}not-\/equal (≠)\char`\"{}, \char`\"{}\mbox{[}not-\/equal\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_aee76ebf06e415d8f850f0848f1cb2acd}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}left shoe (⊂)\char`\"{}, \char`\"{}\mbox{[}left-\/shoe\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_abc51583b08563561336970d4be4750ae}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}without ($\sim$)\char`\"{}, \char`\"{}\mbox{[}without\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a1f6ac5ea468e9c768f322a85932c7f2f}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}iota (⍳)\char`\"{}, \char`\"{}\mbox{[}iota\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_ab319fa522c8acc11fb7bf6224af3b28f}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}rho (⍴)\char`\"{}, \char`\"{}\mbox{[}rho\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a550ca23dc307cc8761f2b03dd243fba5}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}and (∧)\char`\"{}, \char`\"{}\mbox{[}and\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a9739b54fbd08e4623b6cea24e0c1578a}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}or (∨)\char`\"{}, \char`\"{}\mbox{[}or\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a350f7cb6ca3ab3b1c0092a4a5b433955}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}nand (⍲)\char`\"{}, \char`\"{}\mbox{[}nand\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__functions_8cpp_a2eee3e7b3ee8e87716be8c2dadc763eb}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classfixture}{fixture}}, \char`\"{}nor (⍱)\char`\"{}, \char`\"{}\mbox{[}nor\mbox{]}\mbox{[}function\mbox{]}\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{test__functions_8cpp_a550ca23dc307cc8761f2b03dd243fba5}\label{test__functions_8cpp_a550ca23dc307cc8761f2b03dd243fba5}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [1/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}and (∧)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}and\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_af094f6cd14d7039bffa866aefaed2167}\label{test__functions_8cpp_af094f6cd14d7039bffa866aefaed2167}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [2/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}ceiling (⌈)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}floor\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a273f99697d30d9bb4d55d0d8ed1c1f2d}\label{test__functions_8cpp_a273f99697d30d9bb4d55d0d8ed1c1f2d}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [3/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}divide (÷)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}divide\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a93613f3c4fde673a0d8f72bb062ec74f}\label{test__functions_8cpp_a93613f3c4fde673a0d8f72bb062ec74f}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [4/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}equal (=)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}equal\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_aa0a1dd30c88ef91e870e40982c00bcd3}\label{test__functions_8cpp_aa0a1dd30c88ef91e870e40982c00bcd3}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [5/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}floor (⌊)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}floor\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_ae5db05e9f45b7a2a2fcf5b893e917757}\label{test__functions_8cpp_ae5db05e9f45b7a2a2fcf5b893e917757}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [6/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}greater ($>$)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}greater\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_af9c20d3c43d542fc8aa180b2516b3779}\label{test__functions_8cpp_af9c20d3c43d542fc8aa180b2516b3779}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [7/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}greater-\/equal (≥)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}greater-\/equal\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a1f6ac5ea468e9c768f322a85932c7f2f}\label{test__functions_8cpp_a1f6ac5ea468e9c768f322a85932c7f2f}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [8/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}iota (⍳)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}iota\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_aee76ebf06e415d8f850f0848f1cb2acd}\label{test__functions_8cpp_aee76ebf06e415d8f850f0848f1cb2acd}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [9/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}left shoe (⊂)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}left-\/shoe\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a525500cbf7e6c615a34084d2725d31ec}\label{test__functions_8cpp_a525500cbf7e6c615a34084d2725d31ec}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [10/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}left-\/tack (⊣)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}left-\/tack\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a9f9b32c28e7f6f1b53bdf73452730ca2}\label{test__functions_8cpp_a9f9b32c28e7f6f1b53bdf73452730ca2}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [11/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}less ($<$)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}less\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_ad74f97850977db99b972e23ed3709f05}\label{test__functions_8cpp_ad74f97850977db99b972e23ed3709f05}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [12/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}less-\/equal (≤)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}less-\/equal\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a123ec2e2f44f441b84033df36599ac47}\label{test__functions_8cpp_a123ec2e2f44f441b84033df36599ac47}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [13/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}minus (-\/)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}minus\mbox{]}\mbox{[}scalar\mbox{]}\mbox{[}func\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_aaebdd802253239b07774ca9e63a64d4d}\label{test__functions_8cpp_aaebdd802253239b07774ca9e63a64d4d}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [14/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}multiply (×)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}multiply\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a350f7cb6ca3ab3b1c0092a4a5b433955}\label{test__functions_8cpp_a350f7cb6ca3ab3b1c0092a4a5b433955}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [15/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}nand (⍲)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}nand\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a2eee3e7b3ee8e87716be8c2dadc763eb}\label{test__functions_8cpp_a2eee3e7b3ee8e87716be8c2dadc763eb}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [16/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}nor (⍱)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}nor\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a70a96ed39fa0b04510319352149b64af}\label{test__functions_8cpp_a70a96ed39fa0b04510319352149b64af}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [17/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}not-\/equal (≠)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}not-\/equal\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a9739b54fbd08e4623b6cea24e0c1578a}\label{test__functions_8cpp_a9739b54fbd08e4623b6cea24e0c1578a}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [18/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}or (∨)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}or\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_aba1a4446d3d2e8e34a25f9602f89eaa2}\label{test__functions_8cpp_aba1a4446d3d2e8e34a25f9602f89eaa2}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [19/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}plus (+)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}plus\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_ab319fa522c8acc11fb7bf6224af3b28f}\label{test__functions_8cpp_ab319fa522c8acc11fb7bf6224af3b28f}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [20/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}rho (⍴)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}rho\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_a6efb26e8c83c643792872cfe24dd32ca}\label{test__functions_8cpp_a6efb26e8c83c643792872cfe24dd32ca}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [21/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}right-\/tack (⊢)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}right-\/tack\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__functions_8cpp_abc51583b08563561336970d4be4750ae}\label{test__functions_8cpp_abc51583b08563561336970d4be4750ae}} 
+\index{test\_functions.cpp@{test\_functions.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_functions.cpp@{test\_functions.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [22/22]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfixture}{fixture}}}]{,  }\item[{\char`\"{}without ($\sim$)\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}without\mbox{]}\mbox{[}function\mbox{]} }\end{DoxyParamCaption})}
+

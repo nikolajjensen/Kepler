@@ -1,0 +1,44 @@
+\hypertarget{error__type_8h_source}{}\doxysection{error\+\_\+type.\+h}
+\label{error__type_8h_source}\index{src/core/error\_type.h@{src/core/error\_type.h}}
+\mbox{\hyperlink{error__type_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Copyright\ 2023\ Nikolaj\ Banke\ Jensen.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ This\ file\ is\ part\ of\ Kepler.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Kepler\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Kepler\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ See\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ along\ with\ Kepler.\ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5}{ErrorType}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133}{SyntaxError}},}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b}{ValueError}},}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a6e7776b919e3fb618a6c9ba5a1a1da5d}{DomainError}},}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b}{RankError}},}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a00c462fb95881b780437e0c4e6e178ae}{LengthError}},}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5ab86d62079838afa9d8a5c2afb54606af}{LimitError}},}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4}{DefinitionError}},}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d}{FileError}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a131156e5eee35009d173fc918eaadd78}{NotImplemented}},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d}{InternalError}}}
+\DoxyCodeLine{00035\ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ std::string\ \mbox{\hyperlink{namespacekepler_a76d95d0e078e053088ec440c6e878ab3}{to\_string}}(\mbox{\hyperlink{namespacekepler_a3fce5e5ac799691d62fbdb3a76fa48f5}{ErrorType}}\ error\_type);}
+\DoxyCodeLine{00038\ \};}
+
+\end{DoxyCode}

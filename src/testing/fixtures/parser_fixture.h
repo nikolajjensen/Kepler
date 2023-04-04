@@ -20,8 +20,8 @@
 #pragma once
 #include "core/datatypes.h"
 #include "core/symbol_table.h"
-#include "core/evaluation/tokenizer/tokenizer.h"
-#include "core/evaluation/parser/parser.h"
+#include "core/evaluation/tokenizer.h"
+#include "core/evaluation/parser.h"
 #include <chrono>
 
 class parser_fixture {

@@ -22,7 +22,7 @@
 #include <memory>
 #include "core/constants/config.h"
 #include "core/symbol_table.h"
-#include "core/evaluation/parser/parser.h"
+#include "core/evaluation/parser.h"
 #include "core/evaluation/operations/defined_function.h"
 
 namespace kepler {

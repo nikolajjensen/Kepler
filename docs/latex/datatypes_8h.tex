@@ -1,0 +1,54 @@
+\hypertarget{datatypes_8h}{}\doxysection{src/core/datatypes.h File Reference}
+\label{datatypes_8h}\index{src/core/datatypes.h@{src/core/datatypes.h}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$complex$>$}\newline
+Include dependency graph for datatypes.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{datatypes_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{datatypes_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacekepler}{kepler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\using \mbox{\hyperlink{namespacekepler_ad62d8e5f12a82b84787cb1adcf746060}{kepler\+::\+List}} = std\+::vector$<$ T $>$
+\item 
+using \mbox{\hyperlink{namespacekepler_a91663bd130d920c4faafd5f629b26342}{kepler\+::\+Char}} = char32\+\_\+t
+\item 
+using \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{kepler\+::\+Number}} = std\+::complex$<$ double $>$
+\item 
+using \mbox{\hyperlink{namespacekepler_a5712a67bd028c5a472e4bbfeb00e30e9}{kepler\+::\+String\+UTF8}} = std\+::string
+\item 
+using \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{kepler\+::\+String}} = std\+::u32string
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Number \mbox{\hyperlink{namespacekepler_ae2a14fefebed01bc702523240787d8d8}{kepler\+::numeric\+\_\+limit\+\_\+max}} ()
+\item 
+Number \mbox{\hyperlink{namespacekepler_ad51760a0749afe173ae1992bae62b401}{kepler\+::numeric\+\_\+limit\+\_\+min}} ()
+\item 
+Number \mbox{\hyperlink{namespacekepler_afb522d6ecef07ad97aba105087960bfc}{kepler\+::number\+\_\+from\+\_\+characters}} (const List$<$ Char $>$ \&list)
+\item 
+double \& \mbox{\hyperlink{namespacekepler_a871c0fef40578deb61e1a930df71456f}{kepler\+::apply\+\_\+scientific\+\_\+notation}} (double \&input, double \&exponent)
+\item 
+String\+UTF8 \mbox{\hyperlink{namespacekepler_aa848e96e65932d5f52bf3811002f0ec0}{kepler\+::number\+\_\+to\+\_\+string}} (const Number \&num, int precision=10)
+\item 
+String\+UTF8 \mbox{\hyperlink{namespacekepler_aeb0c7de5bfe099f79d13607089e6c312}{kepler\+::double\+\_\+to\+\_\+string}} (const double \&num, int precision)
+\item 
+Number \mbox{\hyperlink{namespacekepler_a571b16ee0d7c0e0eea34fc4f05284ed8}{kepler\+::integer\+\_\+nearest\+\_\+to}} (const Number \&num)
+\end{DoxyCompactItemize}

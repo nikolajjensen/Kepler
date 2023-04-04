@@ -1,34 +1,16 @@
-⍝ Game of Life!
-⍝⎕ ← 3 4=(3 3⍴⍳3) (3 3⍴⍳4)
+⍝ A Game of Life!
 
+⍝ Setting up a 10x10 board.
 glider ← 3 3⍴1 1 1 1 0 0 0 1 0
+board ← ¯10 ¯10↑glider
 
-currentGeneration ← ¯10 ¯10↑glider
-⍝ currentGeneration←5 5⍴0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 1 0 0
-⎕ ← currentGeneration
-⎕ ← '\n \n'
-⍝ ⎕ ← ¯1 0 1∘.⊖¯1 0 1∘.⌽⊂currentGeneration
-⍝ ⎕ ← 3 4=⊂+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂currentGeneration
-⍝ ⎕ ← 1 currentGeneration∨.∧3 4 ⍝ =⊂+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂currentGeneration
-
-
+⍝ The function of life.
 Life ← {1 ⍵∨.∧3 4=⊂+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}
 
-currentGeneration ← Life currentGeneration
-⎕ ← currentGeneration
-⎕ ← '\n \n'
-currentGeneration ← Life currentGeneration
-⎕ ← currentGeneration
-⎕ ← '\n \n'
-currentGeneration ← Life currentGeneration
-⎕ ← currentGeneration
-⎕ ← '\n \n'
+⍝ Helpers for updating the board.
+Update ← {board ← Life board}
+Round ← {Update ◊ ⎕←'\n \n' ◊ ⎕←board}
 
-
-⍝ G ← {1 currentGeneration∨.∧3 4}
-⍝ ⎕ ← G
-
-⍝FN ← {1 ⍵∨.∧3 4}
-⍝⎕←FN currentGeneration
-
+⍝ Run 5 rounds.
+(Round⍣5)0
 

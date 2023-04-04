@@ -1,0 +1,212 @@
+\hypertarget{structkepler_1_1_node_visitor}{}\doxysection{kepler\+::Node\+Visitor Struct Reference}
+\label{structkepler_1_1_node_visitor}\index{kepler::NodeVisitor@{kepler::NodeVisitor}}
+
+
+{\ttfamily \#include $<$node\+\_\+visitor.\+h$>$}
+
+
+
+Inheritance diagram for kepler\+::Node\+Visitor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_node_visitor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kepler\+::Node\+Visitor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{structkepler_1_1_node_visitor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a26c5d5ede3627cb70d67450d4a378d96}{visit}} (\mbox{\hyperlink{structkepler_1_1_scalar}{Scalar}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_ab6c91ce0cc52263aaa530a777e7bc874}{visit}} (\mbox{\hyperlink{structkepler_1_1_vector}{Vector}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a6bf0cf2037dfc13c36d9bdbdcea906d3}{visit}} (\mbox{\hyperlink{structkepler_1_1_monadic_operator}{Monadic\+Operator}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_node_visitor_ad595497194ac177dbd5267a9f8b0086c}{visit}} (\mbox{\hyperlink{structkepler_1_1_dyadic_operator}{Dyadic\+Operator}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a034bc741dfb1c2056be0c068cc3f0d35}{visit}} (\mbox{\hyperlink{structkepler_1_1_function}{Function}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a0b3640848dc903b2c20f7a2000454b2d}{visit}} (\mbox{\hyperlink{structkepler_1_1_anonymous_function}{Anonymous\+Function}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a699c29c271ad9bab907ef009535ba7c2}{visit}} (\mbox{\hyperlink{structkepler_1_1_monadic_function}{Monadic\+Function}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_aa33bc61f03decc2ebfb5011e841b9d9b}{visit}} (\mbox{\hyperlink{structkepler_1_1_function_assignment}{Function\+Assignment}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a1e42472102a47c3e8e73abb67ea677f5}{visit}} (\mbox{\hyperlink{structkepler_1_1_function_variable}{Function\+Variable}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_aa2b48628f8d186bc18c3a88515304d9e}{visit}} (\mbox{\hyperlink{structkepler_1_1_dyadic_function}{Dyadic\+Function}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_aed9d24c0d0a190a71f51605c833fc4ac}{visit}} (\mbox{\hyperlink{structkepler_1_1_assignment}{Assignment}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a17763845b064a014b3eb57c88b7b7fa8}{visit}} (\mbox{\hyperlink{structkepler_1_1_variable}{Variable}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a9497a80cddb1cadc47e5476dacea3832}{visit}} (\mbox{\hyperlink{structkepler_1_1_statements}{Statements}} $\ast$node)=0
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_node_visitor_a1e8a660a342f32272bd49641cd13ceb3}{visit}} (\mbox{\hyperlink{structkepler_1_1_conditional}{Conditional}} $\ast$node)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a0b3640848dc903b2c20f7a2000454b2d}\label{structkepler_1_1_node_visitor_a0b3640848dc903b2c20f7a2000454b2d}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [1/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_anonymous_function}{Anonymous\+Function}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_a18d7e15ca11bbb7810b4e6b68288f5f0}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_aed9d24c0d0a190a71f51605c833fc4ac}\label{structkepler_1_1_node_visitor_aed9d24c0d0a190a71f51605c833fc4ac}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [2/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_assignment}{Assignment}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_a0a7e662ee6f13a895e37906f91f3daf0}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a1e8a660a342f32272bd49641cd13ceb3}\label{structkepler_1_1_node_visitor_a1e8a660a342f32272bd49641cd13ceb3}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [3/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_conditional}{Conditional}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_a3ba8e36823bb2e417f04f27023f25403}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_aa2b48628f8d186bc18c3a88515304d9e}\label{structkepler_1_1_node_visitor_aa2b48628f8d186bc18c3a88515304d9e}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [4/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_dyadic_function}{Dyadic\+Function}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_a1aa41c5e6a58ae8f1b2705cbfac1af3c}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_ad595497194ac177dbd5267a9f8b0086c}\label{structkepler_1_1_node_visitor_ad595497194ac177dbd5267a9f8b0086c}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [5/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_dyadic_operator}{Dyadic\+Operator}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_ac39f6a0e45592c184e49a98759e661fe}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a034bc741dfb1c2056be0c068cc3f0d35}\label{structkepler_1_1_node_visitor_a034bc741dfb1c2056be0c068cc3f0d35}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [6/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_function}{Function}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_afb60e814156d8d70aa08c566812d7a1c}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_aa33bc61f03decc2ebfb5011e841b9d9b}\label{structkepler_1_1_node_visitor_aa33bc61f03decc2ebfb5011e841b9d9b}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [7/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_function_assignment}{Function\+Assignment}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_a1f122e599589a2b56034680dda9003db}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a1e42472102a47c3e8e73abb67ea677f5}\label{structkepler_1_1_node_visitor_a1e42472102a47c3e8e73abb67ea677f5}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [8/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_function_variable}{Function\+Variable}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_af05169728eb16ec693b97816640c3eaf}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a699c29c271ad9bab907ef009535ba7c2}\label{structkepler_1_1_node_visitor_a699c29c271ad9bab907ef009535ba7c2}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [9/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_monadic_function}{Monadic\+Function}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_ae972d3e52d5eaaad66602cd7f42137f5}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a6bf0cf2037dfc13c36d9bdbdcea906d3}\label{structkepler_1_1_node_visitor_a6bf0cf2037dfc13c36d9bdbdcea906d3}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [10/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_monadic_operator}{Monadic\+Operator}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_adea57160a837660f3383396f1b1b8429}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a26c5d5ede3627cb70d67450d4a378d96}\label{structkepler_1_1_node_visitor_a26c5d5ede3627cb70d67450d4a378d96}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [11/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_scalar}{Scalar}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_ae54fe2b4661eeb0e6d2652ebe046b908}{kepler\+::\+Interpreter}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_node_visitor_a26c5d5ede3627cb70d67450d4a378d96_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a9497a80cddb1cadc47e5476dacea3832}\label{structkepler_1_1_node_visitor_a9497a80cddb1cadc47e5476dacea3832}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [12/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_statements}{Statements}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_af1cec77e0d90d87fb79a38c852251b01}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_a17763845b064a014b3eb57c88b7b7fa8}\label{structkepler_1_1_node_visitor_a17763845b064a014b3eb57c88b7b7fa8}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [13/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_variable}{Variable}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_ac991760b41395f07eee8e7d4d1981270}{kepler\+::\+Interpreter}}.
+
+\mbox{\Hypertarget{structkepler_1_1_node_visitor_ab6c91ce0cc52263aaa530a777e7bc874}\label{structkepler_1_1_node_visitor_ab6c91ce0cc52263aaa530a777e7bc874}} 
+\index{kepler::NodeVisitor@{kepler::NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!kepler::NodeVisitor@{kepler::NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [14/14]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Node\+Visitor\+::visit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_vector}{Vector}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_interpreter_ac0f1f221901ad4e09bb21e18e0b960ac}{kepler\+::\+Interpreter}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/core/evaluation/\mbox{\hyperlink{node__visitor_8h}{node\+\_\+visitor.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,57 @@
+\hypertarget{classifiers_8h_source}{}\doxysection{classifiers.\+h}
+\label{classifiers_8h_source}\index{src/core/helpers/classifiers.h@{src/core/helpers/classifiers.h}}
+\mbox{\hyperlink{classifiers_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Copyright\ 2023\ Nikolaj\ Banke\ Jensen.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ This\ file\ is\ part\ of\ Kepler.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Kepler\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Kepler\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ See\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ along\ with\ Kepler.\ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{token_8h}{core/token.h}}"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler_1_1helpers}{kepler::helpers}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacekepler_1_1helpers_aabc100c07656876f28411ead4e14ad2f}{is\_function}}(\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacekepler_1_1helpers_ad16604327b239eb03e66e47c3f3778c4}{is\_monadic\_operator}}(\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacekepler_1_1helpers_adab5e299daf79c6073eeb0f264e49926}{is\_monadic\_function}}(\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacekepler_1_1helpers_a205df4bfd666f5af117c3d3d6332c745}{is\_dyadic\_operator}}(\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacekepler_1_1helpers_a333bffe05ce5109a20337f18ac37ff0f}{is\_array\_token}}(\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type);}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{namespace\ kepler::helpers\ \{}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ bool\ is\_identifier(const\ Token\&\ token);}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ bool\ is\_literal(const\ Token\&\ token);}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ bool\ is\_lexical\_unit(const\ Token\&\ token);}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ bool\ is\_value(const\ Token\&\ token);}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ bool\ is\_delimiter(const\ Token\&\ token);}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ bool\ is\_defined\_name(const\ Token\&\ token);}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ bool\ is\_defined\_operator(const\ Token\&\ token);}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ bool\ is\_system\_name(const\ Token\&\ token);}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \ bool\ is\_classified\_name(const\ Token\&\ token);}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ bool\ is\_syntactic\_unit(const\ Token\&\ token);}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ bool\ is\_error(const\ Token\&\ token);}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ bool\ is\_report(const\ Token\&\ token);}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ bool\ is\_exception(const\ Token\&\ token);}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ bool\ is\_result(const\ Token\&\ token);}}
+\DoxyCodeLine{00046\ \textcolor{comment}{}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ bool\ is(const\ Token\&\ token,\ TokenType\ tokenClass);}}
+\DoxyCodeLine{00048\ \textcolor{comment}{}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ \ bool\ is\_scalar(const\ Token\&\ token);}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\};}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ */}}
+
+\end{DoxyCode}

@@ -1,0 +1,115 @@
+\hypertarget{structkepler_1_1_a_s_t_node}{}\doxysection{kepler\+::ASTNode\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{structkepler_1_1_a_s_t_node}\index{kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}}
+
+
+{\ttfamily \#include $<$ast.\+h$>$}
+
+
+
+Inheritance diagram for kepler\+::ASTNode\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_a_s_t_node__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kepler\+::ASTNode\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structkepler_1_1_a_s_t_node__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}{$\sim$\+ASTNode}} ()=default
+\item 
+virtual T \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{accept}} (class \mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor)=0
+\item 
+virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const =0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\item 
+\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\item 
+void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+\item 
+long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a96e2b8cb1cf4b6bfec27995f199c6f4b}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}} \&node)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}\label{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}} 
+\index{kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}!````~ASTNode@{$\sim$ASTNode}}
+\index{````~ASTNode@{$\sim$ASTNode}!kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$ASTNode()}{~ASTNode()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}\label{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}} 
+\index{kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}!accept@{accept}}
+\index{accept@{accept}!kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual T \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode}}$<$ T $>$\+::accept (\begin{DoxyParamCaption}\item[{class \mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_scalar_ae283cf88c4e655215cbc9cf555cd878b}{kepler\+::\+Scalar}}, \mbox{\hyperlink{structkepler_1_1_vector_adfb5f907dff26aa3ea21ae4e9e194c2e}{kepler\+::\+Vector}}, \mbox{\hyperlink{structkepler_1_1_monadic_operator_a285495a7235c69d523410a32974e4537}{kepler\+::\+Monadic\+Operator}}, \mbox{\hyperlink{structkepler_1_1_dyadic_operator_a7f7b251abdfabdf1197b95c263a8d0e5}{kepler\+::\+Dyadic\+Operator}}, \mbox{\hyperlink{structkepler_1_1_function_af275c1ef961a1e7eb6bcc242d4c161c5}{kepler\+::\+Function}}, \mbox{\hyperlink{structkepler_1_1_monadic_function_a9cb2c4b8779782f4a8f979ea5268e4b3}{kepler\+::\+Monadic\+Function}}, \mbox{\hyperlink{structkepler_1_1_dyadic_function_acd6f510075f7ecc84a2846153208a3c2}{kepler\+::\+Dyadic\+Function}}, \mbox{\hyperlink{structkepler_1_1_function_assignment_a6ca3750b7e877e459fe2fa51908b3bf3}{kepler\+::\+Function\+Assignment}}, \mbox{\hyperlink{structkepler_1_1_assignment_afbbbdd6b8e0ba927d1176c308cf7af2b}{kepler\+::\+Assignment}}, \mbox{\hyperlink{structkepler_1_1_variable_a2450cf30d274f8b0b0e518b46b7b432c}{kepler\+::\+Variable}}, \mbox{\hyperlink{structkepler_1_1_function_variable_a5b3c2fb1fe0e3b2b090bb18ff03b6cc5}{kepler\+::\+Function\+Variable}}, \mbox{\hyperlink{structkepler_1_1_statements_a02660b661bda943d4e09cf4347e1828e}{kepler\+::\+Statements}}, \mbox{\hyperlink{structkepler_1_1_anonymous_function_afcbdba6c67b58c3b9b599594f9d40752}{kepler\+::\+Anonymous\+Function}}, and \mbox{\hyperlink{structkepler_1_1_conditional_ae7b6d4db0ea35b950b9f429748632201}{kepler\+::\+Conditional}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}\label{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}} 
+\index{kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode}}$<$ T $>$\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structkepler_1_1_scalar_a89e38869e89dd82c3b930d8c1f5a9a5d}{kepler\+::\+Scalar}}, \mbox{\hyperlink{structkepler_1_1_vector_a9c446f451c6afc3ba6f01130c9576e57}{kepler\+::\+Vector}}, \mbox{\hyperlink{structkepler_1_1_monadic_operator_ad47eac20736f552b300d760d0f527e8b}{kepler\+::\+Monadic\+Operator}}, \mbox{\hyperlink{structkepler_1_1_dyadic_operator_a8cb2f1e4a2d624fe2f3731f7d62527fa}{kepler\+::\+Dyadic\+Operator}}, \mbox{\hyperlink{structkepler_1_1_function_af750233fbd94850bd37e94d854a145a8}{kepler\+::\+Function}}, \mbox{\hyperlink{structkepler_1_1_monadic_function_aa56832dd3dddbd9ae32cdf64992465cf}{kepler\+::\+Monadic\+Function}}, \mbox{\hyperlink{structkepler_1_1_dyadic_function_adb551d9a0293432748c7e5081ff9a1c0}{kepler\+::\+Dyadic\+Function}}, \mbox{\hyperlink{structkepler_1_1_function_assignment_ac6cf83d532386295fe7215c44e06145c}{kepler\+::\+Function\+Assignment}}, \mbox{\hyperlink{structkepler_1_1_assignment_a634e6e75b9523874244dc0a770ba9dc4}{kepler\+::\+Assignment}}, \mbox{\hyperlink{structkepler_1_1_variable_afaf5f443c9a3d8aed396e31d0b70ffac}{kepler\+::\+Variable}}, \mbox{\hyperlink{structkepler_1_1_function_variable_a6e457557412d6d63dca30b07de2fa600}{kepler\+::\+Function\+Variable}}, \mbox{\hyperlink{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a}{kepler\+::\+Statements}}, \mbox{\hyperlink{structkepler_1_1_anonymous_function_ab64fb6d9c6efd208b7da7a51004117af}{kepler\+::\+Anonymous\+Function}}, and \mbox{\hyperlink{structkepler_1_1_conditional_ac80e1eafa8ff2fc16c15e0fa19e6d5da}{kepler\+::\+Conditional}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_a_s_t_node_a96e2b8cb1cf4b6bfec27995f199c6f4b}\label{structkepler_1_1_a_s_t_node_a96e2b8cb1cf4b6bfec27995f199c6f4b}} 
+\index{kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!kepler::ASTNode$<$ T $>$@{kepler::ASTNode$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ T $>$ \&}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\end{DoxyCompactItemize}

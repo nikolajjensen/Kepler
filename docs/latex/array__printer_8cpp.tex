@@ -1,0 +1,46 @@
+\hypertarget{array__printer_8cpp}{}\doxysection{src/core/helpers/array\+\_\+printer.cpp File Reference}
+\label{array__printer_8cpp}\index{src/core/helpers/array\_printer.cpp@{src/core/helpers/array\_printer.cpp}}
+{\ttfamily \#include \char`\"{}core/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}array\+\_\+printer.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}conversion.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$uni\+\_\+algo/conv.\+h$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+Include dependency graph for array\+\_\+printer.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{array__printer_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacekepler}{kepler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacekepler_ab01a36f4a7d47386adc6da6f9a76e90b}{kepler\+::all\+\_\+elements\+\_\+are\+\_\+scalars}} (const Array \&arr)
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{namespacekepler_af3b3c68418fa87bb4572e48b1bfd07a8}{kepler\+::dims}} (const std\+::vector$<$ int $>$ \&shape)
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{namespacekepler_a09368e22450bc240021df6519cf19c7a}{kepler\+::offsets}} (const std\+::vector$<$ int $>$ \&shape)
+\item 
+std\+::vector$<$ std\+::u32string $>$ \mbox{\hyperlink{namespacekepler_a1c940fca16ab1a09634ee009e48d64f9}{kepler\+::split}} (const std\+::u32string \&text, char32\+\_\+t delim)
+\item 
+int \mbox{\hyperlink{namespacekepler_a9e38cc6ab08a8fa6e0df6933e1998c88}{kepler\+::max\+\_\+length\+\_\+contiguous\+\_\+segment}} (const std\+::u32string \&str)
+\item 
+std\+::u32string \mbox{\hyperlink{namespacekepler_ac06a7b655e54e2533459da64127b862a}{kepler\+::block\+\_\+concat}} (std\+::u32string left, std\+::u32string right)
+\item 
+std\+::u32string \mbox{\hyperlink{namespacekepler_a5812fc866c7b21bfe8481ea58813a270}{kepler\+::block\+\_\+prepend}} (std\+::u32string str, char32\+\_\+t val)
+\item 
+std\+::u32string \mbox{\hyperlink{namespacekepler_ac2e37855a527a231ea2757065461ec7c}{kepler\+::block\+\_\+append}} (std\+::u32string str, char32\+\_\+t val)
+\item 
+std\+::u32string \mbox{\hyperlink{namespacekepler_ac23a3c14c1978c0096eb41930fda9507}{kepler\+::box}} (const std\+::u32string \&str, int width, int height)
+\item 
+std\+::u32string \mbox{\hyperlink{namespacekepler_a750517c7d0a2aee96dd1a59d93eeeb4b}{kepler\+::block\+\_\+join}} (char32\+\_\+t separator, const std\+::vector$<$ std\+::u32string $>$ \&blocks)
+\item 
+std\+::u32string \mbox{\hyperlink{namespacekepler_a03094b27ee173cc9846d34ee4a919648}{kepler\+::frame\+\_\+matrix}} (const std\+::vector$<$ std\+::u32string $>$ \&strings, const std\+::vector$<$ int $>$ \&widths, int height)
+\end{DoxyCompactItemize}

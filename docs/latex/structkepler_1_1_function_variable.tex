@@ -1,0 +1,121 @@
+\hypertarget{structkepler_1_1_function_variable}{}\doxysection{kepler\+::Function\+Variable Struct Reference}
+\label{structkepler_1_1_function_variable}\index{kepler::FunctionVariable@{kepler::FunctionVariable}}
+
+
+{\ttfamily \#include $<$ast.\+h$>$}
+
+
+
+Inheritance diagram for kepler\+::Function\+Variable\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_function_variable__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kepler\+::Function\+Variable\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_function_variable__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_function_variable_ab4348c035bb96ba84dbd838b9f5dc2b7}{Function\+Variable}} (\mbox{\hyperlink{structkepler_1_1_token}{Token}} \mbox{\hyperlink{structkepler_1_1_function_variable_aeb0ea91a11fb3d158ec2f875e0db35b9}{identifier}})
+\item 
+std\+::string \mbox{\hyperlink{structkepler_1_1_function_variable_a6e457557412d6d63dca30b07de2fa600}{to\+\_\+string}} () const override
+\item 
+\mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_function_variable_a5b3c2fb1fe0e3b2b090bb18ff03b6cc5}{accept}} (\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode$<$ Operation\+\_\+ptr $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}{$\sim$\+ASTNode}} ()=default
+\item 
+virtual \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{accept}} (class \mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor)=0
+\item 
+virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\item 
+\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\item 
+void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+\item 
+long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_token}{Token}} \mbox{\hyperlink{structkepler_1_1_function_variable_aeb0ea91a11fb3d158ec2f875e0db35b9}{identifier}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structkepler_1_1_function_variable_ab4348c035bb96ba84dbd838b9f5dc2b7}\label{structkepler_1_1_function_variable_ab4348c035bb96ba84dbd838b9f5dc2b7}} 
+\index{kepler::FunctionVariable@{kepler::FunctionVariable}!FunctionVariable@{FunctionVariable}}
+\index{FunctionVariable@{FunctionVariable}!kepler::FunctionVariable@{kepler::FunctionVariable}}
+\doxysubsubsection{\texorpdfstring{FunctionVariable()}{FunctionVariable()}}
+{\footnotesize\ttfamily kepler\+::\+Function\+Variable\+::\+Function\+Variable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_token}{Token}}}]{identifier }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_function_variable_a5b3c2fb1fe0e3b2b090bb18ff03b6cc5}\label{structkepler_1_1_function_variable_a5b3c2fb1fe0e3b2b090bb18ff03b6cc5}} 
+\index{kepler::FunctionVariable@{kepler::FunctionVariable}!accept@{accept}}
+\index{accept@{accept}!kepler::FunctionVariable@{kepler::FunctionVariable}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} kepler\+::\+Function\+Variable\+::accept (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{kepler\+::\+ASTNode$<$ Operation\+\_\+ptr $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{structkepler_1_1_function_variable_a5b3c2fb1fe0e3b2b090bb18ff03b6cc5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structkepler_1_1_function_variable_a6e457557412d6d63dca30b07de2fa600}\label{structkepler_1_1_function_variable_a6e457557412d6d63dca30b07de2fa600}} 
+\index{kepler::FunctionVariable@{kepler::FunctionVariable}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!kepler::FunctionVariable@{kepler::FunctionVariable}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Function\+Variable\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{kepler\+::\+ASTNode$<$ Operation\+\_\+ptr $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_function_variable_a6e457557412d6d63dca30b07de2fa600_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structkepler_1_1_function_variable_aeb0ea91a11fb3d158ec2f875e0db35b9}\label{structkepler_1_1_function_variable_aeb0ea91a11fb3d158ec2f875e0db35b9}} 
+\index{kepler::FunctionVariable@{kepler::FunctionVariable}!identifier@{identifier}}
+\index{identifier@{identifier}!kepler::FunctionVariable@{kepler::FunctionVariable}}
+\doxysubsubsection{\texorpdfstring{identifier}{identifier}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_token}{Token}} kepler\+::\+Function\+Variable\+::identifier}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}

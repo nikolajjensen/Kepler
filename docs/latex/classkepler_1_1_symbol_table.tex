@@ -1,0 +1,244 @@
+\hypertarget{classkepler_1_1_symbol_table}{}\doxysection{kepler\+::Symbol\+Table Class Reference}
+\label{classkepler_1_1_symbol_table}\index{kepler::SymbolTable@{kepler::SymbolTable}}
+
+
+{\ttfamily \#include $<$symbol\+\_\+table.\+h$>$}
+
+
+
+Collaboration diagram for kepler\+::Symbol\+Table\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classkepler_1_1_symbol_table__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classkepler_1_1_symbol_table_a9a12b245f5d6df463ac8a505830bbb00}{Symbol\+Table}} ()
+\item 
+\mbox{\hyperlink{classkepler_1_1_symbol_table_a69171f118d753f7501c6f930f0a3811e}{Symbol\+Table}} (\mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$parent)
+\item 
+\mbox{\hyperlink{classkepler_1_1_symbol_table_aa51329ab5434aefbeb5150092e03c308}{$\sim$\+Symbol\+Table}} ()
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_aead6e5f84ff9f76dd8f5a5e94abfb23b}{attach\+\_\+parent}} (\mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$parent)
+\item 
+bool \mbox{\hyperlink{classkepler_1_1_symbol_table_a57403652693faf5adf05509f540520e9}{contains}} (const std\+::u32string \&id) const
+\item 
+{\footnotesize template$<$typename T $>$ }\\const T \& \mbox{\hyperlink{classkepler_1_1_symbol_table_a1d080f6571e21935f800524195b5e5a7}{get}} (const std\+::u32string \&id) const
+\item 
+\mbox{\hyperlink{namespacekepler_a3b14b9ce14211f082bdaeaac3a4a6ab2}{Symbol\+Type}} \mbox{\hyperlink{classkepler_1_1_symbol_table_a51d2ff95e9994cd60aff7edd0086fdaf}{get\+\_\+type}} (const std\+::u32string \&id) const
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_a928b41896a0c0f1b5eef23ae3f35c3b3}{set}} (const std\+::u32string \&id, const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&value, bool locally\+\_\+only=false)
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_af7e1200bf4b2000adb52843d496ab8f2}{set}} (const std\+::u32string \&id, const \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \&value, bool locally\+\_\+only=false)
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_a8695f390aed9dbe7b04c936f965cbf1b}{set}} (const std\+::u32string \&id, const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&value, bool locally\+\_\+only=false)
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_a13e9ae16127176c1400b9e16b98ccd72}{remove}} (const std\+::u32string \&id, bool locally\+\_\+only=false)
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_af80b91ffe579a8591ea30f4db851c233}{bind\+\_\+function}} (const std\+::u32string \&id)
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_a95e2ea1cc4b5a2a669c3b65ef4d545cc}{clear}} ()
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_affa5b913d3f1208860517b21d26cc828}{strip\+\_\+values}} ()
+\item 
+void \mbox{\hyperlink{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b}{insert\+\_\+system\+\_\+parameters}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a9a12b245f5d6df463ac8a505830bbb00}\label{classkepler_1_1_symbol_table_a9a12b245f5d6df463ac8a505830bbb00}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!SymbolTable@{SymbolTable}}
+\index{SymbolTable@{SymbolTable}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{SymbolTable()}{SymbolTable()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily kepler\+::\+Symbol\+Table\+::\+Symbol\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a69171f118d753f7501c6f930f0a3811e}\label{classkepler_1_1_symbol_table_a69171f118d753f7501c6f930f0a3811e}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!SymbolTable@{SymbolTable}}
+\index{SymbolTable@{SymbolTable}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{SymbolTable()}{SymbolTable()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily kepler\+::\+Symbol\+Table\+::\+Symbol\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_aa51329ab5434aefbeb5150092e03c308}\label{classkepler_1_1_symbol_table_aa51329ab5434aefbeb5150092e03c308}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!````~SymbolTable@{$\sim$SymbolTable}}
+\index{````~SymbolTable@{$\sim$SymbolTable}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{$\sim$SymbolTable()}{~SymbolTable()}}
+{\footnotesize\ttfamily kepler\+::\+Symbol\+Table\+::$\sim$\+Symbol\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_aead6e5f84ff9f76dd8f5a5e94abfb23b}\label{classkepler_1_1_symbol_table_aead6e5f84ff9f76dd8f5a5e94abfb23b}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!attach\_parent@{attach\_parent}}
+\index{attach\_parent@{attach\_parent}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{attach\_parent()}{attach\_parent()}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::attach\+\_\+parent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{classkepler_1_1_symbol_table_aead6e5f84ff9f76dd8f5a5e94abfb23b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_af80b91ffe579a8591ea30f4db851c233}\label{classkepler_1_1_symbol_table_af80b91ffe579a8591ea30f4db851c233}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!bind\_function@{bind\_function}}
+\index{bind\_function@{bind\_function}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{bind\_function()}{bind\_function()}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::bind\+\_\+function (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a95e2ea1cc4b5a2a669c3b65ef4d545cc}\label{classkepler_1_1_symbol_table_a95e2ea1cc4b5a2a669c3b65ef4d545cc}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!clear@{clear}}
+\index{clear@{clear}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a95e2ea1cc4b5a2a669c3b65ef4d545cc_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a57403652693faf5adf05509f540520e9}\label{classkepler_1_1_symbol_table_a57403652693faf5adf05509f540520e9}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!contains@{contains}}
+\index{contains@{contains}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{contains()}{contains()}}
+{\footnotesize\ttfamily bool kepler\+::\+Symbol\+Table\+::contains (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{classkepler_1_1_symbol_table_a57403652693faf5adf05509f540520e9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a57403652693faf5adf05509f540520e9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a1d080f6571e21935f800524195b5e5a7}\label{classkepler_1_1_symbol_table_a1d080f6571e21935f800524195b5e5a7}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!get@{get}}
+\index{get@{get}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+const T \& kepler\+::\+Symbol\+Table\+::get (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a1d080f6571e21935f800524195b5e5a7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a51d2ff95e9994cd60aff7edd0086fdaf}\label{classkepler_1_1_symbol_table_a51d2ff95e9994cd60aff7edd0086fdaf}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!get\_type@{get\_type}}
+\index{get\_type@{get\_type}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{get\_type()}{get\_type()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacekepler_a3b14b9ce14211f082bdaeaac3a4a6ab2}{Symbol\+Type}} kepler\+::\+Symbol\+Table\+::get\+\_\+type (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b}\label{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!insert\_system\_parameters@{insert\_system\_parameters}}
+\index{insert\_system\_parameters@{insert\_system\_parameters}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{insert\_system\_parameters()}{insert\_system\_parameters()}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::insert\+\_\+system\+\_\+parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a13e9ae16127176c1400b9e16b98ccd72}\label{classkepler_1_1_symbol_table_a13e9ae16127176c1400b9e16b98ccd72}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!remove@{remove}}
+\index{remove@{remove}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::remove (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id,  }\item[{bool}]{locally\+\_\+only = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{classkepler_1_1_symbol_table_a13e9ae16127176c1400b9e16b98ccd72_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{classkepler_1_1_symbol_table_a13e9ae16127176c1400b9e16b98ccd72_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a928b41896a0c0f1b5eef23ae3f35c3b3}\label{classkepler_1_1_symbol_table_a928b41896a0c0f1b5eef23ae3f35c3b3}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!set@{set}}
+\index{set@{set}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::set (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id,  }\item[{const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&}]{value,  }\item[{bool}]{locally\+\_\+only = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classkepler_1_1_symbol_table_a928b41896a0c0f1b5eef23ae3f35c3b3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a928b41896a0c0f1b5eef23ae3f35c3b3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_a8695f390aed9dbe7b04c936f965cbf1b}\label{classkepler_1_1_symbol_table_a8695f390aed9dbe7b04c936f965cbf1b}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!set@{set}}
+\index{set@{set}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::set (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id,  }\item[{const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&}]{value,  }\item[{bool}]{locally\+\_\+only = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_a8695f390aed9dbe7b04c936f965cbf1b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_af7e1200bf4b2000adb52843d496ab8f2}\label{classkepler_1_1_symbol_table_af7e1200bf4b2000adb52843d496ab8f2}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!set@{set}}
+\index{set@{set}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::set (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{id,  }\item[{const \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} \&}]{value,  }\item[{bool}]{locally\+\_\+only = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkepler_1_1_symbol_table_af7e1200bf4b2000adb52843d496ab8f2_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classkepler_1_1_symbol_table_affa5b913d3f1208860517b21d26cc828}\label{classkepler_1_1_symbol_table_affa5b913d3f1208860517b21d26cc828}} 
+\index{kepler::SymbolTable@{kepler::SymbolTable}!strip\_values@{strip\_values}}
+\index{strip\_values@{strip\_values}!kepler::SymbolTable@{kepler::SymbolTable}}
+\doxysubsubsection{\texorpdfstring{strip\_values()}{strip\_values()}}
+{\footnotesize\ttfamily void kepler\+::\+Symbol\+Table\+::strip\+\_\+values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/\mbox{\hyperlink{symbol__table_8h}{symbol\+\_\+table.\+h}}\item 
+src/core/\mbox{\hyperlink{symbol__table_8cpp}{symbol\+\_\+table.\+cpp}}\end{DoxyCompactItemize}

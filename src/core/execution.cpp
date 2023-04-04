@@ -22,8 +22,8 @@
 #include "core/constants/literals.h"
 #include "core/constants/config.h"
 #include "core/helpers/file_reader.h"
-#include "core/evaluation/tokenizer/tokenizer.h"
-#include "core/evaluation/parser/parser.h"
+#include "core/evaluation/tokenizer.h"
+#include "core/evaluation/parser.h"
 #include "core/evaluation/interpreter.h"
 #include "symbol_table.h"
 
@@ -132,7 +132,6 @@ void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream,
 
     Interpreter interpreter(*ast, *ast->symbol_table, stream);
     auto result = interpreter.interpret();
-
 
     //auto stop = std::chrono::high_resolution_clock::now();
 

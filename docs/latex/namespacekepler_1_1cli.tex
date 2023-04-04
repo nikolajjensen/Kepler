@@ -1,0 +1,38 @@
+\hypertarget{namespacekepler_1_1cli}{}\doxysection{kepler\+::cli Namespace Reference}
+\label{namespacekepler_1_1cli}\index{kepler::cli@{kepler::cli}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structkepler_1_1cli_1_1_config}{Config}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structkepler_1_1cli_1_1_config}{kepler\+::cli\+::\+Config}} \mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}
+\item 
+auto \mbox{\hyperlink{namespacekepler_1_1cli_af63bc37cbdc01d48504fc85587f48077}{cli}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacekepler_1_1cli_af63bc37cbdc01d48504fc85587f48077}\label{namespacekepler_1_1cli_af63bc37cbdc01d48504fc85587f48077}} 
+\index{kepler::cli@{kepler::cli}!cli@{cli}}
+\index{cli@{cli}!kepler::cli@{kepler::cli}}
+\doxysubsubsection{\texorpdfstring{cli}{cli}}
+{\footnotesize\ttfamily auto kepler\+::cli\+::cli}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ lyra::help(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a023a568ea2b26c21b05f06415f12d93f}{show\_help}}).description(\textcolor{stringliteral}{"{}Here\ is\ a\ list\ of\ all\ command-\/line\ arguments."{}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ lyra::opt(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a9b8a652808b6de44736abc7b770c238e}{run\_tests}})[\textcolor{stringliteral}{"{}-\/t"{}}][\textcolor{stringliteral}{"{}-\/-\/test"{}}](\textcolor{stringliteral}{"{}Run\ the\ test\ suite."{}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ lyra::arg(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a0fbeca2bc441ef199d27cca167905951}{commands}},\ \textcolor{stringliteral}{"{}workspace|test\ tags"{}})(\textcolor{stringliteral}{"{}Which\ workspace\ (.kpl)\ file\ to\ execute"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}if\ <-\/t|-\/-\/test>\ is\ not\ set,\ else\ specific\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tags\ to\ run\ tests\ for."{}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}\label{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}} 
+\index{kepler::cli@{kepler::cli}!config@{config}}
+\index{config@{config}!kepler::cli@{kepler::cli}}
+\doxysubsubsection{\texorpdfstring{config}{config}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structkepler_1_1cli_1_1_config}{kepler\+::cli\+::\+Config}} kepler\+::cli\+::config}
+

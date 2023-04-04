@@ -1,0 +1,137 @@
+\hypertarget{structkepler_1_1_monadic_function}{}\doxysection{kepler\+::Monadic\+Function Struct Reference}
+\label{structkepler_1_1_monadic_function}\index{kepler::MonadicFunction@{kepler::MonadicFunction}}
+
+
+{\ttfamily \#include $<$ast.\+h$>$}
+
+
+
+Inheritance diagram for kepler\+::Monadic\+Function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structkepler_1_1_monadic_function__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kepler\+::Monadic\+Function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structkepler_1_1_monadic_function__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_monadic_function_af82ef0750d53b65bb90d32f30ee469d4}{$\sim$\+Monadic\+Function}} () override
+\item 
+\mbox{\hyperlink{structkepler_1_1_monadic_function_a3377a786145472776ea06e9147727b0e}{Monadic\+Function}} (\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} $>$ $\ast$function\+\_\+, \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$omega\+\_\+)
+\item 
+std\+::string \mbox{\hyperlink{structkepler_1_1_monadic_function_aa56832dd3dddbd9ae32cdf64992465cf}{to\+\_\+string}} () const override
+\item 
+\mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_monadic_function_a9cb2c4b8779782f4a8f979ea5268e4b3}{accept}} (\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{kepler\+::\+ASTNode$<$ Array $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a517b476ca31f2793b82f51882439e125}{$\sim$\+ASTNode}} ()=default
+\item 
+virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{accept}} (class \mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&visitor)=0
+\item 
+virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\item 
+\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\item 
+void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+\item 
+long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} $>$ $\ast$ \mbox{\hyperlink{structkepler_1_1_monadic_function_a6567bcd91c490377e4f0abf16490eda9}{function}}
+\item 
+\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$ \mbox{\hyperlink{structkepler_1_1_monadic_function_a60f6954ce9292e4994b32edfaae9e74c}{omega}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structkepler_1_1_monadic_function_af82ef0750d53b65bb90d32f30ee469d4}\label{structkepler_1_1_monadic_function_af82ef0750d53b65bb90d32f30ee469d4}} 
+\index{kepler::MonadicFunction@{kepler::MonadicFunction}!````~MonadicFunction@{$\sim$MonadicFunction}}
+\index{````~MonadicFunction@{$\sim$MonadicFunction}!kepler::MonadicFunction@{kepler::MonadicFunction}}
+\doxysubsubsection{\texorpdfstring{$\sim$MonadicFunction()}{~MonadicFunction()}}
+{\footnotesize\ttfamily kepler\+::\+Monadic\+Function\+::$\sim$\+Monadic\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{structkepler_1_1_monadic_function_a3377a786145472776ea06e9147727b0e}\label{structkepler_1_1_monadic_function_a3377a786145472776ea06e9147727b0e}} 
+\index{kepler::MonadicFunction@{kepler::MonadicFunction}!MonadicFunction@{MonadicFunction}}
+\index{MonadicFunction@{MonadicFunction}!kepler::MonadicFunction@{kepler::MonadicFunction}}
+\doxysubsubsection{\texorpdfstring{MonadicFunction()}{MonadicFunction()}}
+{\footnotesize\ttfamily kepler\+::\+Monadic\+Function\+::\+Monadic\+Function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}} $>$ $\ast$}]{function\+\_\+,  }\item[{\mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$ \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$ $\ast$}]{omega\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structkepler_1_1_monadic_function_a9cb2c4b8779782f4a8f979ea5268e4b3}\label{structkepler_1_1_monadic_function_a9cb2c4b8779782f4a8f979ea5268e4b3}} 
+\index{kepler::MonadicFunction@{kepler::MonadicFunction}!accept@{accept}}
+\index{accept@{accept}!kepler::MonadicFunction@{kepler::MonadicFunction}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Monadic\+Function\+::accept (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{kepler\+::\+ASTNode$<$ Array $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{structkepler_1_1_monadic_function_a9cb2c4b8779782f4a8f979ea5268e4b3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structkepler_1_1_monadic_function_aa56832dd3dddbd9ae32cdf64992465cf}\label{structkepler_1_1_monadic_function_aa56832dd3dddbd9ae32cdf64992465cf}} 
+\index{kepler::MonadicFunction@{kepler::MonadicFunction}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!kepler::MonadicFunction@{kepler::MonadicFunction}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Monadic\+Function\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{kepler\+::\+ASTNode$<$ Array $>$}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{structkepler_1_1_monadic_function_aa56832dd3dddbd9ae32cdf64992465cf_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structkepler_1_1_monadic_function_a6567bcd91c490377e4f0abf16490eda9}\label{structkepler_1_1_monadic_function_a6567bcd91c490377e4f0abf16490eda9}} 
+\index{kepler::MonadicFunction@{kepler::MonadicFunction}!function@{function}}
+\index{function@{function}!kepler::MonadicFunction@{kepler::MonadicFunction}}
+\doxysubsubsection{\texorpdfstring{function}{function}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$\mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\+\_\+ptr}}$>$$\ast$ kepler\+::\+Monadic\+Function\+::function}
+
+\mbox{\Hypertarget{structkepler_1_1_monadic_function_a60f6954ce9292e4994b32edfaae9e74c}\label{structkepler_1_1_monadic_function_a60f6954ce9292e4994b32edfaae9e74c}} 
+\index{kepler::MonadicFunction@{kepler::MonadicFunction}!omega@{omega}}
+\index{omega@{omega}!kepler::MonadicFunction@{kepler::MonadicFunction}}
+\doxysubsubsection{\texorpdfstring{omega}{omega}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_a_s_t_node}{ASTNode}}$<$\mbox{\hyperlink{structkepler_1_1_array}{Array}}$>$$\ast$ kepler\+::\+Monadic\+Function\+::omega}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
+src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}

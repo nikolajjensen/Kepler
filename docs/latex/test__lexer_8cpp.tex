@@ -1,0 +1,98 @@
+\hypertarget{test__lexer_8cpp}{}\doxysection{src/testing/test\+\_\+lexer.cpp File Reference}
+\label{test__lexer_8cpp}\index{src/testing/test\_lexer.cpp@{src/testing/test\_lexer.cpp}}
+{\ttfamily \#include $<$catch2/catch\+\_\+test\+\_\+macros.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}testing/matcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}core/token\+\_\+type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}testing/fixtures/lexer\+\_\+fixture.\+h\char`\"{}}\newline
+Include dependency graph for test\+\_\+lexer.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__lexer_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{test__lexer_8cpp_a035c6df778cbfdffcd6da6fe4b7d7872}{CHECK\+\_\+\+THAT\+\_\+\+THROWS}}(arg,  matcher)~CHECK\+\_\+\+THROWS\+\_\+\+MATCHES(arg, \mbox{\hyperlink{classkepler_1_1error}{kepler\+::error}}, matcher)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a3dd338733e327040325bffe23aae249d}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}comment\char`\"{}, \char`\"{}\mbox{[}comment\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a84a4f0b267c205a278ecc51b0b106a24}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}character-\/literal\char`\"{}, \char`\"{}\mbox{[}character-\/literal\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a8c259295d996f56858a67a02a536ebac}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}real-\/scalar-\/literal\char`\"{}, \char`\"{}\mbox{[}tokenizer\mbox{]}\mbox{[}real-\/scalar-\/literal\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a0f3ffbcfd47db34f8176f484e4303665}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}numeric-\/scalar-\/literal\char`\"{}, \char`\"{}\mbox{[}numeric-\/scalar-\/literal\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a86cfc55b90f7c15fd84246912e8ac369}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}numeric-\/literal\char`\"{}, \char`\"{}\mbox{[}numeric-\/literal\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_ab86707e4dc50468aa83f11d83947e1a9}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}literal-\/identifier\char`\"{}, \char`\"{}\mbox{[}literal-\/identifier\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a4edc798d0dd650a6ad699b153fd49500}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}line\char`\"{}, \char`\"{}\mbox{[}line\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{test__lexer_8cpp_a85680e8fb5b461971b3674daf2ed7be8}{TEST\+\_\+\+CASE\+\_\+\+METHOD}} (\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}, \char`\"{}corner-\/cases\char`\"{}, \char`\"{}\mbox{[}corner-\/cases\mbox{]}\mbox{[}lexer\mbox{]}\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{test__lexer_8cpp_a035c6df778cbfdffcd6da6fe4b7d7872}\label{test__lexer_8cpp_a035c6df778cbfdffcd6da6fe4b7d7872}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!CHECK\_THAT\_THROWS@{CHECK\_THAT\_THROWS}}
+\index{CHECK\_THAT\_THROWS@{CHECK\_THAT\_THROWS}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{CHECK\_THAT\_THROWS}{CHECK\_THAT\_THROWS}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+THAT\+\_\+\+THROWS(\begin{DoxyParamCaption}\item[{}]{arg,  }\item[{}]{matcher }\end{DoxyParamCaption})~CHECK\+\_\+\+THROWS\+\_\+\+MATCHES(arg, \mbox{\hyperlink{classkepler_1_1error}{kepler\+::error}}, matcher)}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{test__lexer_8cpp_a84a4f0b267c205a278ecc51b0b106a24}\label{test__lexer_8cpp_a84a4f0b267c205a278ecc51b0b106a24}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}character-\/literal\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}character-\/literal\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_a3dd338733e327040325bffe23aae249d}\label{test__lexer_8cpp_a3dd338733e327040325bffe23aae249d}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}comment\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}comment\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_a85680e8fb5b461971b3674daf2ed7be8}\label{test__lexer_8cpp_a85680e8fb5b461971b3674daf2ed7be8}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}corner-\/cases\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}corner-\/cases\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_a4edc798d0dd650a6ad699b153fd49500}\label{test__lexer_8cpp_a4edc798d0dd650a6ad699b153fd49500}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}line\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}line\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_ab86707e4dc50468aa83f11d83947e1a9}\label{test__lexer_8cpp_ab86707e4dc50468aa83f11d83947e1a9}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}literal-\/identifier\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}literal-\/identifier\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_a86cfc55b90f7c15fd84246912e8ac369}\label{test__lexer_8cpp_a86cfc55b90f7c15fd84246912e8ac369}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}numeric-\/literal\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}numeric-\/literal\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_a0f3ffbcfd47db34f8176f484e4303665}\label{test__lexer_8cpp_a0f3ffbcfd47db34f8176f484e4303665}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}numeric-\/scalar-\/literal\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}numeric-\/scalar-\/literal\mbox{]}\mbox{[}lexer\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8cpp_a8c259295d996f56858a67a02a536ebac}\label{test__lexer_8cpp_a8c259295d996f56858a67a02a536ebac}} 
+\index{test\_lexer.cpp@{test\_lexer.cpp}!TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}}
+\index{TEST\_CASE\_METHOD@{TEST\_CASE\_METHOD}!test\_lexer.cpp@{test\_lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE\_METHOD()}{TEST\_CASE\_METHOD()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily TEST\+\_\+\+CASE\+\_\+\+METHOD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classlexer__fixture}{lexer\+\_\+fixture}}}]{,  }\item[{\char`\"{}real-\/scalar-\/literal\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}tokenizer\mbox{]}\mbox{[}real-\/scalar-\/literal\mbox{]} }\end{DoxyParamCaption})}
+

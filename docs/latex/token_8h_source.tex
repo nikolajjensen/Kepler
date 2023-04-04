@@ -1,0 +1,64 @@
+\hypertarget{token_8h_source}{}\doxysection{token.\+h}
+\label{token_8h_source}\index{src/core/token.h@{src/core/token.h}}
+\mbox{\hyperlink{token_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Copyright\ 2022\ Nikolaj\ Banke\ Jensen.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ This\ file\ is\ part\ of\ Kepler.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Kepler\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Kepler\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ See\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ along\ with\ Kepler.\ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{token__type_8h}{token\_type.h}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{datatypes_8h}{datatypes.h}}"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}uni\_algo/conv.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8h}{array.h}}"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{conversion_8h}{core/helpers/conversion.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{position_8h}{position.h}}"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_token}{Token}}\ :\ \mbox{\hyperlink{structkepler_1_1position}{position}}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ \mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::optional<std::vector<Char>>\ \mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_token_a5c8e238717679b2767ac660caddd7e03}{Token}}(\textcolor{keywordtype}{long}\ pos,\ \mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type\_,\ \mbox{\hyperlink{namespacekepler_a91663bd130d920c4faafd5f629b26342}{Char}}\ content\_)\ :\ \mbox{\hyperlink{structkepler_1_1position}{position}}(pos),\ \mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}}(type\_),\ \mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}(std::vector<\mbox{\hyperlink{namespacekepler_a91663bd130d920c4faafd5f629b26342}{Char}}>\{content\_\})\ \{\}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_token_a02f3d2fad0c5fdd11a6a6f795bfbd856}{Token}}(\textcolor{keywordtype}{long}\ pos,\ \mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type\_,\ std::u32string\ content\_)\ :\ \mbox{\hyperlink{structkepler_1_1position}{position}}(pos),\ \mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}}(type\_),\ \mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}(\{content\_.begin(),\ content\_.end()\})\ \{\}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_token_a6281b0542fe1bf962b9105e8f5c5bfc8}{Token}}(\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type\_,\ std::u32string\ content\_)\ :\ \mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}}(type\_),\ \mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}(\{content\_.begin(),\ content\_.end()\})\ \{\}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_token_ac2bb9dc869b69b4cd0ca50f52b5bde56}{Token}}(\textcolor{keywordtype}{long}\ pos,\ \mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{TokenType}}\ type\_)\ :\ \mbox{\hyperlink{structkepler_1_1position}{position}}(pos),\ \mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}}(type\_),\ \mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}(std::nullopt)\ \{\}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structkepler_1_1_token_a0c4d76a759de7ff76f694d911b39d092}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_token}{Token}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_token}{Token}}\&\ rhs)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs.\mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}}\ ==\ rhs.\mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}}\ \&\&\ lhs.\mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}\ ==\ rhs.\mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structkepler_1_1_token_aa138d51909b8ce9e3435d7ba9864e6be}{to\_string}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ ss;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{}Token("{}}\ <<\ \mbox{\hyperlink{namespacekepler_a76d95d0e078e053088ec440c6e878ab3}{kepler::to\_string}}(\mbox{\hyperlink{structkepler_1_1_token_a71fb904e5772b761b23a949e3e850ab6}{type}});}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}.has\_value())\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ unwrapped\ =\ \mbox{\hyperlink{structkepler_1_1_token_abfa77f1503e4cac36798f009f21f2e70}{content}}.value();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ str\ =\ std::u32string(unwrapped.begin(),\ unwrapped.end());}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ uni::utf32to8(str);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ss.str();}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \};}
+\DoxyCodeLine{00058\ \};}
+
+\end{DoxyCode}

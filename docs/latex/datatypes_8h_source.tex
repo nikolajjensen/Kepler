@@ -1,0 +1,52 @@
+\hypertarget{datatypes_8h_source}{}\doxysection{datatypes.\+h}
+\label{datatypes_8h_source}\index{src/core/datatypes.h@{src/core/datatypes.h}}
+\mbox{\hyperlink{datatypes_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Copyright\ 2022\ Nikolaj\ Banke\ Jensen.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ This\ file\ is\ part\ of\ Kepler.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Kepler\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Kepler\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ See\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ along\ with\ Kepler.\ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <complex>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacekepler_ad62d8e5f12a82b84787cb1adcf746060}{List}}\ =\ std::vector<T>;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacekepler_a91663bd130d920c4faafd5f629b26342}{Char}}\ =\ char32\_t;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\ =\ std::complex<double>;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacekepler_a5712a67bd028c5a472e4bbfeb00e30e9}{StringUTF8}}\ =\ std::string;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}}\ =\ std::u32string;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\ \mbox{\hyperlink{namespacekepler_ae2a14fefebed01bc702523240787d8d8}{numeric\_limit\_max}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\ \mbox{\hyperlink{namespacekepler_ad51760a0749afe173ae1992bae62b401}{numeric\_limit\_min}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\ \mbox{\hyperlink{namespacekepler_afb522d6ecef07ad97aba105087960bfc}{number\_from\_characters}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacekepler_ad62d8e5f12a82b84787cb1adcf746060}{List<Char>}}\&\ list);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{double}\&\ \mbox{\hyperlink{namespacekepler_a871c0fef40578deb61e1a930df71456f}{apply\_scientific\_notation}}(\textcolor{keywordtype}{double}\&\ input,\ \textcolor{keywordtype}{double}\&\ exponent);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{namespacekepler_a5712a67bd028c5a472e4bbfeb00e30e9}{StringUTF8}}\ \mbox{\hyperlink{namespacekepler_aa848e96e65932d5f52bf3811002f0ec0}{number\_to\_string}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\&\ num,\ \textcolor{keywordtype}{int}\ precision\ =\ 10);}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{namespacekepler_a5712a67bd028c5a472e4bbfeb00e30e9}{StringUTF8}}\ \mbox{\hyperlink{namespacekepler_aeb0c7de5bfe099f79d13607089e6c312}{double\_to\_string}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&\ num,\ \textcolor{keywordtype}{int}\ precision);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\ \mbox{\hyperlink{namespacekepler_a571b16ee0d7c0e0eea34fc4f05284ed8}{integer\_nearest\_to}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}\&\ num);}
+\DoxyCodeLine{00046\ \};}
+
+\end{DoxyCode}
