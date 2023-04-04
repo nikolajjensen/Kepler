@@ -22,16 +22,16 @@
 
 namespace kepler {
     enum ErrorType {
-        SyntaxError,
-        ValueError,
+        DefinitionError,
         DomainError,
-        RankError,
+        FileError,
+        InternalError,
         LengthError,
         LimitError,
-        DefinitionError,
-        FileError,
         NotImplemented,
-        InternalError
+        RankError,
+        SyntaxError,
+        ValueError,
     };
 
     std::string to_string(ErrorType error_type);

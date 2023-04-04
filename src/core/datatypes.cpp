@@ -23,7 +23,7 @@
 #include <iomanip>
 #include "uni_algo/conv.h"
 
-kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
+std::string kepler::double_to_string(const double& num, int precision) {
     std::stringstream ss;
     ss << std::setprecision(precision);
     ss << num;
@@ -65,7 +65,7 @@ kepler::StringUTF8 kepler::double_to_string(const double& num, int precision) {
     return raw;
 }
 
-kepler::StringUTF8 kepler::number_to_string(const kepler::Number& num, int precision) {
+std::string kepler::number_to_string(const kepler::Number& num, int precision) {
     String result = uni::utf8to32u(kepler::double_to_string(num.real(), precision));
 
     if(num.imag() != 0) {

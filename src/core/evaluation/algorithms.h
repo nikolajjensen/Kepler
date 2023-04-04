@@ -31,8 +31,5 @@ namespace kepler {
     Array without(const Array& alpha, const Array& omega);
     Array without(const std::u32string& alpha, const std::u32string& omega);
 
-    //Array index_generator(const Array& omega);
     Array rho(const Array& alpha, const Array& omega);
-    //std::vector<int> encode(const std::vector<int>& alpha, const int& omega);
-    //Array decode(const Array& alpha, const Array& omega);
 };

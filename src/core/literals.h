@@ -21,9 +21,10 @@
 #include "core/datatypes.h"
 #include "core/token_type.h"
 #include <map>
+#include <ranges>
 
 namespace kepler::constants {
-    const std::map<Char, TokenType> wysiwyg_mapping = {
+    const std::map<Char, TokenType> symbol_mapping = {
             {U'⍺',  ALPHA},
             {U'⍵',  OMEGA},
             {U'+',  PLUS},
@@ -84,7 +85,7 @@ namespace kepler::constants {
     const std::u32string alpha_id = U"⍺";
     const std::u32string omega_id = U"⍵";
 
-    const std::u32string primitives = U"⍺⍵+-+-×÷⌈⌊⊢⊣⍳<≤=≥>≠~?!○*⍟|⊂↑.⍴∧∨⍲⍱⊖⌽,⍨⍣/¨∘⍤⍥←(){}◊⋄\n:";
+    const std::u32string symbols = U"\n!()*+,-./:<=>?{|}~¨×÷←↑∘∧∨≠≤≥⊂⊖⊢⊣⋄⌈⌊⌽⍟⍣⍤⍥⍨⍱⍲⍳⍴⍵⍺◊○";
     const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕∇";
     const std::u32string digit = U"0123456789";
 };

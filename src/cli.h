@@ -30,7 +30,7 @@ namespace kepler::cli {
     auto cli
             = lyra::help(config.show_help).description("Here is a list of all command-line arguments.")
                 | lyra::opt(config.run_tests)["-t"]["--test"]("Run the test suite.")
-                | lyra::arg(config.commands, "workspace|test tags")("Which workspace (.kpl) file to execute"
+                | lyra::arg(config.commands, "workspace|test tags")("Which source file (.kpl) to execute "
                                                                     "if <-t|--test> is not set, else specific "
                                                                     "tags to run tests for.");
 

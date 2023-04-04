@@ -347,30 +347,6 @@ namespace kepler {
         }
     }
 
-    /*
-    Parser::Parser(const std::vector<Token> &input_)
-                   : symbol_table(new SymbolTable()),
-                     cursor(input_.begin()),
-                     flag(input_.begin()),
-                     begin(input_.begin()),
-                     end(input_.end()) {}
-
-    Parser::Parser(SymbolTable &parent_table,
-                   std::vector<Token>::const_iterator begin_,
-                   std::vector<Token>::const_iterator end_)
-                   : symbol_table(new SymbolTable()),
-                     cursor(begin_),
-                     flag(begin_),
-                     begin(begin_),
-                     end(end_) {
-        symbol_table->attach_parent(&parent_table);
-    }
-
-    Statements* Parser::parse() {
-        return parse_program();
-    }
-
-     */
     void Parser::use_table(SymbolTable *new_table) {
         delete symbol_table;
         symbol_table = new_table;

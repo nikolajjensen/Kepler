@@ -128,11 +128,6 @@ namespace kepler {
 
     template <typename BASE>
     Array PervadeMixin<BASE>::apply(const Array::element_type& alpha, const Array::element_type& omega) {
-        /*
-        if(holds_alternative<Array>(alpha) && holds_alternative<Array>(omega)) {
-            return (*this)(get<Array>(alpha), get<Array>(omega));
-        }
-        */
         return std::visit(*this, alpha, omega);
     }
 };

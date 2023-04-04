@@ -42,41 +42,12 @@ kepler::Number kepler::floor(const Number &number) {
     }
 }
 
-//¯4 ¯3 ¯2 ¯1 0 1 2 3 4 ∘.! ¯4 ¯3 ¯2 ¯1 0 1 2 3 4
-//¯4 ! ¯3
 kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
     if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
         throw kepler::error(DomainError, "Complex arguments are not supported.");
     }
 
     return (tgamma(omega.real() + 1.0) / (tgamma(alpha.real() + 1.0) * tgamma(1.0 + omega.real() - alpha.real())));
-    /*Number oa = omega - alpha;
-
-    bool a_neg_int = alpha.imag() == 0.0 && alpha.real() == round(alpha.real()) && alpha.real() < 0.0;
-    bool o_neg_int = omega.imag() == 0.0 && omega.real() == round(omega.real()) && omega.real() < 0.0;
-    bool oa_neg_int = oa.imag() == 0.0 && oa.real() == round(oa.real()) && oa.real() < 0.0;
-
-    int a_int = alpha.real();//static_cast<int>(alpha.real());
-    int o_int = omega.real();//static_cast<int>(omega.real());
-    int oa_int = oa.real();//static_cast<int>(oa.real());
-
-    // Algorithm mentioned in ISO
-    if(!a_neg_int && !o_neg_int && !oa_neg_int) {
-        return {tgamma(1.0 + (double)o_int) / (tgamma(1.0 + (double)a_int) * tgamma(1.0 + (double)oa_int))};
-    }else if(
-            (!a_neg_int && !o_neg_int && oa_neg_int)
-            || (a_neg_int && !o_neg_int && !oa_neg_int)
-            || (a_neg_int && o_neg_int && oa_neg_int)) {
-        return 0;
-    } else if(!a_neg_int && o_neg_int && !oa_neg_int) {
-        throw kepler::error(DomainError);
-    } else if(!a_neg_int && o_neg_int && oa_neg_int) {
-        return pow(-1, alpha.real()) * binomial(alpha, alpha - (omega + 1.0));
-    } else if (a_neg_int && o_neg_int && !oa_neg_int) {
-        return pow(-1, oa.real()) * binomial(abs(o_int + 1.0), abs(a_int + 1.0));
-    } else {
-        throw kepler::error(InternalError, "Unexpected case reached in binomial calculation.");
-    }*/
 }
 
 kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega) {
@@ -224,72 +195,3 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
 
     return result;
 }
-
-/*
-std::vector<int> kepler::encode(const std::vector<int> &radices, const int &scalar) {
-    auto n = (std::count(radices.begin(), radices.end(), 0) == 0)
-             ? std::accumulate(radices.begin(), radices.end(), 1, std::multiplies<>())
-             : scalar + 1;
-    auto b = 0;
-
-    auto rit = radices.rbegin();
-    std::vector<int> result;
-    while(rit != radices.rend()) {
-        if(*rit != 0) {
-            n = n / *rit;
-            b = n % *rit;
-        } else {
-            b = n;
-            n = 0;
-        }
-        result.emplace_back(b);
-    }
-
-    std::reverse(result.begin(), result.end());
-
-    return result;
-}
-
-kepler::Array kepler::decode(const Array &alpha, const Array &omega) {
-    int acc = 0;
-    int acc_prod = 1;
-
-    for(int i = alpha.size(); i >= 0; --i) {
-        acc += acc_prod * (int)get<Number>(get<Array>(omega.data[i]).data[0]).real();
-        acc_prod *= (int)get<Number>(get<Array>(alpha.data[i]).data[0]).real();
-    }
-
-    return {acc};
-}
-
-kepler::Array kepler::index_generator(const Array &omega) {
-    Array result = omega;
-
-    if(omega.rank() > 1) {
-        throw kepler::error(RankError, "Index generator did not expect array of rank " + std::to_string(omega.rank()));
-    }
-
-    if(!omega.is_integer_numeric()) {
-        throw kepler::error(ValueError, "Index generator expected only integer array argument.");
-    }
-
-    if(omega.is_scalar()) {
-        result.shape = {(int)get<Number>(omega.data[0]).real()};
-    } else {
-        result.shape = {};
-        for(auto& element : omega.data) {
-            auto& num = get<Number>(get<Array>(element).data[0]);
-
-            if(num.real() < 0.0) {
-                throw kepler::error(ValueError, "Expected only positive integers in argument.");
-            }
-
-            result.shape.emplace_back((int)num.real());
-        }
-    }
-
-
-
-    return result;
-}
-*/

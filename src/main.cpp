@@ -4,6 +4,7 @@
 #include <lyra/lyra.hpp>
 #include "cli.h"
 #include "core/evaluation/execution.h"
+#include "core/literals.h"
 
 using namespace kepler;
 

@@ -160,7 +160,7 @@ namespace kepler {
     Token Tokenizer::wysiwyg_token() {
         char32_t character = current();
         advance();
-        return {cursor, constants::wysiwyg_mapping.at(character), character};
+        return {cursor, constants::symbol_mapping.at(character), character};
     }
 
     Token Tokenizer::next_token() {
@@ -169,11 +169,11 @@ namespace kepler {
 
         if(at_end()) {
             return {cursor, END};
-        } else if(one_of(current(), U"¯0123456789") || (current() == U'.' && !one_of(peek(), constants::primitives))) {
+        } else if(one_of(current(), U"¯0123456789") || (current() == U'.' && !one_of(peek(), constants::symbols))) {
             return number_token();
         } else if(one_of(current(), constants::identifier_chars)) {
             return identifier_token();
-        } else if(one_of(current(), constants::primitives)) {
+        } else if(one_of(current(), constants::symbols)) {
             return wysiwyg_token();
         } else if(current() == U'\'') {
             return string_token();

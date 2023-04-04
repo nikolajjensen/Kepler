@@ -63,9 +63,6 @@ namespace kepler {
             parent->set(id, value);
         } else {
             table.insert_or_assign(id, new Symbol(FunctionSymbol, value));
-
-            // Set the recursive symbol to the same symbol.
-            //table.insert_or_assign(constants::recursive_call_id, table.at(id));
         }
     }
 
@@ -97,14 +94,6 @@ namespace kepler {
     // Removes all keys and destroys all symbols.
     void SymbolTable::clear() {
         table.clear();
-    }
-
-    // Removes all values from the symbol table,
-    // but keeps all entries and their bindings.
-    void SymbolTable::strip_values() {
-        for (auto& [key, val] : table) {
-            val->content = std::nullopt;
-        }
     }
 
     void SymbolTable::insert_system_parameters() {

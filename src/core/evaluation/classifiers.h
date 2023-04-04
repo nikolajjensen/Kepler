@@ -27,25 +27,3 @@ namespace kepler::helpers {
     bool is_dyadic_operator(TokenType type);
     bool is_array_token(TokenType type);
 };
-/*
-namespace kepler::helpers {
-    bool is_identifier(const Token& token);
-    bool is_literal(const Token& token);
-    bool is_lexical_unit(const Token& token);
-    bool is_value(const Token& token);
-    bool is_delimiter(const Token& token);
-    bool is_defined_name(const Token& token);
-    bool is_defined_operator(const Token& token);
-    bool is_system_name(const Token& token);
-    bool is_classified_name(const Token& token);
-    bool is_syntactic_unit(const Token& token);
-    bool is_error(const Token& token);
-    bool is_report(const Token& token);
-    bool is_exception(const Token& token);
-    bool is_result(const Token& token);
-
-    bool is(const Token& token, TokenType tokenClass);
-
-    bool is_scalar(const Token& token);
-};
- */

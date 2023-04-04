@@ -119,8 +119,6 @@ void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, bool
 }
 
 void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable* symbol_table) {
-    //auto start = std::chrono::high_resolution_clock::now();
-
     Tokenizer tokenizer;
     List<Token> tokens = tokenizer.tokenize(&input);
 
@@ -132,11 +130,6 @@ void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream,
 
     Interpreter interpreter(*ast, *ast->symbol_table, stream);
     auto result = interpreter.interpret();
-
-    //auto stop = std::chrono::high_resolution_clock::now();
-
-    //auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-    //std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
 
     if(print_last) {
         stream << result.to_string(ast->symbol_table) << std::flush;

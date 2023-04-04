@@ -35,12 +35,12 @@ namespace kepler {
 
     public:
         SymbolTable();
-        SymbolTable(SymbolTable* parent);
+        explicit SymbolTable(SymbolTable* parent);
         ~SymbolTable();
 
         void attach_parent(SymbolTable* parent);
 
-        bool contains(const std::u32string& id) const;
+        [[nodiscard]] bool contains(const std::u32string& id) const;
 
         template <typename T>
         const T& get(const std::u32string& id) const {
@@ -57,7 +57,7 @@ namespace kepler {
             return std::get<T>(symbol.content.value());
         }
 
-        SymbolType get_type(const std::u32string& id) const;
+        [[nodiscard]] SymbolType get_type(const std::u32string& id) const;
 
         void set(const std::u32string& id, const Array& value, bool locally_only = false);
         void set(const std::u32string& id, const Operation_ptr& value, bool locally_only = false);
@@ -68,7 +68,6 @@ namespace kepler {
         void bind_function(const std::u32string& id);
 
         void clear();
-        void strip_values();
 
         void insert_system_parameters();
     };

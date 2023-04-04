@@ -42,7 +42,7 @@ namespace kepler {
             return lhs.type == rhs.type && lhs.content == rhs.content;
         }
 
-        std::string to_string() const {
+        [[nodiscard]] std::string to_string() const {
             std::stringstream ss;
             ss << "Token(" << kepler::to_string(type);
 
