@@ -24,37 +24,44 @@
 #include "core/evaluation/execution.h"
 #include "core/symbol_table.h"
 
+/**
+ * Fixture for testing the execution of Kepler code.
+ */
 class GeneralFixture {
 protected:
     kepler::SymbolTable symbol_table;
     std::stringstream output_stream;
 
 public:
+    /**
+     * Creates a new GeneralFixture.
+     * Initializes the symbol table with the system parameters.
+     */
     GeneralFixture() {
         symbol_table.insert_system_parameters();
     }
 
+    /**
+     * Destroys the GeneralFixture.
+     * Clears the symbol table.
+     */
     ~GeneralFixture() {
         symbol_table.clear();
     }
 
 protected:
-    std::string run(std::string&& input, bool timing = false) {
-        //auto start = std::chrono::high_resolution_clock::now();
 
-        // Clear the output_stream between runs.
+    /**
+     * Runs the execution on the given input.
+     * @param input The input to execute.
+     * @param timing Whether to time the execution.
+     * @return The result of the execution.
+     */
+    std::string run(std::string&& input) {
         output_stream.str("");
-
         auto u32str = uni::utf8to32u(input);
         std::vector<kepler::Char> vec = {u32str.begin(), u32str.end()};
         kepler::safe_execution(vec, output_stream, true, &symbol_table);
-
-        //auto stop = std::chrono::high_resolution_clock::now();
-        //if(timing) {
-        //    auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-        //    std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
-        //}
-
         return output_stream.str();
     }
 };

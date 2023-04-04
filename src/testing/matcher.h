@@ -28,14 +28,33 @@
 #include "core/evaluation/ast.h"
 #include <iomanip>
 
-
+/**
+ * The Prints struct matches a string to a specific string.
+ */
 struct Prints : Catch::Matchers::MatcherGenericBase {
+
+    /**
+     * @brief Construct a new Prints object.
+     *
+     * @param output_ The string to match.
+     */
     explicit Prints(std::string const& output_) : output(output_) {}
 
+    /**
+     * @brief Match a string to a specific string.
+     *
+     * @param result The string to match.
+     * @return true If the strings are equal.
+     * @return false If the strings are not equal.
+     */
     bool match(std::string const & result) const {
         return result == output;
     }
 
+    /**
+     * Produces a string describing why the matcher failed.
+     * @return A string describing why the matcher failed.
+     */
     std::string describe() const override {
         return "should print " + output;
     }

@@ -24,20 +24,36 @@
 #include "core/evaluation/parser.h"
 #include <chrono>
 
+/**
+ * Fixture for testing the parser.
+ */
 class ParserFixture {
 protected:
     kepler::SymbolTable symbol_table;
 
 public:
+    /**
+     * Creates a new ParserFixture.
+     * Initializes the symbol table with the system parameters.
+     */
     ParserFixture() {
         symbol_table.insert_system_parameters();
     }
 
+    /**
+     * Destroys the ParserFixture.
+     * Clears the symbol table.
+     */
     ~ParserFixture() {
         symbol_table.clear();
     }
 
 protected:
+    /**
+     * Runs the parser on the given input.
+     * @param raw The input to parse.
+     * @return The result of the parse.
+     */
     std::string run(std::string&& raw) {
         try {
             kepler::String converted = uni::utf8to32u(raw);

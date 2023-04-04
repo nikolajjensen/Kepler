@@ -22,28 +22,22 @@
 #include "core/evaluation/tokenizer.h"
 #include <chrono>
 
-class LexerFixture {
-public:
-    LexerFixture() = default;
-
+/**
+ * Fixture for testing the tokenizer.
+ */
+class TokenizerFixture {
 protected:
-    kepler::List<kepler::Token> run(std::string&& raw, bool timing = false) {
+
+    /**
+     * Runs the tokenizer on the given input.
+     * @param raw The input to tokenize.
+     * @return The result of the tokenization.
+     */
+    kepler::List<kepler::Token> run(std::string&& raw) {
         kepler::String converted = uni::utf8to32u(raw);
         std::vector<kepler::Char> input(converted.begin(), converted.end());
-
-        //auto start = std::chrono::high_resolution_clock::now();
-
         kepler::Tokenizer tokenizer;
         std::vector<kepler::Token> output = tokenizer.tokenize(&input);
-
-        //kepler::Lexer lexer(input);
-        //kepler::List<kepler::Token> output = lexer.lex();
-
-        //auto stop = std::chrono::high_resolution_clock::now();
-        //if(timing) {
-        //    auto us = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-        //    std::cout << "Took " << us << " µs (" << (us / 1000.0) << " ms)" << std::endl;
-        //}
         return output;
     }
 };

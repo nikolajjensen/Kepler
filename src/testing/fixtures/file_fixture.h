@@ -21,11 +21,16 @@
 #include <string>
 #include "core/evaluation/execution.h"
 
+/**
+ * Fixture for testing the execution of Kepler code.
+ */
 class FileFixture {
-public:
-    FileFixture() {}
-
 protected:
+    /**
+     * Runs the given Kepler file.
+     * @param path The path to the file to run.
+     * @return The output of the file.
+     */
     std::string run(std::string&& path) {
         std::stringstream ss;
         kepler::run_file(path, ss);
