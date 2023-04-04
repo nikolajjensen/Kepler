@@ -1,5 +1,3 @@
-⍝ https://www.thoughtco.com/celcius-to-farenheit-formula-609227
-
 ⍝ Celsius to Fahrenheit
 f←{
     32+⍵×9÷5

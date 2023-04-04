@@ -17,8 +17,8 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include <benchmark/benchmark.h>
-#include "kepler_fixture.h"
-#include "cpp_runners.h"
+#include "suite/kepler_fixture.h"
+#include "suite/cpp_runners.h"
 
 ///////////////////////////////////////////////////////////////////
 //// C++ Benchmarks

@@ -1,5 +1,7 @@
-⍝ Stack-recursive Fibonacci.
+⍝ Provided by:
 ⍝ https://dfns.dyalog.com/n_fibonacci.htm
+
+⍝ Stack-recursive Fibonacci.
 fib←{
     ⍵≤1:⍵
     (∇ ⍵-1)+∇ ⍵-2

@@ -1,4 +1,6 @@
-⍝ By https://www.dyalog.com/blog/2017/03/beauty-and-the-beast/
+⍝ Provided by: Morten Kromberg
+⍝ https://www.dyalog.com/blog/2017/03/beauty-and-the-beast/
+
 ⍝ Setting IndexOrigin and PrintPrecision.
 ⎕IO←0
 ⍝⎕PP←4
