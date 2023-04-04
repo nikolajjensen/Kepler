@@ -26,7 +26,7 @@
 #include <uni_algo/conv.h>
 
 namespace kepler {
-    class error : public std::exception {
+    class Error : public std::exception {
     public:
         ErrorType error_type;
         std::string message;
@@ -35,7 +35,7 @@ namespace kepler {
         int line;
         std::string file;
 
-        error(ErrorType error_type_,
+        Error(ErrorType error_type_,
               std::string message_ = "")
                 : error_type(error_type_),
                   message(std::move(message_)),
@@ -44,7 +44,7 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
-        error(ErrorType error_type_,
+        Error(ErrorType error_type_,
               std::string message_,
               long position_)
                 : error_type(error_type_),
@@ -54,7 +54,7 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
-        error(ErrorType error_type_,
+        Error(ErrorType error_type_,
               long position_)
                 : error_type(error_type_),
                   message(""),
@@ -63,7 +63,7 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
-        error(ErrorType error_type_,
+        Error(ErrorType error_type_,
               std::string message_,
               long position_,
               const std::vector<Char>* input_)

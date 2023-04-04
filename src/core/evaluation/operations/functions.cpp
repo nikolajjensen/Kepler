@@ -24,10 +24,11 @@
 #include <algorithm>
 #include <random>
 #include <cmath>
-#include "core/config.h"
 #include "core/symbol_table.h"
 #include "core/evaluation/algorithms.h"
 #include "core/array.h"
+#include "core/literals.h"
+#include "core/helpers.h"
 
 namespace kepler {
     Array Plus::operator()(const Number& alpha, const Number& omega) {
@@ -57,7 +58,7 @@ namespace kepler {
     Array Divide::operator()(const Number& alpha, const Number& omega) {
         if(omega == 0.0) {
             if(alpha != 0.0) {
-                throw kepler::error(DomainError, "Division by 0 is undefined.");
+                throw kepler::Error(DomainError, "Division by 0 is undefined.");
             } else {
                 return {1};
             }
@@ -67,14 +68,14 @@ namespace kepler {
 
     Array Divide::operator()(const Number& omega) {
         if(omega == 0.0) {
-            throw kepler::error(DomainError, "Reciprocal of 0 is undefined.");
+            throw kepler::Error(DomainError, "Reciprocal of 0 is undefined.");
         }
         return {1.0 / omega};
     }
 
     Array Ceiling::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Maximum of complex numbers is undefined.");
+            throw kepler::Error(DomainError, "Maximum of complex numbers is undefined.");
         }
 
         return {std::max(alpha.real(), omega.real())};
@@ -86,7 +87,7 @@ namespace kepler {
 
     Array Floor::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Minimum of complex numbers is undefined.");
+            throw kepler::Error(DomainError, "Minimum of complex numbers is undefined.");
         }
 
         return {std::min(alpha.real(), omega.real())};
@@ -98,70 +99,70 @@ namespace kepler {
 
     Array And::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Least common multiple of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Least common multiple of complex numbers is unsupported.");
         } else if(round(alpha.real()) != alpha.real() || round(omega.real()) != omega.real()) {
-            throw kepler::error(DomainError, "Least common multiple of fractional numbers is unsupported.");
+            throw kepler::Error(DomainError, "Least common multiple of fractional numbers is unsupported.");
         }
         return {std::lcm((int) alpha.real(), (int) omega.real())};
     }
 
     Array And::operator()(const std::u32string &alpha, const std::u32string &omega) {
-        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+        throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
     Array And::operator()(const Number &omega) {
-        throw kepler::error(SyntaxError, "The function requires a left argument.");
+        throw kepler::Error(SyntaxError, "The function requires a left argument.");
     }
 
     Array Nand::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Logical NAND of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Logical NAND of complex numbers is unsupported.");
         } else if((alpha.real() != 1.0 && alpha.real() != 0.0) || (omega.real() != 1.0 && omega.real() != 0.0)) {
-            throw kepler::error(DomainError, "Logical NAND of non-boolean numbers is unsupported.");
+            throw kepler::Error(DomainError, "Logical NAND of non-boolean numbers is unsupported.");
         }
         return {1.0 - std::lcm((int) alpha.real(), (int) omega.real())};
     }
 
     Array Nand::operator()(const Number &omega) {
-        throw kepler::error(SyntaxError, "The function requires a left argument.");
+        throw kepler::Error(SyntaxError, "The function requires a left argument.");
     }
 
     Array Nand::operator()(const std::u32string &alpha, const std::u32string &omega) {
-        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+        throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
     Array Or::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Greatest common divisor of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Greatest common divisor of complex numbers is unsupported.");
         } else if(round(alpha.real()) != alpha.real() || round(omega.real()) != omega.real()) {
-            throw kepler::error(DomainError, "Greatest common divisor of fractional numbers is unsupported.");
+            throw kepler::Error(DomainError, "Greatest common divisor of fractional numbers is unsupported.");
         }
         return {std::gcd((int) alpha.real(), (int) omega.real())};
     }
 
     Array Or::operator()(const Number &omega) {
-        throw kepler::error(SyntaxError, "The function requires a left argument.");
+        throw kepler::Error(SyntaxError, "The function requires a left argument.");
     }
 
     Array Or::operator()(const std::u32string &alpha, const std::u32string &omega) {
-        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+        throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
     Array Nor::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Logical NOR of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Logical NOR of complex numbers is unsupported.");
         } else if((alpha.real() != 1.0 && alpha.real() != 0.0) || (omega.real() != 1.0 && omega.real() != 0.0)) {
-            throw kepler::error(DomainError, "Logical NOR of non-boolean numbers is unsupported.");
+            throw kepler::Error(DomainError, "Logical NOR of non-boolean numbers is unsupported.");
         }
         return {1.0 - std::gcd((int) alpha.real(), (int) omega.real())};
     }
 
     Array Nor::operator()(const std::u32string &alpha, const std::u32string &omega) {
-        throw kepler::error(DomainError, "The function is undefined on string arguments.");
+        throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
     Array Nor::operator()(const Number &omega) {
-        throw kepler::error(SyntaxError, "The function requires a left argument.");
+        throw kepler::Error(SyntaxError, "The function requires a left argument.");
     }
 
     Array RightTack::operator()(const Array &alpha, const Array &omega) {
@@ -182,7 +183,7 @@ namespace kepler {
 
     Array Less::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Less-than of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Less-than of complex numbers is unsupported.");
         }
 
         return {alpha.real() < omega.real()};
@@ -190,7 +191,7 @@ namespace kepler {
 
     Array LessEq::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Less-than-or-equal of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Less-than-or-equal of complex numbers is unsupported.");
         }
 
         return {alpha.real() <= omega.real()};
@@ -206,7 +207,7 @@ namespace kepler {
 
     Array GreaterEq::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Greater-than of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Greater-than of complex numbers is unsupported.");
         }
 
         return {alpha.real() >= omega.real()};
@@ -214,7 +215,7 @@ namespace kepler {
 
     Array Greater::operator()(const Number& alpha, const Number& omega) {
         if(alpha.imag() != 0.00 || omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Greater-than of complex numbers is unsupported.");
+            throw kepler::Error(DomainError, "Greater-than of complex numbers is unsupported.");
         }
 
         return {alpha.real() > omega.real()};
@@ -263,7 +264,7 @@ namespace kepler {
 
     Array Not::operator()(const Number &omega) {
         if(omega != 0.0 && omega != 1.0) {
-            throw kepler::error(DomainError, "Expected an array of boolean values.");
+            throw kepler::Error(DomainError, "Expected an array of boolean values.");
         }
 
         return {!(bool)omega.real()};
@@ -271,7 +272,7 @@ namespace kepler {
 
     Array Not::operator()(const Array &alpha, const Array &omega) {
         if((alpha.rank() != omega.rank() && omega.rank() != 0) || alpha.rank() >= 2) {
-            throw kepler::error(RankError, "Incompatible ranks.");
+            throw kepler::Error(RankError, "Incompatible ranks.");
         }
 
         if((alpha.rank() == 0 && !alpha.is_numeric()) || (omega.rank() == 0 && !omega.is_numeric())) {
@@ -289,20 +290,20 @@ namespace kepler {
 
     Array Iota::operator()(const Array& omega) {
         if(omega.size() != 1 || !holds_alternative<Number>(omega.data[0])) {
-            throw kepler::error(RankError, "Expected numeric scalar for index generation.");
+            throw kepler::Error(RankError, "Expected numeric scalar for index generation.");
         }
 
         Number om = get<Number>(omega.data[0]);
         if(om.imag() != 0.0) {
-            throw kepler::error(DomainError, "Complex number not usable for index generation.");
+            throw kepler::Error(DomainError, "Complex number not usable for index generation.");
         } else if(om.real() != round(om.real())) {
-            throw kepler::error(DomainError, "Floating point number not usable for index generation.");
+            throw kepler::Error(DomainError, "Floating point number not usable for index generation.");
         }
 
         int final_om = (int)round(om.real());
 
         if(final_om < 0) {
-            throw kepler::error(DomainError, "Negative numbers cannot be used for index generation.");
+            throw kepler::Error(DomainError, "Negative numbers cannot be used for index generation.");
         }
 
         Array io = symbol_table->get<Array>(constants::index_origin_id);
@@ -417,18 +418,18 @@ namespace kepler {
     // Rotate along first axis by alpha.
     Array CircleBar::operator()(const Array &alpha, const Array &omega) {
         if(!alpha.is_integer_numeric()) {
-            throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
+            throw kepler::Error(DomainError, "Expected only integer-numeric left argument.");
         } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
             return std::visit(*this, alpha.data[0], omega.data[0]);
         } else if(!alpha.is_simple_scalar() && omega.is_simple_scalar()) {
-            throw kepler::error(LengthError, "Left argument must be a scalar.");
+            throw kepler::Error(LengthError, "Left argument must be a scalar.");
         } else if(omega.is_scalar()) {
             return (*this)(alpha, get<Array>(omega.data[0]));
         }
 
         int required_size = omega.size() / omega.shape[0];
         if(!alpha.is_simple_scalar() && alpha.size() != required_size) {
-            throw kepler::error(LengthError, "Left argument must have same shape as right argument, excluding the first axis.");
+            throw kepler::Error(LengthError, "Left argument must have same shape as right argument, excluding the first axis.");
         }
 
         return rotate(0, alpha, omega);
@@ -447,18 +448,18 @@ namespace kepler {
     // 1⌽x
     Array CircleStile::operator()(const Array &alpha, const Array &omega) {
         if(!alpha.is_integer_numeric()) {
-            throw kepler::error(DomainError, "Expected only integer-numeric left argument.");
+            throw kepler::Error(DomainError, "Expected only integer-numeric left argument.");
         } else if(alpha.is_simple_scalar() && alpha.is_numeric() && omega.is_simple_scalar()) {
             return std::visit(*this, alpha.data[0], omega.data[0]);
         } else if(!alpha.is_simple_scalar() && omega.is_simple_scalar()) {
-            throw kepler::error(LengthError, "Left argument must be a scalar.");
+            throw kepler::Error(LengthError, "Left argument must be a scalar.");
         } else if(omega.is_scalar()) {
             return (*this)(alpha, get<Array>(omega.data[0]));
         }
 
         int required_size = omega.size() / omega.shape.back();
         if(!alpha.is_simple_scalar() && alpha.size() != required_size) {
-            throw kepler::error(LengthError, "Left argument must have same shape as right argument, excluding the last axis.");
+            throw kepler::Error(LengthError, "Left argument must have same shape as right argument, excluding the last axis.");
         }
 
         return rotate(omega.shape.size() - 1, alpha, omega);
@@ -536,11 +537,11 @@ namespace kepler {
     // ¯10↑(2 2 2⍴⍳100)
     Array ArrowUp::operator()(const Array &alpha, const Array &omega) {
         if(!alpha.is_integer_numeric()) {
-            throw kepler::error(DomainError, "Expected an integer-based left argument.");
+            throw kepler::Error(DomainError, "Expected an integer-based left argument.");
         } else if(alpha.rank() > 1) {
-            throw kepler::error(DomainError, "Left argument must be a scalar or vector.");
+            throw kepler::Error(DomainError, "Left argument must be a scalar or vector.");
         } else if(alpha.size() > omega.rank()) {
-            throw kepler::error(LengthError, "Length of left argument must be equal to or less than the rank of the right argument.");
+            throw kepler::Error(LengthError, "Length of left argument must be equal to or less than the rank of the right argument.");
         }
 
         auto shape = omega.shape;
@@ -609,7 +610,7 @@ namespace kepler {
     //https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
     Array Roll::operator()(const Number &omega) {
         if(omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Random complex numbers are not supported.");
+            throw kepler::Error(DomainError, "Random complex numbers are not supported.");
         }
 
         std::random_device random_device;
@@ -627,7 +628,7 @@ namespace kepler {
             std::uniform_int_distribution<> distribution(origin, static_cast<int>(omega.real()));
             return {distribution(generator)};
         } else {
-            throw kepler::error(DomainError, "Expected integer numbers only.");
+            throw kepler::Error(DomainError, "Expected integer numbers only.");
         }
     }
 
@@ -642,7 +643,7 @@ namespace kepler {
             if(omega.real() > 0.0) {
                 return {0};
             } else {
-                throw kepler::error(DomainError, "0 to the power of a negative number is undefined.");
+                throw kepler::Error(DomainError, "0 to the power of a negative number is undefined.");
             }
         }
 
@@ -651,7 +652,7 @@ namespace kepler {
 
     Array Log::operator()(const Number &omega) {
         if(omega == 0.0) {
-            throw kepler::error(DomainError, "Natural logarithm of 0 is undefined.");
+            throw kepler::Error(DomainError, "Natural logarithm of 0 is undefined.");
         }
 
         return {log(omega)};
@@ -661,7 +662,7 @@ namespace kepler {
         if(alpha == omega) {
             return {1};
         } else if(alpha == 1.0) {
-            throw kepler::error(DomainError, "Logarithm of base 1 is undefined.");
+            throw kepler::Error(DomainError, "Logarithm of base 1 is undefined.");
         }
 
         return { log(omega) / log(alpha) };
@@ -673,7 +674,7 @@ namespace kepler {
 
     Array Bar::operator()(const Number &alpha, const Number &omega) {
         if(alpha == 0.0) {
-            throw kepler::error(DomainError, "Expected a non-zero left argument.");
+            throw kepler::Error(DomainError, "Expected a non-zero left argument.");
         }
 
         return {omega - alpha * kepler::floor(omega / (alpha + (double)(0.0 == omega)))};
@@ -681,9 +682,9 @@ namespace kepler {
 
     Array ExclamationMark::operator()(const Number &omega) {
         if(omega.imag() != 0.0) {
-            throw kepler::error(DomainError, "Factorial of complex numbers is undefined.");
+            throw kepler::Error(DomainError, "Factorial of complex numbers is undefined.");
         } if(omega.real() < 0.0 && omega.real() == round(omega.real())) {
-            throw kepler::error(DomainError, "Factorial of negative integers is undefined.");
+            throw kepler::Error(DomainError, "Factorial of negative integers is undefined.");
         }
 
         return {tgamma(omega.real() + 1)};
@@ -699,14 +700,14 @@ namespace kepler {
 
     Array Circle::operator()(const Number &alpha, const Number &omega) {
         if(alpha.imag() != 0.0) {
-            throw kepler::error(DomainError, "Left argument cannot be complex.");
+            throw kepler::Error(DomainError, "Left argument cannot be complex.");
         } else if(alpha.real() != round(alpha.real())) {
-            throw kepler::error(DomainError, "Expected an integer left argument.");
+            throw kepler::Error(DomainError, "Expected an integer left argument.");
         }
 
         int designator = static_cast<int>(alpha.real());
         if(designator < -12 || designator > 12) {
-            throw kepler::error(DomainError, "Expected left argument to be between -12 and 12.");
+            throw kepler::Error(DomainError, "Expected left argument to be between -12 and 12.");
         }
 
         switch (designator) {
@@ -722,8 +723,8 @@ namespace kepler {
                 return {-1.0 * pow(-1.0 - pow(omega, 2), 0.5)};
             case -7:
                 if(omega == -1.0 || omega == 1.0) {
-                    throw kepler::error(DomainError, "Inverse hyperbolic tangent undefined for " +
-                            number_to_string(omega, 2));
+                    throw kepler::Error(DomainError, "Inverse hyperbolic tangent undefined for " +
+                                                     kepler::helpers::number_to_string(omega, 2));
                 }
 
                 return {atanh(omega)};
@@ -745,9 +746,9 @@ namespace kepler {
                 return {asin(omega)};
             case 0:
                 if(omega.imag() != 0.0) {
-                    throw kepler::error(DomainError, "Expected non-complex argument.");
+                    throw kepler::Error(DomainError, "Expected non-complex argument.");
                 } else if(omega.real() < -1.0 || omega.real() > 1.0) {
-                    throw kepler::error(DomainError, "Expected argument between -1 and 1.");
+                    throw kepler::Error(DomainError, "Expected argument between -1 and 1.");
                 } else {
                     return {pow((1.0 - pow(omega.real(), 2.0)), 0.5)};
                 }
@@ -758,7 +759,7 @@ namespace kepler {
             case 3:
                 if(omega.imag() == 0.0
                    && static_cast<int>(std::round(omega.real() / M_PI_2)) % 2 != 0) {
-                    throw kepler::error(DomainError, "Tangent is undefined for odd multiples of π/2.");
+                    throw kepler::Error(DomainError, "Tangent is undefined for odd multiples of π/2.");
                 }
                 return {tan(omega)};
             case 4:
@@ -780,7 +781,7 @@ namespace kepler {
             case 12:
                 return {std::arg(omega)};
             default:
-                throw kepler::error(InternalError, "Could not match designator.");
+                throw kepler::Error(InternalError, "Could not match designator.");
         }
     }
 };

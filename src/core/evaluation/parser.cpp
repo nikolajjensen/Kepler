@@ -51,7 +51,7 @@ namespace kepler {
 
     void Parser::eat(TokenType type) {
         if(current().type != type) {
-            throw kepler::error(InternalError, "Expected token of type: " + kepler::to_string(type) + ", but found token of type: " + kepler::to_string(current().type), position());
+            throw kepler::Error(InternalError, "Expected token of type: " + kepler::to_string(type) + ", but found token of type: " + kepler::to_string(current().type), position());
         } else {
             advance();
         }
@@ -83,7 +83,7 @@ namespace kepler {
                 stack.emplace_back(it);
             } else if(it->type == right){
                 if(stack.empty()) {
-                    throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it));
+                    throw kepler::Error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it));
                 }
                 stack.pop_back();
             }
@@ -91,7 +91,7 @@ namespace kepler {
         }
 
         if(!stack.empty()) {
-            throw kepler::error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(stack.back()));
+            throw kepler::Error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(stack.back()));
         }
     }
 
@@ -162,11 +162,11 @@ namespace kepler {
         if(current().type == RIGHT_BRACE) {
             ASTNode<Operation_ptr>* function = parse_function();
             if(current().type != ASSIGNMENT) {
-                throw kepler::error(SyntaxError, "Expected an assignment here.", position());
+                throw kepler::Error(SyntaxError, "Expected an assignment here.", position());
             }
             eat(ASSIGNMENT);
             if(at_end() || current().type != ID) {
-                throw kepler::error(SyntaxError, "Expected an identifier here.", position());
+                throw kepler::Error(SyntaxError, "Expected an identifier here.", position());
             }
             Token identifier = current();
             auto statement = new FunctionAssignment(identifier, function);
@@ -189,7 +189,7 @@ namespace kepler {
                     eat(ASSIGNMENT);
 
                     if(at_end() || current().type != ID) {
-                        throw kepler::error(SyntaxError, "Expected an identifier here.", position());
+                        throw kepler::Error(SyntaxError, "Expected an identifier here.", position());
                     }
 
                     statement = new Assignment(current(), statement);
@@ -219,7 +219,7 @@ namespace kepler {
 
     ASTNode<Operation_ptr>* Parser::parse_dfn() {
         if(current().type != RIGHT_BRACE) {
-            throw kepler::error(SyntaxError, "Expected '}' here.", position());
+            throw kepler::Error(SyntaxError, "Expected '}' here.", position());
         }
         eat(RIGHT_BRACE);
         auto dfn_start = matching_brace(cursor + 1) + 1;
@@ -231,7 +231,7 @@ namespace kepler {
         cursor -= dfn_end - dfn_start;
 
         if(at_end() || current().type != LEFT_BRACE) {
-            throw kepler::error(SyntaxError, "Expected '{' here.", position());
+            throw kepler::Error(SyntaxError, "Expected '{' here.", position());
         }
 
         eat(LEFT_BRACE);
@@ -338,12 +338,12 @@ namespace kepler {
             auto func = parse_function();
 
             if(at_end() || current().type != LEFT_PARENS) {
-                throw kepler::error(SyntaxError, "Expected a '(' here.", position());
+                throw kepler::Error(SyntaxError, "Expected a '(' here.", position());
             }
             eat(LEFT_PARENS);
             return func;
         } else {
-            throw kepler::error(SyntaxError, "Invalid primitive.", position() + 1);
+            throw kepler::Error(SyntaxError, "Invalid primitive.", position() + 1);
         }
     }
 

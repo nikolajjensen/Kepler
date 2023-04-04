@@ -65,7 +65,7 @@ struct Throws : Catch::Matchers::MatcherGenericBase {
         return err.find(kepler::to_string(error_type)) != std::string::npos;
     }
 
-    bool match(kepler::error const & err) const{
+    bool match(kepler::Error const & err) const{
         return err.error_type == error_type;
     }
 

@@ -41,7 +41,7 @@ namespace kepler {
         if (!alpha.is_scalar() && !omega.is_scalar()) {
 
             if (alpha.shape != omega.shape) {
-                throw kepler::error(LengthError, "Mismatched left and right shapes.");
+                throw kepler::Error(LengthError, "Mismatched left and right shapes.");
             }
 
             tmp.data.resize(alpha.data.size());
@@ -88,7 +88,7 @@ namespace kepler {
         if (alpha.length() != 1 && omega.length() != 1) {
 
             if (alpha.length() != omega.length()) {
-                throw kepler::error(LengthError, "Mismatched left and right shapes.");
+                throw kepler::Error(LengthError, "Mismatched left and right shapes.");
             }
 
             tmp.data.resize(alpha.length());

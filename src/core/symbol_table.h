@@ -47,11 +47,11 @@ namespace kepler {
             const Symbol& symbol = lookup(id);
 
             if(!symbol.content.has_value()) {
-                throw kepler::error(DefinitionError, "ID '" + uni::utf32to8(id) + "' is defined, but has no value.");
+                throw kepler::Error(DefinitionError, "ID '" + uni::utf32to8(id) + "' is defined, but has no value.");
             }
 
             if(!std::holds_alternative<T>(symbol.content.value())) {
-                throw kepler::error(DefinitionError, "ID '" + uni::utf32to8(id) + "' has a value, but it is not the one requested.");
+                throw kepler::Error(DefinitionError, "ID '" + uni::utf32to8(id) + "' has a value, but it is not the one requested.");
             }
 
             return std::get<T>(symbol.content.value());

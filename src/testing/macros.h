@@ -19,4 +19,4 @@
 
 #pragma once
 
-#define CHECK_THAT_THROWS(arg, matcher) CHECK_THROWS_MATCHES(arg, kepler::error, matcher)
+#define CHECK_THAT_THROWS(arg, matcher) CHECK_THROWS_MATCHES(arg, kepler::Error, matcher)

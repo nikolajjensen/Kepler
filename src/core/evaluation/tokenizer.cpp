@@ -80,7 +80,7 @@ namespace kepler {
             }
             std::u32string integer = get_integer();
             if(integer.empty()) {
-                throw kepler::error(SyntaxError, "Expected a digit here.", cursor + 1);
+                throw kepler::Error(SyntaxError, "Expected a digit here.", cursor + 1);
             }
             exponent += integer;
         }
@@ -105,11 +105,11 @@ namespace kepler {
         number += get_integer();
 
         if(number.empty()) {
-            throw kepler::error(SyntaxError, "Expected at least one digit here.", cursor);
+            throw kepler::Error(SyntaxError, "Expected at least one digit here.", cursor);
         } else if(number == U".") {
-            throw kepler::error(SyntaxError, "Expected at least one digit on either side.", cursor);
+            throw kepler::Error(SyntaxError, "Expected at least one digit on either side.", cursor);
         } else if(number == U"-") {
-            throw kepler::error(SyntaxError, "Expected at least one digit here.", cursor + 1);
+            throw kepler::Error(SyntaxError, "Expected at least one digit here.", cursor + 1);
         }
 
         number += get_exponent();
@@ -147,7 +147,7 @@ namespace kepler {
         }
 
         if(at_end() || current() != U'\'') {
-            throw kepler::error(SyntaxError, "Expected a matching quote.", cursor + 1);
+            throw kepler::Error(SyntaxError, "Expected a matching quote.", cursor + 1);
         }
 
         std::u32string result = {input->begin() + start, input->begin() + cursor};
@@ -178,7 +178,7 @@ namespace kepler {
         } else if(current() == U'\'') {
             return string_token();
         } else {
-            throw kepler::error(SyntaxError, "Unexpected symbol.", cursor + 1);
+            throw kepler::Error(SyntaxError, "Unexpected symbol.", cursor + 1);
         }
     }
 

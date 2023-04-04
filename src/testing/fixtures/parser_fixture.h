@@ -49,7 +49,7 @@ protected:
             kepler::Parser parser;
             parser.use_table(&symbol_table);
             return parser.parse(tokens)->to_string();
-        } catch(kepler::error& err) {
+        } catch(kepler::Error& err) {
             return err.to_string();
         }
     }

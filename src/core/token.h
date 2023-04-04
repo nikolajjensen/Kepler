@@ -29,14 +29,14 @@
 #include "position.h"
 
 namespace kepler {
-    struct Token : position {
+    struct Token : Position {
         TokenType type;
         std::optional<std::vector<Char>> content;
 
-        Token(long pos, TokenType type_, Char content_) : position(pos), type(type_), content(std::vector<Char>{content_}) {}
-        Token(long pos, TokenType type_, std::u32string content_) : position(pos), type(type_), content({content_.begin(), content_.end()}) {}
+        Token(long pos, TokenType type_, Char content_) : Position(pos), type(type_), content(std::vector<Char>{content_}) {}
+        Token(long pos, TokenType type_, std::u32string content_) : Position(pos), type(type_), content({content_.begin(), content_.end()}) {}
         Token(TokenType type_, std::u32string content_) : type(type_), content({content_.begin(), content_.end()}) {}
-        Token(long pos, TokenType type_) : position(pos), type(type_), content(std::nullopt) {}
+        Token(long pos, TokenType type_) : Position(pos), type(type_), content(std::nullopt) {}
 
         friend bool operator==(const Token& lhs, const Token& rhs) {
             return lhs.type == rhs.type && lhs.content == rhs.content;

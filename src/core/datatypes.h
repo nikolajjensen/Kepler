@@ -29,7 +29,4 @@ namespace kepler {
     using Char = char32_t;
     using Number = std::complex<double>;
     using String = std::u32string;
-
-    std::string number_to_string(const Number& num, int precision = 10);
-    std::string double_to_string(const double& num, int precision);
 };

@@ -19,13 +19,13 @@
 
 #include "position.h"
 
-kepler::position::position() : pos(-1) {}
-kepler::position::position(long pos_) : pos(pos_) {}
+kepler::Position::Position() : pos(-1) {}
+kepler::Position::Position(long pos_) : pos(pos_) {}
 
-void kepler::position::set_position(long new_pos) {
+void kepler::Position::set_position(long new_pos) {
     pos = new_pos;
 }
 
-long kepler::position::get_position() const {
+long kepler::Position::get_position() const {
     return pos;
 }

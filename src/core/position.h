@@ -20,13 +20,13 @@
 #pragma once
 
 namespace kepler {
-    struct position {
+    struct Position {
     private:
         long pos;
 
     public:
-        position();
-        explicit position(long pos_);
+        Position();
+        explicit Position(long pos_);
 
         void set_position(long new_pos);
         [[nodiscard]] long get_position() const;

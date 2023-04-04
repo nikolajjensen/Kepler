@@ -18,21 +18,18 @@
 //
 
 #pragma once
-#include "core/datatypes.h"
 #include "core/token.h"
 
-namespace kepler::constants {
-    const std::string indent_prompt = "     > ";
-    const std::string quad_prompt = "⎕:\n     > ";
-
-    const std::u32string index_origin_id = U"⎕IO";
-    const Number initial_index_origin = 1;
-
-    const std::u32string print_precision_id = U"⎕PP";
-    const Number initial_print_precision = 10;
-
-    const std::u32string recursive_call_id = U"∇";
+namespace kepler::helpers {
+    bool is_function(TokenType type);
+    bool is_monadic_operator(TokenType type);
+    bool is_monadic_function(TokenType type);
+    bool is_dyadic_operator(TokenType type);
+    bool is_array_token(TokenType type);
 
     void check_valid_system_param_value(const std::u32string& id, const Array& value);
     void check_valid_system_param_value(const std::u32string& id, const Number& value);
+
+    std::string number_to_string(const Number& num, int precision = 10);
+    std::string double_to_string(const double& num, int precision);
 };

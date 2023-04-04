@@ -38,13 +38,13 @@ kepler::Number kepler::floor(const Number &number) {
     } else if ((1.0 <= (fractional_imag + fractional_real)) && fractional_real <= fractional_imag) {
         return raw + Number(0, 1);
     } else {
-        throw kepler::error(InternalError, "Unexpected case reached in floor of number.");
+        throw kepler::Error(InternalError, "Unexpected case reached in floor of number.");
     }
 }
 
 kepler::Number kepler::binomial(const Number &alpha, const Number &omega) {
     if(alpha.imag() != 0.0 || omega.imag() != 0.0) {
-        throw kepler::error(DomainError, "Complex arguments are not supported.");
+        throw kepler::Error(DomainError, "Complex arguments are not supported.");
     }
 
     return (tgamma(omega.real() + 1.0) / (tgamma(alpha.real() + 1.0) * tgamma(1.0 + omega.real() - alpha.real())));
@@ -54,19 +54,19 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
     std::vector<Array::element_type> lists;
 
     if(alpha.size() > omega.size()) {
-        throw kepler::error(LengthError, "String must be at least as long as the partitioning.");
+        throw kepler::Error(LengthError, "String must be at least as long as the partitioning.");
     }
 
     for(int i = 0; i < alpha.data.size(); ++i) {
         auto element = std::get<Array>(alpha.data[i]);
         if(!std::holds_alternative<Number>(element.data[0])) {
-            throw kepler::error(DomainError, "Expected numbers only.");
+            throw kepler::Error(DomainError, "Expected numbers only.");
         }
 
         auto& ctrl_bool = std::get<Number>(element.data[0]);
 
         if((ctrl_bool.imag() != 0.0) || (ctrl_bool != 0.0 && ctrl_bool != 1.0)) {
-            throw kepler::error(DomainError, "Expected boolean values only.");
+            throw kepler::Error(DomainError, "Expected boolean values only.");
         }
 
         if(ctrl_bool == 1.0) {
@@ -90,19 +90,19 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32stri
     std::vector<Array::element_type> lists;
 
     if(alpha.size() > omega.length()) {
-        throw kepler::error(LengthError, "String must be at least the the partitioning.");
+        throw kepler::Error(LengthError, "String must be at least the the partitioning.");
     }
 
     for(int i = 0; i < alpha.data.size(); ++i) {
         auto element = std::get<Array>(alpha.data[i]);
         if(!std::holds_alternative<Number>(element.data[0])) {
-            throw kepler::error(DomainError, "Expected numbers only.");
+            throw kepler::Error(DomainError, "Expected numbers only.");
         }
 
         auto& ctrl_bool = std::get<Number>(element.data[0]);
 
         if((ctrl_bool.imag() != 0.0) || (ctrl_bool != 0.0 && ctrl_bool != 1.0)) {
-            throw kepler::error(DomainError, "Expected boolean values only.");
+            throw kepler::Error(DomainError, "Expected boolean values only.");
         }
 
         if(ctrl_bool == 1.0) {
@@ -157,12 +157,12 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
     Array result{{}, {}};
 
     if(alpha.rank() > 1) {
-        throw kepler::error(RankError, "Left argument of reshape cannot have rank " + std::to_string(alpha.rank()));
+        throw kepler::Error(RankError, "Left argument of reshape cannot have rank " + std::to_string(alpha.rank()));
     }
 
     if(alpha.is_scalar()) {
         if(!alpha.is_integer_numeric()) {
-            throw kepler::error(DomainError, "Expected only positive integers in left argument.");
+            throw kepler::Error(DomainError, "Expected only positive integers in left argument.");
         }
         result.shape = {(int)std::get<Number>(alpha.data[0]).real()};
     } else {
@@ -170,7 +170,7 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
             auto& num = std::get<Number>(std::get<Array>(element).data[0]);
 
             if(num.real() < 0.0) {
-                throw kepler::error(ValueError, "Expected only positive integers in right argument.");
+                throw kepler::Error(ValueError, "Expected only positive integers in right argument.");
             }
 
             result.shape.emplace_back((int)num.real());

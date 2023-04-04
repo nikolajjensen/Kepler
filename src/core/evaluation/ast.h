@@ -31,7 +31,7 @@ namespace kepler {
     using Operation_ptr = std::shared_ptr<Operation>;
 
     template <typename T>
-    struct ASTNode : position {
+    struct ASTNode : Position {
         virtual ~ASTNode() = default;
 
         virtual T accept(class NodeVisitor &visitor) = 0;

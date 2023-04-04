@@ -60,9 +60,9 @@ namespace kepler {
 
     Array Power::operator()(const Array &omega) {
         if(!oomega.is_simple_scalar()) {
-            throw kepler::error(LengthError, "Expected a scalar right argument.");
+            throw kepler::Error(LengthError, "Expected a scalar right argument.");
         } else if(!oomega.is_integer_numeric()) {
-            throw kepler::error(DomainError, "Expected an integer numeric right argument.");
+            throw kepler::Error(DomainError, "Expected an integer numeric right argument.");
         }
 
         auto& num = get<Number>(oomega.data[0]);

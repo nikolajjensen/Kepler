@@ -20,7 +20,7 @@
 #include <string>
 #include "interpreter.h"
 #include <memory>
-#include "core/config.h"
+#include "core/literals.h"
 #include "core/symbol_table.h"
 #include "core/evaluation/parser.h"
 #include "core/evaluation/operations/defined_function.h"
@@ -38,7 +38,7 @@ namespace kepler {
             return {{},
                     {std::get<Number>(node->content)}};
         } else {
-            throw kepler::error(InternalError, "Expected either a string or number as Scalar.");
+            throw kepler::Error(InternalError, "Expected either a string or number as Scalar.");
         }
     }
 
@@ -62,14 +62,14 @@ namespace kepler {
             return std::make_shared<Power>(node->left->accept(*this), std::get<ASTNode<Array>*>(node->right)->accept(*this));
         }
 
-        throw kepler::error(InternalError, "Unexpected case reached when evaluating DyadicOperator.");
+        throw kepler::Error(InternalError, "Unexpected case reached when evaluating DyadicOperator.");
     }
 
     Array Interpreter::visit(MonadicFunction *node) {
         try {
             Operation_ptr f = node->function->accept(*this);
             return (*f)(node->omega->accept(*this));
-        } catch (kepler::error& err) {
+        } catch (kepler::Error& err) {
             err.position = node->function->get_position();
             throw err;
         }
@@ -78,7 +78,7 @@ namespace kepler {
     Array Interpreter::visit(DyadicFunction *node) {
         try {
             return (*node->function->accept(*this))(node->alpha->accept(*this), node->omega->accept(*this));
-        } catch (kepler::error& err) {
+        } catch (kepler::Error& err) {
             err.position = node->function->get_position();
             throw err;
         }
@@ -105,7 +105,7 @@ namespace kepler {
         auto &content = node->identifier.content.value();
         std::u32string identifier = {content.begin(), content.end()};
         if(identifier.starts_with(constants::recursive_call_id)) {
-            throw kepler::error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
+            throw kepler::Error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
         }
         auto s = node->function->accept(*this);
         symbol_table.set(identifier, s);
@@ -125,12 +125,12 @@ namespace kepler {
             }
 
             if (!symbol_table.contains(identifier)) {
-                throw kepler::error(DefinitionError, "Distinguished variables are reserved.", node->identifier.get_position());
+                throw kepler::Error(DefinitionError, "Distinguished variables are reserved.", node->identifier.get_position());
             }
 
-            constants::check_valid_system_param_value(identifier, value);
+            helpers::check_valid_system_param_value(identifier, value);
         } if(identifier.starts_with(constants::recursive_call_id)) {
-            throw kepler::error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
+            throw kepler::Error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
         }
 
         symbol_table.set(identifier, value);
@@ -155,7 +155,7 @@ namespace kepler {
     Array Interpreter::visit(Conditional *node) {
         auto condition = node->condition->accept(*this);
         if(condition.empty()) {
-            throw kepler::error(SyntaxError, "Condition did not evaluate to a value.", node->condition->get_position());
+            throw kepler::Error(SyntaxError, "Condition did not evaluate to a value.", node->condition->get_position());
         }
 
         if(std::holds_alternative<Number>(condition.data[0])) {

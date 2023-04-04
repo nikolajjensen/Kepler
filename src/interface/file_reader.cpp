@@ -24,13 +24,13 @@
 
 std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path) {
     if(!path.ends_with(".kpl")) {
-        throw kepler::error(FileError, "Only .kpl files are accepted.");
+        throw kepler::Error(FileError, "Only .kpl files are accepted.");
     }
 
     std::ifstream f(path);
 
     if(!f.is_open()) {
-        throw kepler::error(FileError, "Could not open the file.");
+        throw kepler::Error(FileError, "Could not open the file.");
     }
 
 

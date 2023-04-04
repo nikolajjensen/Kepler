@@ -19,6 +19,7 @@
 
 #include "core/array.h"
 #include "array_printer.h"
+#include "core/helpers.h"
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -230,7 +231,7 @@ namespace kepler {
     }
 
     std::string ArrayPrinter::operator()(const Number& element) {
-        return number_to_string(element, precision);
+        return kepler::helpers::number_to_string(element, precision);
     }
 
     std::string ArrayPrinter::operator()(const Array& array) {

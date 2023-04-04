@@ -20,7 +20,6 @@
 #include "execution.h"
 #include <numeric>
 #include "core/literals.h"
-#include "core/config.h"
 #include "interface/file_reader.h"
 #include "core/evaluation/tokenizer.h"
 #include "core/evaluation/parser.h"
@@ -60,7 +59,7 @@ int kepler::run_file(const std::string &path, std::ostream & stream) {
         std::vector<Char> all_lines = kepler::concat_lines(lines);
         try {
             kepler::immediate_execution(all_lines, stream, false, &symbol_table);
-        } catch (kepler::error& err) {
+        } catch (kepler::Error& err) {
             auto loc = find_line(lines, err.position);
             err.set_input(&loc.line);
             err.position = loc.pos;
@@ -70,7 +69,7 @@ int kepler::run_file(const std::string &path, std::ostream & stream) {
         }
 
         symbol_table.clear();
-    } catch (kepler::error& err) {
+    } catch (kepler::Error& err) {
         stream << err.to_string() << std::endl;
         return 1;
     }
@@ -112,7 +111,7 @@ int kepler::run_repl() {
 void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable *symbol_table) {
     try {
         return kepler::immediate_execution(input, stream, print_last, symbol_table);
-    } catch(kepler::error& err) {
+    } catch(kepler::Error& err) {
         err.set_input(&input);
         stream << err.to_string() << std::flush;
     }

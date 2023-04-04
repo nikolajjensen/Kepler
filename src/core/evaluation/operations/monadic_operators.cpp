@@ -35,7 +35,7 @@ namespace kepler {
     }
 
     Array Slash::operator()(const Array& alpha, const Array& omega) {
-        throw kepler::error(NotImplemented, "Dyadic SLASH is not implemented.");
+        throw kepler::Error(NotImplemented, "Dyadic SLASH is not implemented.");
     }
 
     Array Slash::operator()(const Array& omega) {
@@ -71,11 +71,11 @@ namespace kepler {
             }
         } else {
             if(alpha.rank() != omega.rank()) {
-                throw kepler::error(RankError, "Mismatched ranks of left and right arguments.");
+                throw kepler::Error(RankError, "Mismatched ranks of left and right arguments.");
             }
 
             if(alpha.shape != omega.shape) {
-                throw kepler::error(LengthError, "Left and right arguments must have the same dimensions.");
+                throw kepler::Error(LengthError, "Left and right arguments must have the same dimensions.");
             }
 
             result.shape = omega.shape;

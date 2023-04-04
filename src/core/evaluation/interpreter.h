@@ -123,8 +123,8 @@ namespace kepler {
                 }
             }
 
-            throw kepler::error(InternalError, "Could not find operation " + kepler::to_string(type) + " to be configured with " +
-                                     std::to_string(sizeof...(args)) + " operations.");
+            throw kepler::Error(InternalError, "Could not find operation " + kepler::to_string(type) + " to be configured with " +
+                                               std::to_string(sizeof...(args)) + " operations.");
         }
 
         Operation_ptr visit(Function *node) override;

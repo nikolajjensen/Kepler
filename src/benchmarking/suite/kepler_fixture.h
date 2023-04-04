@@ -44,7 +44,7 @@ public:
         try {
             std::vector<std::vector<kepler::Char>> lines = kepler::read_file(path);
             input = kepler::concat_lines(lines);
-        } catch(kepler::error& err) {
+        } catch(kepler::Error& err) {
             stream << err.to_string() << std::endl;
         }
     }

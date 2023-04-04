@@ -20,7 +20,6 @@
 #include "symbol_table.h"
 #include "core/error.h"
 #include "core/literals.h"
-#include "core/config.h"
 
 namespace kepler {
     SymbolTable::SymbolTable() : table(), parent(nullptr) {
@@ -42,7 +41,7 @@ namespace kepler {
         } else if(parent != nullptr) {
             return parent->lookup(id);
         } else {
-            throw kepler::error(DefinitionError, "Undefined variable.");
+            throw kepler::Error(DefinitionError, "Undefined variable.");
         }
     }
 

@@ -18,13 +18,13 @@
 //
 
 #include "array.h"
-#include "core/config.h"
 #include <utility>
 #include <numeric>
 #include <variant>
 #include <algorithm>
 #include "interface/array_printer.h"
 #include "symbol_table.h"
+#include "literals.h"
 
 namespace kepler {
 
