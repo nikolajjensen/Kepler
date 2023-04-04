@@ -28,10 +28,10 @@
 namespace kepler {
     class SymbolTable {
     private:
-        std::map<std::u32string, Symbol*> table;
+        std::map<String, Symbol*> table;
         SymbolTable* parent;
 
-        const Symbol& lookup(const std::u32string& id) const;
+        const Symbol& lookup(const String& id) const;
 
     public:
         SymbolTable();
@@ -40,10 +40,10 @@ namespace kepler {
 
         void attach_parent(SymbolTable* parent);
 
-        [[nodiscard]] bool contains(const std::u32string& id) const;
+        [[nodiscard]] bool contains(const String& id) const;
 
         template <typename T>
-        const T& get(const std::u32string& id) const {
+        const T& get(const String& id) const {
             const Symbol& symbol = lookup(id);
 
             if(!symbol.content.has_value()) {
@@ -57,15 +57,15 @@ namespace kepler {
             return std::get<T>(symbol.content.value());
         }
 
-        [[nodiscard]] SymbolType get_type(const std::u32string& id) const;
+        [[nodiscard]] SymbolType get_type(const String& id) const;
 
-        void set(const std::u32string& id, const Array& value, bool locally_only = false);
-        void set(const std::u32string& id, const Operation_ptr& value, bool locally_only = false);
-        void set(const std::u32string& id, const Number& value, bool locally_only = false);
+        void set(const String& id, const Array& value, bool locally_only = false);
+        void set(const String& id, const Operation_ptr& value, bool locally_only = false);
+        void set(const String& id, const Number& value, bool locally_only = false);
 
-        void remove(const std::u32string& id, bool locally_only = false);
+        void remove(const String& id, bool locally_only = false);
 
-        void bind_function(const std::u32string& id);
+        void bind_function(const String& id);
 
         void clear();
 

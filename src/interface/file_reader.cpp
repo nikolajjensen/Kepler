@@ -39,7 +39,7 @@ std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path
     std::vector<std::vector<kepler::Char>> result;
 
     for(std::string line; getline(f, line); ) {
-        std::u32string str = uni::utf8to32u(line);
+        String str = uni::utf8to32u(line);
         result.emplace_back(str.begin(), str.end());
     }
 

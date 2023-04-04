@@ -44,9 +44,9 @@ namespace kepler {
 
     struct Scalar : ASTNode<Array> {
         Token token;
-        std::variant<Number, std::u32string> content;
+        std::variant<Number, String> content;
 
-        explicit Scalar(Token token_, std::variant<Number, std::u32string> content_);
+        explicit Scalar(Token token_, std::variant<Number, String> content_);
 
         std::string to_string() const override;
         Array accept(NodeVisitor &visitor) override;

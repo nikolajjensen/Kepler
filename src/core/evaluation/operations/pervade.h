@@ -30,7 +30,7 @@ namespace kepler {
 
         virtual Array operator()(const Array& omega);
         virtual Array operator()(const Array& alpha, const Array& omega);
-        virtual Array operator()(const std::u32string& alpha, const std::u32string& omega);
+        virtual Array operator()(const String& alpha, const String& omega);
 
     private:
         Array apply(const Array::element_type& omega);

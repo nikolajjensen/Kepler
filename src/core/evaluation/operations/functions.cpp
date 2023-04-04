@@ -106,7 +106,7 @@ namespace kepler {
         return {std::lcm((int) alpha.real(), (int) omega.real())};
     }
 
-    Array And::operator()(const std::u32string &alpha, const std::u32string &omega) {
+    Array And::operator()(const String &alpha, const String &omega) {
         throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
@@ -127,7 +127,7 @@ namespace kepler {
         throw kepler::Error(SyntaxError, "The function requires a left argument.");
     }
 
-    Array Nand::operator()(const std::u32string &alpha, const std::u32string &omega) {
+    Array Nand::operator()(const String &alpha, const String &omega) {
         throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
@@ -144,7 +144,7 @@ namespace kepler {
         throw kepler::Error(SyntaxError, "The function requires a left argument.");
     }
 
-    Array Or::operator()(const std::u32string &alpha, const std::u32string &omega) {
+    Array Or::operator()(const String &alpha, const String &omega) {
         throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
@@ -157,7 +157,7 @@ namespace kepler {
         return {1.0 - std::gcd((int) alpha.real(), (int) omega.real())};
     }
 
-    Array Nor::operator()(const std::u32string &alpha, const std::u32string &omega) {
+    Array Nor::operator()(const String &alpha, const String &omega) {
         throw kepler::Error(DomainError, "The function is undefined on string arguments.");
     }
 
@@ -255,8 +255,8 @@ namespace kepler {
 
     Array LeftShoe::operator()(const Array &alpha, const Array &omega) {
         if(alpha.size() > omega.size()) {
-            if(holds_alternative<std::u32string>(omega.data[0])) {
-                return partitioned_enclose(alpha, get<std::u32string>(omega.data[0]));
+            if(holds_alternative<String>(omega.data[0])) {
+                return partitioned_enclose(alpha, get<String>(omega.data[0]));
             }
         }
         return partitioned_enclose(alpha, omega);
@@ -284,7 +284,7 @@ namespace kepler {
         }
     }
 
-    Array Not::operator()(const std::u32string &alpha, const std::u32string &omega) {
+    Array Not::operator()(const String &alpha, const String &omega) {
         return without(alpha, omega);
     }
 
@@ -401,12 +401,12 @@ namespace kepler {
         return {omega};
     }
 
-    Array CircleBar::operator()(const std::u32string &omega) {
-        return {std::u32string{omega.rbegin(), omega.rend()}};
+    Array CircleBar::operator()(const String &omega) {
+        return {String{omega.rbegin(), omega.rend()}};
     }
 
-    Array CircleBar::operator()(const Number &shift, const std::u32string &omega) {
-        std::u32string result = omega;
+    Array CircleBar::operator()(const Number &shift, const String &omega) {
+        String result = omega;
         std::rotate(result.begin(), result.begin() + (int)shift.real(), result.end());
         return {result};
     }
@@ -477,12 +477,12 @@ namespace kepler {
         return {omega};
     }
 
-    Array CircleStile::operator()(const std::u32string &omega) {
-        return {std::u32string{omega.rbegin(), omega.rend()}};
+    Array CircleStile::operator()(const String &omega) {
+        return {String{omega.rbegin(), omega.rend()}};
     }
 
-    Array CircleStile::operator()(const Number &shift, const std::u32string &omega) {
-        std::u32string result = omega;
+    Array CircleStile::operator()(const Number &shift, const String &omega) {
+        String result = omega;
         std::rotate(result.begin(), result.begin() + (int)shift.real(), result.end());
         return {result};
     }

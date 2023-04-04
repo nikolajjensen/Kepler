@@ -29,7 +29,7 @@ namespace kepler {
 
         explicit ArrayPrinter(int precision);
 
-        std::string operator()(const std::u32string& element);
+        std::string operator()(const String& element);
         std::string operator()(const Number& element);
         std::string operator()(const Array& array);
     };

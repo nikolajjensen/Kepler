@@ -34,8 +34,8 @@ namespace kepler {
         std::optional<std::vector<Char>> content;
 
         Token(long pos, TokenType type_, Char content_) : Position(pos), type(type_), content(std::vector<Char>{content_}) {}
-        Token(long pos, TokenType type_, std::u32string content_) : Position(pos), type(type_), content({content_.begin(), content_.end()}) {}
-        Token(TokenType type_, std::u32string content_) : type(type_), content({content_.begin(), content_.end()}) {}
+        Token(long pos, TokenType type_, String content_) : Position(pos), type(type_), content({content_.begin(), content_.end()}) {}
+        Token(TokenType type_, String content_) : type(type_), content({content_.begin(), content_.end()}) {}
         Token(long pos, TokenType type_) : Position(pos), type(type_), content(std::nullopt) {}
 
         friend bool operator==(const Token& lhs, const Token& rhs) {
@@ -48,7 +48,7 @@ namespace kepler {
 
             if(content.has_value()) {
                 auto unwrapped = content.value();
-                auto str = std::u32string(unwrapped.begin(), unwrapped.end());
+                auto str = String(unwrapped.begin(), unwrapped.end());
                 ss << ", " << uni::utf32to8(str);
             }
             ss << ")";

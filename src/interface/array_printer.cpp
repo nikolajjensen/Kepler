@@ -58,8 +58,8 @@ namespace kepler {
     }
 
     // https://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
-    std::vector<std::u32string> split(const std::u32string& text, char32_t delim) {
-        std::vector<std::u32string> vec;
+    std::vector<String> split(const String& text, char32_t delim) {
+        std::vector<String> vec;
 
         if(text.empty()) {
             return vec;
@@ -82,8 +82,8 @@ namespace kepler {
         return vec;
     }
 
-    int max_length_contiguous_segment(const std::u32string& str) {
-        std::vector<std::u32string> segments = split(str, U'\n');
+    int max_length_contiguous_segment(const String& str) {
+        std::vector<String> segments = split(str, U'\n');
         int max_length = 0;
         for(auto& element : segments) {
             if(element.length() > max_length) {
@@ -96,11 +96,11 @@ namespace kepler {
 
 
 
-    std::u32string block_concat(std::u32string left, std::u32string right) {
-        std::vector<std::u32string> l_segments = split(left, U'\n');
-        std::vector<std::u32string> r_segments = split(right, U'\n');
+    String block_concat(String left, String right) {
+        std::vector<String> l_segments = split(left, U'\n');
+        std::vector<String> r_segments = split(right, U'\n');
 
-        std::u32string result;
+        String result;
 
         if(l_segments.empty()) {
             return result;
@@ -115,9 +115,9 @@ namespace kepler {
         return result;
     }
 
-    std::u32string block_prepend(std::u32string str, char32_t val) {
-        std::vector<std::u32string> delimited = split(str, U'\n');
-        std::u32string result;
+    String block_prepend(String str, char32_t val) {
+        std::vector<String> delimited = split(str, U'\n');
+        String result;
         for(auto& substr : delimited) {
             result += val + substr + U'\n';
         }
@@ -125,9 +125,9 @@ namespace kepler {
         return result;
     }
 
-    std::u32string block_append(std::u32string str, char32_t val) {
-        std::vector<std::u32string> delimited = split(str, U'\n');
-        std::u32string result;
+    String block_append(String str, char32_t val) {
+        std::vector<String> delimited = split(str, U'\n');
+        String result;
         for(auto& substr : delimited) {
             result += substr + val + U'\n';
         }
@@ -136,16 +136,16 @@ namespace kepler {
     }
 
 
-    std::u32string box(const std::u32string& str, int width, int height) {
-        std::vector<std::u32string> lines = split(str, U'\n');
+    String box(const String& str, int width, int height) {
+        std::vector<String> lines = split(str, U'\n');
         for(auto& line : lines) {
-            line += std::u32string(width - line.size(), U' ');
+            line += String(width - line.size(), U' ');
         }
         for(int i = lines.size(); i < height; ++i) {
-            lines.emplace_back(std::u32string(width, U' '));
+            lines.emplace_back(String(width, U' '));
         }
 
-        std::u32string result;
+        String result;
         for(auto& line : lines) {
             result += line + U'\n';
         }
@@ -154,37 +154,37 @@ namespace kepler {
     }
 
 
-    std::u32string block_join(char32_t separator, const std::vector<std::u32string>& blocks) {
+    String block_join(char32_t separator, const std::vector<String>& blocks) {
         if(blocks.empty()) {
             return U"";
         }
 
-        std::u32string result = blocks[0];
+        String result = blocks[0];
         for(int i = 1; i < blocks.size(); ++i) {
             result = block_concat(block_append(result, separator), blocks[i]);
         }
         return result;
     }
 
-    std::u32string frame_matrix(const std::vector<std::u32string>& strings, const std::vector<int>& widths, int height) {
+    String frame_matrix(const std::vector<String>& strings, const std::vector<int>& widths, int height) {
         int num_cols = widths.size();
         int num_rows = strings.size() / num_cols;
 
-        std::vector<std::u32string> boxes(strings.size());
+        std::vector<String> boxes(strings.size());
         for(int i = 0; i < strings.size(); ++i) {
             boxes.at(i) = box(strings[i], widths[i % num_cols], height);
         }
 
-        std::vector<std::u32string> rows;
+        std::vector<String> rows;
         for(int i = 0; i < num_rows; ++i) {
-            std::u32string row = block_join(U'│', {boxes.begin() + i * widths.size(), boxes.begin() + (i + 1) * widths.size()});
+            String row = block_join(U'│', {boxes.begin() + i * widths.size(), boxes.begin() + (i + 1) * widths.size()});
             row = block_prepend(row, U'│');
             row = block_append(row, U'│');
             rows.emplace_back(std::move(row));
         }
 
-        std::u32string ref_line = split(rows[0], U'\n')[0];
-        std::u32string top = U"┌";
+        String ref_line = split(rows[0], U'\n')[0];
+        String top = U"┌";
         for(int i = 1; i < ref_line.size() - 1; ++i) {
             if(ref_line[i] == U'│') {
                 top += U'┬';
@@ -193,20 +193,20 @@ namespace kepler {
             }
         }
         top += U'┐';
-        std::u32string intermediate = U'├' + top.substr(1, top.size() - 2) + U'┤';
+        String intermediate = U'├' + top.substr(1, top.size() - 2) + U'┤';
         std::replace(intermediate.begin(), intermediate.end(), U'┬', U'┼');
-        std::u32string bot = U'└' + top.substr(1, top.size() - 2) + U'┘';
+        String bot = U'└' + top.substr(1, top.size() - 2) + U'┘';
         std::replace(bot.begin(), bot.end(), U'┬', U'┴');
 
-        std::vector<std::u32string> lines{top};
+        std::vector<String> lines{top};
         for(auto& row : rows) {
-            std::vector<std::u32string> delimited = split(row, U'\n');
+            std::vector<String> delimited = split(row, U'\n');
             std::copy(delimited.begin(), delimited.end(), std::back_inserter(lines));
             lines.emplace_back(intermediate);
         }
         lines.back() = bot;
 
-        std::u32string result;
+        String result;
         for(auto& str : lines) {
             result += str + U'\n';
         }
@@ -215,7 +215,7 @@ namespace kepler {
         return result;
     }
 
-    std::string ArrayPrinter::operator()(const std::u32string &element) {
+    std::string ArrayPrinter::operator()(const String &element) {
         auto result = element;
 
         // https://stackoverflow.com/questions/4643512/replace-substring-with-another-substring-c
@@ -291,17 +291,16 @@ namespace kepler {
             std::copy(array.shape.begin(), array.shape.end(), std::back_inserter(shape));
             return (*this)(Array{shape, array.data});
         } else {
-            std::vector<std::u32string> strings;
+            std::vector<String> strings;
             int last_dim = array.shape.back();
             std::vector<int> widths(last_dim, 0);
             int max_height = 0;
 
             for(int i = 0; i < array.data.size(); ++i) {
-                std::u32string str = uni::utf8to32u(std::visit(*this, array.data[i]));
+                String str = uni::utf8to32u(std::visit(*this, array.data[i]));
                 int s_height = 1 + std::count(str.begin(), str.end(), '\n');
                 max_height = std::max(max_height, s_height);
 
-                // HERE!
                 int s_width = max_length_contiguous_segment(str);
                 widths[i%last_dim] = std::max(widths[i%last_dim], s_width);
                 strings.emplace_back(str);
@@ -309,13 +308,13 @@ namespace kepler {
 
             int matrix_size = array.shape[array.shape.size() - 2] * array.shape[array.shape.size() - 1];
             int n_matrices = std::accumulate(array.shape.rbegin(), array.shape.rend(), 1, std::multiplies<int>()) / matrix_size;
-            std::vector<std::u32string> matrices;
+            std::vector<String> matrices;
             for(int i = 0; i < n_matrices; ++i) {
                 matrices.emplace_back(frame_matrix({strings.begin() + i * matrix_size, strings.begin() + (i + 1) * matrix_size}, widths, max_height));
             }
 
             std::vector<int> off = offsets(array.shape);
-            std::u32string result;
+            String result;
             for(int i = 0; i < matrices.size(); ++i) {
                 for(auto& o : off) {
                     if(i != 0 && i % o == 0) {

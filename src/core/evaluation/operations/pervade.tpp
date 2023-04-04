@@ -82,7 +82,7 @@ namespace kepler {
     }
 
     template <typename BASE>
-    Array PervadeMixin<BASE>::operator()(const std::u32string &alpha, const std::u32string &omega) {
+    Array PervadeMixin<BASE>::operator()(const String &alpha, const String &omega) {
         Array tmp{{}, {}};
 
         if (alpha.length() != 1 && omega.length() != 1) {

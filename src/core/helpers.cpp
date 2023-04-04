@@ -48,7 +48,7 @@ bool kepler::helpers::is_array_token(TokenType type) {
     return type == NUMBER || type == STRING || type == ID || type == ALPHA || type == OMEGA;
 }
 
-void kepler::helpers::check_valid_system_param_value(const std::u32string &id, const Array &value) {
+void kepler::helpers::check_valid_system_param_value(const String &id, const Array &value) {
     if(value.empty() || !std::holds_alternative<Number>(value.data[0])) {
         throw kepler::Error(DomainError, "Invalid system parameter value.");
     }
@@ -56,7 +56,7 @@ void kepler::helpers::check_valid_system_param_value(const std::u32string &id, c
     return check_valid_system_param_value(id, std::get<Number>(value.data[0]));
 }
 
-void kepler::helpers::check_valid_system_param_value(const std::u32string &id, const Number &value) {
+void kepler::helpers::check_valid_system_param_value(const String &id, const Number &value) {
     if(id == constants::index_origin_id) {
         if(value != 1.0 && value != 0.0) {
             throw kepler::Error(LimitError, "Index origin can only be either 0 or 1.");

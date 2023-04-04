@@ -22,11 +22,11 @@
 #include <uni_algo/conv.h>
 
 kepler::Number kepler::from_string(std::string num_str) {
-    std::u32string str = uni::utf8to32u(num_str);
+    String str = uni::utf8to32u(num_str);
     std::replace(str.begin(), str.end(), U'¯', U'-');
 
     size_t complex_index = str.find(U'J');
-    if(complex_index != std::u32string::npos) {
+    if(complex_index != String::npos) {
         return {
                 std::stod(uni::utf32to8(str.substr(0, complex_index))), std::stod(uni::utf32to8(str.substr(complex_index + 1)))
         };

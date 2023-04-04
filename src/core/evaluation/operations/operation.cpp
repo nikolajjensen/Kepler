@@ -31,7 +31,7 @@ namespace kepler {
         throw kepler::Error(DomainError);
     }
 
-    Array Operation::operator()(const std::u32string& omega) {
+    Array Operation::operator()(const String& omega) {
         throw kepler::Error(DomainError);
     }
 
@@ -45,7 +45,7 @@ namespace kepler {
         throw kepler::Error(DomainError);
     }
 
-    Array Operation::operator()(const Array& alpha, const std::u32string& omega) {
+    Array Operation::operator()(const Array& alpha, const String& omega) {
         throw kepler::Error(DomainError);
     }
 
@@ -59,21 +59,21 @@ namespace kepler {
         throw kepler::Error(DomainError);
     }
 
-    Array Operation::operator()(const Number& alpha, const std::u32string& omega) {
+    Array Operation::operator()(const Number& alpha, const String& omega) {
         throw kepler::Error(DomainError);
     }
 
 
 
-    Array Operation::operator()(const std::u32string& alpha, const std::u32string& omega) {
+    Array Operation::operator()(const String& alpha, const String& omega) {
         throw kepler::Error(DomainError);
     }
 
-    Array Operation::operator()(const std::u32string& alpha, const Number& omega) {
+    Array Operation::operator()(const String& alpha, const Number& omega) {
         throw kepler::Error(DomainError);
     }
 
-    Array Operation::operator()(const std::u32string& alpha, const Array& omega) {
+    Array Operation::operator()(const String& alpha, const Array& omega) {
         throw kepler::Error(DomainError);
     }
 

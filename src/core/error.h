@@ -125,7 +125,7 @@ namespace kepler {
 
             if(input != nullptr && position != -2) {
                 ss << "   ";
-                ss << uni::utf32to8(std::u32string(input->begin(), input->end()));
+                ss << uni::utf32to8(String(input->begin(), input->end()));
                 ss << "\n";
 
                 ss << "  ";

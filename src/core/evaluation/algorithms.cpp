@@ -86,7 +86,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
     return std::get<Array>(lists[0]);
 }
 
-kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32string &omega) {
+kepler::Array kepler::partitioned_enclose(const Array &alpha, const String &omega) {
     std::vector<Array::element_type> lists;
 
     if(alpha.size() > omega.length()) {
@@ -111,7 +111,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const std::u32stri
 
         if(!lists.empty()) {
             auto& arr = std::get<Array>(lists.back());
-            auto& str = std::get<std::u32string>(arr.data[0]);
+            auto& str = std::get<String>(arr.data[0]);
             str += omega[i];
         }
     }
@@ -141,8 +141,8 @@ kepler::Array kepler::without(const Array &alpha, const Array &omega) {
     return result.data[0];
 }
 
-kepler::Array kepler::without(const std::u32string &alpha, const std::u32string &omega) {
-    std::u32string result;
+kepler::Array kepler::without(const String &alpha, const String &omega) {
+    String result;
 
     for(auto& c : alpha) {
         if(std::count(omega.begin(), omega.end(), c) == 0) {

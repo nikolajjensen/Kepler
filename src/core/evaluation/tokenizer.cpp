@@ -41,7 +41,7 @@ namespace kepler {
     }
 
 
-    bool Tokenizer::one_of(const char32_t& ch, const std::u32string& elements) const {
+    bool Tokenizer::one_of(const char32_t& ch, const String& elements) const {
         return std::any_of(elements.begin(), elements.end(), [&](const Char& element) { return ch == element; });
     }
 
@@ -60,7 +60,7 @@ namespace kepler {
         }
     }
 
-    std::u32string Tokenizer::get_integer() {
+    String Tokenizer::get_integer() {
         int start = cursor;
         while(!at_end() && one_of(current(), constants::digit)) {
             advance();
@@ -68,8 +68,8 @@ namespace kepler {
         return {input->begin() + start, input->begin() + cursor};
     }
 
-    std::u32string Tokenizer::get_exponent() {
-        std::u32string exponent;
+    String Tokenizer::get_exponent() {
+        String exponent;
 
         if(!at_end() && current() == constants::exponent_marker) {
             advance();
@@ -78,7 +78,7 @@ namespace kepler {
                 advance();
                 exponent += U'-';
             }
-            std::u32string integer = get_integer();
+            String integer = get_integer();
             if(integer.empty()) {
                 throw kepler::Error(SyntaxError, "Expected a digit here.", cursor + 1);
             }
@@ -88,8 +88,8 @@ namespace kepler {
         return exponent;
     }
 
-    std::u32string Tokenizer::get_real_number() {
-        std::u32string number;
+    String Tokenizer::get_real_number() {
+        String number;
 
         if(!at_end() && current() == U'¯') {
             advance();
@@ -117,13 +117,13 @@ namespace kepler {
     }
 
     Token Tokenizer::number_token() {
-        std::u32string number = get_real_number();
+        String number = get_real_number();
 
         if(!at_end() && current() == constants::complex_marker) {
             advance();
             number += constants::complex_marker;
 
-            std::u32string real = get_real_number();
+            String real = get_real_number();
             number += real;
         }
 
@@ -150,7 +150,7 @@ namespace kepler {
             throw kepler::Error(SyntaxError, "Expected a matching quote.", cursor + 1);
         }
 
-        std::u32string result = {input->begin() + start, input->begin() + cursor};
+        String result = {input->begin() + start, input->begin() + cursor};
 
         // Go past quote.
         advance();

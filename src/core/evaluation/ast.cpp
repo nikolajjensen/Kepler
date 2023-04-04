@@ -22,7 +22,7 @@
 #include "core/symbol_table.h"
 
 namespace kepler {
-    Scalar::Scalar(Token token_, std::variant<Number, std::u32string> content_) : token(std::move(token_)), content(std::move(content_)) {}
+    Scalar::Scalar(Token token_, std::variant<Number, String> content_) : token(std::move(token_)), content(std::move(content_)) {}
 
     std::string Scalar::to_string() const {
         return "Scalar(" + token.to_string() + ")";

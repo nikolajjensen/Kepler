@@ -60,7 +60,7 @@ namespace kepler {
 
     bool Parser::identifies_function(const Token& token) const {
         if(!token.content.has_value()) return false;
-        std::u32string id = {token.content->begin(), token.content->end()};
+        String id = {token.content->begin(), token.content->end()};
         if(id == U"∇") return true;
         return symbol_table->contains(id) && symbol_table->get_type(id) == FunctionSymbol;
     }
@@ -83,7 +83,7 @@ namespace kepler {
                 stack.emplace_back(it);
             } else if(it->type == right){
                 if(stack.empty()) {
-                    throw kepler::Error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(it));
+                    throw kepler::Error(SyntaxError, "Expected a matching '" + uni::utf32to8(String(1, right_char)) + "'.", position(it));
                 }
                 stack.pop_back();
             }
@@ -91,7 +91,7 @@ namespace kepler {
         }
 
         if(!stack.empty()) {
-            throw kepler::Error(SyntaxError, "Expected a matching '" + uni::utf32to8(std::u32string(1, right_char)) + "'.", position(stack.back()));
+            throw kepler::Error(SyntaxError, "Expected a matching '" + uni::utf32to8(String(1, right_char)) + "'.", position(stack.back()));
         }
     }
 
@@ -285,7 +285,7 @@ namespace kepler {
         } else {
             // Must be string.
             eat(STRING);
-            return new Scalar(tok, std::u32string{tok.content->begin(), tok.content->end()});
+            return new Scalar(tok, String{tok.content->begin(), tok.content->end()});
         }
     }
 

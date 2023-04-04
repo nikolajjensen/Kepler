@@ -31,9 +31,9 @@ namespace kepler {
     }
 
     Array Interpreter::visit(Scalar *node) {
-        if (std::holds_alternative<std::u32string>(node->content)) {
+        if (std::holds_alternative<String>(node->content)) {
             return {{},
-                    {std::get<std::u32string>(node->content)}};
+                    {std::get<String>(node->content)}};
         } else if (std::holds_alternative<Number>(node->content)) {
             return {{},
                     {std::get<Number>(node->content)}};
@@ -97,13 +97,13 @@ namespace kepler {
 
     Array Interpreter::visit(Variable *node) {
         auto &content = node->token.content.value();
-        std::u32string identifier = {content.begin(), content.end()};
+        String identifier = {content.begin(), content.end()};
         return symbol_table.get<Array>(identifier);
     }
 
     Array Interpreter::visit(FunctionAssignment *node) {
         auto &content = node->identifier.content.value();
-        std::u32string identifier = {content.begin(), content.end()};
+        String identifier = {content.begin(), content.end()};
         if(identifier.starts_with(constants::recursive_call_id)) {
             throw kepler::Error(DefinitionError, "Cannot assign a variable to the recursive call symbol.", node->identifier.get_position());
         }
@@ -114,7 +114,7 @@ namespace kepler {
 
     Array Interpreter::visit(Assignment *node) {
         auto &content = node->identifier.content.value();
-        std::u32string identifier = {content.begin(), content.end()};
+        String identifier = {content.begin(), content.end()};
         Array value = node->value->accept(*this);
 
         if (identifier.starts_with(U'⎕')) {

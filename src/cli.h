@@ -20,13 +20,24 @@
 #pragma once
 #include <lyra/lyra.hpp>
 
+/**
+ * @brief The CLI namespace contains command-line related code.
+ */
 namespace kepler::cli {
+
+    /**
+     * @brief The Config struct contains all configuration
+     * which can be set in the command-line.
+     */
     struct Config {
         bool show_help = false;
         bool run_tests = false;
         std::vector<std::string> commands;
     } config;
 
+    /**
+     * @brief The command-line parser.
+     */
     auto cli
             = lyra::help(config.show_help).description("Here is a list of all command-line arguments.")
                 | lyra::opt(config.run_tests)["-t"]["--test"]("Run the test suite.")

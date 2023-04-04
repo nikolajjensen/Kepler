@@ -31,13 +31,13 @@ namespace kepler {
         const char32_t& current() const;
         const char32_t& peek() const;
         bool at_end() const;
-        bool one_of(const char32_t& ch, const std::u32string& elements) const;
+        bool one_of(const char32_t& ch, const String& elements) const;
 
         void skip_blanks();
         void skip_comment();
-        std::u32string get_integer();
-        std::u32string get_exponent();
-        std::u32string get_real_number();
+        String get_integer();
+        String get_exponent();
+        String get_real_number();
         Token number_token();
         Token identifier_token();
         Token string_token();

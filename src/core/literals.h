@@ -80,16 +80,16 @@ namespace kepler::constants {
 
     const Char exponent_marker = U'E';
     const Char complex_marker = U'J';
-    const std::u32string alpha_id = U"⍺";
-    const std::u32string omega_id = U"⍵";
+    const String alpha_id = U"⍺";
+    const String omega_id = U"⍵";
     const std::string indent_prompt = "     > ";
-    const std::u32string index_origin_id = U"⎕IO";
+    const String index_origin_id = U"⎕IO";
     const Number initial_index_origin = 1;
-    const std::u32string print_precision_id = U"⎕PP";
+    const String print_precision_id = U"⎕PP";
     const Number initial_print_precision = 10;
-    const std::u32string recursive_call_id = U"∇";
+    const String recursive_call_id = U"∇";
 
-    const std::u32string symbols = U"\n!()*+,-./:<=>?{|}~¨×÷←↑∘∧∨≠≤≥⊂⊖⊢⊣⋄⌈⌊⌽⍟⍣⍤⍥⍨⍱⍲⍳⍴⍵⍺◊○";
-    const std::u32string identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕∇";
-    const std::u32string digit = U"0123456789";
+    const String symbols = U"\n!()*+,-./:<=>?{|}~¨×÷←↑∘∧∨≠≤≥⊂⊖⊢⊣⋄⌈⌊⌽⍟⍣⍤⍥⍨⍱⍲⍳⍴⍵⍺◊○";
+    const String identifier_chars = U"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789⎕∇";
+    const String digit = U"0123456789";
 };

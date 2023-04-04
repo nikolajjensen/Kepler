@@ -35,19 +35,19 @@ namespace kepler {
 
         virtual Array operator()(const Array& omega);
         virtual Array operator()(const Number& omega);
-        virtual Array operator()(const std::u32string& omega);
+        virtual Array operator()(const String& omega);
 
         virtual Array operator()(const Array& alpha, const Array& omega);
         virtual Array operator()(const Array& alpha, const Number& omega);
-        virtual Array operator()(const Array& alpha, const std::u32string& omega);
+        virtual Array operator()(const Array& alpha, const String& omega);
 
         virtual Array operator()(const Number& alpha, const Number& omega);
         virtual Array operator()(const Number& alpha, const Array& omega);
-        virtual Array operator()(const Number& alpha, const std::u32string& omega);
+        virtual Array operator()(const Number& alpha, const String& omega);
 
-        virtual Array operator()(const std::u32string& alpha, const std::u32string& omega);
-        virtual Array operator()(const std::u32string& alpha, const Number& omega);
-        virtual Array operator()(const std::u32string& alpha, const Array& omega);
+        virtual Array operator()(const String& alpha, const String& omega);
+        virtual Array operator()(const String& alpha, const Number& omega);
+        virtual Array operator()(const String& alpha, const Array& omega);
 
         virtual Array operator()(const Char& alpha, const Char& omega);
     };

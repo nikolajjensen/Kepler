@@ -27,8 +27,8 @@ namespace kepler::helpers {
     bool is_dyadic_operator(TokenType type);
     bool is_array_token(TokenType type);
 
-    void check_valid_system_param_value(const std::u32string& id, const Array& value);
-    void check_valid_system_param_value(const std::u32string& id, const Number& value);
+    void check_valid_system_param_value(const String& id, const Array& value);
+    void check_valid_system_param_value(const String& id, const Number& value);
 
     std::string number_to_string(const Number& num, int precision = 10);
     std::string double_to_string(const double& num, int precision);

@@ -35,7 +35,7 @@ namespace kepler {
         table.clear();
     }
 
-    const Symbol & SymbolTable::lookup(const std::u32string &id) const {
+    const Symbol & SymbolTable::lookup(const String &id) const {
         if(table.contains(id)) {
             return *table.at(id);
         } else if(parent != nullptr) {
@@ -49,7 +49,7 @@ namespace kepler {
         parent = parent_;
     }
 
-    void SymbolTable::set(const std::u32string &id, const Array& value, bool locally_only) {
+    void SymbolTable::set(const String &id, const Array& value, bool locally_only) {
         if(!locally_only && parent != nullptr && parent->contains(id)) {
             parent->set(id, value);
         } else {
@@ -57,7 +57,7 @@ namespace kepler {
         }
     }
 
-    void SymbolTable::set(const std::u32string &id, const Operation_ptr& value, bool locally_only) {
+    void SymbolTable::set(const String &id, const Operation_ptr& value, bool locally_only) {
         if(!locally_only && parent != nullptr && parent->contains(id)) {
             parent->set(id, value);
         } else {
@@ -65,11 +65,11 @@ namespace kepler {
         }
     }
 
-    void SymbolTable::set(const std::u32string &id, const Number& value, bool locally_only) {
+    void SymbolTable::set(const String &id, const Number& value, bool locally_only) {
         set(id, Array{{}, {value}}, locally_only);
     }
 
-    void SymbolTable::remove(const std::u32string &id, bool locally_only) {
+    void SymbolTable::remove(const String &id, bool locally_only) {
         if(table.contains(id)) {
             delete table.at(id);
             table.erase(id);
@@ -78,15 +78,15 @@ namespace kepler {
         }
     }
 
-    bool SymbolTable::contains(const std::u32string &id) const {
+    bool SymbolTable::contains(const String &id) const {
         return table.contains(id) || (parent != nullptr && parent->contains(id));
     }
 
-    SymbolType SymbolTable::get_type(const std::u32string &id) const {
+    SymbolType SymbolTable::get_type(const String &id) const {
         return lookup(id).type;
     }
 
-    void SymbolTable::bind_function(const std::u32string &id) {
+    void SymbolTable::bind_function(const String &id) {
         table.insert_or_assign(id, new Symbol(FunctionSymbol));
     }
 

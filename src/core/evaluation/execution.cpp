@@ -25,6 +25,7 @@
 #include "core/evaluation/parser.h"
 #include "core/evaluation/interpreter.h"
 #include "core/symbol_table.h"
+#include "core/datatypes.h"
 
 
 
@@ -85,7 +86,7 @@ void display_prompt(std::string& input) {
 }
 
 
-std::u32string read_input() {
+kepler::String read_input() {
     std::string input;
     display_prompt(input);
     return uni::utf8to32u(input);
@@ -98,7 +99,7 @@ int kepler::run_repl() {
     symbol_table.insert_system_parameters();
 
     while(true) {
-        std::u32string input = read_input();
+        String input = read_input();
         ss.str("");
         List<Char> in = {input.begin(), input.end()};
         kepler::safe_execution(in, ss, true, &symbol_table);

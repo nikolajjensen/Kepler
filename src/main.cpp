@@ -8,6 +8,9 @@
 
 using namespace kepler;
 
+/**
+ * Main method - entry point of the program.
+ */
 int main(int argc, char* argv[]) {
     auto result = kepler::cli::cli.parse({argc, argv});
 
@@ -17,9 +20,11 @@ int main(int argc, char* argv[]) {
     }
 
     if(kepler::cli::config.show_help) {
+        // Show help.
         std::cout << kepler::cli::cli << "\n";
         return 0;
     } else if(kepler::cli::config.run_tests) {
+        // Run tests.
         Catch::Session session;
         if(!kepler::cli::config.commands.empty()) {
             session.configData().testsOrTags = kepler::cli::config.commands;
@@ -29,7 +34,7 @@ int main(int argc, char* argv[]) {
         // Run REPL.
         run_repl();
     } else if(kepler::cli::config.commands.size() == 1) {
-        // Try to run the file.
+        // Run file.
         return run_file(kepler::cli::config.commands[0]);
     } else {
         std::cerr << "Command error: only one file can be specified." << std::endl;

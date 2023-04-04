@@ -68,7 +68,7 @@ namespace kepler {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
-        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const String& alpha, const String& omega) override;
         Array operator()(const Number& omega) override;
     };
 
@@ -76,7 +76,7 @@ namespace kepler {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
-        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const String& alpha, const String& omega) override;
         Array operator()(const Number& omega) override;
     };
 
@@ -84,7 +84,7 @@ namespace kepler {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
-        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const String& alpha, const String& omega) override;
         Array operator()(const Number& omega) override;
     };
 
@@ -92,7 +92,7 @@ namespace kepler {
         using PervadeMixin<Operation>::PervadeMixin;
 
         Array operator()(const Number& alpha, const Number& omega) override;
-        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const String& alpha, const String& omega) override;
         Array operator()(const Number& omega) override;
     };
 
@@ -162,7 +162,7 @@ namespace kepler {
 
         Array operator()(const Number& omega) override;
         Array operator()(const Array& alpha, const Array& omega) override;
-        Array operator()(const std::u32string& alpha, const std::u32string& omega) override;
+        Array operator()(const String& alpha, const String& omega) override;
     };
 
     struct Iota : Operation {
@@ -183,8 +183,8 @@ namespace kepler {
         using Operation::operator();
 
         Array operator()(const Number& omega) override;
-        Array operator()(const std::u32string& omega) override;
-        Array operator()(const Number& shift, const std::u32string& omega) override;
+        Array operator()(const String& omega) override;
+        Array operator()(const Number& shift, const String& omega) override;
         Array operator()(const Number& shift, const Number& omega) override;
 
         Array operator()(const Array& alpha, const Array& omega) override;
@@ -196,8 +196,8 @@ namespace kepler {
         using Operation::operator();
 
         Array operator()(const Number& omega) override;
-        Array operator()(const std::u32string& omega) override;
-        Array operator()(const Number& shift, const std::u32string& omega) override;
+        Array operator()(const String& omega) override;
+        Array operator()(const Number& shift, const String& omega) override;
         Array operator()(const Number& shift, const Number& omega) override;
 
         Array operator()(const Array& alpha, const Array& omega) override;
