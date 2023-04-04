@@ -23,7 +23,7 @@
 
 using namespace kepler;
 
-TEST_CASE_METHOD(parser_fixture, "dyadic-functions", "[dyadic-functions][parser]") {
+TEST_CASE_METHOD(ParserFixture, "dyadic-functions", "[dyadic-functions][parser]") {
     CHECK_THAT(run("1+2"),
                Prints("Statements(DyadicFunction(Scalar(Token(NUMBER, 1)) Function(Token(PLUS, +)) Scalar(Token(NUMBER, 2))))"));
 
@@ -50,7 +50,7 @@ TEST_CASE_METHOD(parser_fixture, "dyadic-functions", "[dyadic-functions][parser]
 
 }
 
-TEST_CASE_METHOD(parser_fixture, "statement-separation", "[statement-separation][parser]") {
+TEST_CASE_METHOD(ParserFixture, "statement-separation", "[statement-separation][parser]") {
     CHECK_THAT(run("1+2◊3-2"),
                Prints("Statements(DyadicFunction(Scalar(Token(NUMBER, 1)) Function(Token(PLUS, +)) Scalar(Token(NUMBER, 2))), DyadicFunction(Scalar(Token(NUMBER, 3)) Function(Token(MINUS, -)) Scalar(Token(NUMBER, 2))))"));
 
@@ -80,7 +80,7 @@ TEST_CASE_METHOD(parser_fixture, "statement-separation", "[statement-separation]
 
 }
 
-TEST_CASE_METHOD(parser_fixture, "user-defined-functions", "[user-defined-functions][parser]") {
+TEST_CASE_METHOD(ParserFixture, "user-defined-functions", "[user-defined-functions][parser]") {
     CHECK_THAT(run("{⍺+⍵}1 2 3"),
                Prints("Statements(MonadicFunction(AnonymousFunction(Statements(DyadicFunction(Variable(Token(ALPHA, ⍺)) Function(Token(PLUS, +)) Variable(Token(OMEGA, ⍵))))) Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3)))))"));
 
@@ -107,7 +107,7 @@ TEST_CASE_METHOD(parser_fixture, "user-defined-functions", "[user-defined-functi
     CHECK_THAT(run("FN←⍺+⍵}"), Throws(kepler::SyntaxError));
 }
 
-TEST_CASE_METHOD(parser_fixture, "variables", "[variables][parser]") {
+TEST_CASE_METHOD(ParserFixture, "variables", "[variables][parser]") {
     CHECK_THAT(run("var←12"),
                Prints("Statements(Assignment(Token(ID, var) ← Scalar(Token(NUMBER, 12))))"));
 
@@ -129,7 +129,7 @@ TEST_CASE_METHOD(parser_fixture, "variables", "[variables][parser]") {
     CHECK_THAT(run("v ← 2J¯1 ◊ 1 2 'abc' ¯5 ¯2E3 v 100"), Prints("Statements(Assignment(Token(ID, v) ← Scalar(Token(NUMBER, 2J-1))), Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2)), Scalar(Token(STRING, abc)), Scalar(Token(NUMBER, -5)), Scalar(Token(NUMBER, -2E3)), Variable(Token(ID, v)), Scalar(Token(NUMBER, 100))))"));
 }
 
-TEST_CASE_METHOD(parser_fixture, "parenthesis", "[parenthesis][parser]") {
+TEST_CASE_METHOD(ParserFixture, "parenthesis", "[parenthesis][parser]") {
     CHECK_THAT(run("1 2 (3 4) 5 6"),
                Prints("Statements(Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2)), Vector(Scalar(Token(NUMBER, 3)), Scalar(Token(NUMBER, 4))), Scalar(Token(NUMBER, 5)), Scalar(Token(NUMBER, 6))))"));
 
@@ -154,7 +154,7 @@ TEST_CASE_METHOD(parser_fixture, "parenthesis", "[parenthesis][parser]") {
 
 }
 
-TEST_CASE_METHOD(parser_fixture, "functions", "[functions][parser]") {
+TEST_CASE_METHOD(ParserFixture, "functions", "[functions][parser]") {
     CHECK_THAT(run("1 2 3 (+) 4 5 6"), Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3))) Function(Token(PLUS, +)) Vector(Scalar(Token(NUMBER, 4)), Scalar(Token(NUMBER, 5)), Scalar(Token(NUMBER, 6)))))"));
 
     CHECK_THAT(run("1 2 3 (+∘-) 4 5 6"), Prints("Statements(DyadicFunction(Vector(Scalar(Token(NUMBER, 1)), Scalar(Token(NUMBER, 2)), Scalar(Token(NUMBER, 3))) DyadicOperator(Function(Token(PLUS, +)) Token(JOT, ∘) Function(Token(MINUS, -))) Vector(Scalar(Token(NUMBER, 4)), Scalar(Token(NUMBER, 5)), Scalar(Token(NUMBER, 6)))))"));

@@ -22,9 +22,9 @@
 #include "core/evaluation/tokenizer.h"
 #include <chrono>
 
-class lexer_fixture {
+class LexerFixture {
 public:
-    lexer_fixture() = default;
+    LexerFixture() = default;
 
 protected:
     kepler::List<kepler::Token> run(std::string&& raw, bool timing = false) {

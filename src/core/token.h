@@ -23,7 +23,7 @@
 #include "datatypes.h"
 #include "uni_algo/conv.h"
 #include "array.h"
-#include "core/helpers/conversion.h"
+#include "interface/conversion.h"
 #include <utility>
 #include <optional>
 #include "position.h"

@@ -24,7 +24,7 @@
 #include <algorithm>
 #include <random>
 #include <cmath>
-#include "core/constants/config.h"
+#include "core/config.h"
 #include "core/symbol_table.h"
 #include "core/evaluation/algorithms.h"
 #include "core/array.h"

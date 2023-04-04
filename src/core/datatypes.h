@@ -31,16 +31,6 @@ namespace kepler {
     using StringUTF8 = std::string;
     using String = std::u32string;
 
-
-    Number numeric_limit_max();
-    Number numeric_limit_min();
-
-    Number number_from_characters(const List<Char>& list);
-
-    double& apply_scientific_notation(double& input, double& exponent);
-
     StringUTF8 number_to_string(const Number& num, int precision = 10);
     StringUTF8 double_to_string(const double& num, int precision);
-
-    Number integer_nearest_to(const Number& num);
 };

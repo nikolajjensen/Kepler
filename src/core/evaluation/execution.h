@@ -19,8 +19,8 @@
 
 #pragma once
 #include <string>
-#include "datatypes.h"
-#include "symbol_table.h"
+#include "core/datatypes.h"
+#include "core/symbol_table.h"
 
 namespace kepler {
     int run_file(const std::string& path, std::ostream & stream = std::cout);

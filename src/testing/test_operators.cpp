@@ -18,11 +18,11 @@
 //
 
 #include <catch2/catch_test_macros.hpp>
-#include "testing/fixtures/fixture.h"
+#include "testing/fixtures/general_fixture.h"
 #include "matcher.h"
 #include "core/error_type.h"
 
-TEST_CASE_METHOD(fixture, "commute (⍨)", "[commute][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "commute (⍨)", "[commute][operators]") {
     CHECK_THAT(run("+⍨2"), Prints("4"));
     CHECK_THAT(run("2+⍨1"), Prints("3"));
     CHECK_THAT(run("2÷⍨1"), Prints("0.5"));
@@ -34,14 +34,14 @@ TEST_CASE_METHOD(fixture, "commute (⍨)", "[commute][operators]") {
     CHECK_THAT(run("1 2 3÷4 5 6"), Prints("0.25 0.4 0.5"));
 }
 
-TEST_CASE_METHOD(fixture, "slash (/)", "[slash][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "slash (/)", "[slash][operators]") {
     CHECK_THAT(run("+/2"), Prints("2"));
     CHECK_THAT(run("+/1 3 4"), Prints("8"));
     CHECK_THAT(run("-/⍳10"), Prints("¯5"));
     CHECK_THAT(run("1 2 3 +/ 1 2 3"), Throws(kepler::NotImplemented));
 }
 
-TEST_CASE_METHOD(fixture, "diaeresis (¨)", "[diaeresis][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "diaeresis (¨)", "[diaeresis][operators]") {
     CHECK_THAT(run("{2+⍵}¨2 3 4"), Prints("4 5 6"));
     CHECK_THAT(run("2 3 4{2+⍵}¨2"), Prints("4 4 4"));
     CHECK_THAT(run("2 3 4{2+⍺}¨2"), Prints("4 5 6"));
@@ -58,7 +58,7 @@ TEST_CASE_METHOD(fixture, "diaeresis (¨)", "[diaeresis][operators]") {
     CHECK_THAT(run("3 4 2+¨5 2 3⍴1"), Throws(kepler::RankError));
 }
 
-TEST_CASE_METHOD(fixture, "jot (∘)", "[jot][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "jot (∘)", "[jot][operators]") {
     CHECK_THAT(run("2-∘×2"), Prints("1"));
     CHECK_THAT(run("(2-∘×2)=(2-(×2))"), Prints("1"));
     CHECK_THAT(run("(2E10-∘-2J23)=(2E10-(-2J23))"), Prints("1"));
@@ -67,7 +67,7 @@ TEST_CASE_METHOD(fixture, "jot (∘)", "[jot][operators]") {
     CHECK_THAT(run("-∘×2J12"), Prints("¯0.1643989873J¯0.9863939238"));
 }
 
-TEST_CASE_METHOD(fixture, "atop (⍤)", "[atop][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "atop (⍤)", "[atop][operators]") {
     CHECK_THAT(run("2-⍤×2"), Prints("¯4"));
     CHECK_THAT(run("(2-⍤×2)=(-(2×2))"), Prints("1"));
     CHECK_THAT(run("(2E10-⍤-2J23)=(-(2E10-2J23))"), Prints("1"));
@@ -76,7 +76,7 @@ TEST_CASE_METHOD(fixture, "atop (⍤)", "[atop][operators]") {
     CHECK_THAT(run("-⍤×2J12"), Prints("¯0.1643989873J¯0.9863939238"));
 }
 
-TEST_CASE_METHOD(fixture, "over (⍥)", "[over][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "over (⍥)", "[over][operators]") {
     CHECK_THAT(run("2-⍥×2"), Prints("0"));
     CHECK_THAT(run("(2-⍥×2)=((×2)-(×2))"), Prints("1"));
     CHECK_THAT(run("(2E10-⍥-2J23)=((-2E10)-(-2J23))"), Prints("1"));
@@ -85,13 +85,13 @@ TEST_CASE_METHOD(fixture, "over (⍥)", "[over][operators]") {
     CHECK_THAT(run("-⍥×2J12"), Prints("¯0.1643989873J¯0.9863939238"));
 }
 
-TEST_CASE_METHOD(fixture, "Inner product (.)", "[inner-product][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "Inner product (.)", "[inner-product][operators]") {
     CHECK_THAT(run("4 2 1 +.× 1 0 1"), Prints("5"));
     CHECK_THAT(run("1 2 3 +.× 4 5 6"), Prints("32"));
     CHECK_THAT(run("3 3 ∧.= 3 3 3 3"), Throws(kepler::LengthError));
 }
 
-TEST_CASE_METHOD(fixture, "Power (⍣)", "[power][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "Power (⍣)", "[power][operators]") {
     run("f←{⍵+1}");
 
     CHECK_THAT(run("(f⍣3)0"), Prints("3"));
@@ -102,7 +102,7 @@ TEST_CASE_METHOD(fixture, "Power (⍣)", "[power][operators]") {
     CHECK_THAT(run("(f⍣'abc')4"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "Outer product (.)", "[outer-product][operators]") {
+TEST_CASE_METHOD(GeneralFixture, "Outer product (.)", "[outer-product][operators]") {
     CHECK_THAT(run("4 2 1 ∘.× 1 0 1"), Prints("4 0 4\n"
                                               "2 0 2\n"
                                               "1 0 1"));

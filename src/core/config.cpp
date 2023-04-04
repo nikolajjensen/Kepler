@@ -17,7 +17,6 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include "config.h"
-#include "core/constants/literals.h"
 #include "core/array.h"
 #include "core/error.h"
 

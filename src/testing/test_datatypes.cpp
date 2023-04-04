@@ -18,11 +18,11 @@
 //
 
 #include <catch2/catch_test_macros.hpp>
-#include "testing/fixtures/fixture.h"
+#include "testing/fixtures/general_fixture.h"
 #include "matcher.h"
 #include "core/error_type.h"
 
-TEST_CASE_METHOD(fixture, "numbers", "[numbers][datatypes]") {
+TEST_CASE_METHOD(GeneralFixture, "numbers", "[numbers][datatypes]") {
     CHECK_THAT(run("0"), Prints("0"));
     CHECK_THAT(run("0000001"), Prints("1"));
     CHECK_THAT(run("0.000001"), Prints("0.000001"));
@@ -43,14 +43,14 @@ TEST_CASE_METHOD(fixture, "numbers", "[numbers][datatypes]") {
     // Many more corner cases (and negative tests) are in test_lexer.cpp.
 }
 
-TEST_CASE_METHOD(fixture, "strings", "[strings][datatypes]") {
+TEST_CASE_METHOD(GeneralFixture, "strings", "[strings][datatypes]") {
     CHECK_THAT(run("'abc'"), Prints("abc"));
     CHECK_THAT(run("'Hello, World!!!'"), Prints("Hello, World!!!"));
     CHECK_THAT(run("'1E9J¯2'"), Prints("1E9J¯2"));
     CHECK_THAT(run("'3 3⍴10 12 14'"), Prints("3 3⍴10 12 14"));
 }
 
-TEST_CASE_METHOD(fixture, "arrays", "[arrays][datatypes]") {
+TEST_CASE_METHOD(GeneralFixture, "arrays", "[arrays][datatypes]") {
     CHECK_THAT(run("1 2 3"), Prints("1 2 3"));
     CHECK_THAT(run("1 ¯2 3"), Prints("1 ¯2 3"));
     CHECK_THAT(run("1 (¯2 3)"), Prints("┌─┬────┐\n"

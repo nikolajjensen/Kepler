@@ -18,9 +18,9 @@
 //
 
 #include "defined_function.h"
-#include "core/constants/literals.h"
+#include "core/literals.h"
 #include "core/evaluation/interpreter.h"
-#include "core/constants/config.h"
+#include "core/config.h"
 #include "core/symbol_table.h"
 
 namespace kepler {

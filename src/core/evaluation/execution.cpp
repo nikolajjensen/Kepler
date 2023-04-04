@@ -19,13 +19,13 @@
 
 #include "execution.h"
 #include <numeric>
-#include "core/constants/literals.h"
-#include "core/constants/config.h"
-#include "core/helpers/file_reader.h"
+#include "core/literals.h"
+#include "core/config.h"
+#include "interface/file_reader.h"
 #include "core/evaluation/tokenizer.h"
 #include "core/evaluation/parser.h"
 #include "core/evaluation/interpreter.h"
-#include "symbol_table.h"
+#include "core/symbol_table.h"
 
 
 

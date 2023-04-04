@@ -3,7 +3,7 @@
 #include <catch2/catch_session.hpp>
 #include <lyra/lyra.hpp>
 #include "cli.h"
-#include "core/execution.h"
+#include "core/evaluation/execution.h"
 
 using namespace kepler;
 

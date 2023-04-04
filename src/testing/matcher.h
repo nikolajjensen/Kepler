@@ -24,7 +24,7 @@
 #include "core/token_type.h"
 #include "core/token.h"
 #include "core/error.h"
-#include "core/constants/literals.h"
+#include "core/literals.h"
 #include "core/evaluation/ast.h"
 #include <iomanip>
 

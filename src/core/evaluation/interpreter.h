@@ -58,17 +58,17 @@ namespace kepler {
                     return std::make_shared<LeftTack>(&symbol_table);
                 } else if(type == LESS) {
                     return std::make_shared<Less>(&symbol_table);
-                } else if(type == LESSEQ) {
+                } else if(type == LESS_EQUAL) {
                     return std::make_shared<LessEq>(&symbol_table);
-                } else if(type == EQ) {
+                } else if(type == EQUAL) {
                     return std::make_shared<Eq>(&symbol_table);
-                } else if(type == GREATEREQ) {
+                } else if(type == GREATER_EQUAL) {
                     return std::make_shared<GreaterEq>(&symbol_table);
                 } else if(type == GREATER) {
                     return std::make_shared<Greater>(&symbol_table);
-                } else if(type == NEQ) {
+                } else if(type == NOT_EQUAL) {
                     return std::make_shared<Neq>(&symbol_table);
-                } else if(type == LSHOE) {
+                } else if(type == LEFT_SHOE) {
                     return std::make_shared<LeftShoe>(&symbol_table);
                 } else if(type == WITHOUT) {
                     return std::make_shared<Not>(&symbol_table);
@@ -80,7 +80,7 @@ namespace kepler {
                     return std::make_shared<CircleBar>(&symbol_table);
                 } else if(type == CIRCLE_STILE) {
                     return std::make_shared<CircleStile>(&symbol_table);
-                } else if(type == ROLL) {
+                } else if(type == QUESTION_MARK) {
                     return std::make_shared<Roll>(&symbol_table);
                 } else if(type == CIRCLE) {
                     return std::make_shared<Circle>(&symbol_table);

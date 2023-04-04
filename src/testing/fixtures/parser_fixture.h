@@ -24,16 +24,16 @@
 #include "core/evaluation/parser.h"
 #include <chrono>
 
-class parser_fixture {
+class ParserFixture {
 protected:
     kepler::SymbolTable symbol_table;
 
 public:
-    parser_fixture() {
+    ParserFixture() {
         symbol_table.insert_system_parameters();
     }
 
-    ~parser_fixture() {
+    ~ParserFixture() {
         symbol_table.clear();
     }
 

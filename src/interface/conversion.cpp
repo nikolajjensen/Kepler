@@ -67,19 +67,19 @@ std::string kepler::to_string(TokenType type) {
             return "IOTA";
         case LESS:
             return "LESS";
-        case LESSEQ:
+        case LESS_EQUAL:
             return "LESSEQ";
-        case EQ:
+        case EQUAL:
             return "EQ";
-        case GREATEREQ:
+        case GREATER_EQUAL:
             return "GREATEREQ";
         case GREATER:
             return "GREATER";
-        case NEQ:
+        case NOT_EQUAL:
             return "NEQ";
         case WITHOUT:
             return "WITHOUT";
-        case LSHOE:
+        case LEFT_SHOE:
             return "LSHOE";
         case RHO:
             return "RHO";
@@ -91,7 +91,7 @@ std::string kepler::to_string(TokenType type) {
             return "NAND";
         case NOR:
             return "NOR";
-        case ROLL:
+        case QUESTION_MARK:
             return "ROLL";
         case COMMUTE:
             return "COMMUTE";
@@ -111,13 +111,13 @@ std::string kepler::to_string(TokenType type) {
             return "NEGATE";
         case ASSIGNMENT:
             return "ASSIGNMENT";
-        case LPARENS:
+        case LEFT_PARENS:
             return "LPARENS";
-        case RPARENS:
+        case RIGHT_PARENS:
             return "RPARENS";
-        case LBRACE:
+        case LEFT_BRACE:
             return "LBRACE";
-        case RBRACE:
+        case RIGHT_BRACE:
             return "RBRACE";
         case END:
             return "END";

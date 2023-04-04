@@ -19,7 +19,7 @@
 
 #include <algorithm>
 #include "tokenizer.h"
-#include "core/constants/literals.h"
+#include "core/literals.h"
 #include "core/error.h"
 
 namespace kepler {

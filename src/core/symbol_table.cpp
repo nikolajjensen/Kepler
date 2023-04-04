@@ -19,8 +19,8 @@
 
 #include "symbol_table.h"
 #include "core/error.h"
-#include "core/constants/literals.h"
-#include "core/constants/config.h"
+#include "core/literals.h"
+#include "core/config.h"
 
 namespace kepler {
     SymbolTable::SymbolTable() : table(), parent(nullptr) {

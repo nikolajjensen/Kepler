@@ -21,7 +21,7 @@
 #include <algorithm>
 #include "core/error.h"
 #include "core/symbol_table.h"
-#include "core/constants/literals.h"
+#include "core/literals.h"
 
 namespace kepler {
 
@@ -67,7 +67,7 @@ namespace kepler {
 
     TokenType Parser::peek_beyond_parenthesis() const {
         auto peek_at = cursor - 1;
-        while(peek_at >= begin && peek_at->type == RPARENS) {
+        while(peek_at >= begin && peek_at->type == RIGHT_PARENS) {
             --peek_at;
         }
         if(peek_at >= begin) return peek_at->type;
@@ -97,8 +97,8 @@ namespace kepler {
 
 
     Statements* Parser::parse_program() {
-        assert_matching(LBRACE, RBRACE, U'}');
-        assert_matching(LPARENS, RPARENS, U')');
+        assert_matching(LEFT_BRACE, RIGHT_BRACE, U'}');
+        assert_matching(LEFT_PARENS, RIGHT_PARENS, U')');
         cursor = begin;
         return parse_statement_list();
     }
@@ -107,9 +107,9 @@ namespace kepler {
         auto it = current;
         int level = 0;
         while(it != end) {
-            if(it->type == LBRACE) {
+            if(it->type == LEFT_BRACE) {
                 ++level;
-            } else if(it->type == RBRACE) {
+            } else if(it->type == RIGHT_BRACE) {
                 --level;
             } else if(it->type == DIAMOND && level == 0) {
                 break;
@@ -124,9 +124,9 @@ namespace kepler {
         int level = 1;
         auto it = index - 1;
         while(it >= begin && level != 0) {
-            if(it->type == LBRACE) {
+            if(it->type == LEFT_BRACE) {
                 --level;
-            } else if(it->type == RBRACE) {
+            } else if(it->type == RIGHT_BRACE) {
                 ++level;
             }
             --it;
@@ -159,7 +159,7 @@ namespace kepler {
     }
 
     ASTNode<Array>* Parser::parse_statement() {
-        if(current().type == RBRACE) {
+        if(current().type == RIGHT_BRACE) {
             ASTNode<Operation_ptr>* function = parse_function();
             if(current().type != ASSIGNMENT) {
                 throw kepler::error(SyntaxError, "Expected an assignment here.", position());
@@ -180,15 +180,15 @@ namespace kepler {
             while(!at_end() && (helpers::is_function(current().type)
                   || helpers::is_monadic_operator(current().type)
                   || current().type == ASSIGNMENT
-                  || current().type == RPARENS
-                  || current().type == RBRACE
+                  || current().type == RIGHT_PARENS
+                  || current().type == RIGHT_BRACE
                   || identifies_function(current()))
                   || current().type == COLON) {
 
                 if(current().type == ASSIGNMENT) {
                     eat(ASSIGNMENT);
 
-                    if(current().type != ID) {
+                    if(at_end() || current().type != ID) {
                         throw kepler::error(SyntaxError, "Expected an identifier here.", position());
                     }
 
@@ -205,7 +205,7 @@ namespace kepler {
                     ASTNode<Operation_ptr>* function = parse_function();
                     function->set_position(func_pos);
 
-                    if(!at_end() && !is_monadic && (current().type == RPARENS || helpers::is_array_token(current().type))) {
+                    if(!at_end() && !is_monadic && (current().type == RIGHT_PARENS || helpers::is_array_token(current().type))) {
                         statement = new DyadicFunction(function, parse_argument(), statement);
                     } else {
                         statement = new MonadicFunction(function, statement);
@@ -218,10 +218,10 @@ namespace kepler {
     }
 
     ASTNode<Operation_ptr>* Parser::parse_dfn() {
-        if(current().type != RBRACE) {
+        if(current().type != RIGHT_BRACE) {
             throw kepler::error(SyntaxError, "Expected '}' here.", position());
         }
-        eat(RBRACE);
+        eat(RIGHT_BRACE);
         auto dfn_start = matching_brace(cursor + 1) + 1;
         auto dfn_end = cursor + 1;
 
@@ -230,11 +230,11 @@ namespace kepler {
 
         cursor -= dfn_end - dfn_start;
 
-        if(at_end() || current().type != LBRACE) {
+        if(at_end() || current().type != LEFT_BRACE) {
             throw kepler::error(SyntaxError, "Expected '{' here.", position());
         }
 
-        eat(LBRACE);
+        eat(LEFT_BRACE);
         return new AnonymousFunction(body);
     }
 
@@ -245,12 +245,12 @@ namespace kepler {
     ASTNode<Array>* Parser::parse_vector() {
         std::vector<ASTNode<Array>*> nodes;
 
-        while(!at_end() && (current().type == RPARENS || helpers::is_array_token(current().type))) {
-            if(current().type == RPARENS) {
+        while(!at_end() && (current().type == RIGHT_PARENS || helpers::is_array_token(current().type))) {
+            if(current().type == RIGHT_PARENS) {
                 if(helpers::is_array_token(peek_beyond_parenthesis()) && peek(2).type != POWER) {
-                    eat(RPARENS);
+                    eat(RIGHT_PARENS);
                     nodes.emplace_back(parse_statement());
-                    eat(LPARENS);
+                    eat(LEFT_PARENS);
                 } else {
                     break;
                 }
@@ -292,7 +292,7 @@ namespace kepler {
     ASTNode<Operation_ptr>* Parser::parse_function() {
         if(helpers::is_monadic_operator(current().type)) {
             return parse_mop();
-        } else if(current().type == RBRACE) {
+        } else if(current().type == RIGHT_BRACE) {
             return parse_dfn();
         } else if(identifies_function(current())) {
             Token tok = current();
@@ -333,14 +333,14 @@ namespace kepler {
         if(helpers::is_function(tok.type)) {
             eat(tok.type);
             return new Function(tok);
-        } else if(!at_end() && current().type == RPARENS) {
-            eat(RPARENS);
+        } else if(!at_end() && current().type == RIGHT_PARENS) {
+            eat(RIGHT_PARENS);
             auto func = parse_function();
 
-            if(at_end() || current().type != LPARENS) {
+            if(at_end() || current().type != LEFT_PARENS) {
                 throw kepler::error(SyntaxError, "Expected a '(' here.", position());
             }
-            eat(LPARENS);
+            eat(LEFT_PARENS);
             return func;
         } else {
             throw kepler::error(SyntaxError, "Invalid primitive.", position() + 1);

@@ -22,8 +22,8 @@
 #include <vector>
 #include "core/token_type.h"
 #include "core/evaluation/ast.h"
-#include "core/helpers/conversion.h"
-#include "core/helpers/classifiers.h"
+#include "interface/conversion.h"
+#include "core/evaluation/classifiers.h"
 
 namespace kepler {
     class Parser {

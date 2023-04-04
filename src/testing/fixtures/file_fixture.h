@@ -19,11 +19,11 @@
 
 #pragma once
 #include <string>
-#include "core/execution.h"
+#include "core/evaluation/execution.h"
 
-class file_fixture {
+class FileFixture {
 public:
-    file_fixture() {}
+    FileFixture() {}
 
 protected:
     std::string run(std::string&& path) {

@@ -21,20 +21,20 @@
 #include <sstream>
 #include <chrono>
 #include "core/datatypes.h"
-#include "core/execution.h"
+#include "core/evaluation/execution.h"
 #include "core/symbol_table.h"
 
-class fixture {
+class GeneralFixture {
 protected:
     kepler::SymbolTable symbol_table;
     std::stringstream output_stream;
 
 public:
-    fixture() {
+    GeneralFixture() {
         symbol_table.insert_system_parameters();
     }
 
-    ~fixture() {
+    ~GeneralFixture() {
         symbol_table.clear();
     }
 

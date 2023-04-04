@@ -20,8 +20,8 @@
 #pragma once
 #include <iostream>
 #include <benchmark/benchmark.h>
-#include "../src/core/execution.h"
-#include "../src/core/helpers/file_reader.h"
+#include "../src/core/evaluation/execution.h"
+#include "../src/interface/file_reader.h"
 
 class KeplerFixture : public benchmark::Fixture {
 private:

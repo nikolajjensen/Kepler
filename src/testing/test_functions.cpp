@@ -18,11 +18,11 @@
 //
 
 #include <catch2/catch_test_macros.hpp>
-#include "testing/fixtures/fixture.h"
+#include "testing/fixtures/general_fixture.h"
 #include "matcher.h"
 #include "core/error_type.h"
 
-TEST_CASE_METHOD(fixture, "plus (+)", "[plus][function]") {
+TEST_CASE_METHOD(GeneralFixture, "plus (+)", "[plus][function]") {
     CHECK_THAT(run("+2 "), Prints("2"));
     CHECK_THAT(run("+2E2"), Prints("200"));
     CHECK_THAT(run("+2E¯2"), Prints("0.02"));
@@ -84,7 +84,7 @@ TEST_CASE_METHOD(fixture, "plus (+)", "[plus][function]") {
     CHECK_THAT(run("(1+(2+2))"), Prints("5"));
 }
 
-TEST_CASE_METHOD(fixture, "minus (-)", "[minus][scalar][func]") {
+TEST_CASE_METHOD(GeneralFixture, "minus (-)", "[minus][scalar][func]") {
     CHECK_THAT(run("-2"), Prints("¯2"));
     CHECK_THAT(run("-2E2"), Prints("¯200"));
     CHECK_THAT(run("-2J2"), Prints("¯2J¯2"));
@@ -149,7 +149,7 @@ TEST_CASE_METHOD(fixture, "minus (-)", "[minus][scalar][func]") {
     CHECK_THAT(run("'abc' - ('xyz' 2)"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][function]") {
+TEST_CASE_METHOD(GeneralFixture, "multiply (×)", "[multiply][function]") {
     CHECK_THAT(run("×2"), Prints("1"));
     CHECK_THAT(run("×0"), Prints("0"));
     CHECK_THAT(run("×2E2"), Prints("1"));
@@ -221,7 +221,7 @@ TEST_CASE_METHOD(fixture, "multiply (×)", "[multiply][function]") {
     CHECK_THAT(run("(1×(2×2))"), Prints("4"));
 }
 
-TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][function]") {
+TEST_CASE_METHOD(GeneralFixture, "divide (÷)", "[divide][function]") {
     CHECK_THAT(run("÷2"), Prints("0.5"));
     CHECK_THAT(run("÷2E2"), Prints("0.005"));
     CHECK_THAT(run("÷3J4"), Prints("0.12J¯0.16"));
@@ -306,7 +306,7 @@ TEST_CASE_METHOD(fixture, "divide (÷)", "[divide][function]") {
 
 }
 
-TEST_CASE_METHOD(fixture, "floor (⌊)", "[floor][function]") {
+TEST_CASE_METHOD(GeneralFixture, "floor (⌊)", "[floor][function]") {
     CHECK_THAT(run("⌊1"), Prints("1"));
     CHECK_THAT(run("⌊0"), Prints("0"));
     CHECK_THAT(run("⌊¯1"), Prints("¯1"));
@@ -336,7 +336,7 @@ TEST_CASE_METHOD(fixture, "floor (⌊)", "[floor][function]") {
     CHECK_THAT(run("¯0.01 0 1 2E¯1 232E100 ⌊ -0.0001 1 0.23 2E¯0 ¯232E100"), Prints("¯0.01 ¯1 ¯0.23 ¯2 2.32E102"));
 }
 
-TEST_CASE_METHOD(fixture, "ceiling (⌈)", "[floor][function]") {
+TEST_CASE_METHOD(GeneralFixture, "ceiling (⌈)", "[floor][function]") {
     CHECK_THAT(run("⌈1"), Prints("1"));
     CHECK_THAT(run("⌈0"), Prints("0"));
     CHECK_THAT(run("⌈¯1"), Prints("¯1"));
@@ -365,7 +365,7 @@ TEST_CASE_METHOD(fixture, "ceiling (⌈)", "[floor][function]") {
     CHECK_THAT(run("¯0.01 0 1 2E¯1 232E100 ⌈ -0.0001 1 0.23 2E¯0 ¯232E100"), Prints("¯0.0001 0 1 0.2 2.32E102"));
 }
 
-TEST_CASE_METHOD(fixture, "left-tack (⊣)", "[left-tack][function]") {
+TEST_CASE_METHOD(GeneralFixture, "left-tack (⊣)", "[left-tack][function]") {
     CHECK_THAT(run("1 2 3 ⊣ 4 5 6"), Prints("1 2 3"));
     CHECK_THAT(run("3 ⊣ 4 5 6"), Prints("3"));
     CHECK_THAT(run("1 2 (3 4) ⊣ 4 5 6"),
@@ -381,7 +381,7 @@ TEST_CASE_METHOD(fixture, "left-tack (⊣)", "[left-tack][function]") {
     CHECK_THAT(run("⊣ 'columbus'"), Prints("columbus"));
 }
 
-TEST_CASE_METHOD(fixture, "right-tack (⊢)", "[right-tack][function]") {
+TEST_CASE_METHOD(GeneralFixture, "right-tack (⊢)", "[right-tack][function]") {
     CHECK_THAT(run("1 2 3 ⊢ 4 5 6"), Prints("4 5 6"));
     CHECK_THAT(run("4 5 6 ⊢ 3"), Prints("3"));
     CHECK_THAT(run("4 5 6 ⊢ 1 2 (3 4)"),
@@ -398,7 +398,7 @@ TEST_CASE_METHOD(fixture, "right-tack (⊢)", "[right-tack][function]") {
     CHECK_THAT(run("⊢ 'columbus'"), Prints("columbus"));
 }
 
-TEST_CASE_METHOD(fixture, "less (<)", "[less][function]") {
+TEST_CASE_METHOD(GeneralFixture, "less (<)", "[less][function]") {
     CHECK_THAT(run("5 < ¯4 2 0 5 20.21"), Prints("0 0 0 0 1"));
     CHECK_THAT(run("¯3.3 < ¯4 2 0 5 20.21"), Prints("0 1 1 1 1"));
     CHECK_THAT(run("(1 2) < (3 4) (1 2)"),
@@ -422,7 +422,7 @@ TEST_CASE_METHOD(fixture, "less (<)", "[less][function]") {
     CHECK_THAT(run("2J1 < 3J1"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "less-equal (≤)", "[less-equal][function]") {
+TEST_CASE_METHOD(GeneralFixture, "less-equal (≤)", "[less-equal][function]") {
     CHECK_THAT(run("5 ≤ ¯4 2 0 5 20.21"), Prints("0 0 0 1 1"));
     CHECK_THAT(run("¯3.3 ≤ ¯4 2 0 5 20.21"), Prints("0 1 1 1 1"));
     CHECK_THAT(run("(1 2) ≤ (3 4) (1 2)"),
@@ -446,7 +446,7 @@ TEST_CASE_METHOD(fixture, "less-equal (≤)", "[less-equal][function]") {
     CHECK_THAT(run("2J1 ≤ 3J1"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "equal (=)", "[equal][function]") {
+TEST_CASE_METHOD(GeneralFixture, "equal (=)", "[equal][function]") {
     CHECK_THAT(run("5 = ¯4 2 0 5 20.21"), Prints("0 0 0 1 0"));
     CHECK_THAT(run("¯3.3 = ¯4 2 0 5 20.21"), Prints("0 0 0 0 0"));
     CHECK_THAT(run("(1 2) = (3 4) (1 2)"),
@@ -477,7 +477,7 @@ TEST_CASE_METHOD(fixture, "equal (=)", "[equal][function]") {
                       "└─────┴─────┴─────┘"));
 }
 
-TEST_CASE_METHOD(fixture, "greater-equal (≥)", "[greater-equal][function]") {
+TEST_CASE_METHOD(GeneralFixture, "greater-equal (≥)", "[greater-equal][function]") {
     CHECK_THAT(run("5 ≥ ¯4 2 0 5 20.21"), Prints("1 1 1 1 0"));
     CHECK_THAT(run("¯3.3 ≥ ¯4 2 0 5 20.21"), Prints("1 0 0 0 0"));
     CHECK_THAT(run("(1 2) ≥ (3 4) (1 2)"),
@@ -501,7 +501,7 @@ TEST_CASE_METHOD(fixture, "greater-equal (≥)", "[greater-equal][function]") {
     CHECK_THAT(run("2J1 ≥ 3J1"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "greater (>)", "[greater][function]") {
+TEST_CASE_METHOD(GeneralFixture, "greater (>)", "[greater][function]") {
     CHECK_THAT(run("5 > ¯4 2 0 5 20.21"), Prints("1 1 1 0 0"));
     CHECK_THAT(run("¯3.3 > ¯4 2 0 5 20.21"), Prints("1 0 0 0 0"));
     CHECK_THAT(run("(1 2) > (3 4) (1 2)"),
@@ -525,7 +525,7 @@ TEST_CASE_METHOD(fixture, "greater (>)", "[greater][function]") {
     CHECK_THAT(run("2J1 > 3J1"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "not-equal (≠)", "[not-equal][function]") {
+TEST_CASE_METHOD(GeneralFixture, "not-equal (≠)", "[not-equal][function]") {
     CHECK_THAT(run("5 ≠ ¯4 2 0 5 20.21"), Prints("1 1 1 0 1"));
     CHECK_THAT(run("¯3.3 ≠ ¯4 2 0 5 20.21"), Prints("1 1 1 1 1"));
     CHECK_THAT(run("(1 2) ≠ (3 4) (1 2)"),
@@ -559,7 +559,7 @@ TEST_CASE_METHOD(fixture, "not-equal (≠)", "[not-equal][function]") {
     CHECK_THAT(run("≠ 0J23 0J¯23 0J23 1J23"), Prints("1 1 0 1"));
 }
 
-TEST_CASE_METHOD(fixture, "left shoe (⊂)", "[left-shoe][function]") {
+TEST_CASE_METHOD(GeneralFixture, "left shoe (⊂)", "[left-shoe][function]") {
     CHECK_THAT(run("⊂5"), Prints("5"));
     CHECK_THAT(run("⊂⊂23J¯12"), Prints("23J¯12"));
     CHECK_THAT(run("⊂⊂⊂⊂⊂⊂⊂⊂⊂23J¯12"), Prints("23J¯12"));
@@ -618,7 +618,7 @@ TEST_CASE_METHOD(fixture, "left shoe (⊂)", "[left-shoe][function]") {
     CHECK_THAT(run("1 1 1 1 1 ⊂ 'Hello, World!'"), Prints("H e l l o"));
 }
 
-TEST_CASE_METHOD(fixture, "without (~)", "[without][function]") {
+TEST_CASE_METHOD(GeneralFixture, "without (~)", "[without][function]") {
     CHECK_THAT(run("~0 1 0 1 0 1 1"), Prints("1 0 1 0 1 0 0"));
     CHECK_THAT(run("~0 1 0.0 1J0 0J0 1 1"), Prints("1 0 1 0 1 0 0"));
 
@@ -649,7 +649,7 @@ TEST_CASE_METHOD(fixture, "without (~)", "[without][function]") {
     CHECK_THAT(run("'Hello, World!' ~ 'Quiz'"), Prints("Hello, World!"));
 }
 
-TEST_CASE_METHOD(fixture, "iota (⍳)", "[iota][function]") {
+TEST_CASE_METHOD(GeneralFixture, "iota (⍳)", "[iota][function]") {
     CHECK_THAT(run("⍳0"), Prints(""));
     CHECK_THAT(run("⍳¯0"), Prints(""));
     CHECK_THAT(run("⍳1"), Prints("1"));
@@ -662,7 +662,7 @@ TEST_CASE_METHOD(fixture, "iota (⍳)", "[iota][function]") {
     CHECK_THAT(run("⍳2J2"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "rho (⍴)", "[rho][function]") {
+TEST_CASE_METHOD(GeneralFixture, "rho (⍴)", "[rho][function]") {
     CHECK_THAT(run("⍴1 2 3"), Prints("3"));
     CHECK_THAT(run("⍴1 2 3 4"), Prints("4"));
     CHECK_THAT(run("⍴1"), Prints(""));
@@ -750,7 +750,7 @@ TEST_CASE_METHOD(fixture, "rho (⍴)", "[rho][function]") {
     CHECK_THAT(run("⍴⍴(3 3⍴0)"), Prints("2"));
 }
 
-TEST_CASE_METHOD(fixture, "and (∧)", "[and][function]") {
+TEST_CASE_METHOD(GeneralFixture, "and (∧)", "[and][function]") {
     CHECK_THAT(run("1 ∧ 1"), Prints("1"));
     CHECK_THAT(run("0 ∧ 1"), Prints("0"));
     CHECK_THAT(run("1 ∧ 0"), Prints("0"));
@@ -772,7 +772,7 @@ TEST_CASE_METHOD(fixture, "and (∧)", "[and][function]") {
     CHECK_THAT(run("1 ∧ 'a'"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "or (∨)", "[or][function]") {
+TEST_CASE_METHOD(GeneralFixture, "or (∨)", "[or][function]") {
     CHECK_THAT(run("1 ∨ 1"), Prints("1"));
     CHECK_THAT(run("0 ∨ 1"), Prints("1"));
     CHECK_THAT(run("1 ∨ 0"), Prints("1"));
@@ -794,7 +794,7 @@ TEST_CASE_METHOD(fixture, "or (∨)", "[or][function]") {
     CHECK_THAT(run("1 ∨ 'a'"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "nand (⍲)", "[nand][function]") {
+TEST_CASE_METHOD(GeneralFixture, "nand (⍲)", "[nand][function]") {
     CHECK_THAT(run("1 ⍲ 1"), Prints("0"));
     CHECK_THAT(run("0 ⍲ 1"), Prints("1"));
     CHECK_THAT(run("1 ⍲ 0"), Prints("1"));
@@ -816,7 +816,7 @@ TEST_CASE_METHOD(fixture, "nand (⍲)", "[nand][function]") {
     CHECK_THAT(run("1 ⍲ 'a'"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "nor (⍱)", "[nor][function]") {
+TEST_CASE_METHOD(GeneralFixture, "nor (⍱)", "[nor][function]") {
     CHECK_THAT(run("1 ⍱ 1"), Prints("0"));
     CHECK_THAT(run("0 ⍱ 1"), Prints("0"));
     CHECK_THAT(run("1 ⍱ 0"), Prints("0"));
@@ -838,7 +838,7 @@ TEST_CASE_METHOD(fixture, "nor (⍱)", "[nor][function]") {
     CHECK_THAT(run("1 ⍱ 'a'"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "Circle bar (⊖)", "[circle-bar][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Circle bar (⊖)", "[circle-bar][function]") {
     CHECK_THAT(run("⊖123"), Prints("123"));
     CHECK_THAT(run("2⊖123"), Prints("123"));
     CHECK_THAT(run("⊖'123'"), Prints("321"));
@@ -891,7 +891,7 @@ TEST_CASE_METHOD(fixture, "Circle bar (⊖)", "[circle-bar][function]") {
     CHECK_THAT(run("(3 3 3⍴1 2 3)⊖(2 3 3 2⍴⍳100)"), Throws(kepler::LengthError));
 }
 
-TEST_CASE_METHOD(fixture, "Circle stile (⌽)", "[circle-stile][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Circle stile (⌽)", "[circle-stile][function]") {
     CHECK_THAT(run("⌽123"), Prints("123"));
     CHECK_THAT(run("2⌽123"), Prints("123"));
     CHECK_THAT(run("⌽'123'"), Prints("321"));
@@ -944,7 +944,7 @@ TEST_CASE_METHOD(fixture, "Circle stile (⌽)", "[circle-stile][function]") {
     CHECK_THAT(run("(3 3 3⍴1 2 3)⌽(2 3 3 2⍴⍳100)"), Throws(kepler::LengthError));
 }
 
-TEST_CASE_METHOD(fixture, "Arrow Up (↑)", "[arrow-up][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Arrow Up (↑)", "[arrow-up][function]") {
     CHECK_THAT(run("¯10 'a'↑(2 2⍴⍳100)"), Throws(kepler::DomainError));
     CHECK_THAT(run("(3 3⍴1)↑(2 2⍴⍳100)"), Throws(kepler::DomainError));
     CHECK_THAT(run("3 3 3↑(2 2⍴⍳100)"), Throws(kepler::LengthError));
@@ -991,7 +991,7 @@ TEST_CASE_METHOD(fixture, "Arrow Up (↑)", "[arrow-up][function]") {
                                                        "7 8 9"));
 }
 
-TEST_CASE_METHOD(fixture, "Comma (,)", "[comma][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Comma (,)", "[comma][function]") {
     CHECK_THAT(run(",↑((2 2⍴⍳100) (3 3⍴⍳100))"), Prints("1 2 0 3 4 0 0 0 0 1 2 3 4 5 6 7 8 9"));
     CHECK_THAT(run(",((2 2⍴⍳100) (3 3⍴⍳100))"), Prints("┌───┬─────┐\n"
                                                        "│1 2│1 2 3│\n"
@@ -1000,13 +1000,13 @@ TEST_CASE_METHOD(fixture, "Comma (,)", "[comma][function]") {
                                                        "└───┴─────┘"));
 }
 
-TEST_CASE_METHOD(fixture, "Roll (?)", "[roll][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Roll (?)", "[roll][function]") {
     CHECK_NOTHROW(run("?(0 3 1900 20)"));
     CHECK_THAT(run("?0.1"), Throws(kepler::DomainError));
     CHECK_THAT(run("?1J2"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "Star (*)", "[star][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Star (*)", "[star][function]") {
     CHECK_THAT(run("*(0 3 10 20)"), Prints("1 20.08553692 22026.46579 485165195.4"));
     CHECK_THAT(run("*1J2"), Prints("¯1.131204384J2.471726672"));
     CHECK_THAT(run("*'abc'"), Throws(kepler::DomainError));
@@ -1019,7 +1019,7 @@ TEST_CASE_METHOD(fixture, "Star (*)", "[star][function]") {
     CHECK_THAT(run("0*¯100"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "Log (⍟)", "[log][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Log (⍟)", "[log][function]") {
     CHECK_THAT(run("⍟(1 3 10 20)"), Prints("0 1.098612289 2.302585093 2.995732274"));
     CHECK_THAT(run("⍟1J2"), Prints("0.8047189562J1.107148718"));
     CHECK_THAT(run("⍟'abc'"), Throws(kepler::DomainError));
@@ -1034,7 +1034,7 @@ TEST_CASE_METHOD(fixture, "Log (⍟)", "[log][function]") {
     CHECK_THAT(run("0⍟¯100"), Prints("0"));
 }
 
-TEST_CASE_METHOD(fixture, "Bar (|)", "[bar][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Bar (|)", "[bar][function]") {
     CHECK_THAT(run("|(1 ¯3 10J10 20J¯1023)"), Prints("1 3 14.14213562 1023.195485"));
     CHECK_THAT(run("|1J2"), Prints("2.236067977"));
     CHECK_THAT(run("|'abc'"), Throws(kepler::DomainError));
@@ -1049,7 +1049,7 @@ TEST_CASE_METHOD(fixture, "Bar (|)", "[bar][function]") {
     CHECK_THAT(run("0|¯100"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "Exclamation Mark (!)", "[exclamation-mark][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Exclamation Mark (!)", "[exclamation-mark][function]") {
     CHECK_THAT(run("!0"), Prints("1"));
     CHECK_THAT(run("!¯10"), Throws(kepler::DomainError));
     CHECK_THAT(run("!¯0.1"), Prints("1.068628702"));
@@ -1069,7 +1069,7 @@ TEST_CASE_METHOD(fixture, "Exclamation Mark (!)", "[exclamation-mark][function]"
     CHECK_THAT(run("2!2J1"), Throws(kepler::DomainError));
 }
 
-TEST_CASE_METHOD(fixture, "Circle (○)", "[circle][function]") {
+TEST_CASE_METHOD(GeneralFixture, "Circle (○)", "[circle][function]") {
     CHECK_THAT(run("○(2 3 10 20 201 ¯1.2 ¯1.3J22)"), Prints("6.283185307 9.424777961 31.41592654 62.83185307 631.4601234 ¯3.769911184 ¯4.08407045J69.11503838"));
     CHECK_THAT(run("○'abc'"), Throws(kepler::DomainError));
 

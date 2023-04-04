@@ -42,6 +42,8 @@ file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
         "src/cli.cpp"
         "src/core/*.h"
         "src/core/*.cpp"
+        "src/interface/*.h"
+        "src/interface/*.cpp"
         "src/testing/*.h"
         "src/testing/*.cpp")
 add_executable(${PROJECT_NAME} ${Kepler_SRC})
@@ -52,8 +54,8 @@ file(GLOB_RECURSE KeplerBench_SRC CONFIGURE_DEPENDS
         "src/benchmarking/*.cpp"
         "src/core/*.h"
         "src/core/*.cpp"
-        "src/testing/*.h"
-        "src/testing/*.cpp")
+        "src/interface/*.h"
+        "src/interface/*.cpp")
 add_executable(KeplerBench ${KeplerBench_SRC})
 target_include_directories(KeplerBench PRIVATE src)
 

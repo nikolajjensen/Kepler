@@ -17,12 +17,12 @@
 // along with Kepler. If not, see <https://www.gnu.org/licenses/>.
 //
 #include <catch2/catch_test_macros.hpp>
-#include "testing/fixtures/fixture.h"
+#include "testing/fixtures/general_fixture.h"
 #include "matcher.h"
 #include "core/error_type.h"
 #include "testing/fixtures/file_fixture.h"
 
-TEST_CASE_METHOD(file_fixture, "files", "[files]") {
+TEST_CASE_METHOD(FileFixture, "files", "[files]") {
     CHECK_THAT(run("../src/testing/files/degrees.kpl"), Prints("20"));
     CHECK_THAT(run("../src/testing/files/degrees_multiline.kpl"), Prints("20"));
     CHECK_THAT(run("../src/testing/files/error_degrees.kpl"), Throws(kepler::SyntaxError));
@@ -95,12 +95,12 @@ TEST_CASE_METHOD(file_fixture, "files", "[files]") {
                                                             "0 0 0 0 0 0 0 0 0 0"));
 }
 
-TEST_CASE_METHOD(fixture, "corner-cases-input", "[corner-cases]") {
+TEST_CASE_METHOD(GeneralFixture, "corner-cases-input", "[corner-cases]") {
     CHECK_THAT(run(""), Prints(""));
     CHECK_THAT(run("      "), Prints(""));
 }
 
-TEST_CASE_METHOD(fixture, "System variables", "[system-variables]") {
+TEST_CASE_METHOD(GeneralFixture, "System variables", "[system-variables]") {
     CHECK_THAT(run("⎕IO←1"), Prints(""));
     CHECK_THAT(run("⎕IO←0"), Prints(""));
     CHECK_THAT(run("⎕IO←2"), Throws(kepler::LimitError));
@@ -116,7 +116,7 @@ TEST_CASE_METHOD(fixture, "System variables", "[system-variables]") {
     CHECK_THAT(run("⎕PP←¯100"), Throws(kepler::LimitError));
 }
 
-TEST_CASE_METHOD(fixture, "Index origin", "[index-origin]") {
+TEST_CASE_METHOD(GeneralFixture, "Index origin", "[index-origin]") {
     CHECK_THAT(run("⎕IO"), Prints("1"));
 
     CHECK_THAT(run("+/⍳5"), Prints("15"));
@@ -129,7 +129,7 @@ TEST_CASE_METHOD(fixture, "Index origin", "[index-origin]") {
     CHECK_THAT(run("÷/⍳5"), Prints("0"));
 }
 
-TEST_CASE_METHOD(fixture, "Print precision", "[print-precision]") {
+TEST_CASE_METHOD(GeneralFixture, "Print precision", "[print-precision]") {
     CHECK_THAT(run("⎕PP"), Prints("10"));
 
     CHECK_THAT(run("10÷3"), Prints("3.333333333"));
@@ -140,7 +140,7 @@ TEST_CASE_METHOD(fixture, "Print precision", "[print-precision]") {
     CHECK_THAT(run("10÷3"), Prints("3.33"));
 }
 
-TEST_CASE_METHOD(fixture, "Variables", "[variables]") {
+TEST_CASE_METHOD(GeneralFixture, "Variables", "[variables]") {
     CHECK_THAT(run("Var"), Throws(kepler::DefinitionError));
     CHECK_THAT(run("Var←'Hello, World!'"), Prints(""));
     CHECK_THAT(run("Var"), Prints("Hello, World!"));
@@ -152,7 +152,7 @@ TEST_CASE_METHOD(fixture, "Variables", "[variables]") {
     CHECK_THAT(run("Var + Var"), Prints("1E¯9 40 6J¯4.4"));
 }
 
-TEST_CASE_METHOD(fixture, "user-defined-functions", "[user-defined-functions]") {
+TEST_CASE_METHOD(GeneralFixture, "user-defined-functions", "[user-defined-functions]") {
     CHECK_THAT(run("Fn"), Throws(kepler::DefinitionError));
     CHECK_THAT(run("Fn←{q←{2-⍵} ◊ 1 - q⍵}"), Prints(""));
     CHECK_THAT(run("Fn 2"), Prints("1"));

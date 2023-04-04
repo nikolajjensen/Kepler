@@ -22,15 +22,15 @@
 bool kepler::helpers::is_function(TokenType type) {
     return type == PLUS || type == MINUS || type == TIMES || type == DIVIDE || type == FLOOR
            || type == CEILING || type == RIGHT_TACK || type == LEFT_TACK || type == IOTA || type == LESS
-           || type == LESSEQ || type == EQ || type == GREATEREQ || type == GREATER || type == NEQ
-           || type == WITHOUT || type == LSHOE || type == RHO || type == AND || type == OR
-           || type == NAND || type == NOR || type == CIRCLE_BAR || type == CIRCLE_STILE || type == ROLL
+           || type == LESS_EQUAL || type == EQUAL || type == GREATER_EQUAL || type == GREATER || type == NOT_EQUAL
+           || type == WITHOUT || type == LEFT_SHOE || type == RHO || type == AND || type == OR
+           || type == NAND || type == NOR || type == CIRCLE_BAR || type == CIRCLE_STILE || type == QUESTION_MARK
            || type == CIRCLE || type == STAR || type == LOG || type == BAR || type == EXCLAMATION_MARK
            || type == COMMA || type == ARROW_UP;
 }
 
 bool kepler::helpers::is_monadic_function(TokenType type) {
-    return type == ROLL;
+    return type == QUESTION_MARK;
 }
 
 bool kepler::helpers::is_monadic_operator(TokenType type) {
