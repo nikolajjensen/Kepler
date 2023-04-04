@@ -38,14 +38,18 @@ FetchContent_MakeAvailable(googletest googlebenchmark)
 ###############################################
 
 file(GLOB_RECURSE Kepler_SRC CONFIGURE_DEPENDS
-        "src/*.h"
-        "src/*.cpp")
+        "src/main.cpp"
+        "src/cli.cpp"
+        "src/core/*.h"
+        "src/core/*.cpp"
+        "src/testing/*.h"
+        "src/testing/*.cpp")
 add_executable(${PROJECT_NAME} ${Kepler_SRC})
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
 file(GLOB_RECURSE KeplerBench_SRC CONFIGURE_DEPENDS
-        "benchmarking/*.h"
-        "benchmarking/*.cpp"
+        "src/benchmarking/*.h"
+        "src/benchmarking/*.cpp"
         "src/core/*.h"
         "src/core/*.cpp"
         "src/testing/*.h"
