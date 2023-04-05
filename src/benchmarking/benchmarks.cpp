@@ -24,7 +24,9 @@
 //// C++ Benchmarks
 ///////////////////////////////////////////////////////////////////
 
-
+/******************************************************************
+ * C++ Degrees
+ ******************************************************************/
 static void CppDegrees(benchmark::State& state) {
     int n = state.range(0);
     degrees f;
@@ -34,6 +36,9 @@ static void CppDegrees(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * C++ Fact
+ ******************************************************************/
 static void CppFact(benchmark::State& state) {
     int n = state.range(0);
     fact f;
@@ -43,6 +48,9 @@ static void CppFact(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * C++ Fib
+ ******************************************************************/
 static void CppFib(benchmark::State& state) {
     int n = state.range(0);
     fib f;
@@ -52,6 +60,9 @@ static void CppFib(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * C++ Iota
+ ******************************************************************/
 static void CppIota(benchmark::State& state) {
     int n = state.range(0);
     iota f;
@@ -63,10 +74,9 @@ static void CppIota(benchmark::State& state) {
 
 ///////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////
-//// Kepler Benchmarks
-///////////////////////////////////////////////////////////////////
-
+/******************************************************************
+ * Kepler Degrees
+ ******************************************************************/
 BENCHMARK_DEFINE_F(KeplerFixture, KeplerDegrees)(benchmark::State& state) {
     std::string suffix = std::to_string(state.range(0));
     load_file("../benchmarking/files/degrees/degrees" + suffix + ".kpl");
@@ -76,6 +86,9 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerDegrees)(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * Kepler Fact
+ ******************************************************************/
 BENCHMARK_DEFINE_F(KeplerFixture, KeplerFact)(benchmark::State& state) {
     std::string suffix = std::to_string(state.range(0));
     load_file("../benchmarking/files/fact/fact" + suffix + ".kpl");
@@ -85,6 +98,9 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerFact)(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * Kepler Fib
+ ******************************************************************/
 BENCHMARK_DEFINE_F(KeplerFixture, KeplerFib)(benchmark::State& state) {
     std::string suffix = std::to_string(state.range(0));
     load_file("../benchmarking/files/fib/fib" + suffix + ".kpl");
@@ -94,6 +110,9 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerFib)(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * Kepler Iota
+ ******************************************************************/
 BENCHMARK_DEFINE_F(KeplerFixture, KeplerIota)(benchmark::State& state) {
     std::string suffix = std::to_string(state.range(0));
     load_file("../benchmarking/files/iota/iota" + suffix + ".kpl");
@@ -103,6 +122,9 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerIota)(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * Kepler Life
+ ******************************************************************/
 BENCHMARK_DEFINE_F(KeplerFixture, KeplerLife)(benchmark::State& state) {
     std::string suffix = std::to_string(state.range(0));
     load_file("../benchmarking/files/life/life" + suffix + ".kpl");
@@ -112,6 +134,9 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerLife)(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * Kepler Mandelbrot
+ ******************************************************************/
 BENCHMARK_DEFINE_F(KeplerFixture, KeplerMandelbrot)(benchmark::State& state) {
     std::string suffix = std::to_string(state.range(0));
     load_file("../benchmarking/files/mandelbrot/mandelbrot" + suffix + ".kpl");
@@ -121,16 +146,22 @@ BENCHMARK_DEFINE_F(KeplerFixture, KeplerMandelbrot)(benchmark::State& state) {
     }
 }
 
+/******************************************************************
+ * C++ Benchmarks
+ ******************************************************************/
 BENCHMARK(CppDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
 BENCHMARK(CppFact)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
 BENCHMARK(CppFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
 BENCHMARK(CppIota)->RangeMultiplier(10)->Range(10, 1000000)->Repetitions(30);
 
-//BENCHMARK_REGISTER_F(KeplerFixture, KeplerDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
-//BENCHMARK_REGISTER_F(KeplerFixture, KeplerFact)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
-//BENCHMARK_REGISTER_F(KeplerFixture, KeplerFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
-//BENCHMARK_REGISTER_F(KeplerFixture, KeplerIota)->RangeMultiplier(10)->Range(10, 1000000)->Repetitions(30);
-//BENCHMARK_REGISTER_F(KeplerFixture, KeplerLife)->Arg(5)->Arg(10)->Arg(100)->Repetitions(30);
-//BENCHMARK_REGISTER_F(KeplerFixture, KeplerMandelbrot)->Arg(10)->Arg(100)->Arg(500)->Repetitions(30);
+/******************************************************************
+ * Kepler Benchmarks
+ ******************************************************************/
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerDegrees)->RangeMultiplier(10)->Range(1, 100000)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerFact)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerFib)->RangeMultiplier(2)->Range(1, 32)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerIota)->RangeMultiplier(10)->Range(10, 1000000)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerLife)->Arg(5)->Arg(10)->Arg(100)->Repetitions(30);
+BENCHMARK_REGISTER_F(KeplerFixture, KeplerMandelbrot)->Arg(10)->Arg(100)->Arg(500)->Repetitions(30);
 
 BENCHMARK_MAIN();

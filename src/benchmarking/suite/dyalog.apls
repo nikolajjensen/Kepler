@@ -8,7 +8,7 @@ ce←{(5÷9)×⍵-32}
 deg_work←{fa ce ⍵}
 
 ⎕ ← 'Degrees:'
-⍝⎕ ← cmpx 'deg_work¨(⍳1)' 'deg_work¨(⍳10)' 'deg_work¨(⍳100)' 'deg_work¨(⍳1000)' 'deg_work¨(⍳10000)' 'deg_work¨(⍳100000)'
+⎕ ← cmpx 'deg_work¨(⍳1)' 'deg_work¨(⍳10)' 'deg_work¨(⍳100)' 'deg_work¨(⍳1000)' 'deg_work¨(⍳10000)' 'deg_work¨(⍳100000)'
 
 
 
@@ -18,7 +18,7 @@ deg_work←{fa ce ⍵}
 fact←{⍵≤1:1 ⋄ ⍵×∇ ⍵-1}
 
 ⎕ ← 'Fact:'
-⍝⎕ ← cmpx 'fact 1' 'fact 2' 'fact 4' 'fact 8' 'fact 16' 'fact 32'
+⎕ ← cmpx 'fact 1' 'fact 2' 'fact 4' 'fact 8' 'fact 16' 'fact 32'
 
 
 
@@ -28,7 +28,7 @@ fact←{⍵≤1:1 ⋄ ⍵×∇ ⍵-1}
 fib←{⍵≤1:⍵ ⋄ (∇ ⍵-1)+∇ ⍵-2}
 
 ⎕ ← 'Fib:'
-⎕ ← cmpx 'fib 1' 'fib 2' 'fib 4' 'fib 8' 'fib 9' 'fib 10' 'fib 11' 'fib 12' 'fib 13' 'fib 14' 'fib 15' 'fib 16' 'fib 32'
+⎕ ← cmpx 'fib 1' 'fib 2' 'fib 4' 'fib 8' 'fib 16' 'fib 32'
 
 
 

@@ -23,6 +23,11 @@
 #include "../src/core/evaluation/execution.h"
 #include "../src/interface/file_reader.h"
 
+/**
+ * Benchmark fixture for testing Kepler.
+ *
+ * It will load the Kepler file from disk before each benchmark.
+ */
 class KeplerFixture : public benchmark::Fixture {
 private:
     kepler::SymbolTable symbol_table;

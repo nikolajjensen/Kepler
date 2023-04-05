@@ -22,6 +22,15 @@
 #include "core/evaluation/ast.h"
 
 namespace kepler {
+
+    /**
+     * A Defined Function contains the AnonymousFunction ASTNode (and subtree) which pertains
+     * to a specific user-defined function. The DefinedFunction Operation is applied to the
+     * arguments in a similar way to primitive functions.
+     *
+     * Concretely, the DefinedFunction will create a new Interpreter object and use it to evaluate
+     * the function body with the given arguments.
+     */
     struct DefinedFunction : Operation {
     private:
         AnonymousFunction* function;

@@ -26,9 +26,7 @@ namespace kepler {
     DefinedFunction::DefinedFunction(AnonymousFunction* function_, std::ostream& output_stream_)
             : function(function_), Operation(nullptr), output_stream(output_stream_) {}
 
-    DefinedFunction::~DefinedFunction() {
-        //delete function;
-    }
+    DefinedFunction::~DefinedFunction() { /* Do not delete function, it is owned by the SymbolTable.*/ }
 
     Array DefinedFunction::operator()(const Array& omega) {
         SymbolTable symbol_table;
