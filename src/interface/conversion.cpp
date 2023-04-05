@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <uni_algo/conv.h>
 
-kepler::Number kepler::from_string(std::string num_str) {
+kepler::Number kepler::from_string(const std::string& num_str) {
     String str = uni::utf8to32u(num_str);
     std::replace(str.begin(), str.end(), U'¯', U'-');
 
@@ -35,7 +35,7 @@ kepler::Number kepler::from_string(std::string num_str) {
     return {std::stod(uni::utf32to8(str))};
 }
 
-std::string kepler::to_string(TokenType type) {
+std::string kepler::to_string(const TokenType& type) {
     switch (type) {
         case NUMBER:
             return "NUMBER";

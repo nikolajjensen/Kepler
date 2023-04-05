@@ -28,7 +28,7 @@
 
 namespace kepler {
 
-    Array::Array(std::vector<int> shape_, std::vector<element_type> data_) : shape(std::move(shape_)), data(std::move(data_)) {}
+    Array::Array(std::vector<unsigned int> shape_, std::vector<element_type> data_) : shape(std::move(shape_)), data(std::move(data_)) {}
 
     Array::Array(element_type scalar_) : shape(), data({scalar_}) {}
 

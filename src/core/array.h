@@ -27,10 +27,10 @@ namespace kepler {
     struct Array {
         using element_type = std::variant<String, Number, Array>;
 
-        std::vector<int> shape;
+        std::vector<unsigned int> shape;
         std::vector<element_type> data;
 
-        Array(std::vector<int> shape_, std::vector<element_type> data_);
+        Array(std::vector<unsigned int> shape_, std::vector<element_type> data_);
         Array(element_type scalar_);
 
         int rank() const;

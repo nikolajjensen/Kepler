@@ -31,14 +31,15 @@
 namespace kepler {
     ArrayPrinter::ArrayPrinter(int precision_) : precision(precision_) {}
 
-    bool all_elements_are_scalars(const Array& arr) {
+    bool ArrayPrinter::all_elements_are_scalars(const Array& arr) {
         return std::all_of(arr.data.begin(), arr.data.end(), [&](const Array::element_type& element){
             return holds_alternative<Array>(element) && get<Array>(element).is_simple_scalar();
         });
     }
 
-    std::vector<int> dims(const std::vector<int>& shape) {
-        std::vector<int> result;
+
+    std::vector<unsigned int> ArrayPrinter::dims(const std::vector<unsigned int>& shape) {
+        std::vector<unsigned int> result;
 
         for(int i = 0; i < shape.size() - 1; ++i) {
             result.emplace_back(std::accumulate(shape.end() - 1 - i, shape.end(), 1, std::multiplies<>()));
@@ -47,8 +48,8 @@ namespace kepler {
         return result;
     }
 
-    std::vector<int> offsets(const std::vector<int>& shape) {
-        std::vector<int> result;
+    std::vector<unsigned int> ArrayPrinter::offsets(const std::vector<unsigned int>& shape) {
+        std::vector<unsigned int> result;
 
         for(int i = 2; i < shape.size() - 2; ++i) {
             result.emplace_back(std::accumulate(shape.rbegin() + i, shape.rend(), 1, std::multiplies<>()));
@@ -57,8 +58,7 @@ namespace kepler {
         return result;
     }
 
-    // https://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
-    std::vector<String> split(const String& text, char32_t delim) {
+    std::vector<String> ArrayPrinter::split(const String& text, char32_t delim) {
         std::vector<String> vec;
 
         if(text.empty()) {
@@ -82,9 +82,10 @@ namespace kepler {
         return vec;
     }
 
-    int max_length_contiguous_segment(const String& str) {
+
+    unsigned int ArrayPrinter::max_length_contiguous_segment(const String& str) {
         std::vector<String> segments = split(str, U'\n');
-        int max_length = 0;
+        unsigned int max_length = 0;
         for(auto& element : segments) {
             if(element.length() > max_length) {
                 max_length = element.length();
@@ -94,9 +95,7 @@ namespace kepler {
     }
 
 
-
-
-    String block_concat(String left, String right) {
+    String ArrayPrinter::concatenate_block(const String& left, const String& right) {
         std::vector<String> l_segments = split(left, U'\n');
         std::vector<String> r_segments = split(right, U'\n');
 
@@ -115,7 +114,7 @@ namespace kepler {
         return result;
     }
 
-    String block_prepend(String str, char32_t val) {
+    String ArrayPrinter::prepend_block(const String& str, char32_t val) {
         std::vector<String> delimited = split(str, U'\n');
         String result;
         for(auto& substr : delimited) {
@@ -125,7 +124,7 @@ namespace kepler {
         return result;
     }
 
-    String block_append(String str, char32_t val) {
+    String ArrayPrinter::append_block(const String& str, char32_t val) {
         std::vector<String> delimited = split(str, U'\n');
         String result;
         for(auto& substr : delimited) {
@@ -136,13 +135,13 @@ namespace kepler {
     }
 
 
-    String box(const String& str, int width, int height) {
+    String ArrayPrinter::box_string(const String& str, unsigned int width, unsigned int height) {
         std::vector<String> lines = split(str, U'\n');
         for(auto& line : lines) {
             line += String(width - line.size(), U' ');
         }
-        for(int i = lines.size(); i < height; ++i) {
-            lines.emplace_back(String(width, U' '));
+        for(unsigned int i = lines.size(); i < height; ++i) {
+            lines.emplace_back(width, U' ');
         }
 
         String result;
@@ -154,32 +153,32 @@ namespace kepler {
     }
 
 
-    String block_join(char32_t separator, const std::vector<String>& blocks) {
+    String ArrayPrinter::join_block(char32_t separator, const std::vector<String>& blocks) {
         if(blocks.empty()) {
             return U"";
         }
 
         String result = blocks[0];
         for(int i = 1; i < blocks.size(); ++i) {
-            result = block_concat(block_append(result, separator), blocks[i]);
+            result = concatenate_block(append_block(result, separator), blocks[i]);
         }
         return result;
     }
 
-    String frame_matrix(const std::vector<String>& strings, const std::vector<int>& widths, int height) {
-        int num_cols = widths.size();
-        int num_rows = strings.size() / num_cols;
+    String ArrayPrinter::frame_matrix(const std::vector<String>& strings, const std::vector<unsigned int>& widths, unsigned int height) {
+        unsigned int num_cols = widths.size();
+        unsigned int num_rows = strings.size() / num_cols;
 
         std::vector<String> boxes(strings.size());
         for(int i = 0; i < strings.size(); ++i) {
-            boxes.at(i) = box(strings[i], widths[i % num_cols], height);
+            boxes.at(i) = box_string(strings[i], widths[i % num_cols], height);
         }
 
         std::vector<String> rows;
-        for(int i = 0; i < num_rows; ++i) {
-            String row = block_join(U'│', {boxes.begin() + i * widths.size(), boxes.begin() + (i + 1) * widths.size()});
-            row = block_prepend(row, U'│');
-            row = block_append(row, U'│');
+        for(unsigned int i = 0; i < num_rows; ++i) {
+            String row = join_block(U'│', {boxes.begin() + i * widths.size(), boxes.begin() + (i + 1) * widths.size()});
+            row = prepend_block(row, U'│');
+            row = append_block(row, U'│');
             rows.emplace_back(std::move(row));
         }
 
@@ -215,10 +214,11 @@ namespace kepler {
         return result;
     }
 
-    std::string ArrayPrinter::operator()(const String &element) {
+    std::string ArrayPrinter::operator()(const String &element) const {
         auto result = element;
 
-        // https://stackoverflow.com/questions/4643512/replace-substring-with-another-substring-c
+        // The following is inspired by an answer on StackOverflow by
+        // user "rotmax" at https://stackoverflow.com/a/15372760/15372019
         size_t index = 0;
         while(true) {
             index = result.find(U"\\n", index);
@@ -230,11 +230,11 @@ namespace kepler {
         return uni::utf32to8(result);
     }
 
-    std::string ArrayPrinter::operator()(const Number& element) {
+    std::string ArrayPrinter::operator()(const Number& element) const {
         return kepler::helpers::number_to_string(element, precision);
     }
 
-    std::string ArrayPrinter::operator()(const Array& array) {
+    std::string ArrayPrinter::operator()(const Array& array) const {
         if(array.empty()) {
             return "";
         }
@@ -267,7 +267,7 @@ namespace kepler {
                 }
             }
 
-            std::vector<int> cumulative_dims = dims(array.shape);
+            std::vector<unsigned int> cumulative_dims = dims(array.shape);
             std::string result;// = " ";
             for(int i = 0; i < strings.size(); ++i) {
                 for(auto& d : cumulative_dims) {
@@ -286,34 +286,34 @@ namespace kepler {
         if(array.rank() == 0) {
             return (*this)(Array{{1, 1}, array.data});
         } else if(array.rank() == 1) {
-            std::vector<int> shape = {1};
+            std::vector<unsigned int> shape = {1};
             shape.reserve(array.shape.size() + 1);
             std::copy(array.shape.begin(), array.shape.end(), std::back_inserter(shape));
             return (*this)(Array{shape, array.data});
         } else {
             std::vector<String> strings;
             int last_dim = array.shape.back();
-            std::vector<int> widths(last_dim, 0);
-            int max_height = 0;
+            std::vector<unsigned int> widths(last_dim, 0);
+            unsigned int max_height = 0;
 
             for(int i = 0; i < array.data.size(); ++i) {
                 String str = uni::utf8to32u(std::visit(*this, array.data[i]));
-                int s_height = 1 + std::count(str.begin(), str.end(), '\n');
+                unsigned int s_height = 1 + std::count(str.begin(), str.end(), '\n');
                 max_height = std::max(max_height, s_height);
 
-                int s_width = max_length_contiguous_segment(str);
+                unsigned int s_width = max_length_contiguous_segment(str);
                 widths[i%last_dim] = std::max(widths[i%last_dim], s_width);
                 strings.emplace_back(str);
             }
 
             int matrix_size = array.shape[array.shape.size() - 2] * array.shape[array.shape.size() - 1];
-            int n_matrices = std::accumulate(array.shape.rbegin(), array.shape.rend(), 1, std::multiplies<int>()) / matrix_size;
+            int n_matrices = std::accumulate(array.shape.rbegin(), array.shape.rend(), 1, std::multiplies<>()) / matrix_size;
             std::vector<String> matrices;
             for(int i = 0; i < n_matrices; ++i) {
                 matrices.emplace_back(frame_matrix({strings.begin() + i * matrix_size, strings.begin() + (i + 1) * matrix_size}, widths, max_height));
             }
 
-            std::vector<int> off = offsets(array.shape);
+            std::vector<unsigned int> off = offsets(array.shape);
             String result;
             for(int i = 0; i < matrices.size(); ++i) {
                 for(auto& o : off) {

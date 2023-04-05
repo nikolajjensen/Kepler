@@ -101,7 +101,7 @@ namespace kepler {
 
     // 1 2 3∘.×10 20 30 40
     Array OuterProduct::operator()(const Array &alpha, const Array &omega) {
-        std::vector<int> result_shape = alpha.shape;
+        std::vector<unsigned int> result_shape = alpha.shape;
         std::copy(omega.shape.begin(), omega.shape.end(), std::back_inserter(result_shape));
 
         Array result{result_shape, {}};

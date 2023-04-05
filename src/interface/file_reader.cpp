@@ -33,18 +33,13 @@ std::vector<std::vector<kepler::Char>> kepler::read_file(const std::string& path
         throw kepler::Error(FileError, "Could not open the file.");
     }
 
-
     std::stringstream ss;
-
     std::vector<std::vector<kepler::Char>> result;
-
     for(std::string line; getline(f, line); ) {
         String str = uni::utf8to32u(line);
         result.emplace_back(str.begin(), str.end());
     }
-
     f.close();
-
     return result;
 }
 

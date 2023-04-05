@@ -23,6 +23,18 @@
 #include "core/token_type.h"
 
 namespace kepler {
-    Number from_string(std::string num_str);
-    std::string to_string(TokenType type);
+
+    /**
+     * Converts a string to a Number.
+     * @param num_str The string to convert.
+     * @return The Number representation of the string.
+     */
+    Number from_string(const std::string& num_str);
+
+    /**
+     * Converts a TokenType to a string.
+     * @param type The TokenType to convert.
+     * @return The string representation of the TokenType.
+     */
+    std::string to_string(const TokenType& type);
 };

@@ -48,7 +48,7 @@ namespace kepler {
         for (auto &child: node->children) {
             scalars.emplace_back(child->accept(*this));
         }
-        return {{(int) scalars.size()}, scalars};
+        return {{static_cast<unsigned int>(scalars.size())}, scalars};
     }
 
     Operation_ptr Interpreter::visit(MonadicOperator *node) {

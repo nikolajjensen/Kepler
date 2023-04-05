@@ -79,7 +79,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const Array &omega
         }
     }
 
-    int size = (int)lists.size();
+    unsigned int size = lists.size();
     if(size > 1 || size == 0) {
         return {{size}, std::move(lists)};
     }
@@ -116,7 +116,7 @@ kepler::Array kepler::partitioned_enclose(const Array &alpha, const String &omeg
         }
     }
 
-    int size = (int)lists.size();
+    unsigned int size = lists.size();
     if(size > 1 || size == 0) {
         return {{size}, std::move(lists)};
     }
@@ -132,7 +132,7 @@ kepler::Array kepler::without(const Array &alpha, const Array &omega) {
         }
     }
 
-    int size = (int)result.data.size();
+    unsigned int size = result.data.size();
     if(size > 1 || size == 0) {
         result.shape = {size};
         return result;
@@ -164,7 +164,7 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
         if(!alpha.is_integer_numeric()) {
             throw kepler::Error(DomainError, "Expected only positive integers in left argument.");
         }
-        result.shape = {(int)std::get<Number>(alpha.data[0]).real()};
+        result.shape = {static_cast<unsigned int>(std::get<Number>(alpha.data[0]).real())};
     } else {
         for(auto& element : alpha.data) {
             auto& num = std::get<Number>(std::get<Array>(element).data[0]);
@@ -173,7 +173,7 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
                 throw kepler::Error(ValueError, "Expected only positive integers in right argument.");
             }
 
-            result.shape.emplace_back((int)num.real());
+            result.shape.emplace_back(num.real());
         }
     }
 

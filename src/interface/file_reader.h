@@ -23,6 +23,23 @@
 #include "core/datatypes.h"
 
 namespace kepler {
+
+    /**
+     * Reads the given file and returns a vector of lines.
+     * Each line is a vector of characters.
+     *
+     * @param path The path to the file to read.
+     * @return The lines in the file.
+     * @throws Error if the file could not be read.
+     */
     std::vector<std::vector<kepler::Char>> read_file(const std::string& path);
+
+    /**
+     * Concatenates the given lines into a single vector of characters.
+     * Separates the lines with a newline character.
+     *
+     * @param lines A vector of lines.
+     * @return The concatenated lines.
+     */
     std::vector<kepler::Char> concat_lines(const std::vector<std::vector<kepler::Char>>& lines);
 };

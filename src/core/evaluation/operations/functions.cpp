@@ -300,7 +300,7 @@ namespace kepler {
             throw kepler::Error(DomainError, "Floating point number not usable for index generation.");
         }
 
-        int final_om = (int)round(om.real());
+        auto final_om = round(om.real());
 
         if(final_om < 0) {
             throw kepler::Error(DomainError, "Negative numbers cannot be used for index generation.");
@@ -309,7 +309,7 @@ namespace kepler {
         Array io = symbol_table->get<Array>(constants::index_origin_id);
         int origin = (int)(get<Number>(io.data[0]).real());
 
-        Array result({final_om}, {});
+        Array result({static_cast<unsigned int>(final_om)}, {});
         for(int i = 0; i < final_om; ++i) {
             result.data.emplace_back(Array{{}, {i + origin}});
         }
@@ -317,7 +317,7 @@ namespace kepler {
     }
 
     Array Rho::operator()(const Array& omega) {
-        Array result{{(int)omega.shape.size()}, {}};
+        Array result{{static_cast<unsigned int>(omega.shape.size())}, {}};
         for(auto& dim : omega.shape) {
             result.data.emplace_back(Array{{}, {dim}});
         }
@@ -328,7 +328,7 @@ namespace kepler {
         return rho(alpha, omega);
     }
 
-    int vec_size(const std::vector<int>& shape, int dim) {
+    int vec_size(const std::vector<unsigned int>& shape, int dim) {
         if(dim == shape.size() - 1) {
             return shape.back();
         } else {
@@ -336,11 +336,11 @@ namespace kepler {
         }
     }
 
-    int get_step_size(const std::vector<int>& shape, int dim) {
+    int get_step_size(const std::vector<unsigned int>& shape, int dim) {
         return std::accumulate(shape.begin() + dim + 1, shape.end(), 1, std::multiplies<>());
     }
 
-    int get_block_size(const std::vector<int>& shape, int axis) {
+    int get_block_size(const std::vector<unsigned int>& shape, int axis) {
         int length = vec_size(shape, axis);
         if(axis == shape.size() - 1) {
             return length;
@@ -349,7 +349,7 @@ namespace kepler {
         return length * shape.back();
     }
 
-    int get_shift(int element, int axis, int step_size, const Array& alpha, const Array& omega) {
+    unsigned int get_shift(unsigned int element, unsigned int axis, int step_size, const Array& alpha, const Array& omega) {
         if(alpha.is_simple_scalar()) {
             return (int)get<Number>(alpha.data[0]).real();
         }
@@ -491,14 +491,14 @@ namespace kepler {
         return {omega};
     }
 
-    void pad(Array& arr, int dim, const std::vector<int>& new_shape, const Array::element_type& padding, const std::vector<int>& ordering) {
+    void pad(Array& arr, unsigned int dim, const std::vector<unsigned int>& new_shape, const Array::element_type& padding, const std::vector<bool>& ordering) {
         int orig_size = std::accumulate(arr.shape.begin() + dim, arr.shape.end(), 1, std::multiplies<>());
         int new_size = std::accumulate(new_shape.begin() + dim, new_shape.end(), 1, std::multiplies<>());
 
         int padding_per_step = new_size - orig_size;
         int steps = std::accumulate(arr.shape.begin(), arr.shape.begin() + dim, 1, std::multiplies<>());
 
-        int base_padding = ordering[dim] >= 0 ? orig_size : 0;
+        int base_padding = (ordering.empty() || ordering[dim]) ? orig_size : 0;
 
         for(int step = 0; step < steps; ++step) {
             int index = step * (orig_size + padding_per_step) + base_padding;
@@ -513,10 +513,10 @@ namespace kepler {
 
     // x←(2 2 2⍴⍳100) (2 2 3⍴⍳100) ◊ ↑x
     // x←(2⍴⍳100) (3⍴⍳100) ◊ ↑x
-    Array reshape(const Array& original, const Array::element_type& padding, const std::vector<int>& new_shape, const std::vector<int>& ordering) {
+    Array reshape(const Array& original, const Array::element_type& padding, const std::vector<unsigned int>& new_shape, const std::vector<bool>& ordering = {}) {
         Array result = original;
 
-        int additional_dims = new_shape.size() - original.shape.size();
+        int additional_dims = static_cast<int>(new_shape.size()) - original.shape.size();
         if(additional_dims < 0) {
             int deleted_data = result.data.size() - std::accumulate(result.shape.begin() + abs(additional_dims), result.shape.end(), 1, std::multiplies<>());
             result.data.erase(result.data.end() - deleted_data, result.data.end());
@@ -525,7 +525,7 @@ namespace kepler {
             result.shape.insert(result.shape.begin(), additional_dims, 1);
         }
 
-        for(int i = new_shape.size() - 1; i >= 0; --i) {
+        for(int i = static_cast<int>(new_shape.size()) - 1; i >= 0; --i) {
             pad(result, i, new_shape, padding, ordering);
             result.shape[i] = new_shape[i];
         }
@@ -545,26 +545,20 @@ namespace kepler {
         }
 
         auto shape = omega.shape;
-        std::vector<int> ordering = shape;
+        std::vector<bool> ordering(shape.size(), true);
 
         if(alpha.is_scalar()) {
             auto& num = get<Number>(alpha.data[0]);
             int num_int = static_cast<int>(num.real());
 
-            if(num_int < 0) {
-                ordering[0] = num_int;
-            }
-
+            ordering[0] = num_int >= 0;
             shape[0] = abs(num_int);
         } else {
             for(int i = 0; i < alpha.data.size(); ++i) {
                 auto& num = get<Number>(get<Array>(alpha.data[i]).data[0]);
                 int num_int = static_cast<int>(num.real());
 
-                if(num_int < 0) {
-                    ordering[i] = num_int;
-                }
-
+                ordering[i] = num_int >= 0;
                 shape[i] = abs(num_int);
             }
         }
@@ -575,7 +569,7 @@ namespace kepler {
     Array ArrowUp::operator()(const Array &omega) {
         // Find the largest shape of elements in omega.
 
-        std::vector<int> largest_shape = {};
+        std::vector<unsigned int> largest_shape = {};
 
         for(auto& element : omega.data) {
             auto& shape = get<Array>(element).shape;
@@ -595,7 +589,7 @@ namespace kepler {
 
         for(auto& element : omega.data) {
             const auto& arr = get<Array>(element);
-            auto tmp = reshape(arr, Array{0}, largest_shape, largest_shape);
+            auto tmp = reshape(arr, Array{0}, largest_shape);
             result.data.reserve(result.size() + tmp.data.size());
             std::copy(tmp.data.begin(), tmp.data.end(), std::back_inserter(result.data));
         }
@@ -604,7 +598,7 @@ namespace kepler {
     }
 
     Array Comma::operator()(const Array &omega) {
-        return {{omega.size()}, omega.data};
+        return {{static_cast<unsigned int>(omega.size())}, omega.data};
     }
 
     //https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
