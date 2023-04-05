@@ -1,5 +1,9 @@
 name: Linux
 
+# Note that this file is not authored by Nikolaj B. Jensen
+# It is a modified version of the default C++ build workflow
+# found on GitHub's website.
+
 on:
   push:
     branches: [ "main" ]
