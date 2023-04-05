@@ -55,7 +55,7 @@ namespace kepler {
          * Creates an Array of one element (also called a Scalar)
          * @param scalar_ The value to enclose in the Array.
          */
-        explicit Array(element_type scalar_);
+        Array(element_type scalar_);
 
 
         /**

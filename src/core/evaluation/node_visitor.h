@@ -24,6 +24,13 @@
 
 
 namespace kepler {
+
+    /**
+     * Abstract base class for all node visitors.
+     *
+     * Any class that inherits from this class must implement all the visit methods,
+     * and as such that class can be used to visit any node in the AST.
+     */
     struct NodeVisitor {
         virtual Array visit(Scalar* node) = 0;
         virtual Array visit(Vector* node) = 0;

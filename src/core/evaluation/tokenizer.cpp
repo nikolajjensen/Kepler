@@ -28,11 +28,11 @@ namespace kepler {
         if(!at_end()) cursor++;
     }
 
-    const char32_t& Tokenizer::current() const {
+    const Char& Tokenizer::current() const {
         return (*input)[cursor];
     }
 
-    const char32_t& Tokenizer::peek() const {
+    const Char& Tokenizer::peek() const {
         return (*input)[cursor + 1];
     }
 
@@ -41,7 +41,7 @@ namespace kepler {
     }
 
 
-    bool Tokenizer::one_of(const char32_t& ch, const String& elements) const {
+    bool Tokenizer::one_of(const Char& ch, const String& elements) const {
         return std::any_of(elements.begin(), elements.end(), [&](const Char& element) { return ch == element; });
     }
 
@@ -157,7 +157,7 @@ namespace kepler {
         return {cursor, STRING, result};
     }
 
-    Token Tokenizer::wysiwyg_token() {
+    Token Tokenizer::primitive_token() {
         char32_t character = current();
         advance();
         return {cursor, constants::symbol_mapping.at(character), character};
@@ -174,7 +174,7 @@ namespace kepler {
         } else if(one_of(current(), constants::identifier_chars)) {
             return identifier_token();
         } else if(one_of(current(), constants::symbols)) {
-            return wysiwyg_token();
+            return primitive_token();
         } else if(current() == U'\'') {
             return string_token();
         } else {

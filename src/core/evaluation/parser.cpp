@@ -175,7 +175,7 @@ namespace kepler {
             symbol_table->bind_function({identifier.content->begin(), identifier.content->end()});
             return statement;
         } else {
-            ASTNode<Array>* statement = parse_argument();
+            ASTNode<Array>* statement = parse_vector();
 
             while(!at_end() && (helpers::is_function(current().type)
                   || helpers::is_monadic_operator(current().type)
@@ -206,7 +206,7 @@ namespace kepler {
                     function->set_position(func_pos);
 
                     if(!at_end() && !is_monadic && (current().type == RIGHT_PARENS || helpers::is_array_token(current().type))) {
-                        statement = new DyadicFunction(function, parse_argument(), statement);
+                        statement = new DyadicFunction(function, parse_vector(), statement);
                     } else {
                         statement = new MonadicFunction(function, statement);
                     }
@@ -236,10 +236,6 @@ namespace kepler {
 
         eat(LEFT_BRACE);
         return new AnonymousFunction(body);
-    }
-
-    ASTNode<Array>* Parser::parse_argument() {
-        return parse_vector();
     }
 
     ASTNode<Array>* Parser::parse_vector() {
