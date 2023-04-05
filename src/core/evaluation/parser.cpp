@@ -38,7 +38,7 @@ namespace kepler {
     }
 
     bool Parser::at_end() const {
-        return cursor < begin;
+        return (cursor == before_input) || (cursor == after_input);
     }
 
     long Parser::position(const std::vector<Token>::const_iterator& it) const {
@@ -67,18 +67,19 @@ namespace kepler {
 
     TokenType Parser::peek_beyond_parenthesis() const {
         auto peek_at = cursor - 1;
-        while(peek_at >= begin && peek_at->type == RIGHT_PARENS) {
+        while(peek_at > before_input && peek_at->type == RIGHT_PARENS) {
             --peek_at;
         }
-        if(peek_at >= begin) return peek_at->type;
-        return END;
+        return peek_at->type;
+        //if(peek_at >= before_input) return peek_at->type;
+        //return END;
     }
 
     void Parser::assert_matching(const TokenType& left, const TokenType& right, const Char& right_char) const {
-        auto it = begin;
+        auto it = before_input + 1;
         std::vector<std::vector<Token>::const_iterator> stack;
 
-        while(it != end) {
+        while(it != after_input) {
             if(it->type == left) {
                 stack.emplace_back(it);
             } else if(it->type == right){
@@ -99,14 +100,13 @@ namespace kepler {
     Statements* Parser::parse_program() {
         assert_matching(LEFT_BRACE, RIGHT_BRACE, U'}');
         assert_matching(LEFT_PARENS, RIGHT_PARENS, U')');
-        cursor = begin;
         return parse_statement_list();
     }
 
     std::vector<Token>::const_iterator Parser::next_separator(std::vector<Token>::const_iterator current) const {
         auto it = current;
         int level = 0;
-        while(it != end) {
+        while(it != after_input) {
             if(it->type == LEFT_BRACE) {
                 ++level;
             } else if(it->type == RIGHT_BRACE) {
@@ -123,7 +123,7 @@ namespace kepler {
     std::vector<Token>::const_iterator Parser::matching_brace(std::vector<Token>::const_iterator index) const {
         int level = 1;
         auto it = index - 1;
-        while(it >= begin && level != 0) {
+        while(it > before_input && level != 0) {
             if(it->type == LEFT_BRACE) {
                 --level;
             } else if(it->type == RIGHT_BRACE) {
@@ -139,13 +139,13 @@ namespace kepler {
     Statements* Parser::parse_statement_list() {
         std::vector<ASTNode<Array>*> statements{};
 
-        while(flag != end) {
+        while(flag != after_input) {
             auto tmp = next_separator(flag + 1);
 
             // If the next separator is immediately the next one
             // then skip this statement, as there is nothing useful
             // in '◊◊'.
-            if(flag->type == DIAMOND && tmp == flag + 1) {
+            if((flag->type == DIAMOND || flag == before_input) && tmp == flag + 1) {
                 flag = tmp;
                 continue;
             } else {
@@ -222,13 +222,15 @@ namespace kepler {
             throw kepler::Error(SyntaxError, "Expected '}' here.", position());
         }
         eat(RIGHT_BRACE);
-        auto dfn_start = matching_brace(cursor + 1) + 1;
+        auto dfn_start = matching_brace(cursor + 1);
         auto dfn_end = cursor + 1;
 
         Parser dfn_parser;
         auto body = dfn_parser.parse(symbol_table, dfn_start, dfn_end);
 
         cursor -= dfn_end - dfn_start;
+        // To get back the left brace.
+        cursor++;
 
         if(at_end() || current().type != LEFT_BRACE) {
             throw kepler::Error(SyntaxError, "Expected '{' here.", position());
@@ -348,22 +350,24 @@ namespace kepler {
         symbol_table = new_table;
     }
 
-    Parser::Parser() : symbol_table(new SymbolTable()), cursor(), flag(), begin(), end() {}
+    Parser::Parser() : symbol_table(new SymbolTable()), cursor(nullptr), flag(nullptr), before_input(nullptr), after_input(nullptr) {}
 
     Statements* Parser::parse(const std::vector<Token>& input_) {
-        cursor = input_.begin();
-        flag = input_.begin();
-        begin = input_.begin();
-        end = input_.end();
+        before_input = input_.begin();
+        after_input = input_.end();
+        flag = before_input;
+        cursor = before_input;
+        _tmp = input_;
         return parse_program();
     }
 
     Statements* Parser::parse(SymbolTable* parent_table, std::vector<Token>::const_iterator begin_, std::vector<Token>::const_iterator end_) {
         symbol_table->attach_parent(parent_table);
-        cursor = begin_;
-        flag = begin_;
-        begin = begin_;
-        end = end_;
+        before_input = begin_;
+        after_input = end_;
+        flag = before_input;
+        cursor = before_input;
+        _tmp = {begin_, end_};
         return parse_program();
     }
 };

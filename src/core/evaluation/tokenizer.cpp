@@ -195,6 +195,7 @@ namespace kepler {
         }
 
         result.pop_back();
+        result.insert(result.begin(), Token(-1, END));
 
         return result;
     }

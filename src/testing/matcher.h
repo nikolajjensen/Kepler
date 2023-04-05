@@ -83,7 +83,7 @@ struct Outputs : Catch::Matchers::MatcherGenericBase {
      * @return false If the lists are not equal.
      */
     bool match(kepler::List<kepler::Token> const & result) const {
-        return result == output;
+        return kepler::List<kepler::Token>{result.begin() + 1, result.end()} == output;
     }
 
     /**

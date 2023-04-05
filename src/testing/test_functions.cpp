@@ -336,7 +336,7 @@ TEST_CASE_METHOD(GeneralFixture, "floor (⌊)", "[floor][function]") {
     CHECK_THAT(run("¯0.01 0 1 2E¯1 232E100 ⌊ -0.0001 1 0.23 2E¯0 ¯232E100"), Prints("¯0.01 ¯1 ¯0.23 ¯2 2.32E102"));
 }
 
-TEST_CASE_METHOD(GeneralFixture, "ceiling (⌈)", "[floor][function]") {
+TEST_CASE_METHOD(GeneralFixture, "ceiling (⌈)", "[ceiling][function]") {
     CHECK_THAT(run("⌈1"), Prints("1"));
     CHECK_THAT(run("⌈0"), Prints("0"));
     CHECK_THAT(run("⌈¯1"), Prints("¯1"));

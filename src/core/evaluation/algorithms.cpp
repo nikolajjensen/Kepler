@@ -183,12 +183,12 @@ kepler::Array kepler::rho(const Array &alpha, const Array &omega) {
 
     result.data.resize(alpha_length);
     for(int i = 0; i < alpha_length; ++i) {
-        auto index = i % omega_length;
         if(omega.is_scalar()) {
             result.data[i] = omega;
         } else if(omega_length == 0) {
             result.data[i] = Array{0};
         } else {
+            auto index = i % omega_length;
             result.data[i] = omega.data[index];
         }
     }

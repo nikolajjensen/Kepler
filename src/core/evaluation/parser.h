@@ -33,10 +33,20 @@ namespace kepler {
     class Parser {
     private:
         SymbolTable* symbol_table;
+
+        // Points to any token which the cursor is currently at.
         std::vector<Token>::const_iterator cursor;
+
+        // Points the statement separator of the statement currently being parsed.
         std::vector<Token>::const_iterator flag;
-        std::vector<Token>::const_iterator begin;
-        std::vector<Token>::const_iterator end;
+
+        // Points to the END token before actual input.
+        std::vector<Token>::const_iterator before_input;
+
+        // Points to the END token after actual input.
+        std::vector<Token>::const_iterator after_input;
+
+        std::vector<Token> _tmp;
 
         /**
          * Advances the cursor one step.
