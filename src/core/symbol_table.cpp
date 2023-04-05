@@ -22,9 +22,7 @@
 #include "core/literals.h"
 
 namespace kepler {
-    SymbolTable::SymbolTable() : table(), parent(nullptr) {
-
-    }
+    SymbolTable::SymbolTable() : table(), parent(nullptr) {}
 
     SymbolTable::SymbolTable(SymbolTable* parent_) : table(), parent(parent_) {}
 
@@ -90,8 +88,10 @@ namespace kepler {
         table.insert_or_assign(id, new Symbol(FunctionSymbol));
     }
 
-    // Removes all keys and destroys all symbols.
     void SymbolTable::clear() {
+        for (auto& [key, val] : table) {
+            delete val;
+        }
         table.clear();
     }
 

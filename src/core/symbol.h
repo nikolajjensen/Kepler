@@ -25,18 +25,35 @@
 
 namespace kepler {
 
+    /**
+     * Defines the different types of symbols.
+     */
     enum SymbolType {
         FunctionSymbol,
         VariableSymbol
     };
 
+    /**
+     * A Symbol is a variable or function that can be stored in the SymbolTable.
+     */
     struct Symbol {
+        // A Symbol can contain only Array or Operation_ptr, or nothing at all.
         using content_type = std::optional<std::variant<Array, Operation_ptr>>;
 
         content_type content;
         SymbolType type;
 
+        /**
+         * Creates a new Symbol with the given type and content.
+         * @param type_ The type of the symbol.
+         * @param content_ The content of the symbol.
+         */
         Symbol(SymbolType type_, std::variant<Array, Operation_ptr> content_) : type(type_), content(content_) {}
+
+        /**
+         * Creates a new Symbol with the given type and no content.
+         * @param type_ The type of the symbol.
+         */
         explicit Symbol(SymbolType type_) : type(type_), content(std::nullopt) {}
     };
 };

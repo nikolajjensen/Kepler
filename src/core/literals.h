@@ -24,6 +24,12 @@
 #include <ranges>
 
 namespace kepler::constants {
+
+    /**
+     * A symbol-label mapping of all the symbols in the language.
+     *
+     * This is used for tokenization primarily.
+     */
     const std::map<Char, TokenType> symbol_mapping = {
             {U'⍺',  ALPHA},
             {U'⍵',  OMEGA},

@@ -20,15 +20,45 @@
 #pragma once
 
 namespace kepler {
+
+    /**
+     * The intended use is to inherit from it,
+     * so the derived class becomes 'position-tagged'.
+     *
+     * This is useful for keeping track of some (arbitrarily defined) position.
+     */
     struct Position {
     private:
         long pos;
 
     public:
+
+        /**
+         * Creates a new position, but the position itself is -1 (uninitialised).
+         *
+         * @param pos_ The position.
+         */
         Position();
+
+        /**
+         * Creates a new position.
+         *
+         * @param pos_ The position.
+         */
         explicit Position(long pos_);
 
+        /**
+         * Sets the position.
+         *
+         * @param new_pos The new position.
+         */
         void set_position(long new_pos);
+
+        /**
+         * Gets the position.
+         *
+         * @return The position.
+         */
         [[nodiscard]] long get_position() const;
     };
 };

@@ -183,7 +183,19 @@ namespace kepler {
          * @param id The id to bind to a function type.
          */
         void bind_function(const String& id);
+
+        /**
+         * Clears the SymbolTable such that no ids are defined.
+         *
+         * Will also delete every symbol within the table.
+         */
         void clear();
+
+        /**
+         * Inserts the default system parameters into the SymbolTable.
+         *
+         * These include '⎕IO' and '⎕PP'.
+         */
         void insert_system_parameters();
     };
 };
