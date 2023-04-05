@@ -26,6 +26,13 @@
 #include <uni_algo/conv.h>
 
 namespace kepler {
+
+    /**
+     * Represents an error in Kepler.
+     *
+     * An Error may represent syntax errors, runtime errors, or
+     * other errors associated with running the application.
+     */
     class Error : public std::exception {
     public:
         ErrorType error_type;
@@ -35,6 +42,12 @@ namespace kepler {
         int line;
         std::string file;
 
+        /**
+         * Creates a new error with the given type and message.
+         *
+         * @param error_type The type of error.
+         * @param message The error message.
+         */
         Error(ErrorType error_type_,
               std::string message_ = "")
                 : error_type(error_type_),
@@ -44,6 +57,13 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
+        /**
+         * Creates a new error with the given type, message, and position.
+         *
+         * @param error_type The type of error.
+         * @param message The error message.
+         * @param position_ The position of the Error.
+         */
         Error(ErrorType error_type_,
               std::string message_,
               long position_)
@@ -54,6 +74,12 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
+        /**
+         * Creates a new error with the given and position.
+         *
+         * @param error_type The type of error.
+         * @param position_ The position of the Error.
+         */
         Error(ErrorType error_type_,
               long position_)
                 : error_type(error_type_),
@@ -63,6 +89,16 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
+        /**
+         * Creates a new error with the given type, message, position, and input.
+         *
+         * The input is used to generate a string representation of the error.
+         *
+         * @param error_type The type of error.
+         * @param message The error message.
+         * @param position_ The position of the Error.
+         * @param input_ The input in which the Error occurred.
+         */
         Error(ErrorType error_type_,
               std::string message_,
               long position_,
@@ -74,15 +110,31 @@ namespace kepler {
                   line(-1),
                   file("") {}
 
-        std::string type() const {
+        /**
+         * Returns a string representation of the type of the Error.
+         */
+        [[nodiscard]] std::string type() const {
             return kepler::to_string(error_type);
         }
 
-        std::string why() const {
+        /**
+         * Returns the error message.
+         */
+        [[nodiscard]] std::string why() const {
             return message;
         }
 
-       std::string to_string() const {
+        /**
+         * Returns a string representation of the Error.
+         *
+         * The string representation will always include the type.
+         * If a message is available, it will be given.
+         * If a position is available, it will be given.
+         * If input and position are available, the error is shown in the input.
+         * If a file is available, it will shown.
+         * If file and line number are available, they will be shown in the input.
+         */
+        [[nodiscard]] std::string to_string() const {
             std::stringstream ss;
             if(!file.empty()) {
                 ss << file;
@@ -108,19 +160,35 @@ namespace kepler {
             return ss.str();
         }
 
+        /**
+         * Sets the input associated with the Error.
+         * @param input_ The input to associate with the Error.
+         */
         void set_input(const std::vector<Char>* input_) {
             input = input_;
         }
 
+        /**
+         * Sets the file associated with the Error.
+         * @param new_file The path of the file to associate with the Error.
+         */
         void set_file(const std::string& new_file) {
             file = new_file;
         }
 
+        /**
+         * Sets the line number associated with the Error.
+         * @param new_line The line number to associate with the Error.
+         */
         void set_line(int new_line) {
             line = new_line;
         }
 
-        std::string where() const {
+        /**
+         * Returns a string representation of where
+         * the error occurred within the input.
+         */
+        [[nodiscard]] std::string where() const {
             std::stringstream ss;
 
             if(input != nullptr && position != -2) {
@@ -132,7 +200,7 @@ namespace kepler {
                 for (long i = -1; i < position - 1; ++i) {
                     ss << "~";
                 }
-                ss << "^";// << "   " << position;
+                ss << "^";
             }
 
             return ss.str();

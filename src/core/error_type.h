@@ -34,5 +34,11 @@ namespace kepler {
         ValueError,
     };
 
+    /**
+     * Converts an ErrorType to a string.
+     *
+     * @param error_type The error type.
+     * @return The string.
+     */
     std::string to_string(ErrorType error_type);
 };
