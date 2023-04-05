@@ -24,6 +24,12 @@
 
 
 namespace kepler {
+
+    /**
+     * Represents a monadic operation.
+     *
+     * This struct is intended for other monadic operations to inherit from.
+     */
     struct MonadicOp : Operation {
     protected:
         Operation_ptr op;
@@ -32,6 +38,19 @@ namespace kepler {
         explicit MonadicOp(Operation_ptr op_);
     };
 
+    /**
+     * Represents the commutate operator.
+     *
+     * Monadic:
+     *      ⍴⍨ 3      ⍝ ⍵ ⍴ ⍵
+     *  3 3 3
+     *
+     * Dyadic:
+     *     2 ⍴⍨ 3     ⍝ ⍵ ⍴ ⍺
+     *  2 2 2
+     *
+     *  Credit: http:://dyalog.com
+     */
     struct Commute : MonadicOp {
         using MonadicOp::MonadicOp;
 
@@ -39,6 +58,14 @@ namespace kepler {
         Array operator()(const Array& omega) override;
     };
 
+    /**
+     * Represents the reduction of an array.
+     *
+     *       +/ 1 2 3 4 5
+     *  15
+     *
+     *  Credit: http:://dyalog.com
+     */
     struct Slash : MonadicOp {
         using MonadicOp::MonadicOp;
 
@@ -46,6 +73,14 @@ namespace kepler {
         Array operator()(const Array& omega) override;
     };
 
+    /**
+     * Represents the application of a function to every element of an array.
+     *
+     *       +/¨ (1 2 3 4)(5 6 7)
+     *  10 18
+     *
+     *  Credit: http:://dyalog.com
+     */
     struct Diaeresis : MonadicOp {
         using MonadicOp::MonadicOp;
 
@@ -53,6 +88,16 @@ namespace kepler {
         Array operator()(const Array& omega) override;
     };
 
+    /**
+     * Represents the outer product of two arrays.
+     *
+     *       1 2 3 ∘.× 4 5 6 7
+     *   4  5  6  7
+     *   8 10 12 14
+     *  12 15 18 21
+     *
+     *  Credit: http:://dyalog.com
+     */
     struct OuterProduct : MonadicOp {
         using MonadicOp::MonadicOp;
 
