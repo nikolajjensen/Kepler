@@ -29,6 +29,19 @@ namespace kepler {
     struct SymbolTable;
 
     struct Interpreter : NodeVisitor {
+    private:
+
+        /**
+         * Function which, based on type and args, builds the correct operation.
+         *
+         * Concretely, if there are no args given, a function will be built.
+         * If there are args, an operator will be built.
+         *
+         * @tparam Args Type of potential arguments required to construct the operation.
+         * @param type The type of operation to build.
+         * @param args Potential arguments required to construct the operation.
+         * @return A shared pointer to the operation.
+         */
         template <typename... Args>
         Operation_ptr build_operation(TokenType type, Args... args) {
             if constexpr (sizeof...(args) == 0) {
@@ -147,8 +160,19 @@ namespace kepler {
         ASTNode<Array>& tree;
         std::ostream& output_stream;
 
+    public:
+        /**
+         * Creates a new interpreter.
+         * @param tree The AST to interpret.
+         * @param symbol_table The symbol table to use for looking up and storing values.
+         * @param output_stream The output stream to use for printing errors and output.
+         */
         explicit Interpreter(ASTNode<Array>& tree_, SymbolTable& symbol_table_, std::ostream& output_stream_) : tree(tree_), symbol_table(symbol_table_), output_stream(output_stream_) {}
 
+        /**
+         * Interprets the AST and returns the result.
+         * @return The result of the AST.
+         */
         Array interpret();
     };
 };

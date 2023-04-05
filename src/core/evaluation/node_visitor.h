@@ -32,19 +32,103 @@ namespace kepler {
      * and as such that class can be used to visit any node in the AST.
      */
     struct NodeVisitor {
+
+        /**
+         * Visit a scalar node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(Scalar* node) = 0;
+
+        /**
+         * Visit a vector node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(Vector* node) = 0;
+
+        /**
+         * Visit a monadic operator node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Operation_ptr visit(MonadicOperator* node) = 0;
+
+        /**
+         * Visit a dyadic operator node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Operation_ptr visit(DyadicOperator* node) = 0;
+
+        /**
+         * Visit a function node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Operation_ptr visit(Function* node) = 0;
+
+        /**
+         * Visit an anonymous function node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Operation_ptr visit(AnonymousFunction* node) = 0;
+
+        /**
+         * Visit a monadic function node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(MonadicFunction* node) = 0;
+
+        /**
+         * Visit a function assignment node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(FunctionAssignment* node) = 0;
+
+        /**
+         * Visit a function variable node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Operation_ptr visit(FunctionVariable* node) = 0;
+
+        /**
+         * Visit a dyadic function node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(DyadicFunction* node) = 0;
+
+        /**
+         * Visit an assignment node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(Assignment* node) = 0;
+
+        /**
+         * Visit a variable node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(Variable* node) = 0;
+
+        /**
+         * Visit a statement node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(Statements* node) = 0;
+
+        /**
+         * Visit a conditional node.
+         * @param node Node to visit
+         * @return The result of visiting the node.
+         */
         virtual Array visit(Conditional* node) = 0;
     };
 };
