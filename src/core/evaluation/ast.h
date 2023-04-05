@@ -31,17 +31,39 @@ namespace kepler {
     using Operation_ptr = std::shared_ptr<Operation>;
 
     template <typename T>
+
+    /**
+     * Base class for every node in the AST.
+     * @tparam T The result type of evaluating the node.
+     */
     struct ASTNode : Position {
         virtual ~ASTNode() = default;
 
+        /**
+         * Accepts a visitor and returns the result of visiting the node.
+         * @param visitor The visitor to accept.
+         * @return The result of visiting the node.
+         */
         virtual T accept(class NodeVisitor &visitor) = 0;
+
+        /**
+         * Returns a human-readable string representation of the node.
+         */
         virtual std::string to_string() const = 0;
 
+        /**
+         * Appends a human-readable string representation of the node to the given stream.
+         */
         friend std::ostream& operator<<(std::ostream& os, const ASTNode& node) {
             return os << node.to_string();
         }
     };
 
+    /**
+     * A node representing single values.
+     *
+     * These could be Strings or Numbers.
+     */
     struct Scalar : ASTNode<Array> {
         Token token;
         std::variant<Number, String> content;
@@ -52,6 +74,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a vector of other ASTNodes.
+     */
     struct Vector : ASTNode<Array> {
         std::vector<ASTNode*> children;
 
@@ -62,6 +87,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a monadic operator node.
+     */
     struct MonadicOperator : ASTNode<Operation_ptr> {
         Token token;
         ASTNode<Operation_ptr>* child;
@@ -73,6 +101,9 @@ namespace kepler {
         Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a dyadic operator node.
+     */
     struct DyadicOperator : ASTNode<Operation_ptr> {
         Token token;
         ASTNode<Operation_ptr>* left;
@@ -85,6 +116,9 @@ namespace kepler {
         Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a function node.
+     */
     struct Function : ASTNode<Operation_ptr> {
         Token token;
 
@@ -94,6 +128,10 @@ namespace kepler {
         Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
+
+    /**
+     * A node representing a monadic function node.
+     */
     struct MonadicFunction : ASTNode<Array> {
         ASTNode<Operation_ptr>* function;
         ASTNode<Array>* omega;
@@ -105,6 +143,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a dyadic function node.
+     */
     struct DyadicFunction : ASTNode<Array> {
         ASTNode<Operation_ptr>* function;
         ASTNode<Array>* alpha;
@@ -117,6 +158,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a function assignment node.
+     */
     struct FunctionAssignment : ASTNode<Array> {
         Token identifier;
         ASTNode<Operation_ptr>* function;
@@ -128,6 +172,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a variable assignment node.
+     */
     struct Assignment : ASTNode<Array> {
         Token identifier;
         ASTNode<Array>* value;
@@ -139,6 +186,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a variable node; a reference to a variable.
+     */
     struct Variable : ASTNode<Array> {
         Token token;
 
@@ -148,6 +198,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a function variable node; a reference to a function variable.
+     */
     struct FunctionVariable : ASTNode<Operation_ptr> {
         Token identifier;
 
@@ -157,6 +210,11 @@ namespace kepler {
         Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a list of statements. Each statement is another ASTNode.
+     *
+     * Note that this node also contains a pointer to the symbol table of the current scope.
+     */
     struct Statements : ASTNode<Array> {
         std::vector<ASTNode<Array>*> children;
         SymbolTable* symbol_table;
@@ -168,6 +226,9 @@ namespace kepler {
         Array accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a user-defined anonymous function node.
+     */
     struct AnonymousFunction : ASTNode<Operation_ptr> {
         Statements* body;
 
@@ -178,6 +239,9 @@ namespace kepler {
         Operation_ptr accept(NodeVisitor &visitor) override;
     };
 
+    /**
+     * A node representing a conditional node.
+     */
     struct Conditional : ASTNode<Array> {
         ASTNode<Array>* condition;
         ASTNode<Array>* true_case;

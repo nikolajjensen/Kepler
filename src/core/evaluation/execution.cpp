@@ -109,7 +109,7 @@ int kepler::run_repl() {
     }
 }
 
-void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable *symbol_table) {
+void kepler::safe_execution(const std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable *symbol_table) {
     try {
         return kepler::immediate_execution(input, stream, print_last, symbol_table);
     } catch(kepler::Error& err) {
@@ -118,7 +118,7 @@ void kepler::safe_execution(std::vector<Char> &input, std::ostream &stream, bool
     }
 }
 
-void kepler::immediate_execution(std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable* symbol_table) {
+void kepler::immediate_execution(const std::vector<Char> &input, std::ostream &stream, bool print_last, SymbolTable* symbol_table) {
     Tokenizer tokenizer;
     List<Token> tokens = tokenizer.tokenize(&input);
 
