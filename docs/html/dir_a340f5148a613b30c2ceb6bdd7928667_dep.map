@@ -1,8 +1,0 @@
-<map id="src/core/evaluation/parser" name="src/core/evaluation/parser">
-<area shape="rect" id="node1" href="dir_a340f5148a613b30c2ceb6bdd7928667.html" title="parser" alt="" coords="56,52,115,77"/>
-<area shape="rect" id="node2" href="dir_707aa52d67938117542c6646238d6f70.html" title="helpers" alt="" coords="5,125,69,151"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000006_000004.html" title="2" alt="" coords="59,107,67,122"/>
-<area shape="rect" id="node3" href="dir_80404500aec6e02024659a58ab29e487.html" title="constants" alt="" coords="94,125,173,151"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000006_000000.html" title="1" alt="" coords="118,98,126,112"/>
-<area shape="rect" id="clust1" href="dir_3bc91e90964984b674db4c7fbeec786e.html" title="evaluation" alt="" coords="45,16,127,88"/>
-</map>
