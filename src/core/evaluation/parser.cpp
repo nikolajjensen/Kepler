@@ -350,7 +350,7 @@ namespace kepler {
         symbol_table = new_table;
     }
 
-    Parser::Parser() : symbol_table(new SymbolTable()), cursor(nullptr), flag(nullptr), before_input(nullptr), after_input(nullptr) {}
+    Parser::Parser() : symbol_table(new SymbolTable()), cursor(), flag(), before_input(), after_input() {}
 
     Statements* Parser::parse(const std::vector<Token>& input_) {
         before_input = input_.begin();
