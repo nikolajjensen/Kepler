@@ -21,9 +21,9 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classparser__fixture.html#ab428671a0de24667af59c29d33cc5506" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_parser_fixture.html#ac7021c25bf0bbdc62e8ec83fe047112a" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="116.5,-67.5 21.5,-67.5 21.5,-48.5 116.5,-48.5 116.5,-67.5"/>
-<text text-anchor="middle" x="69" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">parser_fixture::run</text>
+<text text-anchor="middle" x="69" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParserFixture::run</text>
 </a>
 </g>
 </g>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: src/core/evaluation/operations/defined_function.h Source File</title>
+<title>My Project: /Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/defined_function.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -116,28 +116,29 @@ $(document).ready(function(){initNavTree('defined__function_8h_source.html','');
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="ast_8h.html">core/evaluation/ast.h</a>&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacekepler.html">kepler</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structkepler_1_1_defined_function.html">   25</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structkepler_1_1_defined_function.html">DefinedFunction</a> : <a class="code hl_struct" href="structkepler_1_1_operation.html">Operation</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_struct" href="structkepler_1_1_anonymous_function.html">AnonymousFunction</a>* function;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::ostream&amp; output_stream;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">explicit</span> <a class="code hl_struct" href="structkepler_1_1_defined_function.html">DefinedFunction</a>(<a class="code hl_struct" href="structkepler_1_1_anonymous_function.html">AnonymousFunction</a>* function, std::ostream&amp; output_stream_);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_function" href="structkepler_1_1_defined_function.html#ae7915c7d38f51ccaac7e41fc996a6ee3">~DefinedFunction</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a> <a class="code hl_function" href="structkepler_1_1_defined_function.html#a92fdcd0403202bd299d274d0ec714abe">operator()</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a>&amp; alpha, <span class="keyword">const</span> <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a>&amp; omega) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a> <a class="code hl_function" href="structkepler_1_1_defined_function.html#a92fdcd0403202bd299d274d0ec714abe">operator()</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a>&amp; omega) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structkepler_1_1_defined_function.html">   34</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structkepler_1_1_defined_function.html">DefinedFunction</a> : <a class="code hl_struct" href="structkepler_1_1_operation.html">Operation</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_struct" href="structkepler_1_1_anonymous_function.html">AnonymousFunction</a>* function;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        std::ostream&amp; output_stream;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">explicit</span> <a class="code hl_struct" href="structkepler_1_1_defined_function.html">DefinedFunction</a>(<a class="code hl_struct" href="structkepler_1_1_anonymous_function.html">AnonymousFunction</a>* function, std::ostream&amp; output_stream_);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_function" href="structkepler_1_1_defined_function.html#ae7915c7d38f51ccaac7e41fc996a6ee3">~DefinedFunction</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a> <a class="code hl_function" href="structkepler_1_1_defined_function.html#a92fdcd0403202bd299d274d0ec714abe">operator()</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a>&amp; alpha, <span class="keyword">const</span> <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a>&amp; omega) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a> <a class="code hl_function" href="structkepler_1_1_defined_function.html#a92fdcd0403202bd299d274d0ec714abe">operator()</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structkepler_1_1_array.html">Array</a>&amp; omega) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    };</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
 <div class="ttc" id="aast_8h_html"><div class="ttname"><a href="ast_8h.html">ast.h</a></div></div>
-<div class="ttc" id="anamespacekepler_html"><div class="ttname"><a href="namespacekepler.html">kepler</a></div><div class="ttdef"><b>Definition:</b> cli.h:23</div></div>
+<div class="ttc" id="anamespacekepler_html"><div class="ttname"><a href="namespacekepler.html">kepler</a></div><div class="ttdef"><b>Definition:</b> cli.h:26</div></div>
 <div class="ttc" id="aoperation_8h_html"><div class="ttname"><a href="operation_8h.html">operation.h</a></div></div>
-<div class="ttc" id="astructkepler_1_1_anonymous_function_html"><div class="ttname"><a href="structkepler_1_1_anonymous_function.html">kepler::AnonymousFunction</a></div><div class="ttdef"><b>Definition:</b> ast.h:171</div></div>
-<div class="ttc" id="astructkepler_1_1_array_html"><div class="ttname"><a href="structkepler_1_1_array.html">kepler::Array</a></div><div class="ttdef"><b>Definition:</b> array.h:27</div></div>
-<div class="ttc" id="astructkepler_1_1_defined_function_html"><div class="ttname"><a href="structkepler_1_1_defined_function.html">kepler::DefinedFunction</a></div><div class="ttdef"><b>Definition:</b> defined_function.h:25</div></div>
-<div class="ttc" id="astructkepler_1_1_defined_function_html_a92fdcd0403202bd299d274d0ec714abe"><div class="ttname"><a href="structkepler_1_1_defined_function.html#a92fdcd0403202bd299d274d0ec714abe">kepler::DefinedFunction::operator()</a></div><div class="ttdeci">Array operator()(const Array &amp;alpha, const Array &amp;omega) override</div><div class="ttdef"><b>Definition:</b> defined_function.cpp:44</div></div>
-<div class="ttc" id="astructkepler_1_1_defined_function_html_ae7915c7d38f51ccaac7e41fc996a6ee3"><div class="ttname"><a href="structkepler_1_1_defined_function.html#ae7915c7d38f51ccaac7e41fc996a6ee3">kepler::DefinedFunction::~DefinedFunction</a></div><div class="ttdeci">~DefinedFunction()</div><div class="ttdef"><b>Definition:</b> defined_function.cpp:30</div></div>
-<div class="ttc" id="astructkepler_1_1_operation_html"><div class="ttname"><a href="structkepler_1_1_operation.html">kepler::Operation</a></div><div class="ttdef"><b>Definition:</b> operation.h:29</div></div>
+<div class="ttc" id="astructkepler_1_1_anonymous_function_html"><div class="ttname"><a href="structkepler_1_1_anonymous_function.html">kepler::AnonymousFunction</a></div><div class="ttdef"><b>Definition:</b> ast.h:232</div></div>
+<div class="ttc" id="astructkepler_1_1_array_html"><div class="ttname"><a href="structkepler_1_1_array.html">kepler::Array</a></div><div class="ttdef"><b>Definition:</b> array.h:39</div></div>
+<div class="ttc" id="astructkepler_1_1_defined_function_html"><div class="ttname"><a href="structkepler_1_1_defined_function.html">kepler::DefinedFunction</a></div><div class="ttdef"><b>Definition:</b> defined_function.h:34</div></div>
+<div class="ttc" id="astructkepler_1_1_defined_function_html_a92fdcd0403202bd299d274d0ec714abe"><div class="ttname"><a href="structkepler_1_1_defined_function.html#a92fdcd0403202bd299d274d0ec714abe">kepler::DefinedFunction::operator()</a></div><div class="ttdeci">Array operator()(const Array &amp;alpha, const Array &amp;omega) override</div><div class="ttdef"><b>Definition:</b> defined_function.cpp:41</div></div>
+<div class="ttc" id="astructkepler_1_1_defined_function_html_ae7915c7d38f51ccaac7e41fc996a6ee3"><div class="ttname"><a href="structkepler_1_1_defined_function.html#ae7915c7d38f51ccaac7e41fc996a6ee3">kepler::DefinedFunction::~DefinedFunction</a></div><div class="ttdeci">~DefinedFunction()</div><div class="ttdef"><b>Definition:</b> defined_function.cpp:29</div></div>
+<div class="ttc" id="astructkepler_1_1_operation_html"><div class="ttname"><a href="structkepler_1_1_operation.html">kepler::Operation</a></div><div class="ttdef"><b>Definition:</b> operation.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

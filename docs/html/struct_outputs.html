@@ -100,26 +100,28 @@ $(document).ready(function(){initNavTree('struct_outputs.html',''); initResizabl
 <div class="dynheader">
 Inheritance diagram for Outputs:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_outputs__inherit__graph.svg" width="187" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_outputs__inherit__graph.svg" width="187" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for Outputs:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_outputs__coll__graph.svg" width="187" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_outputs__coll__graph.svg" width="187" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:acdc3d46af8f2eba509e96ef76a3ca40e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_outputs.html#acdc3d46af8f2eba509e96ef76a3ca40e">Outputs</a> (const std::initializer_list&lt; <a class="el" href="structkepler_1_1_token.html">kepler::Token</a> &gt; &amp;output_)</td></tr>
+<tr class="memdesc:acdc3d46af8f2eba509e96ef76a3ca40e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="struct_outputs.html">Outputs</a> object.  <br /></td></tr>
 <tr class="separator:acdc3d46af8f2eba509e96ef76a3ca40e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63bda39c1b5b08b7f81378a09b3732b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_outputs.html#a63bda39c1b5b08b7f81378a09b3732b4">match</a> (<a class="el" href="namespacekepler.html#ad62d8e5f12a82b84787cb1adcf746060">kepler::List</a>&lt; <a class="el" href="structkepler_1_1_token.html">kepler::Token</a> &gt; const &amp;result) const</td></tr>
+<tr class="memdesc:a63bda39c1b5b08b7f81378a09b3732b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match a list of tokens to a specific list of tokens.  <br /></td></tr>
 <tr class="separator:a63bda39c1b5b08b7f81378a09b3732b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ce615e678d62e7fb1369442f8204c35"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_outputs.html#a2ce615e678d62e7fb1369442f8204c35">describe</a> () const override</td></tr>
 <tr class="separator:a2ce615e678d62e7fb1369442f8204c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="struct_outputs.html">Outputs</a> struct matches a list of tokens to a specific list of tokens. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="acdc3d46af8f2eba509e96ef76a3ca40e" name="acdc3d46af8f2eba509e96ef76a3ca40e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acdc3d46af8f2eba509e96ef76a3ca40e">&#9670;&#160;</a></span>Outputs()</h2>
 
@@ -139,10 +141,18 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="struct_outputs.html">Outputs</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output_</td><td>The list of tokens to match. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -169,6 +179,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Produces a string describing why the matcher failed. </p><dl class="section return"><dt>Returns</dt><dd>A string describing why the matcher failed. </dd></dl>
 
 </div>
 </div>
@@ -196,10 +207,21 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Match a list of tokens to a specific list of tokens. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The list of tokens to match. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true If the lists are equal. </dd>
+<dd>
+false If the lists are not equal. </dd></dl>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/testing/<a class="el" href="matcher_8h_source.html">matcher.h</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/testing/<a class="el" href="matcher_8h_source.html">matcher.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

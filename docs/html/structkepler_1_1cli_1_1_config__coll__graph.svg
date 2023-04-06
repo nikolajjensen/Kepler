@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="The Config struct contains all configuration which can be set in the command&#45;line.">
 <polygon fill="#999999" stroke="#666666" points="15,-0.5 15,-57.5 108,-57.5 108,-0.5 15,-0.5"/>
 <text text-anchor="middle" x="61.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::cli::Config</text>
 <polyline fill="none" stroke="#666666" points="15,-38.5 108,-38.5"/>

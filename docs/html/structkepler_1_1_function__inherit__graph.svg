@@ -101,14 +101,14 @@ var sectionId = 'dynsection-0';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="structkepler_1_1position.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="structkepler_1_1_position.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="7.5,-482.5 7.5,-594.5 127.5,-594.5 127.5,-482.5 7.5,-482.5"/>
-<text text-anchor="middle" x="67.5" y="-582.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::position</text>
+<text text-anchor="middle" x="67.5" y="-582.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Position</text>
 <polyline fill="none" stroke="#666666" points="7.5,-575.5 127.5,-575.5"/>
 <text text-anchor="middle" x="67.5" y="-563.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="#666666" points="7.5,-556.5 127.5,-556.5"/>
-<text text-anchor="start" x="15.5" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ position()</text>
-<text text-anchor="start" x="15.5" y="-533.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ position(long pos_)</text>
+<text text-anchor="start" x="15.5" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Position()</text>
+<text text-anchor="start" x="15.5" y="-533.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Position(long pos_)</text>
 <text text-anchor="start" x="15.5" y="-522.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ void set_position(long</text>
 <text text-anchor="start" x="15.5" y="-511.5" font-family="Helvetica,sans-Serif" font-size="10.00"> new_pos)</text>
 <text text-anchor="start" x="15.5" y="-500.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ long get_position()</text>

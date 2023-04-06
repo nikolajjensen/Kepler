@@ -1,9 +1,4 @@
 <map id="kepler::Interpreter" name="kepler::Interpreter">
-<area shape="rect" id="node1" title=" " alt="" coords="279,1072,494,1721"/>
-<area shape="rect" id="node2" href="$structkepler_1_1_node_visitor.html" title=" " alt="" coords="5,441,187,987"/>
-<area shape="rect" id="node3" href="$classkepler_1_1_symbol_table.html" title=" " alt="" coords="211,419,400,1009"/>
-<area shape="rect" id="node4" href="$structkepler_1_1_a_s_t_node.html" title=" " alt="" coords="425,624,597,804"/>
-<area shape="rect" id="node5" href="$structkepler_1_1position.html" title=" " alt="" coords="405,5,565,156"/>
-<area shape="rect" id="node6" href="$structkepler_1_1_a_s_t_node.html" title=" " alt="" coords="507,205,669,356"/>
-<area shape="rect" id="node7" title=" " alt="" coords="621,675,704,753"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,600,207,736"/>
+<area shape="rect" id="node2" href="$structkepler_1_1_node_visitor.html" title=" " alt="" coords="15,5,197,552"/>
 </map>

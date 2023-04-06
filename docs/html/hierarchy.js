@@ -6,13 +6,19 @@ var hierarchy =
       [ "kepler::PervadeMixin< BASE >", "structkepler_1_1_pervade_mixin.html", null ]
     ] ],
     [ "kepler::cli::Config", "structkepler_1_1cli_1_1_config.html", null ],
+    [ "degrees", "structdegrees.html", null ],
     [ "error_loc", "structerror__loc.html", null ],
     [ "std::exception", null, [
-      [ "kepler::error", "classkepler_1_1error.html", null ]
+      [ "kepler::Error", "classkepler_1_1_error.html", null ]
     ] ],
-    [ "file_fixture", "classfile__fixture.html", null ],
-    [ "fixture", "classfixture.html", null ],
-    [ "lexer_fixture", "classlexer__fixture.html", null ],
+    [ "fact", "structfact.html", null ],
+    [ "fib", "structfib.html", null ],
+    [ "FileFixture", "class_file_fixture.html", null ],
+    [ "benchmark::Fixture", null, [
+      [ "KeplerFixture", "class_kepler_fixture.html", null ]
+    ] ],
+    [ "GeneralFixture", "class_general_fixture.html", null ],
+    [ "iota", "structiota.html", null ],
     [ "Catch::Matchers::MatcherGenericBase", null, [
       [ "Outputs", "struct_outputs.html", null ],
       [ "Prints", "struct_prints.html", null ],
@@ -72,8 +78,8 @@ var hierarchy =
       [ "kepler::RightTack", "structkepler_1_1_right_tack.html", null ]
     ] ],
     [ "kepler::Parser", "classkepler_1_1_parser.html", null ],
-    [ "parser_fixture", "classparser__fixture.html", null ],
-    [ "kepler::position", "structkepler_1_1position.html", [
+    [ "ParserFixture", "class_parser_fixture.html", null ],
+    [ "kepler::Position", "structkepler_1_1_position.html", [
       [ "kepler::ASTNode< Operation_ptr >", "structkepler_1_1_a_s_t_node.html", [
         [ "kepler::AnonymousFunction", "structkepler_1_1_anonymous_function.html", null ],
         [ "kepler::DyadicOperator", "structkepler_1_1_dyadic_operator.html", null ],
@@ -98,5 +104,6 @@ var hierarchy =
     ] ],
     [ "kepler::Symbol", "structkepler_1_1_symbol.html", null ],
     [ "kepler::SymbolTable", "classkepler_1_1_symbol_table.html", null ],
-    [ "kepler::Tokenizer", "classkepler_1_1_tokenizer.html", null ]
+    [ "kepler::Tokenizer", "classkepler_1_1_tokenizer.html", null ],
+    [ "TokenizerFixture", "class_tokenizer_fixture.html", null ]
 ];

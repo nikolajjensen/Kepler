@@ -1,4 +1,4 @@
 var parser__fixture_8h =
 [
-    [ "parser_fixture", "classparser__fixture.html", "classparser__fixture" ]
+    [ "ParserFixture", "class_parser_fixture.html", "class_parser_fixture" ]
 ];

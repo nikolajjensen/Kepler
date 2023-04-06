@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['number_5ffrom_5fcharacters_0',['number_from_characters',['../namespacekepler.html#afb522d6ecef07ad97aba105087960bfc',1,'kepler']]],
-  ['number_5fto_5fstring_1',['number_to_string',['../namespacekepler.html#aa848e96e65932d5f52bf3811002f0ec0',1,'kepler']]],
-  ['numeric_5flimit_5fmax_2',['numeric_limit_max',['../namespacekepler.html#ae2a14fefebed01bc702523240787d8d8',1,'kepler']]],
-  ['numeric_5flimit_5fmin_3',['numeric_limit_min',['../namespacekepler.html#ad51760a0749afe173ae1992bae62b401',1,'kepler']]]
+  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['match_1',['match',['../struct_prints.html#a81e886dc25d5c6aa0932ba2befdd5b3a',1,'Prints::match()'],['../struct_outputs.html#a63bda39c1b5b08b7f81378a09b3732b4',1,'Outputs::match()'],['../struct_throws.html#ab96097bd4af12f7b2eafcd3fa49da321',1,'Throws::match(std::string const &amp;err) const'],['../struct_throws.html#a377afd2bb41e79c5c6d32a323a616392',1,'Throws::match(kepler::Error const &amp;err) const']]],
+  ['monadicfunction_2',['MonadicFunction',['../structkepler_1_1_monadic_function.html#a3377a786145472776ea06e9147727b0e',1,'kepler::MonadicFunction']]],
+  ['monadicop_3',['MonadicOp',['../structkepler_1_1_monadic_op.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::MonadicOp::MonadicOp()'],['../structkepler_1_1_commute.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::Commute::MonadicOp()'],['../structkepler_1_1_slash.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::Slash::MonadicOp()'],['../structkepler_1_1_diaeresis.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::Diaeresis::MonadicOp()'],['../structkepler_1_1_outer_product.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::OuterProduct::MonadicOp()']]],
+  ['monadicoperator_4',['MonadicOperator',['../structkepler_1_1_monadic_operator.html#a3360a62439cb1eacd7ac33817ddc80ad',1,'kepler::MonadicOperator']]]
 ];

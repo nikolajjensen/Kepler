@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: src/core/evaluation/operations/functions.cpp File Reference</title>
+<title>My Project: /Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/functions.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,14 +102,16 @@ $(document).ready(function(){initNavTree('functions_8cpp.html',''); initResizabl
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;random&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
-<code>#include &quot;<a class="el" href="config_8h_source.html">core/constants/config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="symbol__table_8h_source.html">core/symbol_table.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="algorithms_8h_source.html">core/evaluation/algorithms.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="array_8h_source.html">core/array.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="literals_8h_source.html">core/literals.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="helpers_8h_source.html">core/helpers.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for functions.cpp:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="functions_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="functions_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -119,22 +121,22 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7f5815983171b78737f0e166e9d89fba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a7f5815983171b78737f0e166e9d89fba">kepler::vec_size</a> (const std::vector&lt; int &gt; &amp;shape, int dim)</td></tr>
-<tr class="separator:a7f5815983171b78737f0e166e9d89fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381bfabdccfab574253acbb27e3d8df2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a381bfabdccfab574253acbb27e3d8df2">kepler::get_step_size</a> (const std::vector&lt; int &gt; &amp;shape, int dim)</td></tr>
-<tr class="separator:a381bfabdccfab574253acbb27e3d8df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad171f0351cbb21e92ca7ea0cc0bbd317"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ad171f0351cbb21e92ca7ea0cc0bbd317">kepler::get_block_size</a> (const std::vector&lt; int &gt; &amp;shape, int axis)</td></tr>
-<tr class="separator:ad171f0351cbb21e92ca7ea0cc0bbd317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39278d07695647da0a30c3b209c7a4d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a39278d07695647da0a30c3b209c7a4d7">kepler::get_shift</a> (int element, int axis, int step_size, const Array &amp;alpha, const Array &amp;omega)</td></tr>
-<tr class="separator:a39278d07695647da0a30c3b209c7a4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec3e7febe28a0cbe1f4ddefd7fd6349c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aec3e7febe28a0cbe1f4ddefd7fd6349c">kepler::vec_size</a> (const std::vector&lt; unsigned int &gt; &amp;shape, int dim)</td></tr>
+<tr class="separator:aec3e7febe28a0cbe1f4ddefd7fd6349c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cec7c445b114ae66fe0c31d6746e7fb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a8cec7c445b114ae66fe0c31d6746e7fb">kepler::get_step_size</a> (const std::vector&lt; unsigned int &gt; &amp;shape, int dim)</td></tr>
+<tr class="separator:a8cec7c445b114ae66fe0c31d6746e7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56130004ed10dae55c0a8695f9d8ab37"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a56130004ed10dae55c0a8695f9d8ab37">kepler::get_block_size</a> (const std::vector&lt; unsigned int &gt; &amp;shape, int axis)</td></tr>
+<tr class="separator:a56130004ed10dae55c0a8695f9d8ab37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172b41eba4b6d1c9af75f4d5a853d35f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a172b41eba4b6d1c9af75f4d5a853d35f">kepler::get_shift</a> (unsigned int element, unsigned int axis, int step_size, const Array &amp;alpha, const Array &amp;omega)</td></tr>
+<tr class="separator:a172b41eba4b6d1c9af75f4d5a853d35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e0061e6ccc074df0dabcaf61f4517b8"><td class="memItemLeft" align="right" valign="top">Array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a2e0061e6ccc074df0dabcaf61f4517b8">kepler::rotate</a> (int axis, const Array &amp;alpha, const Array &amp;omega)</td></tr>
 <tr class="separator:a2e0061e6ccc074df0dabcaf61f4517b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d53d8d215c23865190574f886dd4484"><td class="memItemLeft" align="right" valign="top">Array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a5d53d8d215c23865190574f886dd4484">kepler::reverse</a> (int axis, const Array &amp;omega)</td></tr>
 <tr class="separator:a5d53d8d215c23865190574f886dd4484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afce205dbe450fbcc7234f5a42f565eae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#afce205dbe450fbcc7234f5a42f565eae">kepler::pad</a> (Array &amp;arr, int dim, const std::vector&lt; int &gt; &amp;new_shape, const Array::element_type &amp;padding, const std::vector&lt; int &gt; &amp;ordering)</td></tr>
-<tr class="separator:afce205dbe450fbcc7234f5a42f565eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c26d292ba4263ed7f68f4f1ede08fbb"><td class="memItemLeft" align="right" valign="top">Array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9c26d292ba4263ed7f68f4f1ede08fbb">kepler::reshape</a> (const Array &amp;original, const Array::element_type &amp;padding, const std::vector&lt; int &gt; &amp;new_shape, const std::vector&lt; int &gt; &amp;ordering)</td></tr>
-<tr class="separator:a9c26d292ba4263ed7f68f4f1ede08fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f92b46ccb80a94eb3979063a54fb961"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9f92b46ccb80a94eb3979063a54fb961">kepler::pad</a> (Array &amp;arr, unsigned int dim, const std::vector&lt; unsigned int &gt; &amp;new_shape, const Array::element_type &amp;padding, const std::vector&lt; bool &gt; &amp;ordering)</td></tr>
+<tr class="separator:a9f92b46ccb80a94eb3979063a54fb961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa58d9a8f10f67bdf7f1b10a6fa44254f"><td class="memItemLeft" align="right" valign="top">Array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aa58d9a8f10f67bdf7f1b10a6fa44254f">kepler::reshape</a> (const Array &amp;original, const Array::element_type &amp;padding, const std::vector&lt; unsigned int &gt; &amp;new_shape, const std::vector&lt; bool &gt; &amp;ordering={})</td></tr>
+<tr class="separator:aa58d9a8f10f67bdf7f1b10a6fa44254f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -95,10 +95,14 @@ $(document).ready(function(){initNavTree('namespacekepler_1_1cli.html',''); init
   <div class="headertitle"><div class="title">kepler::cli Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>The CLI namespace contains command-line related code.  
+<a href="namespacekepler_1_1cli.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1cli_1_1_config.html">Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="structkepler_1_1cli_1_1_config.html" title="The Config struct contains all configuration which can be set in the command-line.">Config</a> struct contains all configuration which can be set in the command-line.  <a href="structkepler_1_1cli_1_1_config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -106,9 +110,12 @@ Variables</h2></td></tr>
 <tr class="memitem:a9bf84fd71b117e585d7b6e1a245cdd9d"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structkepler_1_1cli_1_1_config.html">kepler::cli::Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1cli.html#a9bf84fd71b117e585d7b6e1a245cdd9d">config</a></td></tr>
 <tr class="separator:a9bf84fd71b117e585d7b6e1a245cdd9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af63bc37cbdc01d48504fc85587f48077"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1cli.html#af63bc37cbdc01d48504fc85587f48077">cli</a></td></tr>
+<tr class="memdesc:af63bc37cbdc01d48504fc85587f48077"><td class="mdescLeft">&#160;</td><td class="mdescRight">The command-line parser.  <br /></td></tr>
 <tr class="separator:af63bc37cbdc01d48504fc85587f48077"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Variable Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The CLI namespace contains command-line related code. </p>
+</div><h2 class="groupheader">Variable Documentation</h2>
 <a id="af63bc37cbdc01d48504fc85587f48077" name="af63bc37cbdc01d48504fc85587f48077"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af63bc37cbdc01d48504fc85587f48077">&#9670;&#160;</a></span>cli</h2>
 
@@ -122,14 +129,16 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= lyra::help(<a class="code hl_variable" href="namespacekepler_1_1cli.html#a9bf84fd71b117e585d7b6e1a245cdd9d">config</a>.<a class="code hl_variable" href="structkepler_1_1cli_1_1_config.html#a023a568ea2b26c21b05f06415f12d93f">show_help</a>).description(<span class="stringliteral">&quot;Here is a list of all command-line arguments.&quot;</span>)</div>
 <div class="line">                | lyra::opt(<a class="code hl_variable" href="namespacekepler_1_1cli.html#a9bf84fd71b117e585d7b6e1a245cdd9d">config</a>.<a class="code hl_variable" href="structkepler_1_1cli_1_1_config.html#a9b8a652808b6de44736abc7b770c238e">run_tests</a>)[<span class="stringliteral">&quot;-t&quot;</span>][<span class="stringliteral">&quot;--test&quot;</span>](<span class="stringliteral">&quot;Run the test suite.&quot;</span>)</div>
-<div class="line">                | lyra::arg(<a class="code hl_variable" href="namespacekepler_1_1cli.html#a9bf84fd71b117e585d7b6e1a245cdd9d">config</a>.<a class="code hl_variable" href="structkepler_1_1cli_1_1_config.html#a0fbeca2bc441ef199d27cca167905951">commands</a>, <span class="stringliteral">&quot;workspace|test tags&quot;</span>)(<span class="stringliteral">&quot;Which workspace (.kpl) file to execute&quot;</span></div>
+<div class="line">                | lyra::arg(<a class="code hl_variable" href="namespacekepler_1_1cli.html#a9bf84fd71b117e585d7b6e1a245cdd9d">config</a>.<a class="code hl_variable" href="structkepler_1_1cli_1_1_config.html#a0fbeca2bc441ef199d27cca167905951">commands</a>, <span class="stringliteral">&quot;workspace|test tags&quot;</span>)(<span class="stringliteral">&quot;Which source file (.kpl) to execute &quot;</span></div>
 <div class="line">                                                                    <span class="stringliteral">&quot;if &lt;-t|--test&gt; is not set, else specific &quot;</span></div>
 <div class="line">                                                                    <span class="stringliteral">&quot;tags to run tests for.&quot;</span>)</div>
 <div class="ttc" id="anamespacekepler_1_1cli_html_a9bf84fd71b117e585d7b6e1a245cdd9d"><div class="ttname"><a href="namespacekepler_1_1cli.html#a9bf84fd71b117e585d7b6e1a245cdd9d">kepler::cli::config</a></div><div class="ttdeci">struct kepler::cli::Config config</div></div>
-<div class="ttc" id="astructkepler_1_1cli_1_1_config_html_a023a568ea2b26c21b05f06415f12d93f"><div class="ttname"><a href="structkepler_1_1cli_1_1_config.html#a023a568ea2b26c21b05f06415f12d93f">kepler::cli::Config::show_help</a></div><div class="ttdeci">bool show_help</div><div class="ttdef"><b>Definition:</b> cli.h:25</div></div>
-<div class="ttc" id="astructkepler_1_1cli_1_1_config_html_a0fbeca2bc441ef199d27cca167905951"><div class="ttname"><a href="structkepler_1_1cli_1_1_config.html#a0fbeca2bc441ef199d27cca167905951">kepler::cli::Config::commands</a></div><div class="ttdeci">std::vector&lt; std::string &gt; commands</div><div class="ttdef"><b>Definition:</b> cli.h:27</div></div>
-<div class="ttc" id="astructkepler_1_1cli_1_1_config_html_a9b8a652808b6de44736abc7b770c238e"><div class="ttname"><a href="structkepler_1_1cli_1_1_config.html#a9b8a652808b6de44736abc7b770c238e">kepler::cli::Config::run_tests</a></div><div class="ttdeci">bool run_tests</div><div class="ttdef"><b>Definition:</b> cli.h:26</div></div>
+<div class="ttc" id="astructkepler_1_1cli_1_1_config_html_a023a568ea2b26c21b05f06415f12d93f"><div class="ttname"><a href="structkepler_1_1cli_1_1_config.html#a023a568ea2b26c21b05f06415f12d93f">kepler::cli::Config::show_help</a></div><div class="ttdeci">bool show_help</div><div class="ttdef"><b>Definition:</b> cli.h:33</div></div>
+<div class="ttc" id="astructkepler_1_1cli_1_1_config_html_a0fbeca2bc441ef199d27cca167905951"><div class="ttname"><a href="structkepler_1_1cli_1_1_config.html#a0fbeca2bc441ef199d27cca167905951">kepler::cli::Config::commands</a></div><div class="ttdeci">std::vector&lt; std::string &gt; commands</div><div class="ttdef"><b>Definition:</b> cli.h:35</div></div>
+<div class="ttc" id="astructkepler_1_1cli_1_1_config_html_a9b8a652808b6de44736abc7b770c238e"><div class="ttname"><a href="structkepler_1_1cli_1_1_config.html#a9b8a652808b6de44736abc7b770c238e">kepler::cli::Config::run_tests</a></div><div class="ttdeci">bool run_tests</div><div class="ttdef"><b>Definition:</b> cli.h:34</div></div>
 </div><!-- fragment -->
+<p>The command-line parser. </p>
+
 </div>
 </div>
 <a id="a9bf84fd71b117e585d7b6e1a245cdd9d" name="a9bf84fd71b117e585d7b6e1a245cdd9d"></a>

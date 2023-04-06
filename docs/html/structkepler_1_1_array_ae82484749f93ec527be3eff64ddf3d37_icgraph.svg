@@ -176,7 +176,7 @@ var sectionId = 'dynsection-5';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="namespacekepler.html#a39278d07695647da0a30c3b209c7a4d7" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="namespacekepler.html#a172b41eba4b6d1c9af75f4d5a853d35f" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="351.5,-267 265.5,-267 265.5,-248 351.5,-248 351.5,-267"/>
 <text text-anchor="middle" x="308.5" y="-255" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::get_shift</text>
 </a>
@@ -203,7 +203,7 @@ var sectionId = 'dynsection-5';
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="structkepler_1_1_array_printer.html#a258d0cb2d48a33d2324f73e9e63a71f7" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="structkepler_1_1_array_printer.html#a840ee5d9761edc63b694ecbf577f6c27" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="359,-428.5 258,-428.5 258,-398.5 359,-398.5 359,-428.5"/>
 <text text-anchor="start" x="266" y="-416.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::ArrayPrinter</text>
 <text text-anchor="middle" x="308.5" y="-405.5" font-family="Helvetica,sans-Serif" font-size="10.00">::operator()</text>

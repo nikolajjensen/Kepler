@@ -113,15 +113,20 @@ Collaboration diagram for Throws:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1d026d40389f6ab3e7b4cfc65f659d89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_throws.html#a1d026d40389f6ab3e7b4cfc65f659d89">Throws</a> (<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5">kepler::ErrorType</a> const &amp;error_type_)</td></tr>
+<tr class="memdesc:a1d026d40389f6ab3e7b4cfc65f659d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="struct_throws.html">Throws</a> object.  <br /></td></tr>
 <tr class="separator:a1d026d40389f6ab3e7b4cfc65f659d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab96097bd4af12f7b2eafcd3fa49da321"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_throws.html#ab96097bd4af12f7b2eafcd3fa49da321">match</a> (std::string const &amp;err) const</td></tr>
+<tr class="memdesc:ab96097bd4af12f7b2eafcd3fa49da321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match a string to a specific error type. The error_type is converted to a string and then checked if it is contained in the string.  <br /></td></tr>
 <tr class="separator:ab96097bd4af12f7b2eafcd3fa49da321"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b92979c61c0361ac70b0766ae692a2f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_throws.html#a9b92979c61c0361ac70b0766ae692a2f">match</a> (<a class="el" href="classkepler_1_1error.html">kepler::error</a> const &amp;err) const</td></tr>
-<tr class="separator:a9b92979c61c0361ac70b0766ae692a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377afd2bb41e79c5c6d32a323a616392"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_throws.html#a377afd2bb41e79c5c6d32a323a616392">match</a> (<a class="el" href="classkepler_1_1_error.html">kepler::Error</a> const &amp;err) const</td></tr>
+<tr class="memdesc:a377afd2bb41e79c5c6d32a323a616392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match an error to check if it is of the specific type.  <br /></td></tr>
+<tr class="separator:a377afd2bb41e79c5c6d32a323a616392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e74a909fef5e74fc51c6f78a45d6035"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_throws.html#a5e74a909fef5e74fc51c6f78a45d6035">describe</a> () const override</td></tr>
 <tr class="separator:a5e74a909fef5e74fc51c6f78a45d6035"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="struct_throws.html">Throws</a> struct matches strings or errors to a specific error type. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1d026d40389f6ab3e7b4cfc65f659d89" name="a1d026d40389f6ab3e7b4cfc65f659d89"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d026d40389f6ab3e7b4cfc65f659d89">&#9670;&#160;</a></span>Throws()</h2>
 
@@ -145,6 +150,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="struct_throws.html">Throws</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">error_type_</td><td>The error type to match. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -171,11 +184,12 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Produces a string describing why the matcher failed. </p><dl class="section return"><dt>Returns</dt><dd>A string describing why the matcher failed. </dd></dl>
 
 </div>
 </div>
-<a id="a9b92979c61c0361ac70b0766ae692a2f" name="a9b92979c61c0361ac70b0766ae692a2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b92979c61c0361ac70b0766ae692a2f">&#9670;&#160;</a></span>match() <span class="overload">[1/2]</span></h2>
+<a id="a377afd2bb41e79c5c6d32a323a616392" name="a377afd2bb41e79c5c6d32a323a616392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a377afd2bb41e79c5c6d32a323a616392">&#9670;&#160;</a></span>match() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +200,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">bool Throws::match </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkepler_1_1error.html">kepler::error</a> const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkepler_1_1_error.html">kepler::Error</a> const &amp;&#160;</td>
           <td class="paramname"><em>err</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -197,6 +211,17 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Match an error to check if it is of the specific type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>The error to match. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true If the error type matches. </dd>
+<dd>
+false If the error type does not match. </dd></dl>
 
 </div>
 </div>
@@ -223,16 +248,28 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Match a string to a specific error type. The error_type is converted to a string and then checked if it is contained in the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>The string to match. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true If the string contains the error type. </dd>
+<dd>
+false If the string does not contain the error type. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_throws_ab96097bd4af12f7b2eafcd3fa49da321_cgraph.svg" width="283" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_throws_ab96097bd4af12f7b2eafcd3fa49da321_cgraph.svg" width="283" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/testing/<a class="el" href="matcher_8h_source.html">matcher.h</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/testing/<a class="el" href="matcher_8h_source.html">matcher.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

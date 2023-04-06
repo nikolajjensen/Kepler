@@ -1,31 +1,5 @@
 var searchData=
 [
-  ['id_0',['ID',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6',1,'kepler']]],
-  ['identifier_1',['identifier',['../structkepler_1_1_function_assignment.html#a3a38cc3913b0b05faaee4920f505989e',1,'kepler::FunctionAssignment::identifier()'],['../structkepler_1_1_assignment.html#ad4142c253d2423c0351a72c702286893',1,'kepler::Assignment::identifier()'],['../structkepler_1_1_function_variable.html#aeb0ea91a11fb3d158ec2f875e0db35b9',1,'kepler::FunctionVariable::identifier()']]],
-  ['identifier_5fchars_2',['identifier_chars',['../namespacekepler_1_1constants.html#aa0e40e229d49202045c8f74c254e8db0',1,'kepler::constants']]],
-  ['immediate_5fexecution_3',['immediate_execution',['../namespacekepler.html#a914686a7f5a60684440d93ed33a3a959',1,'kepler']]],
-  ['indent_5fprompt_4',['indent_prompt',['../namespacekepler_1_1constants.html#ab9c36b7f472f18d2ee8b29a9f0fc7fe4',1,'kepler::constants']]],
-  ['index_5forigin_5fid_5',['index_origin_id',['../namespacekepler_1_1constants.html#a7f87f33fd1d5e33406f97720c0e4af8a',1,'kepler::constants']]],
-  ['initial_5findex_5forigin_6',['initial_index_origin',['../namespacekepler_1_1constants.html#a7f82e9add05325cdd20c07168bcd9b7e',1,'kepler::constants']]],
-  ['initial_5fprint_5fprecision_7',['initial_print_precision',['../namespacekepler_1_1constants.html#a755b836d44d2a2a38363e9ffeef8135f',1,'kepler::constants']]],
-  ['innerproduct_8',['InnerProduct',['../structkepler_1_1_inner_product.html',1,'kepler']]],
-  ['input_9',['input',['../classkepler_1_1error.html#aafcce5b01dcf85454f1e92b7de96e661',1,'kepler::error']]],
-  ['insert_5fsystem_5fparameters_10',['insert_system_parameters',['../classkepler_1_1_symbol_table.html#a581a7fca6bcd04dcb26c385818693b8b',1,'kepler::SymbolTable']]],
-  ['integer_5fnearest_5fto_11',['integer_nearest_to',['../namespacekepler.html#a571b16ee0d7c0e0eea34fc4f05284ed8',1,'kepler']]],
-  ['internalerror_12',['InternalError',['../namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d',1,'kepler']]],
-  ['interpret_13',['interpret',['../structkepler_1_1_interpreter.html#a2ec19db70151e2f0eb937421a8618935',1,'kepler::Interpreter']]],
-  ['interpreter_14',['Interpreter',['../structkepler_1_1_interpreter.html#a316a73622c289cb16b0471299aa46ceb',1,'kepler::Interpreter::Interpreter()'],['../structkepler_1_1_interpreter.html',1,'kepler::Interpreter']]],
-  ['interpreter_2ecpp_15',['interpreter.cpp',['../interpreter_8cpp.html',1,'']]],
-  ['interpreter_2eh_16',['interpreter.h',['../interpreter_8h.html',1,'']]],
-  ['iota_17',['IOTA',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e',1,'kepler']]],
-  ['iota_18',['Iota',['../structkepler_1_1_iota.html',1,'kepler']]],
-  ['is_5farray_5ftoken_19',['is_array_token',['../namespacekepler_1_1helpers.html#a333bffe05ce5109a20337f18ac37ff0f',1,'kepler::helpers']]],
-  ['is_5fdyadic_5foperator_20',['is_dyadic_operator',['../namespacekepler_1_1helpers.html#a205df4bfd666f5af117c3d3d6332c745',1,'kepler::helpers']]],
-  ['is_5ffunction_21',['is_function',['../namespacekepler_1_1helpers.html#aabc100c07656876f28411ead4e14ad2f',1,'kepler::helpers']]],
-  ['is_5finteger_5fnumeric_22',['is_integer_numeric',['../structkepler_1_1_array.html#aeba04f1c5287e3e0cbbefa7db410267d',1,'kepler::Array']]],
-  ['is_5fmonadic_5ffunction_23',['is_monadic_function',['../namespacekepler_1_1helpers.html#adab5e299daf79c6073eeb0f264e49926',1,'kepler::helpers']]],
-  ['is_5fmonadic_5foperator_24',['is_monadic_operator',['../namespacekepler_1_1helpers.html#ad16604327b239eb03e66e47c3f3778c4',1,'kepler::helpers']]],
-  ['is_5fnumeric_25',['is_numeric',['../structkepler_1_1_array.html#add830056588269ea267c11f89b14f774',1,'kepler::Array']]],
-  ['is_5fscalar_26',['is_scalar',['../structkepler_1_1_array.html#ae82484749f93ec527be3eff64ddf3d37',1,'kepler::Array']]],
-  ['is_5fsimple_5fscalar_27',['is_simple_scalar',['../structkepler_1_1_array.html#a31e9d1137447bf3402d6278c41569f5e',1,'kepler::Array']]]
+  ['helpers_2ecpp_0',['helpers.cpp',['../helpers_8cpp.html',1,'']]],
+  ['helpers_2eh_1',['helpers.h',['../helpers_8h.html',1,'']]]
 ];

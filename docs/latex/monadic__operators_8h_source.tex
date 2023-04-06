@@ -1,5 +1,5 @@
 \hypertarget{monadic__operators_8h_source}{}\doxysection{monadic\+\_\+operators.\+h}
-\label{monadic__operators_8h_source}\index{src/core/evaluation/operations/monadic\_operators.h@{src/core/evaluation/operations/monadic\_operators.h}}
+\label{monadic__operators_8h_source}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/monadic\_operators.h@{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/monadic\_operators.h}}
 \mbox{\hyperlink{monadic__operators_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -28,40 +28,41 @@
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ :\ \mbox{\hyperlink{structkepler_1_1_operation}{Operation}}\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\_ptr}}\ \mbox{\hyperlink{structkepler_1_1_monadic_op_a9e8bf051d43aa76fbe42d27ddf134724}{op}};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}(\mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\_ptr}}\ op\_);}
-\DoxyCodeLine{00033\ \ \ \ \ \};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_commute}{Commute}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_commute_a1fcfc95e573988909721fa0be3e5bd0d}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_commute_a1fcfc95e573988909721fa0be3e5bd0d}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00040\ \ \ \ \ \};}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_slash}{Slash}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_slash_ab192220b5c443fa940d7088b9b6ab83e}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_slash_ab192220b5c443fa940d7088b9b6ab83e}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00047\ \ \ \ \ \};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_diaeresis}{Diaeresis}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_diaeresis_a6c7fc7da4066b5f448a5a9c5bc9c401f}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_diaeresis_a6c7fc7da4066b5f448a5a9c5bc9c401f}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00054\ \ \ \ \ \};}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_outer_product}{OuterProduct}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_outer_product_a4b0449458081029233704a679beb1d21}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00060\ \ \ \ \ \};}
-\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ :\ \mbox{\hyperlink{structkepler_1_1_operation}{Operation}}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\_ptr}}\ \mbox{\hyperlink{structkepler_1_1_monadic_op_a9e8bf051d43aa76fbe42d27ddf134724}{op}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}(\mbox{\hyperlink{namespacekepler_a9f73943647d1d3e7d73542141c3cf35f}{Operation\_ptr}}\ op\_);}
+\DoxyCodeLine{00039\ \ \ \ \ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_commute}{Commute}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_commute_a1fcfc95e573988909721fa0be3e5bd0d}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_commute_a1fcfc95e573988909721fa0be3e5bd0d}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00059\ \ \ \ \ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_slash}{Slash}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_slash_ab192220b5c443fa940d7088b9b6ab83e}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_slash_ab192220b5c443fa940d7088b9b6ab83e}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00074\ \ \ \ \ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_diaeresis}{Diaeresis}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_diaeresis_a6c7fc7da4066b5f448a5a9c5bc9c401f}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_diaeresis_a6c7fc7da4066b5f448a5a9c5bc9c401f}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00089\ \ \ \ \ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_outer_product}{OuterProduct}}\ :\ \mbox{\hyperlink{structkepler_1_1_monadic_op}{MonadicOp}}\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structkepler_1_1_monadic_op_acf0f8a2b7c8cb12c812b7fe1f28fd60c}{MonadicOp::MonadicOp}};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_outer_product_a4b0449458081029233704a679beb1d21}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00105\ \ \ \ \ \};}
+\DoxyCodeLine{00106\ \};}
 
 \end{DoxyCode}

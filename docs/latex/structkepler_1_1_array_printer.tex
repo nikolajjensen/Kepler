@@ -19,17 +19,32 @@ Collaboration diagram for kepler\+::Array\+Printer\+:
 \item 
 \mbox{\hyperlink{structkepler_1_1_array_printer_afdd614536b847d4cb80c878e10f44330}{Array\+Printer}} (int \mbox{\hyperlink{structkepler_1_1_array_printer_ad7cf50ca12961973c7fd5bcaea4cc951}{precision}})
 \item 
-std\+::string \mbox{\hyperlink{structkepler_1_1_array_printer_a70989f6894735777f6754339962c3f1d}{operator()}} (const std\+::u32string \&element)
+std\+::string \mbox{\hyperlink{structkepler_1_1_array_printer_af604643b540122aa71fd55f1bfd9cce4}{operator()}} (const \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} \&element) const
 \item 
-std\+::string \mbox{\hyperlink{structkepler_1_1_array_printer_a0f82ed45047ce6e1fecd2bd882c2166c}{operator()}} (const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&element)
+std\+::string \mbox{\hyperlink{structkepler_1_1_array_printer_a423ca5e592ed4c8ee965ddc5b84e9708}{operator()}} (const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&element) const
 \item 
-std\+::string \mbox{\hyperlink{structkepler_1_1_array_printer_a258d0cb2d48a33d2324f73e9e63a71f7}{operator()}} (const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&array)
+std\+::string \mbox{\hyperlink{structkepler_1_1_array_printer_a840ee5d9761edc63b694ecbf577f6c27}{operator()}} (const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&array) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{structkepler_1_1_array_printer_ad7cf50ca12961973c7fd5bcaea4cc951}{precision}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Converts an \mbox{\hyperlink{structkepler_1_1_array}{Array}} to a string. Intended to be used with std\+::visit.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The \mbox{\hyperlink{structkepler_1_1_array}{Array}} to convert. \\
+\hline
+{\em precision} & The number of decimal places to use when printing numbers. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The string representation of the \mbox{\hyperlink{structkepler_1_1_array}{Array}}. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -39,42 +54,49 @@ int \mbox{\hyperlink{structkepler_1_1_array_printer_ad7cf50ca12961973c7fd5bcaea4
 \doxysubsubsection{\texorpdfstring{ArrayPrinter()}{ArrayPrinter()}}
 {\footnotesize\ttfamily kepler\+::\+Array\+Printer\+::\+Array\+Printer (\begin{DoxyParamCaption}\item[{int}]{precision }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+Creates a new \mbox{\hyperlink{structkepler_1_1_array_printer}{Array\+Printer}}. 
+\begin{DoxyParams}{Parameters}
+{\em precision} & The number of decimal places to use when printing numbers. \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{structkepler_1_1_array_printer_a258d0cb2d48a33d2324f73e9e63a71f7}\label{structkepler_1_1_array_printer_a258d0cb2d48a33d2324f73e9e63a71f7}} 
+\mbox{\Hypertarget{structkepler_1_1_array_printer_a840ee5d9761edc63b694ecbf577f6c27}\label{structkepler_1_1_array_printer_a840ee5d9761edc63b694ecbf577f6c27}} 
 \index{kepler::ArrayPrinter@{kepler::ArrayPrinter}!operator()@{operator()}}
 \index{operator()@{operator()}!kepler::ArrayPrinter@{kepler::ArrayPrinter}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily std\+::string kepler\+::\+Array\+Printer\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&}]{array }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Array\+Printer\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&}]{array }\end{DoxyParamCaption}) const}
 
-Here is the call graph for this function\+:\nopagebreak
+Converts an \mbox{\hyperlink{structkepler_1_1_array}{Array}} to a std\+::string. Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{structkepler_1_1_array_printer_a258d0cb2d48a33d2324f73e9e63a71f7_cgraph}
+\includegraphics[width=350pt]{structkepler_1_1_array_printer_a840ee5d9761edc63b694ecbf577f6c27_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{structkepler_1_1_array_printer_a0f82ed45047ce6e1fecd2bd882c2166c}\label{structkepler_1_1_array_printer_a0f82ed45047ce6e1fecd2bd882c2166c}} 
+\mbox{\Hypertarget{structkepler_1_1_array_printer_a423ca5e592ed4c8ee965ddc5b84e9708}\label{structkepler_1_1_array_printer_a423ca5e592ed4c8ee965ddc5b84e9708}} 
 \index{kepler::ArrayPrinter@{kepler::ArrayPrinter}!operator()@{operator()}}
 \index{operator()@{operator()}!kepler::ArrayPrinter@{kepler::ArrayPrinter}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily std\+::string kepler\+::\+Array\+Printer\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&}]{element }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Array\+Printer\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&}]{element }\end{DoxyParamCaption}) const}
 
-Here is the call graph for this function\+:\nopagebreak
+Converts a Number (std\+::complex$<$double$>$) to a std\+::string. Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{structkepler_1_1_array_printer_a0f82ed45047ce6e1fecd2bd882c2166c_cgraph}
+\includegraphics[width=350pt]{structkepler_1_1_array_printer_a423ca5e592ed4c8ee965ddc5b84e9708_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{structkepler_1_1_array_printer_a70989f6894735777f6754339962c3f1d}\label{structkepler_1_1_array_printer_a70989f6894735777f6754339962c3f1d}} 
+\mbox{\Hypertarget{structkepler_1_1_array_printer_af604643b540122aa71fd55f1bfd9cce4}\label{structkepler_1_1_array_printer_af604643b540122aa71fd55f1bfd9cce4}} 
 \index{kepler::ArrayPrinter@{kepler::ArrayPrinter}!operator()@{operator()}}
 \index{operator()@{operator()}!kepler::ArrayPrinter@{kepler::ArrayPrinter}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily std\+::string kepler\+::\+Array\+Printer\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::u32string \&}]{element }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string kepler\+::\+Array\+Printer\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} \&}]{element }\end{DoxyParamCaption}) const}
 
-
+Converts a String (std\+::u32string) to a std\+::string. 
 
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structkepler_1_1_array_printer_ad7cf50ca12961973c7fd5bcaea4cc951}\label{structkepler_1_1_array_printer_ad7cf50ca12961973c7fd5bcaea4cc951}} 
@@ -87,5 +109,5 @@ Here is the call graph for this function\+:\nopagebreak
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/core/helpers/\mbox{\hyperlink{array__printer_8h}{array\+\_\+printer.\+h}}\item 
-src/core/helpers/\mbox{\hyperlink{array__printer_8cpp}{array\+\_\+printer.\+cpp}}\end{DoxyCompactItemize}
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/interface/\mbox{\hyperlink{array__printer_8h}{array\+\_\+printer.\+h}}\item 
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/interface/\mbox{\hyperlink{array__printer_8cpp}{array\+\_\+printer.\+cpp}}\end{DoxyCompactItemize}

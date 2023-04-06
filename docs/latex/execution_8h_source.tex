@@ -1,5 +1,5 @@
 \hypertarget{execution_8h_source}{}\doxysection{execution.\+h}
-\label{execution_8h_source}\index{src/core/execution.h@{src/core/execution.h}}
+\label{execution_8h_source}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/execution.h@{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/execution.h}}
 \mbox{\hyperlink{execution_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -23,16 +23,17 @@
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{datatypes_8h}{datatypes.h}}"{}}}
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{symbol__table_8h}{symbol\_table.h}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{datatypes_8h}{core/datatypes.h}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{symbol__table_8h}{core/symbol\_table.h}}"{}}}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacekepler_ae45e010aed51dc28b896694f75dc2ca7}{run\_file}}(\textcolor{keyword}{const}\ std::string\&\ path,\ std::ostream\ \&\ stream\ =\ std::cout);}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacekepler_a2eea97746f0ae5fd054d304271c171f5}{run\_repl}}();}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacekepler_a49b7372a95bc6035f77f37023923e171}{safe\_execution}}(std::vector<Char>\&\ input,\ std::ostream\ \&\ stream,\ \textcolor{keywordtype}{bool}\ print\_last\ =\ \textcolor{keyword}{true},\ SymbolTable*\ symbol\_table\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacekepler_a914686a7f5a60684440d93ed33a3a959}{immediate\_execution}}(std::vector<Char>\&\ input,\ std::ostream\ \&\ stream,\ \textcolor{keywordtype}{bool}\ print\_last\ =\ \textcolor{keyword}{true},\ SymbolTable*\ symbol\_table\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacekepler_ae45e010aed51dc28b896694f75dc2ca7}{run\_file}}(\textcolor{keyword}{const}\ std::string\&\ path,\ std::ostream\ \&\ stream\ =\ std::cout);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacekepler_a2eea97746f0ae5fd054d304271c171f5}{run\_repl}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacekepler_ae873199194df3797260d2e48244b90f4}{safe\_execution}}(\textcolor{keyword}{const}\ std::vector<Char>\&\ input,\ std::ostream\ \&\ stream,\ \textcolor{keywordtype}{bool}\ print\_last\ =\ \textcolor{keyword}{true},\ SymbolTable*\ symbol\_table\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacekepler_aff2a3590024c2d97ee7d9d49bef09bfd}{immediate\_execution}}(\textcolor{keyword}{const}\ std::vector<Char>\&\ input,\ std::ostream\ \&\ stream,\ \textcolor{keywordtype}{bool}\ print\_last\ =\ \textcolor{keyword}{true},\ SymbolTable*\ symbol\_table\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00063\ \};}
 
 \end{DoxyCode}

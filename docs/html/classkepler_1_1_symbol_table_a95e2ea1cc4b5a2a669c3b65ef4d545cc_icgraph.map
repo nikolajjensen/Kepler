@@ -1,8 +1,9 @@
 <map id="kepler::SymbolTable::clear" name="kepler::SymbolTable::clear">
-<area shape="rect" id="node1" title=" " alt="" coords="363,71,503,111"/>
-<area shape="rect" id="node2" href="$namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7" title=" " alt="" coords="185,29,291,55"/>
-<area shape="rect" id="node5" href="$classfixture.html#a62e423bc81fb340459077aae39176f5b" title=" " alt="" coords="183,79,293,104"/>
-<area shape="rect" id="node6" href="$classparser__fixture.html#a8922bbeea9419e31c87b3a3b91db46da" title=" " alt="" coords="161,129,315,169"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="34,5,85,31"/>
-<area shape="rect" id="node4" href="$classfile__fixture.html#ae49241f7811560799cd0e8f5935de2d5" title=" " alt="" coords="5,55,113,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="405,101,545,141"/>
+<area shape="rect" id="node2" href="$namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7" title=" " alt="" coords="207,29,313,55"/>
+<area shape="rect" id="node5" href="$class_kepler_fixture.html#a4c0ee5c80c5def38dd5130241f4628aa" title=" " alt="" coords="177,79,343,104"/>
+<area shape="rect" id="node6" href="$class_general_fixture.html#a96e594373782e4be6d19365582adb888" title=" " alt="" coords="176,129,344,169"/>
+<area shape="rect" id="node7" href="$class_parser_fixture.html#a7c0ea3b7d9db52e4b956845c5fcf30a2" title=" " alt="" coords="163,193,357,219"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="35,5,85,31"/>
+<area shape="rect" id="node4" href="$class_file_fixture.html#aed1771b5e05cdce7af6d69a50a7e4f6c" title=" " alt="" coords="5,55,115,80"/>
 </map>

@@ -12,37 +12,149 @@ bool \mbox{\hyperlink{namespacekepler_1_1helpers_adab5e299daf79c6073eeb0f264e499
 bool \mbox{\hyperlink{namespacekepler_1_1helpers_a205df4bfd666f5af117c3d3d6332c745}{is\+\_\+dyadic\+\_\+operator}} (\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}} type)
 \item 
 bool \mbox{\hyperlink{namespacekepler_1_1helpers_a333bffe05ce5109a20337f18ac37ff0f}{is\+\_\+array\+\_\+token}} (\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}} type)
+\item 
+void \mbox{\hyperlink{namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a}{check\+\_\+valid\+\_\+system\+\_\+param\+\_\+value}} (const \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} \&id, const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&value)
+\item 
+void \mbox{\hyperlink{namespacekepler_1_1helpers_a53578c9fe656509f2a1c76ddaab49038}{check\+\_\+valid\+\_\+system\+\_\+param\+\_\+value}} (const \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} \&id, const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&value)
+\item 
+std\+::string \mbox{\hyperlink{namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb}{number\+\_\+to\+\_\+string}} (const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&num, int precision=10)
+\item 
+std\+::string \mbox{\hyperlink{namespacekepler_1_1helpers_a98620f096b535139b5567e5faffea732}{double\+\_\+to\+\_\+string}} (const double \&num, int precision)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a}\label{namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a}} 
+\index{kepler::helpers@{kepler::helpers}!check\_valid\_system\_param\_value@{check\_valid\_system\_param\_value}}
+\index{check\_valid\_system\_param\_value@{check\_valid\_system\_param\_value}!kepler::helpers@{kepler::helpers}}
+\doxysubsubsection{\texorpdfstring{check\_valid\_system\_param\_value()}{check\_valid\_system\_param\_value()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void kepler\+::helpers\+::check\+\_\+valid\+\_\+system\+\_\+param\+\_\+value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} \&}]{id,  }\item[{const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&}]{value }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{struct_throws}{Throws}} a \mbox{\hyperlink{classkepler_1_1_error}{kepler\+::\+Error}} if the value is not a valid value for the given id.
+
+This is used to ensure that system variables, like \textquotesingle{}⎕\+IO\textquotesingle{}, are set to valid values. 
+\begin{DoxyParams}{Parameters}
+{\em id} & The id of the system variable. \\
+\hline
+{\em value} & The proposed value. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacekepler_1_1helpers_a53578c9fe656509f2a1c76ddaab49038}\label{namespacekepler_1_1helpers_a53578c9fe656509f2a1c76ddaab49038}} 
+\index{kepler::helpers@{kepler::helpers}!check\_valid\_system\_param\_value@{check\_valid\_system\_param\_value}}
+\index{check\_valid\_system\_param\_value@{check\_valid\_system\_param\_value}!kepler::helpers@{kepler::helpers}}
+\doxysubsubsection{\texorpdfstring{check\_valid\_system\_param\_value()}{check\_valid\_system\_param\_value()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void kepler\+::helpers\+::check\+\_\+valid\+\_\+system\+\_\+param\+\_\+value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} \&}]{id,  }\item[{const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&}]{value }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{struct_throws}{Throws}} a \mbox{\hyperlink{classkepler_1_1_error}{kepler\+::\+Error}} if the value is not a valid value for the given id.
+
+This is used to ensure that system variables, like \textquotesingle{}⎕\+IO\textquotesingle{}, are set to valid values. 
+\begin{DoxyParams}{Parameters}
+{\em id} & The id of the system variable. \\
+\hline
+{\em value} & The proposed value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacekepler_1_1helpers_a98620f096b535139b5567e5faffea732}\label{namespacekepler_1_1helpers_a98620f096b535139b5567e5faffea732}} 
+\index{kepler::helpers@{kepler::helpers}!double\_to\_string@{double\_to\_string}}
+\index{double\_to\_string@{double\_to\_string}!kepler::helpers@{kepler::helpers}}
+\doxysubsubsection{\texorpdfstring{double\_to\_string()}{double\_to\_string()}}
+{\footnotesize\ttfamily std\+::string kepler\+::helpers\+::double\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{const double \&}]{num,  }\item[{int}]{precision }\end{DoxyParamCaption})}
+
+Converts a double to a string, with the given precision.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & \\
+\hline
+{\em precision} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacekepler_1_1helpers_a98620f096b535139b5567e5faffea732_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacekepler_1_1helpers_a333bffe05ce5109a20337f18ac37ff0f}\label{namespacekepler_1_1helpers_a333bffe05ce5109a20337f18ac37ff0f}} 
 \index{kepler::helpers@{kepler::helpers}!is\_array\_token@{is\_array\_token}}
 \index{is\_array\_token@{is\_array\_token}!kepler::helpers@{kepler::helpers}}
 \doxysubsubsection{\texorpdfstring{is\_array\_token()}{is\_array\_token()}}
 {\footnotesize\ttfamily bool kepler\+::helpers\+::is\+\_\+array\+\_\+token (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}}}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacekepler_1_1helpers_a205df4bfd666f5af117c3d3d6332c745}\label{namespacekepler_1_1helpers_a205df4bfd666f5af117c3d3d6332c745}} 
+Returns true if the Token\+Type is a \textquotesingle{}dyadic function\textquotesingle{} according to the grammar of Kepler. \mbox{\Hypertarget{namespacekepler_1_1helpers_a205df4bfd666f5af117c3d3d6332c745}\label{namespacekepler_1_1helpers_a205df4bfd666f5af117c3d3d6332c745}} 
 \index{kepler::helpers@{kepler::helpers}!is\_dyadic\_operator@{is\_dyadic\_operator}}
 \index{is\_dyadic\_operator@{is\_dyadic\_operator}!kepler::helpers@{kepler::helpers}}
 \doxysubsubsection{\texorpdfstring{is\_dyadic\_operator()}{is\_dyadic\_operator()}}
 {\footnotesize\ttfamily bool kepler\+::helpers\+::is\+\_\+dyadic\+\_\+operator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}}}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacekepler_1_1helpers_aabc100c07656876f28411ead4e14ad2f}\label{namespacekepler_1_1helpers_aabc100c07656876f28411ead4e14ad2f}} 
+Returns true if the Token\+Type is a \textquotesingle{}dyadic operator\textquotesingle{} according to the grammar of Kepler. \mbox{\Hypertarget{namespacekepler_1_1helpers_aabc100c07656876f28411ead4e14ad2f}\label{namespacekepler_1_1helpers_aabc100c07656876f28411ead4e14ad2f}} 
 \index{kepler::helpers@{kepler::helpers}!is\_function@{is\_function}}
 \index{is\_function@{is\_function}!kepler::helpers@{kepler::helpers}}
 \doxysubsubsection{\texorpdfstring{is\_function()}{is\_function()}}
 {\footnotesize\ttfamily bool kepler\+::helpers\+::is\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}}}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacekepler_1_1helpers_adab5e299daf79c6073eeb0f264e49926}\label{namespacekepler_1_1helpers_adab5e299daf79c6073eeb0f264e49926}} 
+Returns true if the Token\+Type is a \textquotesingle{}function\textquotesingle{} according to the grammar of Kepler. \mbox{\Hypertarget{namespacekepler_1_1helpers_adab5e299daf79c6073eeb0f264e49926}\label{namespacekepler_1_1helpers_adab5e299daf79c6073eeb0f264e49926}} 
 \index{kepler::helpers@{kepler::helpers}!is\_monadic\_function@{is\_monadic\_function}}
 \index{is\_monadic\_function@{is\_monadic\_function}!kepler::helpers@{kepler::helpers}}
 \doxysubsubsection{\texorpdfstring{is\_monadic\_function()}{is\_monadic\_function()}}
 {\footnotesize\ttfamily bool kepler\+::helpers\+::is\+\_\+monadic\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}}}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacekepler_1_1helpers_ad16604327b239eb03e66e47c3f3778c4}\label{namespacekepler_1_1helpers_ad16604327b239eb03e66e47c3f3778c4}} 
+Returns true if the Token\+Type is a \textquotesingle{}monadic function\textquotesingle{} according to the grammar of Kepler. \mbox{\Hypertarget{namespacekepler_1_1helpers_ad16604327b239eb03e66e47c3f3778c4}\label{namespacekepler_1_1helpers_ad16604327b239eb03e66e47c3f3778c4}} 
 \index{kepler::helpers@{kepler::helpers}!is\_monadic\_operator@{is\_monadic\_operator}}
 \index{is\_monadic\_operator@{is\_monadic\_operator}!kepler::helpers@{kepler::helpers}}
 \doxysubsubsection{\texorpdfstring{is\_monadic\_operator()}{is\_monadic\_operator()}}
 {\footnotesize\ttfamily bool kepler\+::helpers\+::is\+\_\+monadic\+\_\+operator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacekepler_a633269b58183cfa0228e4f288c773116}{Token\+Type}}}]{type }\end{DoxyParamCaption})}
 
+Returns true if the Token\+Type is a \textquotesingle{}monadic operator\textquotesingle{} according to the grammar of Kepler. \mbox{\Hypertarget{namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb}\label{namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb}} 
+\index{kepler::helpers@{kepler::helpers}!number\_to\_string@{number\_to\_string}}
+\index{number\_to\_string@{number\_to\_string}!kepler::helpers@{kepler::helpers}}
+\doxysubsubsection{\texorpdfstring{number\_to\_string()}{number\_to\_string()}}
+{\footnotesize\ttfamily std\+::string kepler\+::helpers\+::number\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}} \&}]{num,  }\item[{int}]{precision = {\ttfamily 10} }\end{DoxyParamCaption})}
+
+Converts a Number to a string, with the given precision. 
+\begin{DoxyParams}{Parameters}
+{\em num} & The Number to convert. \\
+\hline
+{\em precision} & The precision to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The string representation of the Number. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb_icgraph}
+\end{center}
+\end{figure}

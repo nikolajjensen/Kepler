@@ -1,7 +1,7 @@
 <map id="kepler::Atop" name="kepler::Atop">
-<area shape="rect" id="node1" title=" " alt="" coords="129,1541,304,1721"/>
-<area shape="rect" id="node2" href="$structkepler_1_1_dyadic_op.html" title=" " alt="" coords="138,1385,295,1492"/>
-<area shape="rect" id="node3" href="$structkepler_1_1_operation.html" title=" " alt="" coords="5,659,217,1308"/>
-<area shape="rect" id="node4" href="$classkepler_1_1_symbol_table.html" title=" " alt="" coords="17,5,206,596"/>
-<area shape="rect" id="node5" title=" " alt="" coords="242,945,405,1022"/>
+<area shape="rect" id="node1" title=" " alt="" coords="109,1409,283,1589"/>
+<area shape="rect" id="node2" href="$structkepler_1_1_dyadic_op.html" title=" " alt="" coords="117,1253,275,1360"/>
+<area shape="rect" id="node3" href="$structkepler_1_1_operation.html" title=" " alt="" coords="14,556,186,1176"/>
+<area shape="rect" id="node4" href="$classkepler_1_1_symbol_table.html" title=" " alt="" coords="5,5,195,493"/>
+<area shape="rect" id="node5" title=" " alt="" coords="211,827,373,905"/>
 </map>

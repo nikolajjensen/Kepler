@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: src/core/execution.h Source File</title>
+<title>My Project: /Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/execution.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,30 +113,31 @@ $(document).ready(function(){initNavTree('execution_8h_source.html',''); initRes
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="datatypes_8h.html">datatypes.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="symbol__table_8h.html">symbol_table.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="datatypes_8h.html">core/datatypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="symbol__table_8h.html">core/symbol_table.h</a>&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacekepler.html">kepler</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7">run_file</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream &amp; stream = std::cout);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="namespacekepler.html#a2eea97746f0ae5fd054d304271c171f5">run_repl</a>();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="namespacekepler.html#a49b7372a95bc6035f77f37023923e171">safe_execution</a>(std::vector&lt;Char&gt;&amp; input, std::ostream &amp; stream, <span class="keywordtype">bool</span> print_last = <span class="keyword">true</span>, SymbolTable* symbol_table = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="namespacekepler.html#a914686a7f5a60684440d93ed33a3a959">immediate_execution</a>(std::vector&lt;Char&gt;&amp; input, std::ostream &amp; stream, <span class="keywordtype">bool</span> print_last = <span class="keyword">true</span>, SymbolTable* symbol_table = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7">run_file</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream &amp; stream = std::cout);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="namespacekepler.html#a2eea97746f0ae5fd054d304271c171f5">run_repl</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="namespacekepler.html#ae873199194df3797260d2e48244b90f4">safe_execution</a>(<span class="keyword">const</span> std::vector&lt;Char&gt;&amp; input, std::ostream &amp; stream, <span class="keywordtype">bool</span> print_last = <span class="keyword">true</span>, SymbolTable* symbol_table = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="namespacekepler.html#aff2a3590024c2d97ee7d9d49bef09bfd">immediate_execution</a>(<span class="keyword">const</span> std::vector&lt;Char&gt;&amp; input, std::ostream &amp; stream, <span class="keywordtype">bool</span> print_last = <span class="keyword">true</span>, SymbolTable* symbol_table = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
 <div class="ttc" id="adatatypes_8h_html"><div class="ttname"><a href="datatypes_8h.html">datatypes.h</a></div></div>
-<div class="ttc" id="anamespacekepler_html"><div class="ttname"><a href="namespacekepler.html">kepler</a></div><div class="ttdef"><b>Definition:</b> cli.h:23</div></div>
-<div class="ttc" id="anamespacekepler_html_a2eea97746f0ae5fd054d304271c171f5"><div class="ttname"><a href="namespacekepler.html#a2eea97746f0ae5fd054d304271c171f5">kepler::run_repl</a></div><div class="ttdeci">int run_repl()</div><div class="ttdef"><b>Definition:</b> execution.cpp:105</div></div>
-<div class="ttc" id="anamespacekepler_html_a49b7372a95bc6035f77f37023923e171"><div class="ttname"><a href="namespacekepler.html#a49b7372a95bc6035f77f37023923e171">kepler::safe_execution</a></div><div class="ttdeci">void safe_execution(std::vector&lt; Char &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, SymbolTable *symbol_table=nullptr)</div><div class="ttdef"><b>Definition:</b> execution.cpp:122</div></div>
-<div class="ttc" id="anamespacekepler_html_a914686a7f5a60684440d93ed33a3a959"><div class="ttname"><a href="namespacekepler.html#a914686a7f5a60684440d93ed33a3a959">kepler::immediate_execution</a></div><div class="ttdeci">void immediate_execution(std::vector&lt; Char &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, SymbolTable *symbol_table=nullptr)</div><div class="ttdef"><b>Definition:</b> execution.cpp:131</div></div>
-<div class="ttc" id="anamespacekepler_html_ae45e010aed51dc28b896694f75dc2ca7"><div class="ttname"><a href="namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7">kepler::run_file</a></div><div class="ttdeci">int run_file(const std::string &amp;path, std::ostream &amp;stream=std::cout)</div><div class="ttdef"><b>Definition:</b> execution.cpp:64</div></div>
+<div class="ttc" id="anamespacekepler_html"><div class="ttname"><a href="namespacekepler.html">kepler</a></div><div class="ttdef"><b>Definition:</b> cli.h:26</div></div>
+<div class="ttc" id="anamespacekepler_html_a2eea97746f0ae5fd054d304271c171f5"><div class="ttname"><a href="namespacekepler.html#a2eea97746f0ae5fd054d304271c171f5">kepler::run_repl</a></div><div class="ttdeci">int run_repl()</div><div class="ttdef"><b>Definition:</b> execution.cpp:95</div></div>
+<div class="ttc" id="anamespacekepler_html_ae45e010aed51dc28b896694f75dc2ca7"><div class="ttname"><a href="namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7">kepler::run_file</a></div><div class="ttdeci">int run_file(const std::string &amp;path, std::ostream &amp;stream=std::cout)</div><div class="ttdef"><b>Definition:</b> execution.cpp:54</div></div>
+<div class="ttc" id="anamespacekepler_html_ae873199194df3797260d2e48244b90f4"><div class="ttname"><a href="namespacekepler.html#ae873199194df3797260d2e48244b90f4">kepler::safe_execution</a></div><div class="ttdeci">void safe_execution(const std::vector&lt; Char &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, SymbolTable *symbol_table=nullptr)</div><div class="ttdef"><b>Definition:</b> execution.cpp:112</div></div>
+<div class="ttc" id="anamespacekepler_html_aff2a3590024c2d97ee7d9d49bef09bfd"><div class="ttname"><a href="namespacekepler.html#aff2a3590024c2d97ee7d9d49bef09bfd">kepler::immediate_execution</a></div><div class="ttdeci">void immediate_execution(const std::vector&lt; Char &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, SymbolTable *symbol_table=nullptr)</div><div class="ttdef"><b>Definition:</b> execution.cpp:121</div></div>
 <div class="ttc" id="asymbol__table_8h_html"><div class="ttname"><a href="symbol__table_8h.html">symbol_table.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li><li class="navelem"><a class="el" href="execution_8h.html">execution.h</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li><li class="navelem"><a class="el" href="dir_3bc91e90964984b674db4c7fbeec786e.html">evaluation</a></li><li class="navelem"><a class="el" href="execution_8h.html">execution.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

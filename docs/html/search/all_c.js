@@ -1,20 +1,16 @@
 var searchData=
 [
-  ['nand_0',['Nand',['../structkepler_1_1_nand.html',1,'kepler']]],
-  ['nand_1',['NAND',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116a9f313df549f971c071b11ddc124c3eb4',1,'kepler']]],
-  ['negate_2',['NEGATE',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116afeed78afa905460f28cdf0a14275a36f',1,'kepler']]],
-  ['neq_3',['Neq',['../structkepler_1_1_neq.html',1,'kepler']]],
-  ['neq_4',['NEQ',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116a6525eae2bc5eb9bebd6b92ce936e2393',1,'kepler']]],
-  ['node_5fvisitor_2eh_5',['node_visitor.h',['../node__visitor_8h.html',1,'']]],
-  ['nodevisitor_6',['NodeVisitor',['../structkepler_1_1_node_visitor.html',1,'kepler']]],
-  ['nor_7',['Nor',['../structkepler_1_1_nor.html',1,'kepler']]],
-  ['nor_8',['NOR',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116a0e52f27d7ec7d5ddb139604171e12526',1,'kepler']]],
-  ['not_9',['Not',['../structkepler_1_1_not.html',1,'kepler']]],
-  ['notimplemented_10',['NotImplemented',['../namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a131156e5eee35009d173fc918eaadd78',1,'kepler']]],
-  ['number_11',['NUMBER',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd',1,'kepler']]],
-  ['number_12',['Number',['../namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0',1,'kepler']]],
-  ['number_5ffrom_5fcharacters_13',['number_from_characters',['../namespacekepler.html#afb522d6ecef07ad97aba105087960bfc',1,'kepler']]],
-  ['number_5fto_5fstring_14',['number_to_string',['../namespacekepler.html#aa848e96e65932d5f52bf3811002f0ec0',1,'kepler']]],
-  ['numeric_5flimit_5fmax_15',['numeric_limit_max',['../namespacekepler.html#ae2a14fefebed01bc702523240787d8d8',1,'kepler']]],
-  ['numeric_5flimit_5fmin_16',['numeric_limit_min',['../namespacekepler.html#ad51760a0749afe173ae1992bae62b401',1,'kepler']]]
+  ['macros_2eh_0',['macros.h',['../macros_8h.html',1,'']]],
+  ['main_1',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['main_2ecpp_2',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['match_3',['match',['../struct_prints.html#a81e886dc25d5c6aa0932ba2befdd5b3a',1,'Prints::match()'],['../struct_outputs.html#a63bda39c1b5b08b7f81378a09b3732b4',1,'Outputs::match()'],['../struct_throws.html#ab96097bd4af12f7b2eafcd3fa49da321',1,'Throws::match(std::string const &amp;err) const'],['../struct_throws.html#a377afd2bb41e79c5c6d32a323a616392',1,'Throws::match(kepler::Error const &amp;err) const']]],
+  ['matcher_2eh_4',['matcher.h',['../matcher_8h.html',1,'']]],
+  ['message_5',['message',['../classkepler_1_1_error.html#a777a2634181f6c36bdf917c5b30c9c86',1,'kepler::Error']]],
+  ['minus_6',['Minus',['../structkepler_1_1_minus.html',1,'kepler']]],
+  ['minus_7',['MINUS',['../namespacekepler.html#a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f',1,'kepler']]],
+  ['monadic_5foperators_2ecpp_8',['monadic_operators.cpp',['../monadic__operators_8cpp.html',1,'']]],
+  ['monadic_5foperators_2eh_9',['monadic_operators.h',['../monadic__operators_8h.html',1,'']]],
+  ['monadicfunction_10',['MonadicFunction',['../structkepler_1_1_monadic_function.html',1,'kepler::MonadicFunction'],['../structkepler_1_1_monadic_function.html#a3377a786145472776ea06e9147727b0e',1,'kepler::MonadicFunction::MonadicFunction()']]],
+  ['monadicop_11',['MonadicOp',['../structkepler_1_1_monadic_op.html',1,'kepler::MonadicOp'],['../structkepler_1_1_monadic_op.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::MonadicOp::MonadicOp()'],['../structkepler_1_1_commute.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::Commute::MonadicOp()'],['../structkepler_1_1_slash.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::Slash::MonadicOp()'],['../structkepler_1_1_diaeresis.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::Diaeresis::MonadicOp()'],['../structkepler_1_1_outer_product.html#acf0f8a2b7c8cb12c812b7fe1f28fd60c',1,'kepler::OuterProduct::MonadicOp()']]],
+  ['monadicoperator_12',['MonadicOperator',['../structkepler_1_1_monadic_operator.html',1,'kepler::MonadicOperator'],['../structkepler_1_1_monadic_operator.html#a3360a62439cb1eacd7ac33817ddc80ad',1,'kepler::MonadicOperator::MonadicOperator()']]]
 ];

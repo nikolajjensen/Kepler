@@ -66,17 +66,17 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="execution_8cpp.html#aa688fb368d750916706ef22d45dcab1f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="450,-253 379,-253 379,-234 450,-234 450,-253"/>
-<text text-anchor="middle" x="414.5" y="-241" font-family="Helvetica,sans-Serif" font-size="10.00">concat_lines</text>
+<g id="a_node4"><a xlink:href="namespacekepler.html#abe288852896105a82b5cebada8dde52a" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="466.5,-253 362.5,-253 362.5,-234 466.5,-234 466.5,-253"/>
+<text text-anchor="middle" x="414.5" y="-241" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::concat_lines</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node2&#45;&gt;Node4</title>
-<path fill="none" stroke="#63b8ff" d="M290.72,-215.46C313.84,-220.74 343.21,-227.45 367.43,-232.98"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="366.5,-236.36 377.03,-235.17 368.06,-229.53 366.5,-236.36"/>
+<path fill="none" stroke="#63b8ff" d="M290.72,-215.46C311.14,-220.12 336.45,-225.9 358.78,-231"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="357.79,-234.37 368.32,-233.18 359.35,-227.54 357.79,-234.37"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -96,7 +96,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="namespacekepler.html#a914686a7f5a60684440d93ed33a3a959" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="namespacekepler.html#aff2a3590024c2d97ee7d9d49bef09bfd" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="485,-430 344,-430 344,-411 485,-411 485,-430"/>
 <text text-anchor="middle" x="414.5" y="-418" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::immediate_execution</text>
 </a>
@@ -142,9 +142,9 @@
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
-<g id="a_node18"><a xlink:href="classkepler_1_1error.html#aec3e310a53eebc02228954bab4a13b53" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="467.5,-142 361.5,-142 361.5,-123 467.5,-123 467.5,-142"/>
-<text text-anchor="middle" x="414.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::set_file</text>
+<g id="a_node18"><a xlink:href="classkepler_1_1_error.html#aa071ae9ecda29b37e64a4ea8a7e2f7ea" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="468,-142 361,-142 361,-123 468,-123 468,-142"/>
+<text text-anchor="middle" x="414.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::set_file</text>
 </a>
 </g>
 </g>
@@ -157,9 +157,9 @@
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
-<g id="a_node19"><a xlink:href="classkepler_1_1error.html#aac71db552cb0211798d24627817abccf" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="458.5,-387.5 370.5,-387.5 370.5,-357.5 458.5,-357.5 458.5,-387.5"/>
-<text text-anchor="start" x="378.5" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::set</text>
+<g id="a_node19"><a xlink:href="classkepler_1_1_error.html#a839ce149a6eb564e511b06ce9adfd7bb" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="459,-387.5 370,-387.5 370,-357.5 459,-357.5 459,-387.5"/>
+<text text-anchor="start" x="378" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::set</text>
 <text text-anchor="middle" x="414.5" y="-364.5" font-family="Helvetica,sans-Serif" font-size="10.00">_input</text>
 </a>
 </g>
@@ -167,15 +167,15 @@
 <!-- Node2&#45;&gt;Node19 -->
 <g id="edge20" class="edge">
 <title>Node2&#45;&gt;Node19</title>
-<path fill="none" stroke="#63b8ff" d="M255.24,-216.37C265.44,-241.98 296.23,-311.2 344,-348.5 348.78,-352.23 354.18,-355.41 359.8,-358.1"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="358.11,-361.18 368.69,-361.86 360.84,-354.74 358.11,-361.18"/>
+<path fill="none" stroke="#63b8ff" d="M255.24,-216.37C265.44,-241.98 296.23,-311.2 344,-348.5 348.6,-352.09 353.77,-355.16 359.16,-357.79"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="357.75,-360.99 368.33,-361.71 360.51,-354.56 357.75,-360.99"/>
 </g>
 <!-- Node20 -->
 <g id="node20" class="node">
 <title>Node20</title>
-<g id="a_node20"><a xlink:href="classkepler_1_1error.html#a055901085cd5171f7a6afa76b9fb526c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="468.5,-105 360.5,-105 360.5,-86 468.5,-86 468.5,-105"/>
-<text text-anchor="middle" x="414.5" y="-93" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::set_line</text>
+<g id="a_node20"><a xlink:href="classkepler_1_1_error.html#a1ade2544f5cd37f163dafcee0646e2e6" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="469.5,-105 359.5,-105 359.5,-86 469.5,-86 469.5,-105"/>
+<text text-anchor="middle" x="414.5" y="-93" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::set_line</text>
 </a>
 </g>
 </g>
@@ -188,9 +188,9 @@
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
-<g id="a_node21"><a xlink:href="classkepler_1_1error.html#a9d1264b80888d725ef312a662ee4e5be" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="470.5,-339 358.5,-339 358.5,-320 470.5,-320 470.5,-339"/>
-<text text-anchor="middle" x="414.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::to_string</text>
+<g id="a_node21"><a xlink:href="classkepler_1_1_error.html#ac847dfe892a8ce3ed8cf2421e9057a11" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="471,-339 358,-339 358,-320 471,-320 471,-339"/>
+<text text-anchor="middle" x="414.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::to_string</text>
 </a>
 </g>
 </g>
@@ -296,7 +296,7 @@
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classkepler_1_1_symbol_table.html#a1d080f6571e21935f800524195b5e5a7" target="_top" xlink:title=" ">
+<g id="a_node11"><a xlink:href="classkepler_1_1_symbol_table.html#ac34dc1ebd2c512e2d9af0453c6a59eaa" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="808,-473 683,-473 683,-454 808,-454 808,-473"/>
 <text text-anchor="middle" x="745.5" y="-461" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::SymbolTable::get</text>
 </a>
@@ -311,7 +311,7 @@
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
-<g id="a_node15"><a xlink:href="classkepler_1_1_symbol_table.html#a928b41896a0c0f1b5eef23ae3f35c3b3" target="_top" xlink:title=" ">
+<g id="a_node15"><a xlink:href="classkepler_1_1_symbol_table.html#a86e00168373c906d584687a60a889245" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="646,-62 521,-62 521,-43 646,-43 646,-62"/>
 <text text-anchor="middle" x="583.5" y="-50" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::SymbolTable::set</text>
 </a>
@@ -332,7 +332,7 @@
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
-<g id="a_node16"><a xlink:href="classkepler_1_1_symbol_table.html#a57403652693faf5adf05509f540520e9" target="_top" xlink:title=" ">
+<g id="a_node16"><a xlink:href="classkepler_1_1_symbol_table.html#acc1befc5ef14ca2b0da939f93218c05a" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="798,-67.5 693,-67.5 693,-37.5 798,-37.5 798,-67.5"/>
 <text text-anchor="start" x="701" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::SymbolTable</text>
 <text text-anchor="middle" x="745.5" y="-44.5" font-family="Helvetica,sans-Serif" font-size="10.00">::contains</text>
@@ -354,24 +354,24 @@
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
-<g id="a_node22"><a xlink:href="classkepler_1_1error.html#a7694165073a5e4844154e625f5fddf6c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="630,-339 537,-339 537,-320 630,-320 630,-339"/>
-<text text-anchor="middle" x="583.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::type</text>
+<g id="a_node22"><a xlink:href="classkepler_1_1_error.html#af9f5362abadaec34cd6aec19abfb9734" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="631,-339 536,-339 536,-320 631,-320 631,-339"/>
+<text text-anchor="middle" x="583.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::type</text>
 </a>
 </g>
 </g>
 <!-- Node21&#45;&gt;Node22 -->
 <g id="edge23" class="edge">
 <title>Node21&#45;&gt;Node22</title>
-<path fill="none" stroke="#63b8ff" d="M470.64,-329.5C488.18,-329.5 507.61,-329.5 525.29,-329.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="525.1,-333 535.1,-329.5 525.1,-326 525.1,-333"/>
+<path fill="none" stroke="#63b8ff" d="M471.11,-329.5C488.23,-329.5 507.12,-329.5 524.41,-329.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="523.99,-333 533.99,-329.5 523.99,-326 523.99,-333"/>
 </g>
 <!-- Node24 -->
 <g id="node24" class="node">
 <title>Node24</title>
-<g id="a_node24"><a xlink:href="classkepler_1_1error.html#a4e6ac4013bc23fa893866d2bb0f5d6b8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="634,-302 533,-302 533,-283 634,-283 634,-302"/>
-<text text-anchor="middle" x="583.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::where</text>
+<g id="a_node24"><a xlink:href="classkepler_1_1_error.html#a28cce1690de3e69e3175e2bb82676797" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="634.5,-302 532.5,-302 532.5,-283 634.5,-283 634.5,-302"/>
+<text text-anchor="middle" x="583.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::where</text>
 </a>
 </g>
 </g>
@@ -384,9 +384,9 @@
 <!-- Node25 -->
 <g id="node25" class="node">
 <title>Node25</title>
-<g id="a_node25"><a xlink:href="classkepler_1_1error.html#af431dcb57cb6e62850a8bb2d6258c5e7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="629.5,-265 537.5,-265 537.5,-246 629.5,-246 629.5,-265"/>
-<text text-anchor="middle" x="583.5" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::why</text>
+<g id="a_node25"><a xlink:href="classkepler_1_1_error.html#a70199e2d60e955b1d6a026b9aebed10d" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="630.5,-265 536.5,-265 536.5,-246 630.5,-246 630.5,-265"/>
+<text text-anchor="middle" x="583.5" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::why</text>
 </a>
 </g>
 </g>
@@ -408,8 +408,8 @@
 <!-- Node22&#45;&gt;Node23 -->
 <g id="edge24" class="edge">
 <title>Node22&#45;&gt;Node23</title>
-<path fill="none" stroke="#63b8ff" d="M630.35,-329.5C649.26,-329.5 671.31,-329.5 690.96,-329.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="690.69,-333 700.69,-329.5 690.69,-326 690.69,-333"/>
+<path fill="none" stroke="#63b8ff" d="M631.21,-329.5C649.86,-329.5 671.44,-329.5 690.74,-329.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="690.59,-333 700.59,-329.5 690.59,-326 690.59,-333"/>
 </g>
 <!-- Node26&#45;&gt;Node14 -->
 <g id="edge28" class="edge">
@@ -420,7 +420,7 @@
 <!-- Node27 -->
 <g id="node27" class="node">
 <title>Node27</title>
-<g id="a_node27"><a xlink:href="execution_8cpp.html#a33abc85d7c45422062c0bd0b8b2a8299" target="_top" xlink:title=" ">
+<g id="a_node27"><a xlink:href="execution_8cpp.html#af3d2161c155c5aef33765bac6f8257bd" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="281.5,-36 219.5,-36 219.5,-17 281.5,-17 281.5,-36"/>
 <text text-anchor="middle" x="250.5" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">read_input</text>
 </a>
@@ -435,7 +435,7 @@
 <!-- Node29 -->
 <g id="node29" class="node">
 <title>Node29</title>
-<g id="a_node29"><a xlink:href="namespacekepler.html#a49b7372a95bc6035f77f37023923e171" target="_top" xlink:title=" ">
+<g id="a_node29"><a xlink:href="namespacekepler.html#ae873199194df3797260d2e48244b90f4" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="308,-360 193,-360 193,-341 308,-341 308,-360"/>
 <text text-anchor="middle" x="250.5" y="-348" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::safe_execution</text>
 </a>
@@ -471,14 +471,14 @@
 <!-- Node29&#45;&gt;Node19 -->
 <g id="edge33" class="edge">
 <title>Node29&#45;&gt;Node19</title>
-<path fill="none" stroke="#63b8ff" d="M308.16,-358.19C324.69,-360.44 342.71,-362.89 359.1,-365.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="358.27,-368.53 368.65,-366.41 359.21,-361.6 358.27,-368.53"/>
+<path fill="none" stroke="#63b8ff" d="M308.16,-358.19C324.54,-360.42 342.39,-362.84 358.66,-365.05"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="357.76,-368.46 368.14,-366.34 358.7,-361.53 357.76,-368.46"/>
 </g>
 <!-- Node29&#45;&gt;Node21 -->
 <g id="edge34" class="edge">
 <title>Node29&#45;&gt;Node21</title>
-<path fill="none" stroke="#63b8ff" d="M308.16,-343.16C320.72,-341.53 334.14,-339.79 347.06,-338.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="347.27,-341.61 356.74,-336.86 346.37,-334.67 347.27,-341.61"/>
+<path fill="none" stroke="#63b8ff" d="M308.16,-343.16C320.58,-341.55 333.84,-339.83 346.62,-338.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="346.72,-341.69 356.19,-336.93 345.82,-334.74 346.72,-341.69"/>
 </g>
 </g>
 </svg>

@@ -6,8 +6,7 @@
 
 
 
-Inheritance diagram for Prints\+:
-\nopagebreak
+Inheritance diagram for Prints\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,8 +15,7 @@ Inheritance diagram for Prints\+:
 \end{figure}
 
 
-Collaboration diagram for Prints\+:
-\nopagebreak
+Collaboration diagram for Prints\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -28,12 +26,15 @@ Collaboration diagram for Prints\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{struct_prints_a9d182583cdd0667d83365d8b5af106e8}{Prints}} (std\+::string const \&output\+\_\+)
-\item 
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{struct_prints}{Prints}} object. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{struct_prints_a81e886dc25d5c6aa0932ba2befdd5b3a}{match}} (std\+::string const \&result) const
-\item 
+\begin{DoxyCompactList}\small\item\em Match a string to a specific string. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{struct_prints_a5d39cc18128ca1258b9cf9747e652eb7}{describe}} () const override
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_prints}{Prints}} struct matches a string to a specific string. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{struct_prints_a9d182583cdd0667d83365d8b5af106e8}\label{struct_prints_a9d182583cdd0667d83365d8b5af106e8}} 
@@ -44,6 +45,15 @@ std\+::string \mbox{\hyperlink{struct_prints_a5d39cc18128ca1258b9cf9747e652eb7}{
 
 
 
+Construct a new \mbox{\hyperlink{struct_prints}{Prints}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+} & The string to match. \\
+\hline
+\end{DoxyParams}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{struct_prints_a5d39cc18128ca1258b9cf9747e652eb7}\label{struct_prints_a5d39cc18128ca1258b9cf9747e652eb7}} 
 \index{Prints@{Prints}!describe@{describe}}
@@ -51,6 +61,9 @@ std\+::string \mbox{\hyperlink{struct_prints_a5d39cc18128ca1258b9cf9747e652eb7}{
 \doxysubsubsection{\texorpdfstring{describe()}{describe()}}
 {\footnotesize\ttfamily std\+::string Prints\+::describe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
 
+Produces a string describing why the matcher failed. \begin{DoxyReturn}{Returns}
+A string describing why the matcher failed. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{struct_prints_a81e886dc25d5c6aa0932ba2befdd5b3a}\label{struct_prints_a81e886dc25d5c6aa0932ba2befdd5b3a}} 
 \index{Prints@{Prints}!match@{match}}
 \index{match@{match}!Prints@{Prints}}
@@ -59,6 +72,20 @@ std\+::string \mbox{\hyperlink{struct_prints_a5d39cc18128ca1258b9cf9747e652eb7}{
 
 
 
+Match a string to a specific string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em result} & The string to match. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the strings are equal. 
+
+false If the strings are not equal. 
+\end{DoxyReturn}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/testing/\mbox{\hyperlink{matcher_8h}{matcher.\+h}}\end{DoxyCompactItemize}
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/testing/\mbox{\hyperlink{matcher_8h}{matcher.\+h}}\end{DoxyCompactItemize}

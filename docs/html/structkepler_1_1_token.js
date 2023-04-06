@@ -1,8 +1,8 @@
 var structkepler_1_1_token =
 [
     [ "Token", "structkepler_1_1_token.html#a5c8e238717679b2767ac660caddd7e03", null ],
-    [ "Token", "structkepler_1_1_token.html#a02f3d2fad0c5fdd11a6a6f795bfbd856", null ],
-    [ "Token", "structkepler_1_1_token.html#a6281b0542fe1bf962b9105e8f5c5bfc8", null ],
+    [ "Token", "structkepler_1_1_token.html#a1603ee3caf58e28bf3d41a502ff3bbbb", null ],
+    [ "Token", "structkepler_1_1_token.html#a7aaa1cb301427934a4405d0184c7ed8a", null ],
     [ "Token", "structkepler_1_1_token.html#ac2bb9dc869b69b4cd0ca50f52b5bde56", null ],
     [ "to_string", "structkepler_1_1_token.html#aa138d51909b8ce9e3435d7ba9864e6be", null ],
     [ "operator==", "structkepler_1_1_token.html#a0c4d76a759de7ff76f694d911b39d092", null ],

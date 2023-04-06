@@ -11,20 +11,20 @@ Collaboration diagram for kepler\+::Array\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=290pt]{structkepler_1_1_array__coll__graph}
+\includegraphics[width=332pt]{structkepler_1_1_array__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}} = std\+::variant$<$ std\+::u32string, \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$
+using \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}} = std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}}, \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{structkepler_1_1_array}{Array}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structkepler_1_1_array_a5b5dcdd1bc974a3bf53cf9dca13f56aa}{Array}} (std\+::vector$<$ int $>$ shape\+\_\+, std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}} $>$ data\+\_\+)
+\mbox{\hyperlink{structkepler_1_1_array_aaa5b9a031f66301c17cf4f32f1a7b17c}{Array}} (std\+::vector$<$ unsigned int $>$ shape\+\_\+, std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}} $>$ data\+\_\+)
 \item 
-\mbox{\hyperlink{structkepler_1_1_array_a96639346ec1a7bdcdd01eb414ca9e0fb}{Array}} (\mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}} scalar\+\_\+)
+\mbox{\hyperlink{structkepler_1_1_array_a96639346ec1a7bdcdd01eb414ca9e0fb}{Array}} (\mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}} scalar\+\_\+)
 \item 
 int \mbox{\hyperlink{structkepler_1_1_array_a5701013e5ec1699d7d8663bba09cfcdb}{rank}} () const
 \item 
@@ -47,9 +47,9 @@ std\+::string \mbox{\hyperlink{structkepler_1_1_array_afccb5c77a5934c2bcdfed7032
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::vector$<$ int $>$ \mbox{\hyperlink{structkepler_1_1_array_a6172734e80bc0bad9b9313dadeac94fa}{shape}}
+std\+::vector$<$ unsigned int $>$ \mbox{\hyperlink{structkepler_1_1_array_a7d08d637e52d3d1d3644ce0c356276b1}{shape}}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}} $>$ \mbox{\hyperlink{structkepler_1_1_array_a1041d2bda3cd046d9b790010bec41377}{data}}
+std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}} $>$ \mbox{\hyperlink{structkepler_1_1_array_a1041d2bda3cd046d9b790010bec41377}{data}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -58,28 +58,51 @@ bool \mbox{\hyperlink{structkepler_1_1_array_a5eac737578730879ef9b00151a600127}{
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Central data structure in Kepler.
+
+Represents a multidimensional array of elements. The elements can be of either type String, Number or \mbox{\hyperlink{structkepler_1_1_array}{Array}}.
+
+Elements can be of mixed type.
+
+The shape of the array is stored in the shape vector, while the data is stored in the data vector. 
+
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}\label{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}} 
+\mbox{\Hypertarget{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}\label{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}} 
 \index{kepler::Array@{kepler::Array}!element\_type@{element\_type}}
 \index{element\_type@{element\_type}!kepler::Array@{kepler::Array}}
 \doxysubsubsection{\texorpdfstring{element\_type}{element\_type}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{kepler\+::\+Array\+::element\+\_\+type}} =  std\+::variant$<$std\+::u32string, \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{structkepler_1_1_array}{Array}}$>$}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{kepler\+::\+Array\+::element\+\_\+type}} =  std\+::variant$<$\mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}}, \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{structkepler_1_1_array}{Array}}$>$}
 
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{structkepler_1_1_array_a5b5dcdd1bc974a3bf53cf9dca13f56aa}\label{structkepler_1_1_array_a5b5dcdd1bc974a3bf53cf9dca13f56aa}} 
+\mbox{\Hypertarget{structkepler_1_1_array_aaa5b9a031f66301c17cf4f32f1a7b17c}\label{structkepler_1_1_array_aaa5b9a031f66301c17cf4f32f1a7b17c}} 
 \index{kepler::Array@{kepler::Array}!Array@{Array}}
 \index{Array@{Array}!kepler::Array@{kepler::Array}}
 \doxysubsubsection{\texorpdfstring{Array()}{Array()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily kepler\+::\+Array\+::\+Array (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$}]{shape\+\_\+,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}} $>$}]{data\+\_\+ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily kepler\+::\+Array\+::\+Array (\begin{DoxyParamCaption}\item[{std\+::vector$<$ unsigned int $>$}]{shape\+\_\+,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}} $>$}]{data\+\_\+ }\end{DoxyParamCaption})}
 
+Creates an \mbox{\hyperlink{structkepler_1_1_array}{Array}} with the given shape and data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em shape\+\_\+} & The shape of the array. \\
+\hline
+{\em data\+\_\+} & The data of the array. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structkepler_1_1_array_a96639346ec1a7bdcdd01eb414ca9e0fb}\label{structkepler_1_1_array_a96639346ec1a7bdcdd01eb414ca9e0fb}} 
 \index{kepler::Array@{kepler::Array}!Array@{Array}}
 \index{Array@{Array}!kepler::Array@{kepler::Array}}
 \doxysubsubsection{\texorpdfstring{Array()}{Array()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily kepler\+::\+Array\+::\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}}}]{scalar\+\_\+ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily kepler\+::\+Array\+::\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}}}]{scalar\+\_\+ }\end{DoxyParamCaption})}
 
+Creates an \mbox{\hyperlink{structkepler_1_1_array}{Array}} of one element (also called a \mbox{\hyperlink{structkepler_1_1_scalar}{Scalar}}) 
+\begin{DoxyParams}{Parameters}
+{\em scalar\+\_\+} & The value to enclose in the \mbox{\hyperlink{structkepler_1_1_array}{Array}}. \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
@@ -89,7 +112,8 @@ bool \mbox{\hyperlink{structkepler_1_1_array_a5eac737578730879ef9b00151a600127}{
 \doxysubsubsection{\texorpdfstring{empty()}{empty()}}
 {\footnotesize\ttfamily bool kepler\+::\+Array\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the caller graph for this function\+:\nopagebreak
+Returns true the data list is empty. Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -102,6 +126,11 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{flattened\_shape()}{flattened\_shape()}}
 {\footnotesize\ttfamily int kepler\+::\+Array\+::flattened\+\_\+shape (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+Returns the product of all elements in the shape vector.
+
+\begin{DoxyReturn}{Returns}
+The product of all elements in the shape vector. 
+\end{DoxyReturn}
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -115,7 +144,8 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{is\_integer\_numeric()}{is\_integer\_numeric()}}
 {\footnotesize\ttfamily bool kepler\+::\+Array\+::is\+\_\+integer\+\_\+numeric (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the caller graph for this function\+:\nopagebreak
+Returns true if every element of the \mbox{\hyperlink{structkepler_1_1_array}{Array}} is a Number, and is an integer. Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -128,7 +158,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{is\_numeric()}{is\_numeric()}}
 {\footnotesize\ttfamily bool kepler\+::\+Array\+::is\+\_\+numeric (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the caller graph for this function\+:\nopagebreak
+Returns true if every element of the \mbox{\hyperlink{structkepler_1_1_array}{Array}} is a Number. Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -141,7 +171,8 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{is\_scalar()}{is\_scalar()}}
 {\footnotesize\ttfamily bool kepler\+::\+Array\+::is\+\_\+scalar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the caller graph for this function\+:\nopagebreak
+Returns true the shape list is empty. Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -154,14 +185,15 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{is\_simple\_scalar()}{is\_simple\_scalar()}}
 {\footnotesize\ttfamily bool kepler\+::\+Array\+::is\+\_\+simple\+\_\+scalar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the call graph for this function\+:\nopagebreak
+Returns true the array contains a single element, which is not an array. Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{structkepler_1_1_array_a31e9d1137447bf3402d6278c41569f5e_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -174,7 +206,15 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{rank()}{rank()}}
 {\footnotesize\ttfamily int kepler\+::\+Array\+::rank (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the caller graph for this function\+:\nopagebreak
+Returns the rank of the \mbox{\hyperlink{structkepler_1_1_array}{Array}}.
+
+The rank is the number of dimensions in the \mbox{\hyperlink{structkepler_1_1_array}{Array}}. It is equal to the length of the shape vector.
+
+\begin{DoxyReturn}{Returns}
+The rank of the \mbox{\hyperlink{structkepler_1_1_array}{Array}}. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -187,7 +227,13 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{size()}{size()}}
 {\footnotesize\ttfamily int kepler\+::\+Array\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Here is the caller graph for this function\+:\nopagebreak
+Returns the number of elements in the data vector of the \mbox{\hyperlink{structkepler_1_1_array}{Array}}.
+
+\begin{DoxyReturn}{Returns}
+The number of elements in the \mbox{\hyperlink{structkepler_1_1_array}{Array}}. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -200,14 +246,28 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
 {\footnotesize\ttfamily std\+::string kepler\+::\+Array\+::to\+\_\+string (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} $\ast$}]{symbol\+\_\+table }\end{DoxyParamCaption}) const}
 
-Here is the call graph for this function\+:\nopagebreak
+Returns a string representation of the \mbox{\hyperlink{structkepler_1_1_array}{Array}}.
+
+The \mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} is used to resolve the print precision \textquotesingle{}⎕\+PP\textquotesingle{}, so numbers can be printed with the correct precision.
+
+
+\begin{DoxyParams}{Parameters}
+{\em symbol\+\_\+table} & The \mbox{\hyperlink{classkepler_1_1_symbol_table}{Symbol\+Table}} to get the print precision from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The string representation of the \mbox{\hyperlink{structkepler_1_1_array}{Array}}. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{structkepler_1_1_array_afccb5c77a5934c2bcdfed7032b381ced_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -223,6 +283,20 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{operator==}{operator==}}
 {\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&}]{lhs,  }\item[{const \mbox{\hyperlink{structkepler_1_1_array}{Array}} \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
 
+Returns true if two Arrays are equal.
+
+Equality is defined as having the same shape and data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & The left-\/hand \mbox{\hyperlink{structkepler_1_1_array}{Array}}. \\
+\hline
+{\em rhs} & The right-\/hand \mbox{\hyperlink{structkepler_1_1_array}{Array}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the Arrays are equal, false otherwise. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Member Data Documentation}
@@ -230,17 +304,17 @@ Here is the caller graph for this function\+:\nopagebreak
 \index{kepler::Array@{kepler::Array}!data@{data}}
 \index{data@{data}!kepler::Array@{kepler::Array}}
 \doxysubsubsection{\texorpdfstring{data}{data}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{element\+\_\+type}}$>$ kepler\+::\+Array\+::data}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{element\+\_\+type}}$>$ kepler\+::\+Array\+::data}
 
-\mbox{\Hypertarget{structkepler_1_1_array_a6172734e80bc0bad9b9313dadeac94fa}\label{structkepler_1_1_array_a6172734e80bc0bad9b9313dadeac94fa}} 
+\mbox{\Hypertarget{structkepler_1_1_array_a7d08d637e52d3d1d3644ce0c356276b1}\label{structkepler_1_1_array_a7d08d637e52d3d1d3644ce0c356276b1}} 
 \index{kepler::Array@{kepler::Array}!shape@{shape}}
 \index{shape@{shape}!kepler::Array@{kepler::Array}}
 \doxysubsubsection{\texorpdfstring{shape}{shape}}
-{\footnotesize\ttfamily std\+::vector$<$int$>$ kepler\+::\+Array\+::shape}
+{\footnotesize\ttfamily std\+::vector$<$unsigned int$>$ kepler\+::\+Array\+::shape}
 
 
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/core/\mbox{\hyperlink{array_8h}{array.\+h}}\item 
-src/core/\mbox{\hyperlink{array_8cpp}{array.\+cpp}}\end{DoxyCompactItemize}
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/\mbox{\hyperlink{array_8h}{array.\+h}}\item 
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/\mbox{\hyperlink{array_8cpp}{array.\+cpp}}\end{DoxyCompactItemize}

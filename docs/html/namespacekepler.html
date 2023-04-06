@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('namespacekepler.html',''); initResizab
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacekepler_1_1cli"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1cli.html">cli</a></td></tr>
+<tr class="memdesc:namespacekepler_1_1cli"><td class="mdescLeft">&#160;</td><td class="mdescRight">The CLI namespace contains command-line related code. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacekepler_1_1constants"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1constants.html">constants</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,7 +157,7 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_eq.html">Eq</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkepler_1_1error.html">error</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkepler_1_1_error.html">Error</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_exclamation_mark.html">ExclamationMark</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,7 +223,7 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_plus.html">Plus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1position.html">position</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_position.html">Position</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_power.html">Power</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,8 +265,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:a91663bd130d920c4faafd5f629b26342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9eaef31fb6e2ab82b52d67bfa186ea0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> = std::complex&lt; double &gt;</td></tr>
 <tr class="separator:ae9eaef31fb6e2ab82b52d67bfa186ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5712a67bd028c5a472e4bbfeb00e30e9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a5712a67bd028c5a472e4bbfeb00e30e9">StringUTF8</a> = std::string</td></tr>
-<tr class="separator:a5712a67bd028c5a472e4bbfeb00e30e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade3567acc688b97d575ab751640a5ea4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> = std::u32string</td></tr>
 <tr class="separator:ade3567acc688b97d575ab751640a5ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f73943647d1d3e7d73542141c3cf35f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9f73943647d1d3e7d73542141c3cf35f">Operation_ptr</a> = std::shared_ptr&lt; <a class="el" href="structkepler_1_1_operation.html">Operation</a> &gt;</td></tr>
@@ -274,18 +273,18 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a3fce5e5ac799691d62fbdb3a76fa48f5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5">ErrorType</a> { <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133">SyntaxError</a>
-, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b">ValueError</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4">DefinitionError</a>
 , <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a6e7776b919e3fb618a6c9ba5a1a1da5d">DomainError</a>
-, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b">RankError</a>
+, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d">FileError</a>
+, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d">InternalError</a>
 , <br />
 &#160;&#160;<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a00c462fb95881b780437e0c4e6e178ae">LengthError</a>
 , <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5ab86d62079838afa9d8a5c2afb54606af">LimitError</a>
-, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4">DefinitionError</a>
-, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d">FileError</a>
+, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a131156e5eee35009d173fc918eaadd78">NotImplemented</a>
+, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b">RankError</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a131156e5eee35009d173fc918eaadd78">NotImplemented</a>
-, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d">InternalError</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133">SyntaxError</a>
+, <a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b">ValueError</a>
 <br />
  }</td></tr>
 <tr class="separator:a3fce5e5ac799691d62fbdb3a76fa48f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -294,93 +293,79 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="separator:a3b14b9ce14211f082bdaeaac3a4a6ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a633269b58183cfa0228e4f288c773116"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116">TokenType</a> { <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd">NUMBER</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6">ID</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd">NUMBER</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a8fe75b60d2592567ef80c5afc6d57e5e">STRING</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6">ID</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a527c014fcb304bb498d923f8db83747f">ALPHA</a>
 , <br />
 &#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a547128ff87a3653cb0df26f014d1f4c8">OMEGA</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9a91cae5434cc67e1e7a19f3767ec1ad">PLUS</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f">MINUS</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a66aab2eef018dbbe23206fa76c8b4d5e">TIMES</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116abf0e913d573ea9b6b2b51279d9475567">AND</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a98cf9a776c21e534a1443ccefd69f309">ARROW_UP</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a1ab5ed2aa51cfabf2d0ac8565c043eee">BAR</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a30f4edd07c64a16695e183945975ee08">DIVIDE</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a5313a257055dde9284aa1a672f23f18f">CEILING</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a859616a0be7f752874168ecbe3118744">FLOOR</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a5b1c98b03c1e8b1db7c3642ead5fd8d5">RIGHT_TACK</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a7524aee32a106642f77cd10affa286cb">LEFT_TACK</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e">IOTA</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a5313a257055dde9284aa1a672f23f18f">CEILING</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae9b85b612844ea19ea413e49541fe49b">CIRCLE</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a66e9d123591a74c4e14c5f28ebc51e75">CIRCLE_BAR</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9276cb61e5b80eafb0f2c474b0d27dee">CIRCLE_STILE</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116afe3392888dfafe6af89136e265290c96">LESS</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af5a63172a50db79f4e6787cea3a0cbf1">LESS_EQUAL</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a5b680f53fc6dabb7d5511769dbc1a552">EQUAL</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a67f66c7fe8204f111ae956eeae897f4a">GREATER_EQUAL</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a132e9a1fdb57af79f6e06b2cfeec38e0">COMMA</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a30f4edd07c64a16695e183945975ee08">DIVIDE</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a89e193547c0975999985c1e459811fee">EQUAL</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a1c0f6007a1b79fa324a0550321a6abf9">EXCLAMATION_MARK</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae3c7a439e25f6baf25994579279cbbdf">GREATER</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a6525eae2bc5eb9bebd6b92ce936e2393">NOT_EQUAL</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ad525205003ce6185df4ad624ecf6e881">WITHOUT</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ac0c9eb8fc2e79e6a7752d7a5bf93bca1">LEFT_SHOE</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a859616a0be7f752874168ecbe3118744">FLOOR</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae3c7a439e25f6baf25994579279cbbdf">GREATER</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a71084ed569cc66cb56587b23568f3389">GREATER_EQUAL</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e">IOTA</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aa9d836eac92ebc8011447ca7ac1b737a">RHO</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116abf0e913d573ea9b6b2b51279d9475567">AND</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ad935b9b98e5d7be862b0dbb60089fb4f">OR</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9f313df549f971c071b11ddc124c3eb4">NAND</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a0e52f27d7ec7d5ddb139604171e12526">NOR</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a62126c61565e97b6560aee9cc855a08e">QUESTION_MARK</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae9b85b612844ea19ea413e49541fe49b">CIRCLE</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a44b6c369e47d2ecf97e003e28114577f">STAR</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aa2977431fdf6c467d01f0dcb1aa9fc25">LEFT_SHOE</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a7524aee32a106642f77cd10affa286cb">LEFT_TACK</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116afe3392888dfafe6af89136e265290c96">LESS</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a2bbc65d1376106c2408851ea558179c8">LESS_EQUAL</a>
 , <br />
 &#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a002d6d2feaebb05ade1127986e2a1122">LOG</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a1ab5ed2aa51cfabf2d0ac8565c043eee">BAR</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a1c0f6007a1b79fa324a0550321a6abf9">EXCLAMATION_MARK</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a132e9a1fdb57af79f6e06b2cfeec38e0">COMMA</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f">MINUS</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9f313df549f971c071b11ddc124c3eb4">NAND</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a0e52f27d7ec7d5ddb139604171e12526">NOR</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a98cf9a776c21e534a1443ccefd69f309">ARROW_UP</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a74a2612a0d1c1e99f04107a69ba59f4a">PRODUCT</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ab0f6c1ab340912520eee7fdd586c03e1">NOT_EQUAL</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ad935b9b98e5d7be862b0dbb60089fb4f">OR</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9a91cae5434cc67e1e7a19f3767ec1ad">PLUS</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af975ee215bb222a687ea7eeb1435f3fd">POWER</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a40cbeaa84b3cc16257f806031854f6b7">COMMUTE</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9cd9e6c6ea6ce1b2b6c392ca4000883e">SLASH</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af7b0b0f079bd57ebd406ee7805b16f86">DIAERESIS</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a1fbb54c585609afe185c17ca4550a13b">JOT</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a74a2612a0d1c1e99f04107a69ba59f4a">PRODUCT</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aeee8346f8cf7df00023ecf8432b733b5">QUESTION_MARK</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aa9d836eac92ebc8011447ca7ac1b737a">RHO</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a5b1c98b03c1e8b1db7c3642ead5fd8d5">RIGHT_TACK</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a44b6c369e47d2ecf97e003e28114577f">STAR</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a66aab2eef018dbbe23206fa76c8b4d5e">TIMES</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ad525205003ce6185df4ad624ecf6e881">WITHOUT</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a0a0d2a2665dea1038863d34001d54bce">ATOP</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ac69e8a1554516f24aa484fc81a13dcd0">OVER</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a40cbeaa84b3cc16257f806031854f6b7">COMMUTE</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af7b0b0f079bd57ebd406ee7805b16f86">DIAERESIS</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a1fbb54c585609afe185c17ca4550a13b">JOT</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ac69e8a1554516f24aa484fc81a13dcd0">OVER</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a9cd9e6c6ea6ce1b2b6c392ca4000883e">SLASH</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af38e76c94f4f38b8e6738406f3d5b44e">ASSIGNMENT</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af0d3dd1cf760ee1d30104c6e4c8f457a">COLON</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a5d5ba8f2364ad9272f90bd6274cf8ece">DIAMOND</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a284a728beeae264c8986efa398cbff6e">END</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aa609ed7b83f7bfaa9412437cdcc598d5">LEFT_BRACE</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aaa74d8eda01bbae103d4502cf2a93717">LEFT_PARENS</a>
 , <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116afeed78afa905460f28cdf0a14275a36f">NEGATE</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116af38e76c94f4f38b8e6738406f3d5b44e">ASSIGNMENT</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a479d5d4e5754d49a54670f25b7914c59">LEFT_PARENS</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a0508bbb4d2e31aec9fd6b319642c803b">RIGHT_PARENS</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a472ced5d7b1c2688deeb25686063e64e">LEFT_BRACE</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116ae29d1855178236b87fac902d75c961d2">RIGHT_BRACE</a>
-, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a284a728beeae264c8986efa398cbff6e">END</a>
+&#160;&#160;<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116a7f53d9fb2a1dac3c06ecfce8d7a705a9">RIGHT_BRACE</a>
+, <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116aa259186e3e0ccdc682086220c3f9245b">RIGHT_PARENS</a>
 <br />
  }</td></tr>
 <tr class="separator:a633269b58183cfa0228e4f288c773116"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae2a14fefebed01bc702523240787d8d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ae2a14fefebed01bc702523240787d8d8">numeric_limit_max</a> ()</td></tr>
-<tr class="separator:ae2a14fefebed01bc702523240787d8d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51760a0749afe173ae1992bae62b401"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ad51760a0749afe173ae1992bae62b401">numeric_limit_min</a> ()</td></tr>
-<tr class="separator:ad51760a0749afe173ae1992bae62b401"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb522d6ecef07ad97aba105087960bfc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#afb522d6ecef07ad97aba105087960bfc">number_from_characters</a> (const <a class="el" href="namespacekepler.html#ad62d8e5f12a82b84787cb1adcf746060">List</a>&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;list)</td></tr>
-<tr class="separator:afb522d6ecef07ad97aba105087960bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a871c0fef40578deb61e1a930df71456f"><td class="memItemLeft" align="right" valign="top">double &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a871c0fef40578deb61e1a930df71456f">apply_scientific_notation</a> (double &amp;input, double &amp;exponent)</td></tr>
-<tr class="separator:a871c0fef40578deb61e1a930df71456f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa848e96e65932d5f52bf3811002f0ec0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#a5712a67bd028c5a472e4bbfeb00e30e9">StringUTF8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aa848e96e65932d5f52bf3811002f0ec0">number_to_string</a> (const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;num, int precision=10)</td></tr>
-<tr class="separator:aa848e96e65932d5f52bf3811002f0ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb0c7de5bfe099f79d13607089e6c312"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#a5712a67bd028c5a472e4bbfeb00e30e9">StringUTF8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aeb0c7de5bfe099f79d13607089e6c312">double_to_string</a> (const double &amp;num, int precision)</td></tr>
-<tr class="separator:aeb0c7de5bfe099f79d13607089e6c312"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a571b16ee0d7c0e0eea34fc4f05284ed8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a571b16ee0d7c0e0eea34fc4f05284ed8">integer_nearest_to</a> (const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;num)</td></tr>
-<tr class="separator:a571b16ee0d7c0e0eea34fc4f05284ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76d95d0e078e053088ec440c6e878ab3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a76d95d0e078e053088ec440c6e878ab3">to_string</a> (<a class="el" href="namespacekepler.html#a3fce5e5ac799691d62fbdb3a76fa48f5">ErrorType</a> error_type)</td></tr>
 <tr class="separator:a76d95d0e078e053088ec440c6e878ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a171268a795b3ebefef517b896514c441"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a171268a795b3ebefef517b896514c441">floor</a> (const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;number)</td></tr>
@@ -389,68 +374,46 @@ Functions</h2></td></tr>
 <tr class="separator:a463b032b813859fa2ae94070fdec73c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab641b8b2fc3933a9bcc27f30811c94bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ab641b8b2fc3933a9bcc27f30811c94bd">partitioned_enclose</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;partitioning, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;subject)</td></tr>
 <tr class="separator:ab641b8b2fc3933a9bcc27f30811c94bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba9ff5cacf5419541a2c2806e2313086"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aba9ff5cacf5419541a2c2806e2313086">partitioned_enclose</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;partitioning, const std::u32string &amp;subject)</td></tr>
-<tr class="separator:aba9ff5cacf5419541a2c2806e2313086"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e5cfbb0826a4040d514e1c75dd3ea27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a0e5cfbb0826a4040d514e1c75dd3ea27">partitioned_enclose</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;partitioning, const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;subject)</td></tr>
+<tr class="separator:a0e5cfbb0826a4040d514e1c75dd3ea27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c751cbac6c4f57d783d2ab8960fd6da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a0c751cbac6c4f57d783d2ab8960fd6da">without</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;alpha, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
 <tr class="separator:a0c751cbac6c4f57d783d2ab8960fd6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae63a83a261ee2bce54cc3a983b8240e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ae63a83a261ee2bce54cc3a983b8240e4">without</a> (const std::u32string &amp;alpha, const std::u32string &amp;omega)</td></tr>
-<tr class="separator:ae63a83a261ee2bce54cc3a983b8240e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eebbf10f4713a096b0eabd4213a7326"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a6eebbf10f4713a096b0eabd4213a7326">without</a> (const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;alpha, const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;omega)</td></tr>
+<tr class="separator:a6eebbf10f4713a096b0eabd4213a7326"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e1be937349f3fa654c55c00517d6761"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a2e1be937349f3fa654c55c00517d6761">rho</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;alpha, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
 <tr class="separator:a2e1be937349f3fa654c55c00517d6761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f5815983171b78737f0e166e9d89fba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a7f5815983171b78737f0e166e9d89fba">vec_size</a> (const std::vector&lt; int &gt; &amp;shape, int dim)</td></tr>
-<tr class="separator:a7f5815983171b78737f0e166e9d89fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381bfabdccfab574253acbb27e3d8df2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a381bfabdccfab574253acbb27e3d8df2">get_step_size</a> (const std::vector&lt; int &gt; &amp;shape, int dim)</td></tr>
-<tr class="separator:a381bfabdccfab574253acbb27e3d8df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad171f0351cbb21e92ca7ea0cc0bbd317"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ad171f0351cbb21e92ca7ea0cc0bbd317">get_block_size</a> (const std::vector&lt; int &gt; &amp;shape, int axis)</td></tr>
-<tr class="separator:ad171f0351cbb21e92ca7ea0cc0bbd317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39278d07695647da0a30c3b209c7a4d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a39278d07695647da0a30c3b209c7a4d7">get_shift</a> (int element, int axis, int step_size, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;alpha, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
-<tr class="separator:a39278d07695647da0a30c3b209c7a4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e0061e6ccc074df0dabcaf61f4517b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a2e0061e6ccc074df0dabcaf61f4517b8">rotate</a> (int axis, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;alpha, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
-<tr class="separator:a2e0061e6ccc074df0dabcaf61f4517b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d53d8d215c23865190574f886dd4484"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a5d53d8d215c23865190574f886dd4484">reverse</a> (int axis, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
-<tr class="separator:a5d53d8d215c23865190574f886dd4484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afce205dbe450fbcc7234f5a42f565eae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#afce205dbe450fbcc7234f5a42f565eae">pad</a> (<a class="el" href="structkepler_1_1_array.html">Array</a> &amp;arr, int dim, const std::vector&lt; int &gt; &amp;new_shape, const <a class="el" href="structkepler_1_1_array.html#a2047e94455a21a9d0cc0e204015a8a34">Array::element_type</a> &amp;padding, const std::vector&lt; int &gt; &amp;ordering)</td></tr>
-<tr class="separator:afce205dbe450fbcc7234f5a42f565eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c26d292ba4263ed7f68f4f1ede08fbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9c26d292ba4263ed7f68f4f1ede08fbb">reshape</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;original, const <a class="el" href="structkepler_1_1_array.html#a2047e94455a21a9d0cc0e204015a8a34">Array::element_type</a> &amp;padding, const std::vector&lt; int &gt; &amp;new_shape, const std::vector&lt; int &gt; &amp;ordering)</td></tr>
-<tr class="separator:a9c26d292ba4263ed7f68f4f1ede08fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae45e010aed51dc28b896694f75dc2ca7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ae45e010aed51dc28b896694f75dc2ca7">run_file</a> (const std::string &amp;path, std::ostream &amp;stream=std::cout)</td></tr>
 <tr class="separator:ae45e010aed51dc28b896694f75dc2ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2eea97746f0ae5fd054d304271c171f5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a2eea97746f0ae5fd054d304271c171f5">run_repl</a> ()</td></tr>
 <tr class="separator:a2eea97746f0ae5fd054d304271c171f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49b7372a95bc6035f77f37023923e171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a49b7372a95bc6035f77f37023923e171">safe_execution</a> (std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, <a class="el" href="classkepler_1_1_symbol_table.html">SymbolTable</a> *symbol_table=nullptr)</td></tr>
-<tr class="separator:a49b7372a95bc6035f77f37023923e171"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a914686a7f5a60684440d93ed33a3a959"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a914686a7f5a60684440d93ed33a3a959">immediate_execution</a> (std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, <a class="el" href="classkepler_1_1_symbol_table.html">SymbolTable</a> *symbol_table=nullptr)</td></tr>
-<tr class="separator:a914686a7f5a60684440d93ed33a3a959"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab01a36f4a7d47386adc6da6f9a76e90b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ab01a36f4a7d47386adc6da6f9a76e90b">all_elements_are_scalars</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;arr)</td></tr>
-<tr class="separator:ab01a36f4a7d47386adc6da6f9a76e90b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b3c68418fa87bb4572e48b1bfd07a8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#af3b3c68418fa87bb4572e48b1bfd07a8">dims</a> (const std::vector&lt; int &gt; &amp;shape)</td></tr>
-<tr class="separator:af3b3c68418fa87bb4572e48b1bfd07a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09368e22450bc240021df6519cf19c7a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a09368e22450bc240021df6519cf19c7a">offsets</a> (const std::vector&lt; int &gt; &amp;shape)</td></tr>
-<tr class="separator:a09368e22450bc240021df6519cf19c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c940fca16ab1a09634ee009e48d64f9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::u32string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a1c940fca16ab1a09634ee009e48d64f9">split</a> (const std::u32string &amp;text, char32_t delim)</td></tr>
-<tr class="separator:a1c940fca16ab1a09634ee009e48d64f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e38cc6ab08a8fa6e0df6933e1998c88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9e38cc6ab08a8fa6e0df6933e1998c88">max_length_contiguous_segment</a> (const std::u32string &amp;str)</td></tr>
-<tr class="separator:a9e38cc6ab08a8fa6e0df6933e1998c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac06a7b655e54e2533459da64127b862a"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ac06a7b655e54e2533459da64127b862a">block_concat</a> (std::u32string left, std::u32string right)</td></tr>
-<tr class="separator:ac06a7b655e54e2533459da64127b862a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5812fc866c7b21bfe8481ea58813a270"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a5812fc866c7b21bfe8481ea58813a270">block_prepend</a> (std::u32string str, char32_t val)</td></tr>
-<tr class="separator:a5812fc866c7b21bfe8481ea58813a270"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2e37855a527a231ea2757065461ec7c"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ac2e37855a527a231ea2757065461ec7c">block_append</a> (std::u32string str, char32_t val)</td></tr>
-<tr class="separator:ac2e37855a527a231ea2757065461ec7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac23a3c14c1978c0096eb41930fda9507"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ac23a3c14c1978c0096eb41930fda9507">box</a> (const std::u32string &amp;str, int width, int height)</td></tr>
-<tr class="separator:ac23a3c14c1978c0096eb41930fda9507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a750517c7d0a2aee96dd1a59d93eeeb4b"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a750517c7d0a2aee96dd1a59d93eeeb4b">block_join</a> (char32_t separator, const std::vector&lt; std::u32string &gt; &amp;blocks)</td></tr>
-<tr class="separator:a750517c7d0a2aee96dd1a59d93eeeb4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03094b27ee173cc9846d34ee4a919648"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a03094b27ee173cc9846d34ee4a919648">frame_matrix</a> (const std::vector&lt; std::u32string &gt; &amp;strings, const std::vector&lt; int &gt; &amp;widths, int height)</td></tr>
-<tr class="separator:a03094b27ee173cc9846d34ee4a919648"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0963a2d8e07a7e22fd606d1690ca83c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a0963a2d8e07a7e22fd606d1690ca83c0">from_string</a> (std::string num_str)</td></tr>
-<tr class="separator:a0963a2d8e07a7e22fd606d1690ca83c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19459da31b52ea3cbf3ef8e9bf217321"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a19459da31b52ea3cbf3ef8e9bf217321">to_string</a> (<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116">TokenType</a> type)</td></tr>
-<tr class="separator:a19459da31b52ea3cbf3ef8e9bf217321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae873199194df3797260d2e48244b90f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ae873199194df3797260d2e48244b90f4">safe_execution</a> (const std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, <a class="el" href="classkepler_1_1_symbol_table.html">SymbolTable</a> *symbol_table=nullptr)</td></tr>
+<tr class="separator:ae873199194df3797260d2e48244b90f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff2a3590024c2d97ee7d9d49bef09bfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aff2a3590024c2d97ee7d9d49bef09bfd">immediate_execution</a> (const std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;input, std::ostream &amp;stream, bool print_last=true, <a class="el" href="classkepler_1_1_symbol_table.html">SymbolTable</a> *symbol_table=nullptr)</td></tr>
+<tr class="separator:aff2a3590024c2d97ee7d9d49bef09bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec3e7febe28a0cbe1f4ddefd7fd6349c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aec3e7febe28a0cbe1f4ddefd7fd6349c">vec_size</a> (const std::vector&lt; unsigned int &gt; &amp;shape, int dim)</td></tr>
+<tr class="separator:aec3e7febe28a0cbe1f4ddefd7fd6349c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cec7c445b114ae66fe0c31d6746e7fb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a8cec7c445b114ae66fe0c31d6746e7fb">get_step_size</a> (const std::vector&lt; unsigned int &gt; &amp;shape, int dim)</td></tr>
+<tr class="separator:a8cec7c445b114ae66fe0c31d6746e7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56130004ed10dae55c0a8695f9d8ab37"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a56130004ed10dae55c0a8695f9d8ab37">get_block_size</a> (const std::vector&lt; unsigned int &gt; &amp;shape, int axis)</td></tr>
+<tr class="separator:a56130004ed10dae55c0a8695f9d8ab37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172b41eba4b6d1c9af75f4d5a853d35f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a172b41eba4b6d1c9af75f4d5a853d35f">get_shift</a> (unsigned int element, unsigned int axis, int step_size, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;alpha, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
+<tr class="separator:a172b41eba4b6d1c9af75f4d5a853d35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e0061e6ccc074df0dabcaf61f4517b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a2e0061e6ccc074df0dabcaf61f4517b8">rotate</a> (int axis, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;alpha, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
+<tr class="separator:a2e0061e6ccc074df0dabcaf61f4517b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d53d8d215c23865190574f886dd4484"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a5d53d8d215c23865190574f886dd4484">reverse</a> (int axis, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;omega)</td></tr>
+<tr class="separator:a5d53d8d215c23865190574f886dd4484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f92b46ccb80a94eb3979063a54fb961"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9f92b46ccb80a94eb3979063a54fb961">pad</a> (<a class="el" href="structkepler_1_1_array.html">Array</a> &amp;arr, unsigned int dim, const std::vector&lt; unsigned int &gt; &amp;new_shape, const <a class="el" href="structkepler_1_1_array.html#af6ac8c787a158ba8bb182595ec879754">Array::element_type</a> &amp;padding, const std::vector&lt; bool &gt; &amp;ordering)</td></tr>
+<tr class="separator:a9f92b46ccb80a94eb3979063a54fb961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa58d9a8f10f67bdf7f1b10a6fa44254f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#aa58d9a8f10f67bdf7f1b10a6fa44254f">reshape</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;original, const <a class="el" href="structkepler_1_1_array.html#af6ac8c787a158ba8bb182595ec879754">Array::element_type</a> &amp;padding, const std::vector&lt; unsigned int &gt; &amp;new_shape, const std::vector&lt; bool &gt; &amp;ordering={})</td></tr>
+<tr class="separator:aa58d9a8f10f67bdf7f1b10a6fa44254f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b1e1472c445f86b331d563d857dca39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a6b1e1472c445f86b331d563d857dca39">from_string</a> (const std::string &amp;num_str)</td></tr>
+<tr class="separator:a6b1e1472c445f86b331d563d857dca39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77f68720c33d4655d851adc2fdaa7784"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a77f68720c33d4655d851adc2fdaa7784">to_string</a> (const <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116">TokenType</a> &amp;type)</td></tr>
+<tr class="separator:a77f68720c33d4655d851adc2fdaa7784"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b4442cb52b01b9205ef895e825044fe"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#a9b4442cb52b01b9205ef895e825044fe">read_file</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:a9b4442cb52b01b9205ef895e825044fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6a898e5911724d5bf939a54125853b9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#ae6a898e5911724d5bf939a54125853b9">read_file_whole</a> (const std::string &amp;path)</td></tr>
-<tr class="separator:ae6a898e5911724d5bf939a54125853b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe288852896105a82b5cebada8dde52a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler.html#abe288852896105a82b5cebada8dde52a">concat_lines</a> (const std::vector&lt; std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt; &gt; &amp;lines)</td></tr>
+<tr class="separator:abe288852896105a82b5cebada8dde52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a91663bd130d920c4faafd5f629b26342" name="a91663bd130d920c4faafd5f629b26342"></a>
@@ -525,20 +488,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a5712a67bd028c5a472e4bbfeb00e30e9" name="a5712a67bd028c5a472e4bbfeb00e30e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5712a67bd028c5a472e4bbfeb00e30e9">&#9670;&#160;</a></span>StringUTF8</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacekepler.html#a5712a67bd028c5a472e4bbfeb00e30e9">kepler::StringUTF8</a> = typedef std::string</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a3fce5e5ac799691d62fbdb3a76fa48f5" name="a3fce5e5ac799691d62fbdb3a76fa48f5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3fce5e5ac799691d62fbdb3a76fa48f5">&#9670;&#160;</a></span>ErrorType</h2>
@@ -552,16 +501,16 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133" name="a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133"></a>SyntaxError&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b" name="a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b"></a>ValueError&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4" name="a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4"></a>DefinitionError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a6e7776b919e3fb618a6c9ba5a1a1da5d" name="a3fce5e5ac799691d62fbdb3a76fa48f5a6e7776b919e3fb618a6c9ba5a1a1da5d"></a>DomainError&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b" name="a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b"></a>RankError&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d" name="a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d"></a>FileError&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d" name="a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d"></a>InternalError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a00c462fb95881b780437e0c4e6e178ae" name="a3fce5e5ac799691d62fbdb3a76fa48f5a00c462fb95881b780437e0c4e6e178ae"></a>LengthError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5ab86d62079838afa9d8a5c2afb54606af" name="a3fce5e5ac799691d62fbdb3a76fa48f5ab86d62079838afa9d8a5c2afb54606af"></a>LimitError&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4" name="a3fce5e5ac799691d62fbdb3a76fa48f5ad4b1f8bec7ce77b3f6d2baa4c58a2cd4"></a>DefinitionError&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d" name="a3fce5e5ac799691d62fbdb3a76fa48f5a6ae260f3a6b8d13cbcc7f881f433319d"></a>FileError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a131156e5eee35009d173fc918eaadd78" name="a3fce5e5ac799691d62fbdb3a76fa48f5a131156e5eee35009d173fc918eaadd78"></a>NotImplemented&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d" name="a3fce5e5ac799691d62fbdb3a76fa48f5a362c9489584c13b50acbc1a5d4bc9f6d"></a>InternalError&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b" name="a3fce5e5ac799691d62fbdb3a76fa48f5a772d6fbf1b3e7bb005dcf9e867d6064b"></a>RankError&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133" name="a3fce5e5ac799691d62fbdb3a76fa48f5a12443286e92197ce4091848a6ca2b133"></a>SyntaxError&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b" name="a3fce5e5ac799691d62fbdb3a76fa48f5a5444f9e536f7f4018c4bc84c5d2b915b"></a>ValueError&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -577,6 +526,7 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Defines the different types of symbols. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3b14b9ce14211f082bdaeaac3a4a6ab2af8b19739eb8d0b7a18c911b876db50b2" name="a3b14b9ce14211f082bdaeaac3a4a6ab2af8b19739eb8d0b7a18c911b876db50b2"></a>FunctionSymbol&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a3b14b9ce14211f082bdaeaac3a4a6ab2a4fa8e60242c265be8ee1c7695b8bec9e" name="a3b14b9ce14211f082bdaeaac3a4a6ab2a4fa8e60242c265be8ee1c7695b8bec9e"></a>VariableSymbol&#160;</td><td class="fielddoc"></td></tr>
@@ -596,116 +546,65 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd" name="a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd"></a>NUMBER&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6" name="a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6"></a>ID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd" name="a633269b58183cfa0228e4f288c773116a06dd862630c495e61c89abdcdbe81edd"></a>NUMBER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a8fe75b60d2592567ef80c5afc6d57e5e" name="a633269b58183cfa0228e4f288c773116a8fe75b60d2592567ef80c5afc6d57e5e"></a>STRING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6" name="a633269b58183cfa0228e4f288c773116ae2e0dca636bfca086655a2a53df804f6"></a>ID&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a527c014fcb304bb498d923f8db83747f" name="a633269b58183cfa0228e4f288c773116a527c014fcb304bb498d923f8db83747f"></a>ALPHA&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a547128ff87a3653cb0df26f014d1f4c8" name="a633269b58183cfa0228e4f288c773116a547128ff87a3653cb0df26f014d1f4c8"></a>OMEGA&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a9a91cae5434cc67e1e7a19f3767ec1ad" name="a633269b58183cfa0228e4f288c773116a9a91cae5434cc67e1e7a19f3767ec1ad"></a>PLUS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f" name="a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f"></a>MINUS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a66aab2eef018dbbe23206fa76c8b4d5e" name="a633269b58183cfa0228e4f288c773116a66aab2eef018dbbe23206fa76c8b4d5e"></a>TIMES&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a30f4edd07c64a16695e183945975ee08" name="a633269b58183cfa0228e4f288c773116a30f4edd07c64a16695e183945975ee08"></a>DIVIDE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116abf0e913d573ea9b6b2b51279d9475567" name="a633269b58183cfa0228e4f288c773116abf0e913d573ea9b6b2b51279d9475567"></a>AND&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a98cf9a776c21e534a1443ccefd69f309" name="a633269b58183cfa0228e4f288c773116a98cf9a776c21e534a1443ccefd69f309"></a>ARROW_UP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a1ab5ed2aa51cfabf2d0ac8565c043eee" name="a633269b58183cfa0228e4f288c773116a1ab5ed2aa51cfabf2d0ac8565c043eee"></a>BAR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a5313a257055dde9284aa1a672f23f18f" name="a633269b58183cfa0228e4f288c773116a5313a257055dde9284aa1a672f23f18f"></a>CEILING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a859616a0be7f752874168ecbe3118744" name="a633269b58183cfa0228e4f288c773116a859616a0be7f752874168ecbe3118744"></a>FLOOR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a5b1c98b03c1e8b1db7c3642ead5fd8d5" name="a633269b58183cfa0228e4f288c773116a5b1c98b03c1e8b1db7c3642ead5fd8d5"></a>RIGHT_TACK&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a7524aee32a106642f77cd10affa286cb" name="a633269b58183cfa0228e4f288c773116a7524aee32a106642f77cd10affa286cb"></a>LEFT_TACK&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e" name="a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e"></a>IOTA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae9b85b612844ea19ea413e49541fe49b" name="a633269b58183cfa0228e4f288c773116ae9b85b612844ea19ea413e49541fe49b"></a>CIRCLE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a66e9d123591a74c4e14c5f28ebc51e75" name="a633269b58183cfa0228e4f288c773116a66e9d123591a74c4e14c5f28ebc51e75"></a>CIRCLE_BAR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a9276cb61e5b80eafb0f2c474b0d27dee" name="a633269b58183cfa0228e4f288c773116a9276cb61e5b80eafb0f2c474b0d27dee"></a>CIRCLE_STILE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116afe3392888dfafe6af89136e265290c96" name="a633269b58183cfa0228e4f288c773116afe3392888dfafe6af89136e265290c96"></a>LESS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116af5a63172a50db79f4e6787cea3a0cbf1" name="a633269b58183cfa0228e4f288c773116af5a63172a50db79f4e6787cea3a0cbf1"></a>LESS_EQUAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a5b680f53fc6dabb7d5511769dbc1a552" name="a633269b58183cfa0228e4f288c773116a5b680f53fc6dabb7d5511769dbc1a552"></a>EQUAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a67f66c7fe8204f111ae956eeae897f4a" name="a633269b58183cfa0228e4f288c773116a67f66c7fe8204f111ae956eeae897f4a"></a>GREATER_EQUAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a132e9a1fdb57af79f6e06b2cfeec38e0" name="a633269b58183cfa0228e4f288c773116a132e9a1fdb57af79f6e06b2cfeec38e0"></a>COMMA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a30f4edd07c64a16695e183945975ee08" name="a633269b58183cfa0228e4f288c773116a30f4edd07c64a16695e183945975ee08"></a>DIVIDE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a89e193547c0975999985c1e459811fee" name="a633269b58183cfa0228e4f288c773116a89e193547c0975999985c1e459811fee"></a>EQUAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a1c0f6007a1b79fa324a0550321a6abf9" name="a633269b58183cfa0228e4f288c773116a1c0f6007a1b79fa324a0550321a6abf9"></a>EXCLAMATION_MARK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a859616a0be7f752874168ecbe3118744" name="a633269b58183cfa0228e4f288c773116a859616a0be7f752874168ecbe3118744"></a>FLOOR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae3c7a439e25f6baf25994579279cbbdf" name="a633269b58183cfa0228e4f288c773116ae3c7a439e25f6baf25994579279cbbdf"></a>GREATER&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a6525eae2bc5eb9bebd6b92ce936e2393" name="a633269b58183cfa0228e4f288c773116a6525eae2bc5eb9bebd6b92ce936e2393"></a>NOT_EQUAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ad525205003ce6185df4ad624ecf6e881" name="a633269b58183cfa0228e4f288c773116ad525205003ce6185df4ad624ecf6e881"></a>WITHOUT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ac0c9eb8fc2e79e6a7752d7a5bf93bca1" name="a633269b58183cfa0228e4f288c773116ac0c9eb8fc2e79e6a7752d7a5bf93bca1"></a>LEFT_SHOE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aa9d836eac92ebc8011447ca7ac1b737a" name="a633269b58183cfa0228e4f288c773116aa9d836eac92ebc8011447ca7ac1b737a"></a>RHO&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116abf0e913d573ea9b6b2b51279d9475567" name="a633269b58183cfa0228e4f288c773116abf0e913d573ea9b6b2b51279d9475567"></a>AND&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ad935b9b98e5d7be862b0dbb60089fb4f" name="a633269b58183cfa0228e4f288c773116ad935b9b98e5d7be862b0dbb60089fb4f"></a>OR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a71084ed569cc66cb56587b23568f3389" name="a633269b58183cfa0228e4f288c773116a71084ed569cc66cb56587b23568f3389"></a>GREATER_EQUAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e" name="a633269b58183cfa0228e4f288c773116a55008a2dd07fd32a967feb0ee7fcb05e"></a>IOTA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aa2977431fdf6c467d01f0dcb1aa9fc25" name="a633269b58183cfa0228e4f288c773116aa2977431fdf6c467d01f0dcb1aa9fc25"></a>LEFT_SHOE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a7524aee32a106642f77cd10affa286cb" name="a633269b58183cfa0228e4f288c773116a7524aee32a106642f77cd10affa286cb"></a>LEFT_TACK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116afe3392888dfafe6af89136e265290c96" name="a633269b58183cfa0228e4f288c773116afe3392888dfafe6af89136e265290c96"></a>LESS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a2bbc65d1376106c2408851ea558179c8" name="a633269b58183cfa0228e4f288c773116a2bbc65d1376106c2408851ea558179c8"></a>LESS_EQUAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a002d6d2feaebb05ade1127986e2a1122" name="a633269b58183cfa0228e4f288c773116a002d6d2feaebb05ade1127986e2a1122"></a>LOG&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f" name="a633269b58183cfa0228e4f288c773116ae7e6130ffcf070dd2b528f59800cd02f"></a>MINUS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a9f313df549f971c071b11ddc124c3eb4" name="a633269b58183cfa0228e4f288c773116a9f313df549f971c071b11ddc124c3eb4"></a>NAND&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a0e52f27d7ec7d5ddb139604171e12526" name="a633269b58183cfa0228e4f288c773116a0e52f27d7ec7d5ddb139604171e12526"></a>NOR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a62126c61565e97b6560aee9cc855a08e" name="a633269b58183cfa0228e4f288c773116a62126c61565e97b6560aee9cc855a08e"></a>QUESTION_MARK&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae9b85b612844ea19ea413e49541fe49b" name="a633269b58183cfa0228e4f288c773116ae9b85b612844ea19ea413e49541fe49b"></a>CIRCLE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a44b6c369e47d2ecf97e003e28114577f" name="a633269b58183cfa0228e4f288c773116a44b6c369e47d2ecf97e003e28114577f"></a>STAR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a002d6d2feaebb05ade1127986e2a1122" name="a633269b58183cfa0228e4f288c773116a002d6d2feaebb05ade1127986e2a1122"></a>LOG&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a1ab5ed2aa51cfabf2d0ac8565c043eee" name="a633269b58183cfa0228e4f288c773116a1ab5ed2aa51cfabf2d0ac8565c043eee"></a>BAR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a1c0f6007a1b79fa324a0550321a6abf9" name="a633269b58183cfa0228e4f288c773116a1c0f6007a1b79fa324a0550321a6abf9"></a>EXCLAMATION_MARK&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a132e9a1fdb57af79f6e06b2cfeec38e0" name="a633269b58183cfa0228e4f288c773116a132e9a1fdb57af79f6e06b2cfeec38e0"></a>COMMA&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a98cf9a776c21e534a1443ccefd69f309" name="a633269b58183cfa0228e4f288c773116a98cf9a776c21e534a1443ccefd69f309"></a>ARROW_UP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a74a2612a0d1c1e99f04107a69ba59f4a" name="a633269b58183cfa0228e4f288c773116a74a2612a0d1c1e99f04107a69ba59f4a"></a>PRODUCT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ab0f6c1ab340912520eee7fdd586c03e1" name="a633269b58183cfa0228e4f288c773116ab0f6c1ab340912520eee7fdd586c03e1"></a>NOT_EQUAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ad935b9b98e5d7be862b0dbb60089fb4f" name="a633269b58183cfa0228e4f288c773116ad935b9b98e5d7be862b0dbb60089fb4f"></a>OR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a9a91cae5434cc67e1e7a19f3767ec1ad" name="a633269b58183cfa0228e4f288c773116a9a91cae5434cc67e1e7a19f3767ec1ad"></a>PLUS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116af975ee215bb222a687ea7eeb1435f3fd" name="a633269b58183cfa0228e4f288c773116af975ee215bb222a687ea7eeb1435f3fd"></a>POWER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a74a2612a0d1c1e99f04107a69ba59f4a" name="a633269b58183cfa0228e4f288c773116a74a2612a0d1c1e99f04107a69ba59f4a"></a>PRODUCT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aeee8346f8cf7df00023ecf8432b733b5" name="a633269b58183cfa0228e4f288c773116aeee8346f8cf7df00023ecf8432b733b5"></a>QUESTION_MARK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aa9d836eac92ebc8011447ca7ac1b737a" name="a633269b58183cfa0228e4f288c773116aa9d836eac92ebc8011447ca7ac1b737a"></a>RHO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a5b1c98b03c1e8b1db7c3642ead5fd8d5" name="a633269b58183cfa0228e4f288c773116a5b1c98b03c1e8b1db7c3642ead5fd8d5"></a>RIGHT_TACK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a44b6c369e47d2ecf97e003e28114577f" name="a633269b58183cfa0228e4f288c773116a44b6c369e47d2ecf97e003e28114577f"></a>STAR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a66aab2eef018dbbe23206fa76c8b4d5e" name="a633269b58183cfa0228e4f288c773116a66aab2eef018dbbe23206fa76c8b4d5e"></a>TIMES&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ad525205003ce6185df4ad624ecf6e881" name="a633269b58183cfa0228e4f288c773116ad525205003ce6185df4ad624ecf6e881"></a>WITHOUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a0a0d2a2665dea1038863d34001d54bce" name="a633269b58183cfa0228e4f288c773116a0a0d2a2665dea1038863d34001d54bce"></a>ATOP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a40cbeaa84b3cc16257f806031854f6b7" name="a633269b58183cfa0228e4f288c773116a40cbeaa84b3cc16257f806031854f6b7"></a>COMMUTE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a9cd9e6c6ea6ce1b2b6c392ca4000883e" name="a633269b58183cfa0228e4f288c773116a9cd9e6c6ea6ce1b2b6c392ca4000883e"></a>SLASH&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116af7b0b0f079bd57ebd406ee7805b16f86" name="a633269b58183cfa0228e4f288c773116af7b0b0f079bd57ebd406ee7805b16f86"></a>DIAERESIS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a1fbb54c585609afe185c17ca4550a13b" name="a633269b58183cfa0228e4f288c773116a1fbb54c585609afe185c17ca4550a13b"></a>JOT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a0a0d2a2665dea1038863d34001d54bce" name="a633269b58183cfa0228e4f288c773116a0a0d2a2665dea1038863d34001d54bce"></a>ATOP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ac69e8a1554516f24aa484fc81a13dcd0" name="a633269b58183cfa0228e4f288c773116ac69e8a1554516f24aa484fc81a13dcd0"></a>OVER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a9cd9e6c6ea6ce1b2b6c392ca4000883e" name="a633269b58183cfa0228e4f288c773116a9cd9e6c6ea6ce1b2b6c392ca4000883e"></a>SLASH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116af38e76c94f4f38b8e6738406f3d5b44e" name="a633269b58183cfa0228e4f288c773116af38e76c94f4f38b8e6738406f3d5b44e"></a>ASSIGNMENT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116af0d3dd1cf760ee1d30104c6e4c8f457a" name="a633269b58183cfa0228e4f288c773116af0d3dd1cf760ee1d30104c6e4c8f457a"></a>COLON&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a5d5ba8f2364ad9272f90bd6274cf8ece" name="a633269b58183cfa0228e4f288c773116a5d5ba8f2364ad9272f90bd6274cf8ece"></a>DIAMOND&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116afeed78afa905460f28cdf0a14275a36f" name="a633269b58183cfa0228e4f288c773116afeed78afa905460f28cdf0a14275a36f"></a>NEGATE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116af38e76c94f4f38b8e6738406f3d5b44e" name="a633269b58183cfa0228e4f288c773116af38e76c94f4f38b8e6738406f3d5b44e"></a>ASSIGNMENT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a479d5d4e5754d49a54670f25b7914c59" name="a633269b58183cfa0228e4f288c773116a479d5d4e5754d49a54670f25b7914c59"></a>LEFT_PARENS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a0508bbb4d2e31aec9fd6b319642c803b" name="a633269b58183cfa0228e4f288c773116a0508bbb4d2e31aec9fd6b319642c803b"></a>RIGHT_PARENS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a472ced5d7b1c2688deeb25686063e64e" name="a633269b58183cfa0228e4f288c773116a472ced5d7b1c2688deeb25686063e64e"></a>LEFT_BRACE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116ae29d1855178236b87fac902d75c961d2" name="a633269b58183cfa0228e4f288c773116ae29d1855178236b87fac902d75c961d2"></a>RIGHT_BRACE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a284a728beeae264c8986efa398cbff6e" name="a633269b58183cfa0228e4f288c773116a284a728beeae264c8986efa398cbff6e"></a>END&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aa609ed7b83f7bfaa9412437cdcc598d5" name="a633269b58183cfa0228e4f288c773116aa609ed7b83f7bfaa9412437cdcc598d5"></a>LEFT_BRACE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aaa74d8eda01bbae103d4502cf2a93717" name="a633269b58183cfa0228e4f288c773116aaa74d8eda01bbae103d4502cf2a93717"></a>LEFT_PARENS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116afeed78afa905460f28cdf0a14275a36f" name="a633269b58183cfa0228e4f288c773116afeed78afa905460f28cdf0a14275a36f"></a>NEGATE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116a7f53d9fb2a1dac3c06ecfce8d7a705a9" name="a633269b58183cfa0228e4f288c773116a7f53d9fb2a1dac3c06ecfce8d7a705a9"></a>RIGHT_BRACE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a633269b58183cfa0228e4f288c773116aa259186e3e0ccdc682086220c3f9245b" name="a633269b58183cfa0228e4f288c773116aa259186e3e0ccdc682086220c3f9245b"></a>RIGHT_PARENS&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab01a36f4a7d47386adc6da6f9a76e90b" name="ab01a36f4a7d47386adc6da6f9a76e90b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab01a36f4a7d47386adc6da6f9a76e90b">&#9670;&#160;</a></span>all_elements_are_scalars()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool kepler::all_elements_are_scalars </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;&#160;</td>
-          <td class="paramname"><em>arr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ab01a36f4a7d47386adc6da6f9a76e90b_icgraph.svg" width="332" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="a871c0fef40578deb61e1a930df71456f" name="a871c0fef40578deb61e1a930df71456f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a871c0fef40578deb61e1a930df71456f">&#9670;&#160;</a></span>apply_scientific_notation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double &amp; kepler::apply_scientific_notation </td>
-          <td>(</td>
-          <td class="paramtype">double &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double &amp;&#160;</td>
-          <td class="paramname"><em>exponent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a463b032b813859fa2ae94070fdec73c3" name="a463b032b813859fa2ae94070fdec73c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a463b032b813859fa2ae94070fdec73c3">&#9670;&#160;</a></span>binomial()</h2>
 
@@ -731,267 +630,54 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a463b032b813859fa2ae94070fdec73c3_cgraph.svg" width="124" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<p>Returns the binomial of two numbers.</p>
+<p>This function is defined in terms of the gamma function, in a similar way to the factorial function.</p>
+<p>Source: <a href="https://help.dyalog.com/latest/Content/Language/Primitive%20Functions/Binomial.htm">https://help.dyalog.com/latest/Content/Language/Primitive%20Functions/Binomial.htm</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alpha</td><td>The left argument. </td></tr>
+    <tr><td class="paramname">omega</td><td>The right argument. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The binomial of the two numbers. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a463b032b813859fa2ae94070fdec73c3_icgraph.svg" width="339" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a463b032b813859fa2ae94070fdec73c3_icgraph.svg" width="339" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="ac2e37855a527a231ea2757065461ec7c" name="ac2e37855a527a231ea2757065461ec7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2e37855a527a231ea2757065461ec7c">&#9670;&#160;</a></span>block_append()</h2>
+<a id="abe288852896105a82b5cebada8dde52a" name="abe288852896105a82b5cebada8dde52a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe288852896105a82b5cebada8dde52a">&#9670;&#160;</a></span>concat_lines()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::u32string kepler::block_append </td>
+          <td class="memname">std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt; kepler::concat_lines </td>
           <td>(</td>
-          <td class="paramtype">std::u32string&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char32_t&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ac2e37855a527a231ea2757065461ec7c_cgraph.svg" width="294" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_ac2e37855a527a231ea2757065461ec7c_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
-<a id="ac06a7b655e54e2533459da64127b862a" name="ac06a7b655e54e2533459da64127b862a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac06a7b655e54e2533459da64127b862a">&#9670;&#160;</a></span>block_concat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::u32string kepler::block_concat </td>
-          <td>(</td>
-          <td class="paramtype">std::u32string&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::u32string&#160;</td>
-          <td class="paramname"><em>right</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ac06a7b655e54e2533459da64127b862a_cgraph.svg" width="291" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_ac06a7b655e54e2533459da64127b862a_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
-<a id="a750517c7d0a2aee96dd1a59d93eeeb4b" name="a750517c7d0a2aee96dd1a59d93eeeb4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a750517c7d0a2aee96dd1a59d93eeeb4b">&#9670;&#160;</a></span>block_join()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::u32string kepler::block_join </td>
-          <td>(</td>
-          <td class="paramtype">char32_t&#160;</td>
-          <td class="paramname"><em>separator</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::u32string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>blocks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a750517c7d0a2aee96dd1a59d93eeeb4b_cgraph.svg" width="464" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a750517c7d0a2aee96dd1a59d93eeeb4b_icgraph.svg" width="506" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="a5812fc866c7b21bfe8481ea58813a270" name="a5812fc866c7b21bfe8481ea58813a270"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5812fc866c7b21bfe8481ea58813a270">&#9670;&#160;</a></span>block_prepend()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::u32string kepler::block_prepend </td>
-          <td>(</td>
-          <td class="paramtype">std::u32string&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char32_t&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a5812fc866c7b21bfe8481ea58813a270_cgraph.svg" width="298" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a5812fc866c7b21bfe8481ea58813a270_icgraph.svg" width="532" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="ac23a3c14c1978c0096eb41930fda9507" name="ac23a3c14c1978c0096eb41930fda9507"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac23a3c14c1978c0096eb41930fda9507">&#9670;&#160;</a></span>box()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::u32string kepler::box </td>
-          <td>(</td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ac23a3c14c1978c0096eb41930fda9507_cgraph.svg" width="235" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ac23a3c14c1978c0096eb41930fda9507_icgraph.svg" width="470" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="af3b3c68418fa87bb4572e48b1bfd07a8" name="af3b3c68418fa87bb4572e48b1bfd07a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b3c68418fa87bb4572e48b1bfd07a8">&#9670;&#160;</a></span>dims()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; int &gt; kepler::dims </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shape</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lines</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Concatenates the given lines into a single vector of characters. Separates the lines with a newline character.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lines</td><td>A vector of lines. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The concatenated lines. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_af3b3c68418fa87bb4572e48b1bfd07a8_icgraph.svg" width="287" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_abe288852896105a82b5cebada8dde52a_icgraph.svg" width="510" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
-
-</div>
-</div>
-<a id="aeb0c7de5bfe099f79d13607089e6c312" name="aeb0c7de5bfe099f79d13607089e6c312"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb0c7de5bfe099f79d13607089e6c312">&#9670;&#160;</a></span>double_to_string()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacekepler.html#a5712a67bd028c5a472e4bbfeb00e30e9">kepler::StringUTF8</a> kepler::double_to_string </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>num</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>precision</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aeb0c7de5bfe099f79d13607089e6c312_icgraph.svg" width="595" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1011,6 +697,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the floor of the given number.</p>
+<p>Note that this function is defined for complex numbers. The definition follows the one published as part of J's implementation.</p>
+<p>Source: <a href="https://www.jsoftware.com/papers/eem/complexfloor1.htm#0">https://www.jsoftware.com/papers/eem/complexfloor1.htm#0</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>The number to take the floor of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of taking the floor of the given number. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1019,52 +715,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a03094b27ee173cc9846d34ee4a919648" name="a03094b27ee173cc9846d34ee4a919648"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03094b27ee173cc9846d34ee4a919648">&#9670;&#160;</a></span>frame_matrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::u32string kepler::frame_matrix </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::u32string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>strings</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>widths</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a03094b27ee173cc9846d34ee4a919648_cgraph.svg" width="658" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a03094b27ee173cc9846d34ee4a919648_icgraph.svg" width="335" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="a0963a2d8e07a7e22fd606d1690ca83c0" name="a0963a2d8e07a7e22fd606d1690ca83c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0963a2d8e07a7e22fd606d1690ca83c0">&#9670;&#160;</a></span>from_string()</h2>
+<a id="a6b1e1472c445f86b331d563d857dca39" name="a6b1e1472c445f86b331d563d857dca39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b1e1472c445f86b331d563d857dca39">&#9670;&#160;</a></span>from_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1072,17 +724,24 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">kepler::Number</a> kepler::from_string </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>num_str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Converts a string to a Number. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_str</td><td>The string to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The Number representation of the string. </dd></dl>
 
 </div>
 </div>
-<a id="ad171f0351cbb21e92ca7ea0cc0bbd317" name="ad171f0351cbb21e92ca7ea0cc0bbd317"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad171f0351cbb21e92ca7ea0cc0bbd317">&#9670;&#160;</a></span>get_block_size()</h2>
+<a id="a56130004ed10dae55c0a8695f9d8ab37" name="a56130004ed10dae55c0a8695f9d8ab37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56130004ed10dae55c0a8695f9d8ab37">&#9670;&#160;</a></span>get_block_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1090,7 +749,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int kepler::get_block_size </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
           <td class="paramname"><em>shape</em>, </td>
         </tr>
         <tr>
@@ -1109,32 +768,34 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ad171f0351cbb21e92ca7ea0cc0bbd317_cgraph.svg" width="328" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a56130004ed10dae55c0a8695f9d8ab37_cgraph.svg" width="328" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ad171f0351cbb21e92ca7ea0cc0bbd317_icgraph.svg" width="494" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a56130004ed10dae55c0a8695f9d8ab37_icgraph.svg" width="494" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a39278d07695647da0a30c3b209c7a4d7" name="a39278d07695647da0a30c3b209c7a4d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39278d07695647da0a30c3b209c7a4d7">&#9670;&#160;</a></span>get_shift()</h2>
+<a id="a172b41eba4b6d1c9af75f4d5a853d35f" name="a172b41eba4b6d1c9af75f4d5a853d35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a172b41eba4b6d1c9af75f4d5a853d35f">&#9670;&#160;</a></span>get_shift()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int kepler::get_shift </td>
+          <td class="memname">unsigned int kepler::get_shift </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>element</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>axis</em>, </td>
         </tr>
         <tr>
@@ -1165,18 +826,20 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a39278d07695647da0a30c3b209c7a4d7_cgraph.svg" width="536" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a172b41eba4b6d1c9af75f4d5a853d35f_cgraph.svg" width="536" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a39278d07695647da0a30c3b209c7a4d7_icgraph.svg" width="447" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a172b41eba4b6d1c9af75f4d5a853d35f_icgraph.svg" width="447" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a381bfabdccfab574253acbb27e3d8df2" name="a381bfabdccfab574253acbb27e3d8df2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a381bfabdccfab574253acbb27e3d8df2">&#9670;&#160;</a></span>get_step_size()</h2>
+<a id="a8cec7c445b114ae66fe0c31d6746e7fb" name="a8cec7c445b114ae66fe0c31d6746e7fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cec7c445b114ae66fe0c31d6746e7fb">&#9670;&#160;</a></span>get_step_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1184,7 +847,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int kepler::get_step_size </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
           <td class="paramname"><em>shape</em>, </td>
         </tr>
         <tr>
@@ -1203,13 +866,14 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a381bfabdccfab574253acbb27e3d8df2_icgraph.svg" width="488" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a8cec7c445b114ae66fe0c31d6746e7fb_icgraph.svg" width="488" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a914686a7f5a60684440d93ed33a3a959" name="a914686a7f5a60684440d93ed33a3a959"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a914686a7f5a60684440d93ed33a3a959">&#9670;&#160;</a></span>immediate_execution()</h2>
+<a id="aff2a3590024c2d97ee7d9d49bef09bfd" name="aff2a3590024c2d97ee7d9d49bef09bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2a3590024c2d97ee7d9d49bef09bfd">&#9670;&#160;</a></span>immediate_execution()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1217,7 +881,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void kepler::immediate_execution </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
@@ -1245,181 +909,34 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Executes the given input, and outputs any results/errors to the given stream.</p>
+<p>This function is unsafe, meaning that it will throw exceptions if errors occur.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input to execute. </td></tr>
+    <tr><td class="paramname">stream</td><td>The output stream to write to. </td></tr>
+    <tr><td class="paramname">print_last</td><td>Whether or not to print the last result. In the REPL, this should be true, but in a file, it should be false. </td></tr>
+    <tr><td class="paramname">symbol_table</td><td>The symbol table to use during evaluation. Can be nullptr. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a914686a7f5a60684440d93ed33a3a959_cgraph.svg" width="619" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aff2a3590024c2d97ee7d9d49bef09bfd_cgraph.svg" width="619" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a914686a7f5a60684440d93ed33a3a959_icgraph.svg" width="658" height="158"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_aff2a3590024c2d97ee7d9d49bef09bfd_icgraph.svg" width="100%" height="460"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a571b16ee0d7c0e0eea34fc4f05284ed8" name="a571b16ee0d7c0e0eea34fc4f05284ed8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a571b16ee0d7c0e0eea34fc4f05284ed8">&#9670;&#160;</a></span>integer_nearest_to()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> kepler::integer_nearest_to </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;&#160;</td>
-          <td class="paramname"><em>num</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9e38cc6ab08a8fa6e0df6933e1998c88" name="a9e38cc6ab08a8fa6e0df6933e1998c88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e38cc6ab08a8fa6e0df6933e1998c88">&#9670;&#160;</a></span>max_length_contiguous_segment()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kepler::max_length_contiguous_segment </td>
-          <td>(</td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a9e38cc6ab08a8fa6e0df6933e1998c88_cgraph.svg" width="298" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a9e38cc6ab08a8fa6e0df6933e1998c88_icgraph.svg" width="343" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="afb522d6ecef07ad97aba105087960bfc" name="afb522d6ecef07ad97aba105087960bfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb522d6ecef07ad97aba105087960bfc">&#9670;&#160;</a></span>number_from_characters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> kepler::number_from_characters </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacekepler.html#ad62d8e5f12a82b84787cb1adcf746060">List</a>&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>list</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa848e96e65932d5f52bf3811002f0ec0" name="aa848e96e65932d5f52bf3811002f0ec0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa848e96e65932d5f52bf3811002f0ec0">&#9670;&#160;</a></span>number_to_string()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacekepler.html#a5712a67bd028c5a472e4bbfeb00e30e9">kepler::StringUTF8</a> kepler::number_to_string </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;&#160;</td>
-          <td class="paramname"><em>num</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>precision</em> = <code>10</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aa848e96e65932d5f52bf3811002f0ec0_cgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aa848e96e65932d5f52bf3811002f0ec0_icgraph.svg" width="387" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="ae2a14fefebed01bc702523240787d8d8" name="ae2a14fefebed01bc702523240787d8d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2a14fefebed01bc702523240787d8d8">&#9670;&#160;</a></span>numeric_limit_max()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> kepler::numeric_limit_max </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad51760a0749afe173ae1992bae62b401" name="ad51760a0749afe173ae1992bae62b401"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad51760a0749afe173ae1992bae62b401">&#9670;&#160;</a></span>numeric_limit_min()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> kepler::numeric_limit_min </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a09368e22450bc240021df6519cf19c7a" name="a09368e22450bc240021df6519cf19c7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09368e22450bc240021df6519cf19c7a">&#9670;&#160;</a></span>offsets()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; int &gt; kepler::offsets </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shape</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a09368e22450bc240021df6519cf19c7a_icgraph.svg" width="299" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="afce205dbe450fbcc7234f5a42f565eae" name="afce205dbe450fbcc7234f5a42f565eae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afce205dbe450fbcc7234f5a42f565eae">&#9670;&#160;</a></span>pad()</h2>
+<a id="a9f92b46ccb80a94eb3979063a54fb961" name="a9f92b46ccb80a94eb3979063a54fb961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f92b46ccb80a94eb3979063a54fb961">&#9670;&#160;</a></span>pad()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1433,25 +950,25 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>dim</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
           <td class="paramname"><em>new_shape</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html#a2047e94455a21a9d0cc0e204015a8a34">Array::element_type</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html#af6ac8c787a158ba8bb182595ec879754">Array::element_type</a> &amp;&#160;</td>
           <td class="paramname"><em>padding</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; bool &gt; &amp;&#160;</td>
           <td class="paramname"><em>ordering</em>&#160;</td>
         </tr>
         <tr>
@@ -1461,11 +978,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_afce205dbe450fbcc7234f5a42f565eae_icgraph.svg" width="483" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
 
 </div>
 </div>
@@ -1494,6 +1006,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Encloses elements in the subject array according to the partitioning.</p>
+<p>The behaviour is described in detail on this page: <a href="https://aplwiki.com/wiki/Partitioned_Enclose">https://aplwiki.com/wiki/Partitioned_Enclose</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">partitioning</td><td>The partitioning to use. </td></tr>
+    <tr><td class="paramname">subject</td><td>The array to enclose. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the partitioned enclose operation. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1507,8 +1029,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="aba9ff5cacf5419541a2c2806e2313086" name="aba9ff5cacf5419541a2c2806e2313086"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba9ff5cacf5419541a2c2806e2313086">&#9670;&#160;</a></span>partitioned_enclose() <span class="overload">[2/2]</span></h2>
+<a id="a0e5cfbb0826a4040d514e1c75dd3ea27" name="a0e5cfbb0826a4040d514e1c75dd3ea27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e5cfbb0826a4040d514e1c75dd3ea27">&#9670;&#160;</a></span>partitioned_enclose() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1522,7 +1044,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;&#160;</td>
           <td class="paramname"><em>subject</em>&#160;</td>
         </tr>
         <tr>
@@ -1532,10 +1054,21 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Encloses elements in the subject string according to the partitioning.</p>
+<p>The behaviour is described in detail on this page: <a href="https://aplwiki.com/wiki/Partitioned_Enclose">https://aplwiki.com/wiki/Partitioned_Enclose</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">partitioning</td><td>The partitioning to use. </td></tr>
+    <tr><td class="paramname">subject</td><td>The string to enclose. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the partitioned enclose operation. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aba9ff5cacf5419541a2c2806e2313086_cgraph.svg" width="312" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a0e5cfbb0826a4040d514e1c75dd3ea27_cgraph.svg" width="312" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
@@ -1555,34 +1088,31 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reads the given file and returns a vector of lines. Each line is a vector of characters.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to the file to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The lines in the file. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classkepler_1_1_error.html">Error</a></td><td>if the file could not be read. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a9b4442cb52b01b9205ef895e825044fe_icgraph.svg" width="436" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a9b4442cb52b01b9205ef895e825044fe_icgraph.svg" width="486" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="ae6a898e5911724d5bf939a54125853b9" name="ae6a898e5911724d5bf939a54125853b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6a898e5911724d5bf939a54125853b9">&#9670;&#160;</a></span>read_file_whole()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">kepler::Char</a> &gt; kepler::read_file_whole </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9c26d292ba4263ed7f68f4f1ede08fbb" name="a9c26d292ba4263ed7f68f4f1ede08fbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c26d292ba4263ed7f68f4f1ede08fbb">&#9670;&#160;</a></span>reshape()</h2>
+<a id="aa58d9a8f10f67bdf7f1b10a6fa44254f" name="aa58d9a8f10f67bdf7f1b10a6fa44254f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa58d9a8f10f67bdf7f1b10a6fa44254f">&#9670;&#160;</a></span>reshape()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1596,20 +1126,20 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html#a2047e94455a21a9d0cc0e204015a8a34">Array::element_type</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html#af6ac8c787a158ba8bb182595ec879754">Array::element_type</a> &amp;&#160;</td>
           <td class="paramname"><em>padding</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
           <td class="paramname"><em>new_shape</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ordering</em>&#160;</td>
+          <td class="paramtype">const std::vector&lt; bool &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ordering</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1619,14 +1149,10 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a9c26d292ba4263ed7f68f4f1ede08fbb_cgraph.svg" width="298" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a9c26d292ba4263ed7f68f4f1ede08fbb_icgraph.svg" width="348" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aa58d9a8f10f67bdf7f1b10a6fa44254f_icgraph.svg" width="348" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
@@ -1659,7 +1185,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a5d53d8d215c23865190574f886dd4484_cgraph.svg" width="484" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a5d53d8d215c23865190574f886dd4484_cgraph.svg" width="484" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -1694,10 +1221,21 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Performs a reshape operation. A new array is created which has the shape list of alpha, and the elements of omega. If omega does not have enough elements, elements are reused from the beginning.</p>
+<p>The behaviour is described in detail on this page: <a href="https://aplwiki.com/wiki/Reshape">https://aplwiki.com/wiki/Reshape</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alpha</td><td>The <a class="el" href="structkepler_1_1_array.html">Array</a> containing the shape list. </td></tr>
+    <tr><td class="paramname">omega</td><td>The <a class="el" href="structkepler_1_1_array.html">Array</a> containing the elements to use as fillers. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting array. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a2e1be937349f3fa654c55c00517d6761_cgraph.svg" width="298" height="151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a2e1be937349f3fa654c55c00517d6761_cgraph.svg" width="302" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -1741,7 +1279,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_a2e0061e6ccc074df0dabcaf61f4517b8_cgraph.svg" width="100%" height="442"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_a2e0061e6ccc074df0dabcaf61f4517b8_cgraph.svg" width="100%" height="449"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -1776,6 +1315,14 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Executes the '.kpl' file which is located at the given path, and outputs any results/errors to the given stream. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path of the file to execute. </td></tr>
+    <tr><td class="paramname">stream</td><td>The output stream to write to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if an error occurred, 0 otherwise. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1785,7 +1332,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ae45e010aed51dc28b896694f75dc2ca7_icgraph.svg" width="274" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ae45e010aed51dc28b896694f75dc2ca7_icgraph.svg" width="275" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
@@ -1804,6 +1352,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Starts a REPL (Read-Eval-Print-Loop) which reads input from the user, evaluates it, and prints the result. </p><dl class="section return"><dt>Returns</dt><dd>1 if an error occurred, 0 otherwise. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1818,8 +1367,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a49b7372a95bc6035f77f37023923e171" name="a49b7372a95bc6035f77f37023923e171"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49b7372a95bc6035f77f37023923e171">&#9670;&#160;</a></span>safe_execution()</h2>
+<a id="ae873199194df3797260d2e48244b90f4" name="ae873199194df3797260d2e48244b90f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae873199194df3797260d2e48244b90f4">&#9670;&#160;</a></span>safe_execution()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1827,7 +1376,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void kepler::safe_execution </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacekepler.html#a91663bd130d920c4faafd5f629b26342">Char</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
@@ -1855,55 +1404,59 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Executes the given input, and outputs any results/errors to the given stream.</p>
+<p>This function is safe, meaning that it will not throw any exceptions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input to execute. </td></tr>
+    <tr><td class="paramname">stream</td><td>The output stream to write to. </td></tr>
+    <tr><td class="paramname">print_last</td><td>Whether or not to print the last result. In the REPL, this should be true, but in a file, it should be false. </td></tr>
+    <tr><td class="paramname">symbol_table</td><td>The symbol table to use during evaluation. Can be nullptr. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_a49b7372a95bc6035f77f37023923e171_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_ae873199194df3797260d2e48244b90f4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a49b7372a95bc6035f77f37023923e171_icgraph.svg" width="422" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_ae873199194df3797260d2e48244b90f4_icgraph.svg" width="464" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a1c940fca16ab1a09634ee009e48d64f9" name="a1c940fca16ab1a09634ee009e48d64f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c940fca16ab1a09634ee009e48d64f9">&#9670;&#160;</a></span>split()</h2>
+<a id="a77f68720c33d4655d851adc2fdaa7784" name="a77f68720c33d4655d851adc2fdaa7784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77f68720c33d4655d851adc2fdaa7784">&#9670;&#160;</a></span>to_string() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; std::u32string &gt; kepler::split </td>
+          <td class="memname">std::string kepler::to_string </td>
           <td>(</td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116">TokenType</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">char32_t&#160;</td>
-          <td class="paramname"><em>delim</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_a1c940fca16ab1a09634ee009e48d64f9_icgraph.svg" width="100%" height="528"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
+<p>Converts a TokenType to a string. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The TokenType to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string representation of the TokenType. </dd></dl>
 
 </div>
 </div>
 <a id="a76d95d0e078e053088ec440c6e878ab3" name="a76d95d0e078e053088ec440c6e878ab3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76d95d0e078e053088ec440c6e878ab3">&#9670;&#160;</a></span>to_string() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a76d95d0e078e053088ec440c6e878ab3">&#9670;&#160;</a></span>to_string() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1917,34 +1470,25 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Converts an ErrorType to a string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">error_type</td><td>The error type. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_a76d95d0e078e053088ec440c6e878ab3_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacekepler_a76d95d0e078e053088ec440c6e878ab3_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a19459da31b52ea3cbf3ef8e9bf217321" name="a19459da31b52ea3cbf3ef8e9bf217321"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19459da31b52ea3cbf3ef8e9bf217321">&#9670;&#160;</a></span>to_string() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string kepler::to_string </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116">TokenType</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7f5815983171b78737f0e166e9d89fba" name="a7f5815983171b78737f0e166e9d89fba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f5815983171b78737f0e166e9d89fba">&#9670;&#160;</a></span>vec_size()</h2>
+<a id="aec3e7febe28a0cbe1f4ddefd7fd6349c" name="aec3e7febe28a0cbe1f4ddefd7fd6349c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec3e7febe28a0cbe1f4ddefd7fd6349c">&#9670;&#160;</a></span>vec_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1952,7 +1496,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int kepler::vec_size </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
           <td class="paramname"><em>shape</em>, </td>
         </tr>
         <tr>
@@ -1971,7 +1515,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_a7f5815983171b78737f0e166e9d89fba_icgraph.svg" width="659" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_aec3e7febe28a0cbe1f4ddefd7fd6349c_icgraph.svg" width="659" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
@@ -2001,6 +1546,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns an <a class="el" href="structkepler_1_1_array.html">Array</a> which consists of all elements in alpha, except those in omega.</p>
+<p>The behaviour is described in detail on this page: <a href="https://aplwiki.com/wiki/Without">https://aplwiki.com/wiki/Without</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alpha</td><td>The array to remove elements from. </td></tr>
+    <tr><td class="paramname">omega</td><td>The array of elements to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the without operation. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2009,8 +1564,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ae63a83a261ee2bce54cc3a983b8240e4" name="ae63a83a261ee2bce54cc3a983b8240e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae63a83a261ee2bce54cc3a983b8240e4">&#9670;&#160;</a></span>without() <span class="overload">[2/2]</span></h2>
+<a id="a6eebbf10f4713a096b0eabd4213a7326" name="a6eebbf10f4713a096b0eabd4213a7326"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eebbf10f4713a096b0eabd4213a7326">&#9670;&#160;</a></span>without() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2018,13 +1573,13 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="structkepler_1_1_array.html">kepler::Array</a> kepler::without </td>
           <td>(</td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;&#160;</td>
           <td class="paramname"><em>alpha</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;&#160;</td>
           <td class="paramname"><em>omega</em>&#160;</td>
         </tr>
         <tr>
@@ -2034,6 +1589,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns a String which consists of all symbols in alpha, except those in omega.</p>
+<p>The behaviour is described in detail on this page: <a href="https://aplwiki.com/wiki/Without">https://aplwiki.com/wiki/Without</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alpha</td><td>The String to remove symbols from. </td></tr>
+    <tr><td class="paramname">omega</td><td>The String of symbols to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the without operation. </dd></dl>
 
 </div>
 </div>

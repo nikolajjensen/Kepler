@@ -48,7 +48,7 @@ if (edges && edges.length) {
 <script type="text/javascript">
 var viewWidth = 589;
 var viewHeight = 433;
-var sectionId = 'dynsection-43';
+var sectionId = 'dynsection-21';
 </script>
 <script xlink:href="svgpan.js"/>
 <svg id="graph" class="graph">
@@ -82,17 +82,17 @@ var sectionId = 'dynsection-43';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="execution_8cpp.html#aa688fb368d750916706ef22d45dcab1f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="222,-376 151,-376 151,-357 222,-357 222,-376"/>
-<text text-anchor="middle" x="186.5" y="-364" font-family="Helvetica,sans-Serif" font-size="10.00">concat_lines</text>
+<g id="a_node3"><a xlink:href="namespacekepler.html#abe288852896105a82b5cebada8dde52a" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="238.5,-376 134.5,-376 134.5,-357 238.5,-357 238.5,-376"/>
+<text text-anchor="middle" x="186.5" y="-364" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::concat_lines</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="#63b8ff" d="M44.24,-237.43C52.34,-260.68 75.8,-318.9 116,-348.5 122.98,-353.64 131.29,-357.31 139.7,-359.94"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="138.69,-363.29 149.25,-362.44 140.46,-356.52 138.69,-363.29"/>
+<path fill="none" stroke="#63b8ff" d="M44.24,-237.43C52.34,-260.68 75.8,-318.9 116,-348.5 118.46,-350.31 121.08,-351.94 123.81,-353.4"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="122.16,-356.49 132.72,-357.4 125.03,-350.11 122.16,-356.49"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -112,7 +112,7 @@ var sectionId = 'dynsection-43';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="namespacekepler.html#a914686a7f5a60684440d93ed33a3a959" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="namespacekepler.html#aff2a3590024c2d97ee7d9d49bef09bfd" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="257,-302 116,-302 116,-283 257,-283 257,-302"/>
 <text text-anchor="middle" x="186.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::immediate_execution</text>
 </a>
@@ -158,9 +158,9 @@ var sectionId = 'dynsection-43';
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
-<g id="a_node17"><a xlink:href="classkepler_1_1error.html#aec3e310a53eebc02228954bab4a13b53" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="239.5,-179 133.5,-179 133.5,-160 239.5,-160 239.5,-179"/>
-<text text-anchor="middle" x="186.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::set_file</text>
+<g id="a_node17"><a xlink:href="classkepler_1_1_error.html#aa071ae9ecda29b37e64a4ea8a7e2f7ea" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="240,-179 133,-179 133,-160 240,-160 240,-179"/>
+<text text-anchor="middle" x="186.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::set_file</text>
 </a>
 </g>
 </g>
@@ -173,9 +173,9 @@ var sectionId = 'dynsection-43';
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
-<g id="a_node18"><a xlink:href="classkepler_1_1error.html#aac71db552cb0211798d24627817abccf" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="230.5,-141.5 142.5,-141.5 142.5,-111.5 230.5,-111.5 230.5,-141.5"/>
-<text text-anchor="start" x="150.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::set</text>
+<g id="a_node18"><a xlink:href="classkepler_1_1_error.html#a839ce149a6eb564e511b06ce9adfd7bb" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="231,-141.5 142,-141.5 142,-111.5 231,-111.5 231,-141.5"/>
+<text text-anchor="start" x="150" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::set</text>
 <text text-anchor="middle" x="186.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">_input</text>
 </a>
 </g>
@@ -183,15 +183,15 @@ var sectionId = 'dynsection-43';
 <!-- Node1&#45;&gt;Node18 -->
 <g id="edge19" class="edge">
 <title>Node1&#45;&gt;Node18</title>
-<path fill="none" stroke="#63b8ff" d="M48.24,-217.73C60.52,-201.77 86.95,-170.07 116,-151.5 120.87,-148.39 126.18,-145.59 131.63,-143.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="132.92,-146.36 140.79,-139.28 130.22,-139.9 132.92,-146.36"/>
+<path fill="none" stroke="#63b8ff" d="M48.24,-217.73C60.52,-201.77 86.95,-170.07 116,-151.5 120.81,-148.43 126.04,-145.67 131.41,-143.21"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="132.56,-146.52 140.43,-139.42 129.85,-140.07 132.56,-146.52"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
-<g id="a_node19"><a xlink:href="classkepler_1_1error.html#a055901085cd5171f7a6afa76b9fb526c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="240.5,-93 132.5,-93 132.5,-74 240.5,-74 240.5,-93"/>
-<text text-anchor="middle" x="186.5" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::set_line</text>
+<g id="a_node19"><a xlink:href="classkepler_1_1_error.html#a1ade2544f5cd37f163dafcee0646e2e6" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="241.5,-93 131.5,-93 131.5,-74 241.5,-74 241.5,-93"/>
+<text text-anchor="middle" x="186.5" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::set_line</text>
 </a>
 </g>
 </g>
@@ -204,9 +204,9 @@ var sectionId = 'dynsection-43';
 <!-- Node20 -->
 <g id="node20" class="node">
 <title>Node20</title>
-<g id="a_node20"><a xlink:href="classkepler_1_1error.html#a9d1264b80888d725ef312a662ee4e5be" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="242.5,-56 130.5,-56 130.5,-37 242.5,-37 242.5,-56"/>
-<text text-anchor="middle" x="186.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::to_string</text>
+<g id="a_node20"><a xlink:href="classkepler_1_1_error.html#ac847dfe892a8ce3ed8cf2421e9057a11" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="243,-56 130,-56 130,-37 243,-37 243,-56"/>
+<text text-anchor="middle" x="186.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::to_string</text>
 </a>
 </g>
 </g>
@@ -312,7 +312,7 @@ var sectionId = 'dynsection-43';
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="classkepler_1_1_symbol_table.html#a1d080f6571e21935f800524195b5e5a7" target="_top" xlink:title=" ">
+<g id="a_node10"><a xlink:href="classkepler_1_1_symbol_table.html#ac34dc1ebd2c512e2d9af0453c6a59eaa" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="580,-323 455,-323 455,-304 580,-304 580,-323"/>
 <text text-anchor="middle" x="517.5" y="-311" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::SymbolTable::get</text>
 </a>
@@ -327,7 +327,7 @@ var sectionId = 'dynsection-43';
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
-<g id="a_node14"><a xlink:href="classkepler_1_1_symbol_table.html#a928b41896a0c0f1b5eef23ae3f35c3b3" target="_top" xlink:title=" ">
+<g id="a_node14"><a xlink:href="classkepler_1_1_symbol_table.html#a86e00168373c906d584687a60a889245" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="418,-171 293,-171 293,-152 418,-152 418,-171"/>
 <text text-anchor="middle" x="355.5" y="-159" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::SymbolTable::set</text>
 </a>
@@ -348,7 +348,7 @@ var sectionId = 'dynsection-43';
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
-<g id="a_node15"><a xlink:href="classkepler_1_1_symbol_table.html#a57403652693faf5adf05509f540520e9" target="_top" xlink:title=" ">
+<g id="a_node15"><a xlink:href="classkepler_1_1_symbol_table.html#acc1befc5ef14ca2b0da939f93218c05a" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="570,-176.5 465,-176.5 465,-146.5 570,-146.5 570,-176.5"/>
 <text text-anchor="start" x="473" y="-164.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::SymbolTable</text>
 <text text-anchor="middle" x="517.5" y="-153.5" font-family="Helvetica,sans-Serif" font-size="10.00">::contains</text>
@@ -370,9 +370,9 @@ var sectionId = 'dynsection-43';
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
-<g id="a_node21"><a xlink:href="classkepler_1_1error.html#a7694165073a5e4844154e625f5fddf6c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="402,-93 309,-93 309,-74 402,-74 402,-93"/>
-<text text-anchor="middle" x="355.5" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::type</text>
+<g id="a_node21"><a xlink:href="classkepler_1_1_error.html#af9f5362abadaec34cd6aec19abfb9734" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="403,-93 308,-93 308,-74 403,-74 403,-93"/>
+<text text-anchor="middle" x="355.5" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::type</text>
 </a>
 </g>
 </g>
@@ -385,24 +385,24 @@ var sectionId = 'dynsection-43';
 <!-- Node23 -->
 <g id="node23" class="node">
 <title>Node23</title>
-<g id="a_node23"><a xlink:href="classkepler_1_1error.html#a4e6ac4013bc23fa893866d2bb0f5d6b8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="406,-56 305,-56 305,-37 406,-37 406,-56"/>
-<text text-anchor="middle" x="355.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::where</text>
+<g id="a_node23"><a xlink:href="classkepler_1_1_error.html#a28cce1690de3e69e3175e2bb82676797" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="406.5,-56 304.5,-56 304.5,-37 406.5,-37 406.5,-56"/>
+<text text-anchor="middle" x="355.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::where</text>
 </a>
 </g>
 </g>
 <!-- Node20&#45;&gt;Node23 -->
 <g id="edge24" class="edge">
 <title>Node20&#45;&gt;Node23</title>
-<path fill="none" stroke="#63b8ff" d="M242.64,-46.5C258.93,-46.5 276.85,-46.5 293.49,-46.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="293.25,-50 303.25,-46.5 293.25,-43 293.25,-50"/>
+<path fill="none" stroke="#63b8ff" d="M243.11,-46.5C259.14,-46.5 276.73,-46.5 293.1,-46.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="292.68,-50 302.68,-46.5 292.68,-43 292.68,-50"/>
 </g>
 <!-- Node24 -->
 <g id="node24" class="node">
 <title>Node24</title>
-<g id="a_node24"><a xlink:href="classkepler_1_1error.html#af431dcb57cb6e62850a8bb2d6258c5e7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="401.5,-19 309.5,-19 309.5,0 401.5,0 401.5,-19"/>
-<text text-anchor="middle" x="355.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::error::why</text>
+<g id="a_node24"><a xlink:href="classkepler_1_1_error.html#a70199e2d60e955b1d6a026b9aebed10d" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="402.5,-19 308.5,-19 308.5,0 402.5,0 402.5,-19"/>
+<text text-anchor="middle" x="355.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Error::why</text>
 </a>
 </g>
 </g>
@@ -424,8 +424,8 @@ var sectionId = 'dynsection-43';
 <!-- Node21&#45;&gt;Node22 -->
 <g id="edge23" class="edge">
 <title>Node21&#45;&gt;Node22</title>
-<path fill="none" stroke="#63b8ff" d="M402.35,-83.5C421.26,-83.5 443.31,-83.5 462.96,-83.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="462.69,-87 472.69,-83.5 462.69,-80 462.69,-87"/>
+<path fill="none" stroke="#63b8ff" d="M403.21,-83.5C421.86,-83.5 443.44,-83.5 462.74,-83.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="462.59,-87 472.59,-83.5 462.59,-80 462.59,-87"/>
 </g>
 </g>
 </svg>

@@ -100,8 +100,7 @@ $(document).ready(function(){initNavTree('classkepler_1_1_parser.html',''); init
 <div class="dynheader">
 Collaboration diagram for kepler::Parser:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser__coll__graph.svg" width="208" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser__coll__graph.svg" width="208" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -115,7 +114,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acebbfa50e1c1a295aba3ac64af82294b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkepler_1_1_statements.html">Statements</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkepler_1_1_parser.html#acebbfa50e1c1a295aba3ac64af82294b">parse</a> (<a class="el" href="classkepler_1_1_symbol_table.html">SymbolTable</a> *parent_table, std::vector&lt; <a class="el" href="structkepler_1_1_token.html">Token</a> &gt;::const_iterator begin, std::vector&lt; <a class="el" href="structkepler_1_1_token.html">Token</a> &gt;::const_iterator end)</td></tr>
 <tr class="separator:acebbfa50e1c1a295aba3ac64af82294b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="classkepler_1_1_parser.html">Parser</a> which checks the input list of tokens for syntax errors and then builds an AST. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4e93e8dd0a11f8425173ce7773d92c30" name="a4e93e8dd0a11f8425173ce7773d92c30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e93e8dd0a11f8425173ce7773d92c30">&#9670;&#160;</a></span>Parser()</h2>
 
@@ -138,6 +139,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates a new <a class="el" href="classkepler_1_1_parser.html">Parser</a>. </p>
 
 </div>
 </div>
@@ -157,10 +159,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Parses the input list of tokens and returns an AST. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input_</td><td>The list of tokens to parse. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The AST. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser_a95c4ec7bfd2c105b1cd43f0906641f3f_icgraph.svg" width="100%" height="418"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser_a95c4ec7bfd2c105b1cd43f0906641f3f_icgraph.svg" width="100%" height="460"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -197,11 +206,19 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Parses the input list of tokens and returns an AST. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent_table</td><td>The parent table to use. </td></tr>
+    <tr><td class="paramname">begin</td><td>The beginning of the list of tokens to parse. </td></tr>
+    <tr><td class="paramname">end</td><td>The end of the list of tokens to parse. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The AST. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser_acebbfa50e1c1a295aba3ac64af82294b_cgraph.svg" width="342" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser_acebbfa50e1c1a295aba3ac64af82294b_cgraph.svg" width="342" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -221,17 +238,24 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Deletes the previous symbol table used by the <a class="el" href="classkepler_1_1_parser.html">Parser</a>, and uses the new one. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_table</td><td>The new table to use. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser_a8bae598977617c13f71ce43cadd806b4_icgraph.svg" width="100%" height="418"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classkepler_1_1_parser_a8bae598977617c13f71ce43cadd806b4_icgraph.svg" width="100%" height="460"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/core/evaluation/parser/<a class="el" href="parser_8h_source.html">parser.h</a></li>
-<li>src/core/evaluation/parser/<a class="el" href="parser_8cpp.html">parser.cpp</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/<a class="el" href="parser_8h_source.html">parser.h</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/<a class="el" href="parser_8cpp.html">parser.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

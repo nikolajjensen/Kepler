@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 381;
+var viewWidth = 379;
 var viewHeight = 668;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,18 +58,18 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="86.46,-0.5 86.46,-123.5 213.46,-123.5 213.46,-0.5 86.46,-0.5"/>
-<text text-anchor="middle" x="149.96" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::FunctionVariable</text>
-<polyline fill="none" stroke="#666666" points="86.46,-104.5 213.46,-104.5"/>
-<text text-anchor="middle" x="149.96" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#666666" points="86.46,-85.5 213.46,-85.5"/>
-<text text-anchor="start" x="94.46" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FunctionVariable(Token</text>
-<text text-anchor="start" x="94.46" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00"> identifier)</text>
-<text text-anchor="start" x="94.46" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ std::string to_string</text>
-<text text-anchor="start" x="94.46" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">() const override</text>
-<text text-anchor="start" x="94.46" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Operation_ptr accept</text>
-<text text-anchor="start" x="94.46" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">(NodeVisitor &amp;visitor)</text>
-<text text-anchor="start" x="94.46" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> override</text>
+<polygon fill="#999999" stroke="#666666" points="85.46,-0.5 85.46,-123.5 212.46,-123.5 212.46,-0.5 85.46,-0.5"/>
+<text text-anchor="middle" x="148.96" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::FunctionVariable</text>
+<polyline fill="none" stroke="#666666" points="85.46,-104.5 212.46,-104.5"/>
+<text text-anchor="middle" x="148.96" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#666666" points="85.46,-85.5 212.46,-85.5"/>
+<text text-anchor="start" x="93.46" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FunctionVariable(Token</text>
+<text text-anchor="start" x="93.46" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00"> identifier)</text>
+<text text-anchor="start" x="93.46" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ std::string to_string</text>
+<text text-anchor="start" x="93.46" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">() const override</text>
+<text text-anchor="start" x="93.46" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Operation_ptr accept</text>
+<text text-anchor="start" x="93.46" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">(NodeVisitor &amp;visitor)</text>
+<text text-anchor="start" x="93.46" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> override</text>
 </a>
 </g>
 </g>
@@ -96,20 +96,20 @@ var sectionId = 'dynsection-1';
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#63b8ff" d="M115.14,-151.11C118.82,-141.81 122.53,-132.41 126.1,-123.38"/>
-<polygon fill="none" stroke="#63b8ff" points="112,-149.55 111.58,-160.13 118.51,-152.12 112,-149.55"/>
+<path fill="none" stroke="#63b8ff" d="M114.68,-151.11C118.3,-141.81 121.96,-132.41 125.47,-123.38"/>
+<polygon fill="none" stroke="#63b8ff" points="111.53,-149.54 111.17,-160.13 118.06,-152.08 111.53,-149.54"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="structkepler_1_1position.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="structkepler_1_1_position.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="24.96,-547.5 24.96,-659.5 144.96,-659.5 144.96,-547.5 24.96,-547.5"/>
-<text text-anchor="middle" x="84.96" y="-647.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::position</text>
+<text text-anchor="middle" x="84.96" y="-647.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Position</text>
 <polyline fill="none" stroke="#666666" points="24.96,-640.5 144.96,-640.5"/>
 <text text-anchor="middle" x="84.96" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="#666666" points="24.96,-621.5 144.96,-621.5"/>
-<text text-anchor="start" x="32.96" y="-609.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ position()</text>
-<text text-anchor="start" x="32.96" y="-598.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ position(long pos_)</text>
+<text text-anchor="start" x="32.96" y="-609.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Position()</text>
+<text text-anchor="start" x="32.96" y="-598.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Position(long pos_)</text>
 <text text-anchor="start" x="32.96" y="-587.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ void set_position(long</text>
 <text text-anchor="start" x="32.96" y="-576.5" font-family="Helvetica,sans-Serif" font-size="10.00"> new_pos)</text>
 <text text-anchor="start" x="32.96" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ long get_position()</text>
@@ -151,29 +151,29 @@ var sectionId = 'dynsection-1';
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="structkepler_1_1_token.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="163.96,-343.5 163.96,-499.5 315.96,-499.5 315.96,-343.5 163.96,-343.5"/>
-<text text-anchor="middle" x="239.96" y="-487.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Token</text>
-<polyline fill="none" stroke="#666666" points="163.96,-480.5 315.96,-480.5"/>
-<text text-anchor="middle" x="239.96" y="-468.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#666666" points="163.96,-461.5 315.96,-461.5"/>
-<text text-anchor="start" x="171.96" y="-449.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(long pos, TokenType</text>
-<text text-anchor="start" x="171.96" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00"> type_, Char content_)</text>
-<text text-anchor="start" x="171.96" y="-427.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(long pos, TokenType</text>
-<text text-anchor="start" x="171.96" y="-416.5" font-family="Helvetica,sans-Serif" font-size="10.00"> type_, std::u32string content_)</text>
-<text text-anchor="start" x="171.96" y="-405.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(TokenType type</text>
-<text text-anchor="start" x="171.96" y="-394.5" font-family="Helvetica,sans-Serif" font-size="10.00">_, std::u32string content_)</text>
-<text text-anchor="start" x="171.96" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(long pos, TokenType</text>
-<text text-anchor="start" x="171.96" y="-372.5" font-family="Helvetica,sans-Serif" font-size="10.00"> type_)</text>
-<text text-anchor="start" x="171.96" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ std::string to_string</text>
-<text text-anchor="start" x="171.96" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">() const</text>
+<polygon fill="white" stroke="#666666" points="163.46,-343.5 163.46,-499.5 308.46,-499.5 308.46,-343.5 163.46,-343.5"/>
+<text text-anchor="middle" x="235.96" y="-487.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Token</text>
+<polyline fill="none" stroke="#666666" points="163.46,-480.5 308.46,-480.5"/>
+<text text-anchor="middle" x="235.96" y="-468.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#666666" points="163.46,-461.5 308.46,-461.5"/>
+<text text-anchor="start" x="171.46" y="-449.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(long pos, TokenType</text>
+<text text-anchor="start" x="171.46" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00"> type_, Char content_)</text>
+<text text-anchor="start" x="171.46" y="-427.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(long pos, TokenType</text>
+<text text-anchor="start" x="171.46" y="-416.5" font-family="Helvetica,sans-Serif" font-size="10.00"> type_, String content_)</text>
+<text text-anchor="start" x="171.46" y="-405.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(TokenType type</text>
+<text text-anchor="start" x="171.46" y="-394.5" font-family="Helvetica,sans-Serif" font-size="10.00">_, String content_)</text>
+<text text-anchor="start" x="171.46" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token(long pos, TokenType</text>
+<text text-anchor="start" x="171.46" y="-372.5" font-family="Helvetica,sans-Serif" font-size="10.00"> type_)</text>
+<text text-anchor="start" x="171.46" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ std::string to_string</text>
+<text text-anchor="start" x="171.46" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">() const</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node5 -->
 <g id="edge6" class="edge">
 <title>Node3&#45;&gt;Node5</title>
-<path fill="none" stroke="#63b8ff" d="M139.8,-538.81C150.79,-526.05 162.45,-512.5 173.79,-499.35"/>
-<polygon fill="none" stroke="#63b8ff" points="137.17,-536.51 133.29,-546.37 142.47,-541.08 137.17,-536.51"/>
+<path fill="none" stroke="#63b8ff" d="M138.38,-538.81C149.09,-526.05 160.45,-512.5 171.49,-499.35"/>
+<polygon fill="none" stroke="#63b8ff" points="135.8,-536.45 132.06,-546.36 141.17,-540.94 135.8,-536.45"/>
 </g>
 <!-- Node4&#45;&gt;Node2 -->
 <g id="edge3" class="edge">
@@ -185,50 +185,50 @@ var sectionId = 'dynsection-1';
 <!-- Node5&#45;&gt;Node1 -->
 <g id="edge5" class="edge">
 <title>Node5&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M220.65,-343.81C205.15,-282.23 183.53,-196.34 168.29,-135.81"/>
-<polygon fill="none" stroke="#404040" points="168.29,-135.81 162.94,-130.97 165.36,-124.17 170.7,-129.02 168.29,-135.81"/>
-<text text-anchor="middle" x="231.96" y="-226" font-family="Helvetica,sans-Serif" font-size="10.00"> +identifier</text>
+<path fill="none" stroke="#404040" d="M217.29,-343.81C202.31,-282.23 181.41,-196.34 166.68,-135.81"/>
+<polygon fill="none" stroke="#404040" points="166.68,-135.84 161.38,-130.95 163.85,-124.18 169.15,-129.06 166.68,-135.84"/>
+<text text-anchor="middle" x="228.96" y="-226" font-family="Helvetica,sans-Serif" font-size="10.00"> +identifier</text>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="184.96,-575 184.96,-632 248.96,-632 248.96,-575 184.96,-575"/>
-<text text-anchor="middle" x="216.96" y="-620" font-family="Helvetica,sans-Serif" font-size="10.00">TokenType</text>
-<polyline fill="none" stroke="#666666" points="184.96,-613 248.96,-613"/>
-<text text-anchor="middle" x="216.96" y="-601" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#666666" points="184.96,-594 248.96,-594"/>
-<text text-anchor="middle" x="216.96" y="-582" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#666666" points="182.96,-575 182.96,-632 246.96,-632 246.96,-575 182.96,-575"/>
+<text text-anchor="middle" x="214.96" y="-620" font-family="Helvetica,sans-Serif" font-size="10.00">TokenType</text>
+<polyline fill="none" stroke="#666666" points="182.96,-613 246.96,-613"/>
+<text text-anchor="middle" x="214.96" y="-601" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#666666" points="182.96,-594 246.96,-594"/>
+<text text-anchor="middle" x="214.96" y="-582" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node5 -->
 <g id="edge7" class="edge">
 <title>Node6&#45;&gt;Node5</title>
-<path fill="none" stroke="#404040" d="M220.45,-575.16C222.64,-558.07 225.59,-534.99 228.53,-511.95"/>
-<polygon fill="none" stroke="#404040" points="228.52,-512 225.32,-505.54 230.04,-500.09 233.25,-506.55 228.52,-512"/>
-<text text-anchor="middle" x="241.96" y="-521" font-family="Helvetica,sans-Serif" font-size="10.00"> +type</text>
+<path fill="none" stroke="#404040" d="M218.15,-575.16C220.14,-558.07 222.84,-534.99 225.52,-511.95"/>
+<polygon fill="none" stroke="#404040" points="225.52,-512.01 222.24,-505.59 226.91,-500.09 230.18,-506.52 225.52,-512.01"/>
+<text text-anchor="middle" x="238.96" y="-521" font-family="Helvetica,sans-Serif" font-size="10.00"> +type</text>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="266.96,-569.5 266.96,-637.5 372.96,-637.5 372.96,-569.5 266.96,-569.5"/>
-<text text-anchor="start" x="274.96" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">optional&lt; std::vector</text>
-<text text-anchor="middle" x="319.96" y="-614.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Char &gt; &gt;</text>
-<polyline fill="none" stroke="#666666" points="266.96,-607.5 372.96,-607.5"/>
-<text text-anchor="middle" x="319.96" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#666666" points="266.96,-588.5 372.96,-588.5"/>
-<text text-anchor="middle" x="319.96" y="-576.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#666666" points="264.96,-569.5 264.96,-637.5 370.96,-637.5 370.96,-569.5 264.96,-569.5"/>
+<text text-anchor="start" x="272.96" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">optional&lt; std::vector</text>
+<text text-anchor="middle" x="317.96" y="-614.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Char &gt; &gt;</text>
+<polyline fill="none" stroke="#666666" points="264.96,-607.5 370.96,-607.5"/>
+<text text-anchor="middle" x="317.96" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#666666" points="264.96,-588.5 370.96,-588.5"/>
+<text text-anchor="middle" x="317.96" y="-576.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node5 -->
 <g id="edge8" class="edge">
 <title>Node7&#45;&gt;Node5</title>
-<path fill="none" stroke="#404040" d="M305.47,-569.9C298.06,-553.23 288.65,-532.06 279.29,-510.99"/>
-<polygon fill="none" stroke="#404040" points="279.34,-511.12 273.25,-507.26 274.47,-500.15 280.56,-504.01 279.34,-511.12"/>
-<text text-anchor="middle" x="308.96" y="-521" font-family="Helvetica,sans-Serif" font-size="10.00"> +content</text>
+<path fill="none" stroke="#404040" d="M303.11,-569.9C295.52,-553.23 285.87,-532.06 276.27,-510.99"/>
+<polygon fill="none" stroke="#404040" points="276.31,-511.07 270.18,-507.27 271.33,-500.15 277.46,-503.95 276.31,-511.07"/>
+<text text-anchor="middle" x="305.96" y="-521" font-family="Helvetica,sans-Serif" font-size="10.00"> +content</text>
 </g>
 </g>
 </svg>

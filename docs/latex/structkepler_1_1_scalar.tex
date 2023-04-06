@@ -21,13 +21,13 @@ Collaboration diagram for kepler\+::Scalar\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=550pt]{structkepler_1_1_scalar__coll__graph}
+\includegraphics[width=350pt]{structkepler_1_1_scalar__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structkepler_1_1_scalar_aeb739f82edc7c65750ede1173cf0409d}{Scalar}} (\mbox{\hyperlink{structkepler_1_1_token}{Token}} token\+\_\+, std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, std\+::u32string $>$ content\+\_\+)
+\mbox{\hyperlink{structkepler_1_1_scalar_a38fb90bde08e6b5e9d5829282e3a7f63}{Scalar}} (\mbox{\hyperlink{structkepler_1_1_token}{Token}} token\+\_\+, std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} $>$ content\+\_\+)
 \item 
 std\+::string \mbox{\hyperlink{structkepler_1_1_scalar_a89e38869e89dd82c3b930d8c1f5a9a5d}{to\+\_\+string}} () const override
 \item 
@@ -42,32 +42,37 @@ virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{struct
 \item 
 virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const=0
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1_position}{kepler\+::\+Position}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\mbox{\hyperlink{structkepler_1_1_position_a92469704aff5bf08d23a212e3fb93fa9}{Position}} ()
 \item 
-\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\mbox{\hyperlink{structkepler_1_1_position_a722c0a009d8d5945694ad7b27ee03eec}{Position}} (long pos\+\_\+)
 \item 
-void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+void \mbox{\hyperlink{structkepler_1_1_position_a029bbc83700b37445971c27c8502e8e4}{set\+\_\+position}} (long new\+\_\+pos)
 \item 
-long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+long \mbox{\hyperlink{structkepler_1_1_position_a40952f7adff65cc1a894b5770f37a837}{get\+\_\+position}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{structkepler_1_1_token}{Token}} \mbox{\hyperlink{structkepler_1_1_scalar_a8936437a3e8a417de2599a649a986307}{token}}
 \item 
-std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, std\+::u32string $>$ \mbox{\hyperlink{structkepler_1_1_scalar_a477fd0295d560611e05345321cb115d7}{content}}
+std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} $>$ \mbox{\hyperlink{structkepler_1_1_scalar_a562f00f39668a0ab4bbcf062e999ec74}{content}}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+A node representing single values.
+
+These could be Strings or Numbers. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{structkepler_1_1_scalar_aeb739f82edc7c65750ede1173cf0409d}\label{structkepler_1_1_scalar_aeb739f82edc7c65750ede1173cf0409d}} 
+\mbox{\Hypertarget{structkepler_1_1_scalar_a38fb90bde08e6b5e9d5829282e3a7f63}\label{structkepler_1_1_scalar_a38fb90bde08e6b5e9d5829282e3a7f63}} 
 \index{kepler::Scalar@{kepler::Scalar}!Scalar@{Scalar}}
 \index{Scalar@{Scalar}!kepler::Scalar@{kepler::Scalar}}
 \doxysubsubsection{\texorpdfstring{Scalar()}{Scalar()}}
-{\footnotesize\ttfamily kepler\+::\+Scalar\+::\+Scalar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_token}{Token}}}]{token\+\_\+,  }\item[{std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, std\+::u32string $>$}]{content\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily kepler\+::\+Scalar\+::\+Scalar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_token}{Token}}}]{token\+\_\+,  }\item[{std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}} $>$}]{content\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
 
@@ -78,6 +83,14 @@ std\+::variant$<$ \mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa18
 \doxysubsubsection{\texorpdfstring{accept()}{accept()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Scalar\+::accept (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
+Accepts a visitor and returns the result of visiting the node. 
+\begin{DoxyParams}{Parameters}
+{\em visitor} & The visitor to accept. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of visiting the node. 
+\end{DoxyReturn}
 
 
 Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{kepler\+::\+ASTNode$<$ Array $>$}}.
@@ -95,7 +108,7 @@ Here is the call graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
 {\footnotesize\ttfamily std\+::string kepler\+::\+Scalar\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-
+Returns a human-\/readable string representation of the node. 
 
 Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{kepler\+::\+ASTNode$<$ Array $>$}}.
 
@@ -109,11 +122,11 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structkepler_1_1_scalar_a477fd0295d560611e05345321cb115d7}\label{structkepler_1_1_scalar_a477fd0295d560611e05345321cb115d7}} 
+\mbox{\Hypertarget{structkepler_1_1_scalar_a562f00f39668a0ab4bbcf062e999ec74}\label{structkepler_1_1_scalar_a562f00f39668a0ab4bbcf062e999ec74}} 
 \index{kepler::Scalar@{kepler::Scalar}!content@{content}}
 \index{content@{content}!kepler::Scalar@{kepler::Scalar}}
 \doxysubsubsection{\texorpdfstring{content}{content}}
-{\footnotesize\ttfamily std\+::variant$<$\mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, std\+::u32string$>$ kepler\+::\+Scalar\+::content}
+{\footnotesize\ttfamily std\+::variant$<$\mbox{\hyperlink{namespacekepler_ae9eaef31fb6e2ab82b52d67bfa186ea0}{Number}}, \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}}$>$ kepler\+::\+Scalar\+::content}
 
 \mbox{\Hypertarget{structkepler_1_1_scalar_a8936437a3e8a417de2599a649a986307}\label{structkepler_1_1_scalar_a8936437a3e8a417de2599a649a986307}} 
 \index{kepler::Scalar@{kepler::Scalar}!token@{token}}
@@ -125,5 +138,5 @@ Here is the call graph for this function\+:\nopagebreak
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
-src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}

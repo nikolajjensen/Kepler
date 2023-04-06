@@ -1,5 +1,5 @@
 \hypertarget{file__fixture_8h_source}{}\doxysection{file\+\_\+fixture.\+h}
-\label{file__fixture_8h_source}\index{src/testing/fixtures/file\_fixture.h@{src/testing/fixtures/file\_fixture.h}}
+\label{file__fixture_8h_source}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/testing/fixtures/file\_fixture.h@{/Users/nikolajbankejensen/Desktop/Kepler/src/testing/fixtures/file\_fixture.h}}
 \mbox{\hyperlink{file__fixture_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -23,18 +23,15 @@
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{execution_8h}{core/execution.h}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{execution_8h}{core/evaluation/execution.h}}"{}}}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfile__fixture}{file\_fixture}}\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classfile__fixture_a93aae0b476c47566baae7cdf65838baa}{file\_fixture}}()\ \{\}}
-\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_file_fixture}{FileFixture}}\ \{}
 \DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00029\ \ \ \ \ std::string\ \mbox{\hyperlink{classfile__fixture_ae49241f7811560799cd0e8f5935de2d5}{run}}(std::string\&\&\ path)\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::stringstream\ ss;}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_ae45e010aed51dc28b896694f75dc2ca7}{kepler::run\_file}}(path,\ ss);}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ss.str();}
-\DoxyCodeLine{00033\ \ \ \ \ \}}
-\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00034\ \ \ \ \ std::string\ \mbox{\hyperlink{class_file_fixture_aed1771b5e05cdce7af6d69a50a7e4f6c}{run}}(std::string\&\&\ path)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::stringstream\ ss;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_ae45e010aed51dc28b896694f75dc2ca7}{kepler::run\_file}}(path,\ ss);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ss.str();}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \};}
 
 \end{DoxyCode}

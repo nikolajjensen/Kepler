@@ -107,8 +107,143 @@ Functions</h2></td></tr>
 <tr class="separator:a205df4bfd666f5af117c3d3d6332c745"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a333bffe05ce5109a20337f18ac37ff0f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1helpers.html#a333bffe05ce5109a20337f18ac37ff0f">is_array_token</a> (<a class="el" href="namespacekepler.html#a633269b58183cfa0228e4f288c773116">TokenType</a> type)</td></tr>
 <tr class="separator:a333bffe05ce5109a20337f18ac37ff0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36b0dbb858dd2100bffd1f5ea272266a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1helpers.html#a36b0dbb858dd2100bffd1f5ea272266a">check_valid_system_param_value</a> (const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;id, const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;value)</td></tr>
+<tr class="separator:a36b0dbb858dd2100bffd1f5ea272266a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53578c9fe656509f2a1c76ddaab49038"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1helpers.html#a53578c9fe656509f2a1c76ddaab49038">check_valid_system_param_value</a> (const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;id, const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;value)</td></tr>
+<tr class="separator:a53578c9fe656509f2a1c76ddaab49038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafab6a8552b8f86dda16b9343033e5eb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1helpers.html#aafab6a8552b8f86dda16b9343033e5eb">number_to_string</a> (const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;num, int precision=10)</td></tr>
+<tr class="separator:aafab6a8552b8f86dda16b9343033e5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98620f096b535139b5567e5faffea732"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacekepler_1_1helpers.html#a98620f096b535139b5567e5faffea732">double_to_string</a> (const double &amp;num, int precision)</td></tr>
+<tr class="separator:a98620f096b535139b5567e5faffea732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a36b0dbb858dd2100bffd1f5ea272266a" name="a36b0dbb858dd2100bffd1f5ea272266a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36b0dbb858dd2100bffd1f5ea272266a">&#9670;&#160;</a></span>check_valid_system_param_value() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kepler::helpers::check_valid_system_param_value </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="struct_throws.html">Throws</a> a <a class="el" href="classkepler_1_1_error.html">kepler::Error</a> if the value is not a valid value for the given id.</p>
+<p>This is used to ensure that system variables, like '⎕IO', are set to valid values. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the system variable. </td></tr>
+    <tr><td class="paramname">value</td><td>The proposed value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a_cgraph.svg" width="386" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_1_1helpers_a36b0dbb858dd2100bffd1f5ea272266a_icgraph.svg" width="198" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a53578c9fe656509f2a1c76ddaab49038" name="a53578c9fe656509f2a1c76ddaab49038"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53578c9fe656509f2a1c76ddaab49038">&#9670;&#160;</a></span>check_valid_system_param_value() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kepler::helpers::check_valid_system_param_value </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="struct_throws.html">Throws</a> a <a class="el" href="classkepler_1_1_error.html">kepler::Error</a> if the value is not a valid value for the given id.</p>
+<p>This is used to ensure that system variables, like '⎕IO', are set to valid values. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the system variable. </td></tr>
+    <tr><td class="paramname">value</td><td>The proposed value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a98620f096b535139b5567e5faffea732" name="a98620f096b535139b5567e5faffea732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98620f096b535139b5567e5faffea732">&#9670;&#160;</a></span>double_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string kepler::helpers::double_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Converts a double to a string, with the given precision.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num</td><td></td></tr>
+    <tr><td class="paramname">precision</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_1_1helpers_a98620f096b535139b5567e5faffea732_icgraph.svg" width="582" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="a333bffe05ce5109a20337f18ac37ff0f" name="a333bffe05ce5109a20337f18ac37ff0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a333bffe05ce5109a20337f18ac37ff0f">&#9670;&#160;</a></span>is_array_token()</h2>
 
@@ -124,6 +259,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the TokenType is a 'dyadic function' according to the grammar of Kepler. </p>
 
 </div>
 </div>
@@ -142,6 +278,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the TokenType is a 'dyadic operator' according to the grammar of Kepler. </p>
 
 </div>
 </div>
@@ -160,6 +297,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the TokenType is a 'function' according to the grammar of Kepler. </p>
 
 </div>
 </div>
@@ -178,6 +316,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the TokenType is a 'monadic function' according to the grammar of Kepler. </p>
 
 </div>
 </div>
@@ -196,6 +335,55 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the TokenType is a 'monadic operator' according to the grammar of Kepler. </p>
+
+</div>
+</div>
+<a id="aafab6a8552b8f86dda16b9343033e5eb" name="aafab6a8552b8f86dda16b9343033e5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafab6a8552b8f86dda16b9343033e5eb">&#9670;&#160;</a></span>number_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string kepler::helpers::number_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;&#160;</td>
+          <td class="paramname"><em>num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em> = <code>10</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Converts a Number to a string, with the given precision. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num</td><td>The Number to convert. </td></tr>
+    <tr><td class="paramname">precision</td><td>The precision to use. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string representation of the Number. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb_cgraph.svg" width="371" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacekepler_1_1helpers_aafab6a8552b8f86dda16b9343033e5eb_icgraph.svg" width="380" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>

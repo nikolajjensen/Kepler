@@ -1,5 +1,5 @@
-\hypertarget{functions_8cpp}{}\doxysection{src/core/evaluation/operations/functions.cpp File Reference}
-\label{functions_8cpp}\index{src/core/evaluation/operations/functions.cpp@{src/core/evaluation/operations/functions.cpp}}
+\hypertarget{functions_8cpp}{}\doxysection{/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/operations/functions.cpp File Reference}
+\label{functions_8cpp}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/functions.cpp@{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/functions.cpp}}
 {\ttfamily \#include \char`\"{}functions.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}core/error.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$numeric$>$}\newline
@@ -7,11 +7,13 @@
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$random$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
-{\ttfamily \#include \char`\"{}core/constants/config.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}core/symbol\+\_\+table.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}core/evaluation/algorithms.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}core/array.\+h\char`\"{}}\newline
-Include dependency graph for functions.\+cpp\+:\nopagebreak
+{\ttfamily \#include \char`\"{}core/literals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}core/helpers.\+h\char`\"{}}\newline
+Include dependency graph for functions.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -26,19 +28,19 @@ namespace \mbox{\hyperlink{namespacekepler}{kepler}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{namespacekepler_a7f5815983171b78737f0e166e9d89fba}{kepler\+::vec\+\_\+size}} (const std\+::vector$<$ int $>$ \&shape, int dim)
+int \mbox{\hyperlink{namespacekepler_aec3e7febe28a0cbe1f4ddefd7fd6349c}{kepler\+::vec\+\_\+size}} (const std\+::vector$<$ unsigned int $>$ \&shape, int dim)
 \item 
-int \mbox{\hyperlink{namespacekepler_a381bfabdccfab574253acbb27e3d8df2}{kepler\+::get\+\_\+step\+\_\+size}} (const std\+::vector$<$ int $>$ \&shape, int dim)
+int \mbox{\hyperlink{namespacekepler_a8cec7c445b114ae66fe0c31d6746e7fb}{kepler\+::get\+\_\+step\+\_\+size}} (const std\+::vector$<$ unsigned int $>$ \&shape, int dim)
 \item 
-int \mbox{\hyperlink{namespacekepler_ad171f0351cbb21e92ca7ea0cc0bbd317}{kepler\+::get\+\_\+block\+\_\+size}} (const std\+::vector$<$ int $>$ \&shape, int axis)
+int \mbox{\hyperlink{namespacekepler_a56130004ed10dae55c0a8695f9d8ab37}{kepler\+::get\+\_\+block\+\_\+size}} (const std\+::vector$<$ unsigned int $>$ \&shape, int axis)
 \item 
-int \mbox{\hyperlink{namespacekepler_a39278d07695647da0a30c3b209c7a4d7}{kepler\+::get\+\_\+shift}} (int element, int axis, int step\+\_\+size, const Array \&alpha, const Array \&omega)
+unsigned int \mbox{\hyperlink{namespacekepler_a172b41eba4b6d1c9af75f4d5a853d35f}{kepler\+::get\+\_\+shift}} (unsigned int element, unsigned int axis, int step\+\_\+size, const Array \&alpha, const Array \&omega)
 \item 
 Array \mbox{\hyperlink{namespacekepler_a2e0061e6ccc074df0dabcaf61f4517b8}{kepler\+::rotate}} (int axis, const Array \&alpha, const Array \&omega)
 \item 
 Array \mbox{\hyperlink{namespacekepler_a5d53d8d215c23865190574f886dd4484}{kepler\+::reverse}} (int axis, const Array \&omega)
 \item 
-void \mbox{\hyperlink{namespacekepler_afce205dbe450fbcc7234f5a42f565eae}{kepler\+::pad}} (Array \&arr, int dim, const std\+::vector$<$ int $>$ \&new\+\_\+shape, const Array\+::element\+\_\+type \&padding, const std\+::vector$<$ int $>$ \&ordering)
+void \mbox{\hyperlink{namespacekepler_a9f92b46ccb80a94eb3979063a54fb961}{kepler\+::pad}} (Array \&arr, unsigned int dim, const std\+::vector$<$ unsigned int $>$ \&new\+\_\+shape, const Array\+::element\+\_\+type \&padding, const std\+::vector$<$ bool $>$ \&ordering)
 \item 
-Array \mbox{\hyperlink{namespacekepler_a9c26d292ba4263ed7f68f4f1ede08fbb}{kepler\+::reshape}} (const Array \&original, const Array\+::element\+\_\+type \&padding, const std\+::vector$<$ int $>$ \&new\+\_\+shape, const std\+::vector$<$ int $>$ \&ordering)
+Array \mbox{\hyperlink{namespacekepler_aa58d9a8f10f67bdf7f1b10a6fa44254f}{kepler\+::reshape}} (const Array \&original, const Array\+::element\+\_\+type \&padding, const std\+::vector$<$ unsigned int $>$ \&new\+\_\+shape, const std\+::vector$<$ bool $>$ \&ordering=\{\})
 \end{DoxyCompactItemize}

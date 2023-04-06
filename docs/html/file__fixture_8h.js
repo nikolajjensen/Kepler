@@ -1,4 +1,4 @@
 var file__fixture_8h =
 [
-    [ "file_fixture", "classfile__fixture.html", "classfile__fixture" ]
+    [ "FileFixture", "class_file_fixture.html", "class_file_fixture" ]
 ];

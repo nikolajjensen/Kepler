@@ -6,8 +6,7 @@
 
 
 
-Collaboration diagram for kepler\+::Tokenizer\+:
-\nopagebreak
+Collaboration diagram for kepler\+::Tokenizer\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,6 +22,9 @@ std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_token}{Token}} $>$ \mbox{\hyp
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Tokenizes a string into a list of tokens. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classkepler_1_1_tokenizer_af49d9d2ff83097ae83d7792d3881232b}\label{classkepler_1_1_tokenizer_af49d9d2ff83097ae83d7792d3881232b}} 
 \index{kepler::Tokenizer@{kepler::Tokenizer}!Tokenizer@{Tokenizer}}
@@ -30,7 +32,7 @@ std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_token}{Token}} $>$ \mbox{\hyp
 \doxysubsubsection{\texorpdfstring{Tokenizer()}{Tokenizer()}}
 {\footnotesize\ttfamily kepler\+::\+Tokenizer\+::\+Tokenizer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
-
+Creates a new tokenizer. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classkepler_1_1_tokenizer_a218312e24753d8d2e66d499bdbcce55c}\label{classkepler_1_1_tokenizer_a218312e24753d8d2e66d499bdbcce55c}} 
@@ -39,6 +41,14 @@ std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_token}{Token}} $>$ \mbox{\hyp
 \doxysubsubsection{\texorpdfstring{tokenize()}{tokenize()}}
 {\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structkepler_1_1_token}{Token}} $>$ kepler\+::\+Tokenizer\+::tokenize (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{namespacekepler_a91663bd130d920c4faafd5f629b26342}{Char}} $>$ $\ast$}]{input\+\_\+ }\end{DoxyParamCaption})}
 
+Tokenizes the given input. 
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+} & The input to tokenize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of tokens. 
+\end{DoxyReturn}
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
@@ -51,5 +61,5 @@ Here is the caller graph for this function\+:
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/core/evaluation/tokenizer/\mbox{\hyperlink{tokenizer_8h}{tokenizer.\+h}}\item 
-src/core/evaluation/tokenizer/\mbox{\hyperlink{tokenizer_8cpp}{tokenizer.\+cpp}}\end{DoxyCompactItemize}
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/\mbox{\hyperlink{tokenizer_8h}{tokenizer.\+h}}\item 
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/\mbox{\hyperlink{tokenizer_8cpp}{tokenizer.\+cpp}}\end{DoxyCompactItemize}

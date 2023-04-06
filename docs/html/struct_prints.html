@@ -100,26 +100,28 @@ $(document).ready(function(){initNavTree('struct_prints.html',''); initResizable
 <div class="dynheader">
 Inheritance diagram for Prints:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_prints__inherit__graph.svg" width="186" height="302"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_prints__inherit__graph.svg" width="186" height="302"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for Prints:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_prints__coll__graph.svg" width="186" height="302"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_prints__coll__graph.svg" width="186" height="302"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9d182583cdd0667d83365d8b5af106e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_prints.html#a9d182583cdd0667d83365d8b5af106e8">Prints</a> (std::string const &amp;output_)</td></tr>
+<tr class="memdesc:a9d182583cdd0667d83365d8b5af106e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="struct_prints.html">Prints</a> object.  <br /></td></tr>
 <tr class="separator:a9d182583cdd0667d83365d8b5af106e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81e886dc25d5c6aa0932ba2befdd5b3a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_prints.html#a81e886dc25d5c6aa0932ba2befdd5b3a">match</a> (std::string const &amp;result) const</td></tr>
+<tr class="memdesc:a81e886dc25d5c6aa0932ba2befdd5b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match a string to a specific string.  <br /></td></tr>
 <tr class="separator:a81e886dc25d5c6aa0932ba2befdd5b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d39cc18128ca1258b9cf9747e652eb7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_prints.html#a5d39cc18128ca1258b9cf9747e652eb7">describe</a> () const override</td></tr>
 <tr class="separator:a5d39cc18128ca1258b9cf9747e652eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="struct_prints.html">Prints</a> struct matches a string to a specific string. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9d182583cdd0667d83365d8b5af106e8" name="a9d182583cdd0667d83365d8b5af106e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9d182583cdd0667d83365d8b5af106e8">&#9670;&#160;</a></span>Prints()</h2>
 
@@ -143,6 +145,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="struct_prints.html">Prints</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output_</td><td>The string to match. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -169,6 +179,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Produces a string describing why the matcher failed. </p><dl class="section return"><dt>Returns</dt><dd>A string describing why the matcher failed. </dd></dl>
 
 </div>
 </div>
@@ -196,10 +207,21 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Match a string to a specific string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The string to match. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true If the strings are equal. </dd>
+<dd>
+false If the strings are not equal. </dd></dl>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/testing/<a class="el" href="matcher_8h_source.html">matcher.h</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/testing/<a class="el" href="matcher_8h_source.html">matcher.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -106,8 +106,7 @@ Inheritance diagram for kepler::NodeVisitor:</div>
 <div class="dynheader">
 Collaboration diagram for kepler::NodeVisitor:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_node_visitor__coll__graph.svg" width="192" height="558"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_node_visitor__coll__graph.svg" width="192" height="558"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -141,7 +140,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e8a660a342f32272bd49641cd13ceb3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structkepler_1_1_array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_node_visitor.html#a1e8a660a342f32272bd49641cd13ceb3">visit</a> (<a class="el" href="structkepler_1_1_conditional.html">Conditional</a> *node)=0</td></tr>
 <tr class="separator:a1e8a660a342f32272bd49641cd13ceb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract base class for all node visitors.</p>
+<p>Any class that inherits from this class must implement all the visit methods, and as such that class can be used to visit any node in the AST. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0b3640848dc903b2c20f7a2000454b2d" name="a0b3640848dc903b2c20f7a2000454b2d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b3640848dc903b2c20f7a2000454b2d">&#9670;&#160;</a></span>visit() <span class="overload">[1/14]</span></h2>
 
@@ -165,8 +167,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#a18d7e15ca11bbb7810b4e6b68288f5f0">kepler::Interpreter</a>.</p>
+<p>Visit an anonymous function node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -193,8 +200,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#a0a7e662ee6f13a895e37906f91f3daf0">kepler::Interpreter</a>.</p>
+<p>Visit an assignment node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -221,8 +233,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#a3ba8e36823bb2e417f04f27023f25403">kepler::Interpreter</a>.</p>
+<p>Visit a conditional node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -249,8 +266,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#a1aa41c5e6a58ae8f1b2705cbfac1af3c">kepler::Interpreter</a>.</p>
+<p>Visit a dyadic function node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -277,8 +299,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#ac39f6a0e45592c184e49a98759e661fe">kepler::Interpreter</a>.</p>
+<p>Visit a dyadic operator node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -305,8 +332,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#afb60e814156d8d70aa08c566812d7a1c">kepler::Interpreter</a>.</p>
+<p>Visit a function node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -333,8 +365,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#a1f122e599589a2b56034680dda9003db">kepler::Interpreter</a>.</p>
+<p>Visit a function assignment node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -361,8 +398,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#af05169728eb16ec693b97816640c3eaf">kepler::Interpreter</a>.</p>
+<p>Visit a function variable node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -389,8 +431,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#ae972d3e52d5eaaad66602cd7f42137f5">kepler::Interpreter</a>.</p>
+<p>Visit a monadic function node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -417,8 +464,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#adea57160a837660f3383396f1b1b8429">kepler::Interpreter</a>.</p>
+<p>Visit a monadic operator node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -445,8 +497,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#ae54fe2b4661eeb0e6d2652ebe046b908">kepler::Interpreter</a>.</p>
+<p>Visit a scalar node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -478,8 +535,13 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#af1cec77e0d90d87fb79a38c852251b01">kepler::Interpreter</a>.</p>
+<p>Visit a statement node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -506,8 +568,13 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#ac991760b41395f07eee8e7d4d1981270">kepler::Interpreter</a>.</p>
+<p>Visit a variable node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
@@ -534,13 +601,18 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="structkepler_1_1_interpreter.html#ac0f1f221901ad4e09bb21e18e0b960ac">kepler::Interpreter</a>.</p>
+<p>Visit a vector node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Node to visit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of visiting the node. </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/core/evaluation/<a class="el" href="node__visitor_8h_source.html">node_visitor.h</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/<a class="el" href="node__visitor_8h_source.html">node_visitor.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

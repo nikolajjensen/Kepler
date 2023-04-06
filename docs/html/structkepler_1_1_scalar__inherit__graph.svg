@@ -63,11 +63,11 @@ var sectionId = 'dynsection-0';
 <polyline fill="none" stroke="#666666" points="6.5,-126.5 140.5,-126.5"/>
 <text text-anchor="start" x="14.5" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Token token</text>
 <text text-anchor="start" x="14.5" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ std::variant&lt; Number,</text>
-<text text-anchor="start" x="14.5" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00"> std::u32string &gt; content</text>
+<text text-anchor="start" x="14.5" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00"> String &gt; content</text>
 <polyline fill="none" stroke="#666666" points="6.5,-85.5 140.5,-85.5"/>
 <text text-anchor="start" x="14.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Scalar(Token token</text>
 <text text-anchor="start" x="14.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">_, std::variant&lt; Number,</text>
-<text text-anchor="start" x="14.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> std::u32string &gt; content_)</text>
+<text text-anchor="start" x="14.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> String &gt; content_)</text>
 <text text-anchor="start" x="14.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ std::string to_string</text>
 <text text-anchor="start" x="14.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">() const override</text>
 <text text-anchor="start" x="14.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Array accept(NodeVisitor</text>
@@ -102,14 +102,14 @@ var sectionId = 'dynsection-0';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="structkepler_1_1position.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="structkepler_1_1_position.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="9.5,-493.5 9.5,-605.5 129.5,-605.5 129.5,-493.5 9.5,-493.5"/>
-<text text-anchor="middle" x="69.5" y="-593.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::position</text>
+<text text-anchor="middle" x="69.5" y="-593.5" font-family="Helvetica,sans-Serif" font-size="10.00">kepler::Position</text>
 <polyline fill="none" stroke="#666666" points="9.5,-586.5 129.5,-586.5"/>
 <text text-anchor="middle" x="69.5" y="-574.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="#666666" points="9.5,-567.5 129.5,-567.5"/>
-<text text-anchor="start" x="17.5" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ position()</text>
-<text text-anchor="start" x="17.5" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ position(long pos_)</text>
+<text text-anchor="start" x="17.5" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Position()</text>
+<text text-anchor="start" x="17.5" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Position(long pos_)</text>
 <text text-anchor="start" x="17.5" y="-533.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ void set_position(long</text>
 <text text-anchor="start" x="17.5" y="-522.5" font-family="Helvetica,sans-Serif" font-size="10.00"> new_pos)</text>
 <text text-anchor="start" x="17.5" y="-511.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ long get_position()</text>

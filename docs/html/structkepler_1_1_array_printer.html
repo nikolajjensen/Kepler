@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('structkepler_1_1_array_printer.html','
 <div class="dynheader">
 Collaboration diagram for kepler::ArrayPrinter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_array_printer__coll__graph.svg" width="191" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_array_printer__coll__graph.svg" width="191" height="360"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
@@ -109,19 +109,29 @@ Collaboration diagram for kepler::ArrayPrinter:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afdd614536b847d4cb80c878e10f44330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#afdd614536b847d4cb80c878e10f44330">ArrayPrinter</a> (int <a class="el" href="structkepler_1_1_array_printer.html#ad7cf50ca12961973c7fd5bcaea4cc951">precision</a>)</td></tr>
 <tr class="separator:afdd614536b847d4cb80c878e10f44330"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70989f6894735777f6754339962c3f1d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#a70989f6894735777f6754339962c3f1d">operator()</a> (const std::u32string &amp;element)</td></tr>
-<tr class="separator:a70989f6894735777f6754339962c3f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f82ed45047ce6e1fecd2bd882c2166c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#a0f82ed45047ce6e1fecd2bd882c2166c">operator()</a> (const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;element)</td></tr>
-<tr class="separator:a0f82ed45047ce6e1fecd2bd882c2166c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a258d0cb2d48a33d2324f73e9e63a71f7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#a258d0cb2d48a33d2324f73e9e63a71f7">operator()</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;array)</td></tr>
-<tr class="separator:a258d0cb2d48a33d2324f73e9e63a71f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af604643b540122aa71fd55f1bfd9cce4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#af604643b540122aa71fd55f1bfd9cce4">operator()</a> (const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;element) const</td></tr>
+<tr class="separator:af604643b540122aa71fd55f1bfd9cce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a423ca5e592ed4c8ee965ddc5b84e9708"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#a423ca5e592ed4c8ee965ddc5b84e9708">operator()</a> (const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;element) const</td></tr>
+<tr class="separator:a423ca5e592ed4c8ee965ddc5b84e9708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840ee5d9761edc63b694ecbf577f6c27"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#a840ee5d9761edc63b694ecbf577f6c27">operator()</a> (const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;array) const</td></tr>
+<tr class="separator:a840ee5d9761edc63b694ecbf577f6c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ad7cf50ca12961973c7fd5bcaea4cc951"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkepler_1_1_array_printer.html#ad7cf50ca12961973c7fd5bcaea4cc951">precision</a></td></tr>
 <tr class="separator:ad7cf50ca12961973c7fd5bcaea4cc951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Converts an <a class="el" href="structkepler_1_1_array.html">Array</a> to a string. Intended to be used with std::visit.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The <a class="el" href="structkepler_1_1_array.html">Array</a> to convert. </td></tr>
+    <tr><td class="paramname">precision</td><td>The number of decimal places to use when printing numbers. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string representation of the <a class="el" href="structkepler_1_1_array.html">Array</a>. </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afdd614536b847d4cb80c878e10f44330" name="afdd614536b847d4cb80c878e10f44330"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afdd614536b847d4cb80c878e10f44330">&#9670;&#160;</a></span>ArrayPrinter()</h2>
 
@@ -145,12 +155,18 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates a new <a class="el" href="structkepler_1_1_array_printer.html">ArrayPrinter</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">precision</td><td>The number of decimal places to use when printing numbers. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a258d0cb2d48a33d2324f73e9e63a71f7" name="a258d0cb2d48a33d2324f73e9e63a71f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a258d0cb2d48a33d2324f73e9e63a71f7">&#9670;&#160;</a></span>operator()() <span class="overload">[1/3]</span></h2>
+<a id="a840ee5d9761edc63b694ecbf577f6c27" name="a840ee5d9761edc63b694ecbf577f6c27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840ee5d9761edc63b694ecbf577f6c27">&#9670;&#160;</a></span>operator()() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,20 +176,22 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structkepler_1_1_array.html">Array</a> &amp;&#160;</td>
           <td class="paramname"><em>array</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Converts an <a class="el" href="structkepler_1_1_array.html">Array</a> to a std::string. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_array_printer_a258d0cb2d48a33d2324f73e9e63a71f7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_array_printer_a840ee5d9761edc63b694ecbf577f6c27_cgraph.svg" width="556" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a0f82ed45047ce6e1fecd2bd882c2166c" name="a0f82ed45047ce6e1fecd2bd882c2166c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f82ed45047ce6e1fecd2bd882c2166c">&#9670;&#160;</a></span>operator()() <span class="overload">[2/3]</span></h2>
+<a id="a423ca5e592ed4c8ee965ddc5b84e9708" name="a423ca5e592ed4c8ee965ddc5b84e9708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a423ca5e592ed4c8ee965ddc5b84e9708">&#9670;&#160;</a></span>operator()() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,20 +201,22 @@ Here is the call graph for this function:</div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacekepler.html#ae9eaef31fb6e2ab82b52d67bfa186ea0">Number</a> &amp;&#160;</td>
           <td class="paramname"><em>element</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Converts a Number (std::complex&lt;double&gt;) to a std::string. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_array_printer_a0f82ed45047ce6e1fecd2bd882c2166c_cgraph.svg" width="567" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structkepler_1_1_array_printer_a423ca5e592ed4c8ee965ddc5b84e9708_cgraph.svg" width="554" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
-<a id="a70989f6894735777f6754339962c3f1d" name="a70989f6894735777f6754339962c3f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70989f6894735777f6754339962c3f1d">&#9670;&#160;</a></span>operator()() <span class="overload">[3/3]</span></h2>
+<a id="af604643b540122aa71fd55f1bfd9cce4" name="af604643b540122aa71fd55f1bfd9cce4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af604643b540122aa71fd55f1bfd9cce4">&#9670;&#160;</a></span>operator()() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,12 +224,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">std::string kepler::ArrayPrinter::operator() </td>
           <td>(</td>
-          <td class="paramtype">const std::u32string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacekepler.html#ade3567acc688b97d575ab751640a5ea4">String</a> &amp;&#160;</td>
           <td class="paramname"><em>element</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Converts a String (std::u32string) to a std::string. </p>
 
 </div>
 </div>
@@ -229,8 +250,8 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/core/helpers/<a class="el" href="array__printer_8h_source.html">array_printer.h</a></li>
-<li>src/core/helpers/<a class="el" href="array__printer_8cpp.html">array_printer.cpp</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/interface/<a class="el" href="array__printer_8h_source.html">array_printer.h</a></li>
+<li>/Users/nikolajbankejensen/Desktop/Kepler/src/interface/<a class="el" href="array__printer_8cpp.html">array_printer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

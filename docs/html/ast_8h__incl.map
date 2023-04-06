@@ -1,19 +1,19 @@
-<map id="src/core/evaluation/ast.h" name="src/core/evaluation/ast.h">
-<area shape="rect" id="node1" title=" " alt="" coords="242,5,374,45"/>
-<area shape="rect" id="node2" title=" " alt="" coords="202,401,257,427"/>
-<area shape="rect" id="node3" title=" " alt="" coords="756,401,828,427"/>
-<area shape="rect" id="node4" href="$array_8h.html" title=" " alt="" coords="94,255,183,280"/>
-<area shape="rect" id="node5" href="$datatypes_8h.html" title=" " alt="" coords="184,328,275,353"/>
-<area shape="rect" id="node9" href="$token_8h.html" title=" " alt="" coords="309,181,403,207"/>
-<area shape="rect" id="node15" href="$position_8h.html" title=" " alt="" coords="859,255,938,280"/>
-<area shape="rect" id="node16" title=" " alt="" coords="428,181,497,207"/>
-<area shape="rect" id="node17" href="$operation_8h.html" title=" " alt="" coords="158,93,333,133"/>
-<area shape="rect" id="node8" title=" " alt="" coords="99,328,160,353"/>
-<area shape="rect" id="node6" title=" " alt="" coords="119,401,177,427"/>
-<area shape="rect" id="node7" title=" " alt="" coords="281,401,351,427"/>
-<area shape="rect" id="node10" href="$token__type_8h.html" title=" " alt="" coords="559,328,657,353"/>
-<area shape="rect" id="node11" title=" " alt="" coords="646,255,757,280"/>
-<area shape="rect" id="node12" href="$conversion_8h.html" title=" " alt="" coords="400,255,571,280"/>
-<area shape="rect" id="node13" title=" " alt="" coords="781,255,835,280"/>
-<area shape="rect" id="node14" title=" " alt="" coords="309,255,376,280"/>
+<map id="/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/ast.h" name="/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/ast.h">
+<area shape="rect" id="node1" title=" " alt="" coords="221,5,395,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="202,416,257,441"/>
+<area shape="rect" id="node3" title=" " alt="" coords="737,416,809,441"/>
+<area shape="rect" id="node4" href="$array_8h.html" title=" " alt="" coords="94,269,183,295"/>
+<area shape="rect" id="node5" href="$datatypes_8h.html" title=" " alt="" coords="184,343,275,368"/>
+<area shape="rect" id="node9" href="$token_8h.html" title=" " alt="" coords="309,196,403,221"/>
+<area shape="rect" id="node15" href="$position_8h.html" title=" " alt="" coords="841,269,919,295"/>
+<area shape="rect" id="node16" title=" " alt="" coords="428,196,497,221"/>
+<area shape="rect" id="node17" href="$operation_8h.html" title=" " alt="" coords="158,108,333,148"/>
+<area shape="rect" id="node8" title=" " alt="" coords="99,343,160,368"/>
+<area shape="rect" id="node6" title=" " alt="" coords="119,416,177,441"/>
+<area shape="rect" id="node7" title=" " alt="" coords="281,416,351,441"/>
+<area shape="rect" id="node10" href="$token__type_8h.html" title=" " alt="" coords="541,343,638,368"/>
+<area shape="rect" id="node11" title=" " alt="" coords="627,269,738,295"/>
+<area shape="rect" id="node12" href="$conversion_8h.html" title=" " alt="" coords="401,269,551,295"/>
+<area shape="rect" id="node13" title=" " alt="" coords="763,269,816,295"/>
+<area shape="rect" id="node14" title=" " alt="" coords="309,269,376,295"/>
 </map>

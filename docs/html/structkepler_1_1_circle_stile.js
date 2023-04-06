@@ -5,6 +5,6 @@ var structkepler_1_1_circle_stile =
     [ "operator()", "structkepler_1_1_circle_stile.html#ae3e658a67df48a0457ed356f29ff1fc9", null ],
     [ "operator()", "structkepler_1_1_circle_stile.html#af5bd9dcaffef3c6d25deaa1016905f6a", null ],
     [ "operator()", "structkepler_1_1_circle_stile.html#a2c9cc853d6b35238415a2d05ba5bc805", null ],
-    [ "operator()", "structkepler_1_1_circle_stile.html#a791bd919efd54f2128310e2c4d670efc", null ],
-    [ "operator()", "structkepler_1_1_circle_stile.html#a7ae7e76b4a009a13d929f69c581451a4", null ]
+    [ "operator()", "structkepler_1_1_circle_stile.html#af2929ffd7f353e2b40c48a9e2a072ef1", null ],
+    [ "operator()", "structkepler_1_1_circle_stile.html#a2e6615cff1230e7c1f1fbb7ff37a863c", null ]
 ];

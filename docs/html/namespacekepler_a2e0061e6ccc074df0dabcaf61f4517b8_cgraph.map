@@ -1,11 +1,11 @@
 <map id="kepler::rotate" name="kepler::rotate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,85,104,111"/>
-<area shape="rect" id="node2" href="$namespacekepler.html#ad171f0351cbb21e92ca7ea0cc0bbd317" title=" " alt="" coords="152,7,304,32"/>
-<area shape="rect" id="node4" href="$namespacekepler.html#a39278d07695647da0a30c3b209c7a4d7" title=" " alt="" coords="171,60,285,85"/>
-<area shape="rect" id="node8" href="$namespacekepler.html#a381bfabdccfab574253acbb27e3d8df2" title=" " alt="" coords="155,109,301,135"/>
-<area shape="rect" id="node9" href="$structkepler_1_1_array.html#a98194b5409eace27b9eae7dcac74e350" title=" " alt="" coords="164,159,292,184"/>
-<area shape="rect" id="node3" href="$namespacekepler.html#a7f5815983171b78737f0e166e9d89fba" title=" " alt="" coords="373,5,490,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,92,104,117"/>
+<area shape="rect" id="node2" href="$namespacekepler.html#a56130004ed10dae55c0a8695f9d8ab37" title=" " alt="" coords="152,11,304,36"/>
+<area shape="rect" id="node4" href="$namespacekepler.html#a172b41eba4b6d1c9af75f4d5a853d35f" title=" " alt="" coords="171,67,285,92"/>
+<area shape="rect" id="node8" href="$structkepler_1_1_array.html#a98194b5409eace27b9eae7dcac74e350" title=" " alt="" coords="367,120,495,145"/>
+<area shape="rect" id="node9" href="$namespacekepler.html#a8cec7c445b114ae66fe0c31d6746e7fb" title=" " alt="" coords="155,168,301,193"/>
+<area shape="rect" id="node3" href="$namespacekepler.html#aec3e7febe28a0cbe1f4ddefd7fd6349c" title=" " alt="" coords="373,5,490,31"/>
 <area shape="rect" id="node5" href="$structkepler_1_1_array.html#a31e9d1137447bf3402d6278c41569f5e" title=" " alt="" coords="352,55,511,95"/>
-<area shape="rect" id="node6" href="$structkepler_1_1_array.html#a9d4e4ca37cd263142d76ca0a56346991" title=" " alt="" coords="567,37,707,63"/>
-<area shape="rect" id="node7" href="$structkepler_1_1_array.html#ae82484749f93ec527be3eff64ddf3d37" title=" " alt="" coords="559,87,715,112"/>
+<area shape="rect" id="node6" href="$structkepler_1_1_array.html#a9d4e4ca37cd263142d76ca0a56346991" title=" " alt="" coords="567,39,707,64"/>
+<area shape="rect" id="node7" href="$structkepler_1_1_array.html#ae82484749f93ec527be3eff64ddf3d37" title=" " alt="" coords="559,88,715,113"/>
 </map>

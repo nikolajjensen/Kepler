@@ -1,5 +1,5 @@
 \hypertarget{cli_8h_source}{}\doxysection{cli.\+h}
-\label{cli_8h_source}\index{src/cli.h@{src/cli.h}}
+\label{cli_8h_source}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/cli.h@{/Users/nikolajbankejensen/Desktop/Kepler/src/cli.h}}
 \mbox{\hyperlink{cli_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -24,20 +24,21 @@
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <lyra/lyra.hpp>}}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler_1_1cli}{kepler::cli}}\ \{}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1cli_1_1_config}{Config}}\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structkepler_1_1cli_1_1_config_a023a568ea2b26c21b05f06415f12d93f}{show\_help}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structkepler_1_1cli_1_1_config_a9b8a652808b6de44736abc7b770c238e}{run\_tests}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structkepler_1_1cli_1_1_config_a0fbeca2bc441ef199d27cca167905951}{commands}};}
-\DoxyCodeLine{00028\ \ \ \ \ \}\ \mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacekepler_1_1cli_af63bc37cbdc01d48504fc85587f48077}{cli}}}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ =\ lyra::help(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a023a568ea2b26c21b05f06415f12d93f}{show\_help}}).description(\textcolor{stringliteral}{"{}Here\ is\ a\ list\ of\ all\ command-\/line\ arguments."{}})}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ lyra::opt(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a9b8a652808b6de44736abc7b770c238e}{run\_tests}})[\textcolor{stringliteral}{"{}-\/t"{}}][\textcolor{stringliteral}{"{}-\/-\/test"{}}](\textcolor{stringliteral}{"{}Run\ the\ test\ suite."{}})}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ lyra::arg(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a0fbeca2bc441ef199d27cca167905951}{commands}},\ \textcolor{stringliteral}{"{}workspace|test\ tags"{}})(\textcolor{stringliteral}{"{}Which\ workspace\ (.kpl)\ file\ to\ execute"{}}}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}if\ <-\/t|-\/-\/test>\ is\ not\ set,\ else\ specific\ "{}}}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tags\ to\ run\ tests\ for."{}});}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler_1_1cli}{kepler::cli}}\ \{}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1cli_1_1_config}{Config}}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structkepler_1_1cli_1_1_config_a023a568ea2b26c21b05f06415f12d93f}{show\_help}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structkepler_1_1cli_1_1_config_a9b8a652808b6de44736abc7b770c238e}{run\_tests}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structkepler_1_1cli_1_1_config_a0fbeca2bc441ef199d27cca167905951}{commands}};}
+\DoxyCodeLine{00036\ \ \ \ \ \}\ \mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacekepler_1_1cli_af63bc37cbdc01d48504fc85587f48077}{cli}}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ =\ lyra::help(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a023a568ea2b26c21b05f06415f12d93f}{show\_help}}).description(\textcolor{stringliteral}{"{}Here\ is\ a\ list\ of\ all\ command-\/line\ arguments."{}})}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ lyra::opt(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a9b8a652808b6de44736abc7b770c238e}{run\_tests}})[\textcolor{stringliteral}{"{}-\/t"{}}][\textcolor{stringliteral}{"{}-\/-\/test"{}}](\textcolor{stringliteral}{"{}Run\ the\ test\ suite."{}})}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ lyra::arg(\mbox{\hyperlink{namespacekepler_1_1cli_a9bf84fd71b117e585d7b6e1a245cdd9d}{config}}.\mbox{\hyperlink{structkepler_1_1cli_1_1_config_a0fbeca2bc441ef199d27cca167905951}{commands}},\ \textcolor{stringliteral}{"{}workspace|test\ tags"{}})(\textcolor{stringliteral}{"{}Which\ source\ file\ (.kpl)\ to\ execute\ "{}}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}if\ <-\/t|-\/-\/test>\ is\ not\ set,\ else\ specific\ "{}}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tags\ to\ run\ tests\ for."{}});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \}}
 
 \end{DoxyCode}

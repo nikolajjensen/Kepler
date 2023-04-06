@@ -1,5 +1,5 @@
 \hypertarget{pervade_8h_source}{}\doxysection{pervade.\+h}
-\label{pervade_8h_source}\index{src/core/evaluation/operations/pervade.h@{src/core/evaluation/operations/pervade.h}}
+\label{pervade_8h_source}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/pervade.h@{/Users/nikolajbankejensen/Desktop/Kepler/src/core/evaluation/operations/pervade.h}}
 \mbox{\hyperlink{pervade_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -27,21 +27,25 @@
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacekepler}{kepler}}\ \{}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BASE>}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_pervade_mixin}{PervadeMixin}}\ :\ \mbox{\hyperlink{class_b_a_s_e}{BASE}}\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }BASE::BASE;}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }BASE::operator();}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_pervade_mixin_a520372c7aaa1392eba55fbdb434073e0}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega);}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_pervade_mixin_a0c3289f3c1208e9b3f4f0ff03f70fc31}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega);}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_pervade_mixin_a0bd917841bbbccd09cff45f0362f854e}{operator()}}(\textcolor{keyword}{const}\ std::u32string\&\ alpha,\ \textcolor{keyword}{const}\ std::u32string\&\ omega);}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ apply(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{Array::element\_type}}\&\ omega);}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ apply(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{Array::element\_type}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array_a2047e94455a21a9d0cc0e204015a8a34}{Array::element\_type}}\&\ omega);}
-\DoxyCodeLine{00038\ \ \ \ \ \};}
-\DoxyCodeLine{00039\ \};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}pervade.tpp"{}}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BASE>}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkepler_1_1_pervade_mixin}{PervadeMixin}}\ :\ \mbox{\hyperlink{class_b_a_s_e}{BASE}}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }BASE::BASE;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }BASE::operator();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_pervade_mixin_a520372c7aaa1392eba55fbdb434073e0}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_pervade_mixin_a0c3289f3c1208e9b3f4f0ff03f70fc31}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\&\ omega);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ \mbox{\hyperlink{structkepler_1_1_pervade_mixin_a4dbef2dc9ac4b63588f822382b660624}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{String}}\&\ omega);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ apply(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{Array::element\_type}}\&\ omega);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structkepler_1_1_array}{Array}}\ apply(\textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{Array::element\_type}}\&\ alpha,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structkepler_1_1_array_af6ac8c787a158ba8bb182595ec879754}{Array::element\_type}}\&\ omega);}
+\DoxyCodeLine{00089\ \ \ \ \ \};}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ Include\ of\ .tpp\ file\ goes\ at\ the\ bottom.}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#include\ "{}pervade.tpp"{}}}
 
 \end{DoxyCode}

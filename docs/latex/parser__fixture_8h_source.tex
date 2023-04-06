@@ -1,5 +1,5 @@
 \hypertarget{parser__fixture_8h_source}{}\doxysection{parser\+\_\+fixture.\+h}
-\label{parser__fixture_8h_source}\index{src/testing/fixtures/parser\_fixture.h@{src/testing/fixtures/parser\_fixture.h}}
+\label{parser__fixture_8h_source}\index{/Users/nikolajbankejensen/Desktop/Kepler/src/testing/fixtures/parser\_fixture.h@{/Users/nikolajbankejensen/Desktop/Kepler/src/testing/fixtures/parser\_fixture.h}}
 \mbox{\hyperlink{parser__fixture_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -24,39 +24,39 @@
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{datatypes_8h}{core/datatypes.h}}"{}}}
 \DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{symbol__table_8h}{core/symbol\_table.h}}"{}}}
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tokenizer_8h}{core/evaluation/tokenizer/tokenizer.h}}"{}}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{parser_8h}{core/evaluation/parser/parser.h}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tokenizer_8h}{core/evaluation/tokenizer.h}}"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{parser_8h}{core/evaluation/parser.h}}"{}}}
 \DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <chrono>}}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser__fixture}{parser\_fixture}}\ \{}
-\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classkepler_1_1_symbol_table}{kepler::SymbolTable}}\ \mbox{\hyperlink{classparser__fixture_ae9fe290c18bf5da8589f7990a64ca8e6}{symbol\_table}};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classparser__fixture_af2f94b67e2a1dbb7edf1959149e50a01}{parser\_fixture}}()\ \{}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classparser__fixture_ae9fe290c18bf5da8589f7990a64ca8e6}{symbol\_table}}.\mbox{\hyperlink{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b}{insert\_system\_parameters}}();}
-\DoxyCodeLine{00034\ \ \ \ \ \}}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classparser__fixture_a8922bbeea9419e31c87b3a3b91db46da}{\string~parser\_fixture}}()\ \{}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classparser__fixture_ae9fe290c18bf5da8589f7990a64ca8e6}{symbol\_table}}.\mbox{\hyperlink{classkepler_1_1_symbol_table_a95e2ea1cc4b5a2a669c3b65ef4d545cc}{clear}}();}
-\DoxyCodeLine{00038\ \ \ \ \ \}}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00041\ \ \ \ \ std::string\ \mbox{\hyperlink{classparser__fixture_ab428671a0de24667af59c29d33cc5506}{run}}(std::string\&\&\ raw)\ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{kepler::String}}\ converted\ =\ uni::utf8to32u(raw);}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<kepler::Char>\ input(converted.begin(),\ converted.end());}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classkepler_1_1_tokenizer}{kepler::Tokenizer}}\ tokenizer;}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tokens\ =\ tokenizer.\mbox{\hyperlink{classkepler_1_1_tokenizer_a218312e24753d8d2e66d499bdbcce55c}{tokenize}}(\&input);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classkepler_1_1_parser}{kepler::Parser}}\ parser;}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ parser.\mbox{\hyperlink{classkepler_1_1_parser_a8bae598977617c13f71ce43cadd806b4}{use\_table}}(\&\mbox{\hyperlink{classparser__fixture_ae9fe290c18bf5da8589f7990a64ca8e6}{symbol\_table}});}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ parser.\mbox{\hyperlink{classkepler_1_1_parser_a95c4ec7bfd2c105b1cd43f0906641f3f}{parse}}(tokens)-\/>\mbox{\hyperlink{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a}{to\_string}}();}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}(\mbox{\hyperlink{classkepler_1_1error}{kepler::error}}\&\ err)\ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ err.\mbox{\hyperlink{classkepler_1_1error_a9d1264b80888d725ef312a662ee4e5be}{to\_string}}();}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00055\ \ \ \ \ \}}
-\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parser_fixture}{ParserFixture}}\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classkepler_1_1_symbol_table}{kepler::SymbolTable}}\ \mbox{\hyperlink{class_parser_fixture_abd3704ed4bc6a1994cf18094df98617f}{symbol\_table}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_parser_fixture_ac2175ebf91af86c00caf2541fc367334}{ParserFixture}}()\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_fixture_abd3704ed4bc6a1994cf18094df98617f}{symbol\_table}}.\mbox{\hyperlink{classkepler_1_1_symbol_table_a581a7fca6bcd04dcb26c385818693b8b}{insert\_system\_parameters}}();}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_parser_fixture_a7c0ea3b7d9db52e4b956845c5fcf30a2}{\string~ParserFixture}}()\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_fixture_abd3704ed4bc6a1994cf18094df98617f}{symbol\_table}}.\mbox{\hyperlink{classkepler_1_1_symbol_table_a95e2ea1cc4b5a2a669c3b65ef4d545cc}{clear}}();}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00057\ \ \ \ \ std::string\ \mbox{\hyperlink{class_parser_fixture_ac7021c25bf0bbdc62e8ec83fe047112a}{run}}(std::string\&\&\ raw)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacekepler_ade3567acc688b97d575ab751640a5ea4}{kepler::String}}\ converted\ =\ uni::utf8to32u(raw);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<kepler::Char>\ input(converted.begin(),\ converted.end());}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classkepler_1_1_tokenizer}{kepler::Tokenizer}}\ tokenizer;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tokens\ =\ tokenizer.\mbox{\hyperlink{classkepler_1_1_tokenizer_a218312e24753d8d2e66d499bdbcce55c}{tokenize}}(\&input);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classkepler_1_1_parser}{kepler::Parser}}\ parser;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ parser.\mbox{\hyperlink{classkepler_1_1_parser_a8bae598977617c13f71ce43cadd806b4}{use\_table}}(\&\mbox{\hyperlink{class_parser_fixture_abd3704ed4bc6a1994cf18094df98617f}{symbol\_table}});}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ parser.\mbox{\hyperlink{classkepler_1_1_parser_a95c4ec7bfd2c105b1cd43f0906641f3f}{parse}}(tokens)-\/>\mbox{\hyperlink{structkepler_1_1_statements_a5f8b0f5c5da61b9663c7eadefa0ba61a}{to\_string}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}(\mbox{\hyperlink{classkepler_1_1_error}{kepler::Error}}\&\ err)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ err.\mbox{\hyperlink{classkepler_1_1_error_ac847dfe892a8ce3ed8cf2421e9057a11}{to\_string}}();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \};}
 
 \end{DoxyCode}

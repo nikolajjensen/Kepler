@@ -42,16 +42,16 @@ virtual \mbox{\hyperlink{structkepler_1_1_array}{Array}} \mbox{\hyperlink{struct
 \item 
 virtual std\+::string \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{to\+\_\+string}} () const=0
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1position}{kepler\+::position}}}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structkepler_1_1_position}{kepler\+::\+Position}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structkepler_1_1position_ad873c92597170edaa3304b10b6e0494a}{position}} ()
+\mbox{\hyperlink{structkepler_1_1_position_a92469704aff5bf08d23a212e3fb93fa9}{Position}} ()
 \item 
-\mbox{\hyperlink{structkepler_1_1position_a6a9b62231508b3b735d7c6426754a5ad}{position}} (long pos\+\_\+)
+\mbox{\hyperlink{structkepler_1_1_position_a722c0a009d8d5945694ad7b27ee03eec}{Position}} (long pos\+\_\+)
 \item 
-void \mbox{\hyperlink{structkepler_1_1position_acc4e0171986ed29ca8a969b47729ea77}{set\+\_\+position}} (long new\+\_\+pos)
+void \mbox{\hyperlink{structkepler_1_1_position_a029bbc83700b37445971c27c8502e8e4}{set\+\_\+position}} (long new\+\_\+pos)
 \item 
-long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332}{get\+\_\+position}} () const
+long \mbox{\hyperlink{structkepler_1_1_position_a40952f7adff65cc1a894b5770f37a837}{get\+\_\+position}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -59,6 +59,9 @@ long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332
 \mbox{\hyperlink{structkepler_1_1_token}{Token}} \mbox{\hyperlink{structkepler_1_1_variable_a6dc12764efd2df7e7462dd49840719c7}{token}}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+A node representing a variable node; a reference to a variable. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structkepler_1_1_variable_a44113601584882bc9ab76629edad5a66}\label{structkepler_1_1_variable_a44113601584882bc9ab76629edad5a66}} 
@@ -76,6 +79,14 @@ long \mbox{\hyperlink{structkepler_1_1position_ae2562200674c270ac36e3736cf943332
 \doxysubsubsection{\texorpdfstring{accept()}{accept()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structkepler_1_1_array}{Array}} kepler\+::\+Variable\+::accept (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structkepler_1_1_node_visitor}{Node\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
+Accepts a visitor and returns the result of visiting the node. 
+\begin{DoxyParams}{Parameters}
+{\em visitor} & The visitor to accept. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of visiting the node. 
+\end{DoxyReturn}
 
 
 Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a05bfe92973fce5532d1bdc50fc9b56eb}{kepler\+::\+ASTNode$<$ Array $>$}}.
@@ -93,7 +104,7 @@ Here is the call graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
 {\footnotesize\ttfamily std\+::string kepler\+::\+Variable\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-
+Returns a human-\/readable string representation of the node. 
 
 Implements \mbox{\hyperlink{structkepler_1_1_a_s_t_node_a0824700896d42c783deaacfde0d94ba8}{kepler\+::\+ASTNode$<$ Array $>$}}.
 
@@ -117,5 +128,5 @@ Here is the call graph for this function\+:\nopagebreak
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
-src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/\mbox{\hyperlink{ast_8h}{ast.\+h}}\item 
+/\+Users/nikolajbankejensen/\+Desktop/\+Kepler/src/core/evaluation/\mbox{\hyperlink{ast_8cpp}{ast.\+cpp}}\end{DoxyCompactItemize}

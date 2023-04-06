@@ -1,4 +1,4 @@
 var position_8h =
 [
-    [ "kepler::position", "structkepler_1_1position.html", "structkepler_1_1position" ]
+    [ "kepler::Position", "structkepler_1_1_position.html", "structkepler_1_1_position" ]
 ];
